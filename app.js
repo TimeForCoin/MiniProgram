@@ -1,10 +1,11 @@
 //app.js
 App({
   onLaunch: function () {
+    // wx.hideTabBar();
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    // logs.unshift(Date.now())
+    // wx.setStorageSync('logs', logs)
 
     // 登录
     wx.login({
@@ -33,7 +34,38 @@ App({
       }
     })
   },
+
+  //自定义tabbar组件
+  editTabbar: function () {
+    let tabbar = this.globalData.tabBar;
+    let currentPages = getCurrentPages();
+    let _this = currentPages[currentPages.length - 1];
+    let pagePath = _this.route;
+    (pagePath.indexOf('/') != 0) && (pagePath = '/' + pagePath);
+    for (let i in tabbar.list) {
+      tabbar.list[i].selected = false;
+      (tabbar.list[i].pagePath == pagePath) && (tabbar.list[i].selected = true);
+    }
+  },
+
   globalData: {
-    userInfo: null
+    userInfo: null,
+    tabBar: {
+      "list": [{
+        "text": "首页",
+        "iconPath": "images/icons/home.png",
+        "selectedIconPath": "images/icons/home_selected.png",
+        "pagePath": "pages/index/index"
+      },
+      {
+        "text": "我的",
+        "iconPath": "images/icons/user.png",
+        "selectedIconPath": "images/icons/user_selected.png",
+        "pagePath": "pages/index/index"
+
+      }],
+      "backgroundColor": "#fff",
+      "color": "#404969"
+    },
   }
 })

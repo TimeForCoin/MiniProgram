@@ -9,17 +9,18 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"nodeModules": false,
 		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.6.4",
-	"appid": "wxd890f006babc7219",
-	"projectname": "MiniProgram",
+	"libVersion": "2.0.4",
+	"appid": "wx6ca927bfc01323e6",
+	"projectname": "TimeForCoin",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
