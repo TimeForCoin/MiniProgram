@@ -4,6 +4,10 @@
     <!--上方图片-->
     <view id = "index_image_view">
       <image id = "index_image" src = "/images/index_sample.jpg" />
+      <image src="{{userInfo.info.avatar}}" />
+      <p>{{userInfo.info.nickname}}</p>
+      <p>{{userInfo.info.location}}</p>
+      <button open-type="getUserInfo" bindgetuserinfo="setUserInfo">获取用户信息</button>
     </view>
 
     <!--分类-->
