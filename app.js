@@ -50,6 +50,9 @@ App({
 
   globalData: {
     userInfo: null,
+    hasUserInfo: false,
+    sessionId: null,
+    major: ["数计院", "管理学院", "岭南学院", "工学院", "微电子学院", "其他"],
     tabBar: {
       "list": [{
         "text": "首页",
