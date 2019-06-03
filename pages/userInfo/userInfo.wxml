@@ -1,0 +1,47 @@
+<!--pages/userInfo/userInfo-->
+<view id = "container">
+  <view id = "basic_info">
+    <!--用户名以及基本信息-->
+    <view id = "name_info">
+      <view wx:if="{{!hasUserInfo}}">
+       <!--头像部分-->
+          <view id = "head_basic">
+            <image wx:if="{{hasUserInfo}}" class="head" src="/images/touxiang.jpg" />
+            <image wx:else class="head" src="/images/touxiang.jpg" bindtap='bindLogin' />
+          </view>
+        <view class = "info_view">
+          <text class = "info_text" style = "font-weight:bold">蔡徐坤</text>
+        </view>
+        <view class = "info_view">
+          <text class = "info_text">卢本伟牛逼</text>
+        </view>
+      </view>
+      <view wx:else id = "login">点击头像登录</view>
+    </view>
+  </view>
+  <!--下半部分-->
+    <view class = "downRegion">
+      <!--第一组导航-->
+      <view class='navi_cells'>
+        <view class = "band"></view>
+        <navigator url="" wx:for="{{nav_a}}" wx:key="item.id" class="cell">
+          <!-- <image class="navi_icon" src="/images/userInfo/navi_1_{{item.id}}.png" /> -->
+          <image class="navi_icon" src="/images/icons/User.png" />
+          <text class="navi_text">{{item.name}}</text>
+          <image class = "right_narrow" src="/images/icons/narrow.png" />
+        </navigator>
+      </view>
+
+      <!--第二组导航-->
+      <view class='navi_cells'>
+      <view class = "band"></view>
+        <navigator url="" wx:for="{{nav_b}}" wx:key="item.id" class="cell">
+          <!-- <image class="navi_icon" src="/images/userInfo/navi_1_{{item.id}}.png" /> -->
+          <image class="navi_icon" src="/images/icons/User.png" />
+          <text class="navi_text">{{item.name}}</text>
+          <image class = "right_narrow" src="/images/icons/narrow.png" />
+        </navigator>
+        <view class = "band"></view>
+      </view>
+    </view>
+</view>

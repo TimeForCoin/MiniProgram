@@ -1,0 +1,122 @@
+/* pages/userInfo/userInfo.wxss */
+#container{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding:0;
+  position: fixed;
+  background: rgb(243, 243, 243);
+}
+/*上方基础信息部分*/
+#basic_info {
+  display:flex;
+  width: 100%;
+  height: 380rpx;
+  justify-content: center;
+  align-items: cneter;
+  /*营造头像发光效果*/
+  background: radial-gradient(circle, #e0fcff, #fff);
+  background: -ms-radial-gradient(circle, #fff, #e0fcff);
+  background: -webkit-linear-gradient(circle, #fff, #e0fcff);
+  background: -moz-linear-gradient(circle, #fff, #e0fcff);
+  flex-direction:column;/*垂直方向布置*/
+}
+
+
+/*头像部分*/
+#head_basic{
+  display: flex;
+  margin: 0% auto 8% auto;
+  justify-content: center;
+  align-items: center;
+  width:180rpx;
+  height:180rpx;
+  background: #bde4f4;
+  border-radius: 50%;
+}
+
+.head{
+  margin:auto;
+  width:160rpx;
+  height:160rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items:center;
+  justify-content:center;
+}
+/*基本信息*/
+#name_info{
+  display:flex;
+  margin: 0%;
+  color:#404969;
+  font-size:32rpx;
+  align-items:center;
+  justify-content:center;
+}
+
+.info_view{
+  display:flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.info_text{
+  font-size: 32rpx;
+}
+
+#login {
+    display: flex;
+    padding: 8rpx 10rpx 8rpx 10rpx;
+    background-image: linear-gradient(#bde4f4, #bde4f4);
+    border: 2rpx solid rgba(0,0,0,.3);
+    border-radius: 15rpx;
+    box-shadow: 0 1rpx white inset;
+    text-align: center;
+    text-shadow: 0 1rpx 1rpx black;
+    color:white;
+    font-size: 36rpx;
+    font-weight: bold;
+}
+
+/*下方导航部分*/
+#downRegion{
+  display: flex;
+}
+
+.navi_cells {
+  background-color: #fff;
+}
+/*分割线*/
+.band{
+  width:100%;
+  height: 50rpx;
+  background: rgb(243, 243, 243);
+}
+
+.cell{
+  display: flex;
+  padding: 25rpx;
+  width:100%;
+  align-items: center;
+  border-bottom: 1rpx solid rgb(243, 243, 243);
+}
+
+.navi_icon {
+  margin:0 20rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.navi_text{
+  display:flex;
+  margin: 0rpx 5rpx;
+  color:#404969;
+  font-size:32rpx;
+}
+
+/*右边箭头*/
+.right_narrow {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left:58%;
+}
