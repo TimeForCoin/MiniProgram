@@ -1,10 +1,8 @@
 {
   "pages": [
-    "pages/userInfo/userInfo",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/Home/Home",
-    "pages/userInfo"
+    "pages/Home/Home"
   ],
   "window": {
     "backgroundTextStyle": "light",
