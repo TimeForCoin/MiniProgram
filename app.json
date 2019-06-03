@@ -1,8 +1,10 @@
 {
   "pages": [
+    "pages/userInfo/userInfo",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/Home"
+    "pages/Home/Home",
+    "pages/userInfo"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -10,9 +12,9 @@
     "navigationBarTitleText": " 闲得一币",
     "navigationBarTextStyle": "black"
   },
-
-  "tabBar":{
-      "list":[{
+  "tabBar": {
+    "list": [
+      {
         "text": "首页",
         "iconPath": "images/icons/home.png",
         "selectedIconPath": "images/icons/home_selected.png",
@@ -23,10 +25,10 @@
         "iconPath": "images/icons/user.png",
         "selectedIconPath": "images/icons/user_selected.png",
         "pagePath": "pages/index/index"
-        
-      }],
-      "backgroundColor":"#fff",
-      "color":"#404969"
+      }
+    ],
+    "backgroundColor": "#fff",
+    "color": "#404969"
   },
   "sitemapLocation": "sitemap.json"
 }
