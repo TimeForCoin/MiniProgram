@@ -4,16 +4,18 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
-		"es6": true,
+		"urlCheck": false,
+		"es6": false,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false
+		"nodeModules": true,
+		"autoAudits": false,
+		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.4",
-	"appid": "wx6ca927bfc01323e6",
+	"libVersion": "2.5.2",
+	"appid": "wxd890f006babc7219",
 	"projectname": "TimeForCoin",
 	"debugOptions": {
 		"hidedInDevtools": []

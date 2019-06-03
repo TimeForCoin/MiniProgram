@@ -1,0 +1,20 @@
+{
+  "name": "miniprogram",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimeForCoin/MiniProgram.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TimeForCoin/MiniProgram/issues"
+  },
+  "homepage": "https://github.com/TimeForCoin/MiniProgram#readme",
+  "dependencies": {}
+}
