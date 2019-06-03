@@ -1,5 +1,5 @@
-const ROOT = 'https://coin.zhenly.cn/api/'
-
+// const ROOT = 'https://coin.zhenly.cn/api/'
+const ROOT = 'http://127.0.0.1:30233/'
 module.exports = {
   request: (method, url, data) => {
     return new Promise((resolve, reject) => {

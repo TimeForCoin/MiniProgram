@@ -29,7 +29,9 @@ App({
       wx.login({
         success: async (res) => {
           if (res.code) {
-            const resLogin = await server.request('GET', 'session/wechat', {
+            // console.log(res.code)
+            // return
+            const resLogin = await server.request('POST', 'session/wechat', {
               code: res.code
             })
             if (resLogin.statusCode == 200) {
