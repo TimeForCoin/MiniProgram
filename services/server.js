@@ -1,4 +1,4 @@
-const ROOT = 'http://127.0.0.1:30233/'
+const ROOT = 'https://coin.zhenly.cn/api/'
 
 module.exports = {
   request: (method, url, data) => {
