@@ -1,5 +1,5 @@
-// const ROOT = 'https://coin.zhenly.cn/api/'
-const ROOT = 'http://127.0.0.1:30233/'
+const ROOT = 'https://coin.zhenly.cn/api/'
+// const ROOT = 'http://127.0.0.1:30233/'
 module.exports = {
   request: (method, url, data) => {
     return new Promise((resolve, reject) => {
@@ -11,7 +11,7 @@ module.exports = {
         },
         data: data,
         success: (res) => {
-          if (res.cookies.length > 0) {
+          if (res.cookies && res.cookies.length > 0) {
             let sessionID = res.cookies[0].match(/time-for-coin=(\S*);/)[1]
             wx.setStorageSync("sessionId", sessionID)
           }

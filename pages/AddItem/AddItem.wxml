@@ -1,0 +1,70 @@
+<!--pages/AddItem/AddItem.wxml-->
+<view id = "container">
+  <form bindsubmit='formSubmit' bindreset="formReset">
+    <!--标题和描述-->
+    <view class="sell_cells">
+      <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
+        <text class="sell_title">标题</text>
+        <input name="title" class="sell_input" placeholder="请输入您的商品名称（不超过15个字）" placeholder-class='placeholder' maxlength='15' />
+      </view>
+
+      <view class="sell_cell" style="align-items: flex-start">
+        <text class="sell_title">描述</text>
+        <textarea name="describe" class="sell_input" placeholder="请简要的描述一下您的商品，新旧程度、出售原因等（文字不超过140个字，附图不超过3张）" placeholder-class='placeholder' maxlength='140' bindinput='bindInput'></textarea>
+      </view>
+
+      <!-- 字数提示，超过130字变红-->
+      <view class="sell_cell" style="justify-content:flex-end">
+        <view wx:if="{{inputLength>130}}">
+          <text class="sell_hint_text">{{inputLength}}</text>
+          <text class="sell_text">/140</text>
+        </view>
+        <view wx:else>
+          <text class="sell_text">{{inputLength}}/140</text>
+        </view>
+      </view>
+      
+
+      <!-- 上传图片
+      <view class="sell-cell_uploader">
+        <view class="sell_uploader_imgbox" wx:for="{{files}}" wx:key="*this">
+          <image class="sell_uploader_img{{index===0?'_cover':''}}" bindtap="previewImage" src="{{item}}" data-index="{{index}}" mode="aspectFill" />
+          <image class="sell_uploader_img_del" bindtap="deleteImage" data-index="{{index}}" src="/images/x.png"/>
+        </view>
+        <view class="sell_uploader_box">
+          <view class="sell_uploader_input" bindtap="chooseImage"></view>
+        </view>
+        
+      </view> -->
+      <!---->
+    </view>
+    <!---->
+
+    <!-- 价格和原价-->
+    <!-- <view class='sell_cells'>
+      <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
+        <text class="sell_title">价格</text>
+        <input name="price" class="sell_input price" type="digit" placeholder="￥0.00" placeholder-class='placeholder' maxlength='15' />
+      </view>
+
+      <view class="sell_cell">
+        <text class="sell_title">原价</text>
+        <input name="oriPrice" class="sell_input price" type="digit" placeholder="￥0.00" placeholder-class='placeholder' maxlength='15' />
+      </view>
+    </view> -->
+    <!-- -->
+
+    <!--分类-->
+    <!-- <view class='sell_cells'>
+      <view class="sell_cell">
+        <text class="sell_title">分类</text>
+        <picker style="flex:1;display:flex;justify-content:flex-end" bindchange="bindSectionChange" value="{{sId}}" range="{{sections}}">
+          <text class="sell_select">{{sections[sId]}}</text>
+        </picker>
+      </view>
+    </view> -->
+    <!---->
+
+    <!-- <button class="sell_btn" form-type='submit'>确认发布</button> -->
+  </form>
+</view>
