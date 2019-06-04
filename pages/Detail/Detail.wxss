@@ -6,19 +6,69 @@
 #user_info{
   display: flex;
   width:100%;
-  direction: column;
+  flex-direction: row;
 }
 
 #touxiang{
-  width: 80rpx;
-  height: 80rpx;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 10rpx;
 }
 #user_basic_info{
+  display: flex;
   width:100%;
   margin-left: 20rpx;
-  direction: row;
+  flex-direction: column;
 }
 
-.user_text{
-  width:100%
+.title{
+  font-size: 36rpx;
+}
+.subtitle{
+  font-size: 28rpx;
+  color: gray;
+
+}
+
+/*分割线*/
+.band1{
+  width:100%;
+  margin: 10rpx 0rpx;
+  height: 3rpx;
+  background: rgb(243, 243, 243);
+}
+
+/*价钱和点赞*/
+#price_like{
+  display: inline-block;
+  margin-top: 10rpx;
+  width: 100%;
+}
+#price_view{
+  display: flex;
+  flex-direction: row;
+}
+
+#money{
+  width: 26rpx;
+  height: 26rpx;
+  margin-top: 15rpx;
+}
+
+#price{
+  font-size: 36rpx;
+  color: #404969;
+}
+
+#payType{
+  background: #e0fcff;
+  margin: 6rpx 20rpx;
+  padding: 3rpx 6rpx;
+  font-size: 26rpx;
+  color: #404969;
+  border-radius: 5rpx;
+}
+
+#like_view{
+  float:right;
 }

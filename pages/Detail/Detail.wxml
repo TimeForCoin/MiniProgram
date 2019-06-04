@@ -3,8 +3,20 @@
   <view id = "user_info">
     <image src = "/images/index_sample.jpg" id = "touxiang"/>
     <view id = "user_basic_info">
-      <text id = "username" class = "user_text">菜徐坤</text>
-      <text id = "location" class = "user_text">火星</text>
+      <text id = "username" class = "title">菜徐坤</text>
+      <text id = "location" class = "subtitle">火星</text>
+    </view>
+  </view>
+  <view class = "band1"/>
+  <view id = "price_like">
+  <view id = "like_view">
+      <text class = "subtitle">点赞数 </text>
+      <text id = "like" class = "subtitle">13</text>
+    </view>
+    <view id = "price_view">
+      <image src = "/images/icons/price.png" id = "money"/>
+      <text id = "price">9999</text>
+      <text id = "payType">积分</text>
     </view>
   </view>
 </view>
