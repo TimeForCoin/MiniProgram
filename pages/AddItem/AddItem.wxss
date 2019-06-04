@@ -1,7 +1,7 @@
 /* pages/AddItem/AddItem.wxss */
 
 /*标题以及详情内容*/
-#tile_detail {
+.title_detail {
   margin: 10rpx 0;
   padding: 0 30rpx 0 30rpx;
 }
@@ -9,7 +9,7 @@
 
 .basic_info {
   display: flex;
-  padding: 20rpx 0;
+  padding: 10rpx 0;
   align-items: flex-start;
 }
 
@@ -25,9 +25,10 @@
 }
 
 /*分割线*/
-.band{
+.band1{
   width:100%;
-  height: 2rpx;
+  margin: 10rpx 0;
+  height: 3rpx;
   background: rgb(243, 243, 243);
 }
 
@@ -77,7 +78,7 @@
   z-index: 2;
   position: absolute;
   margin: 100rpx 0;
-  background: yellow;
+  background: #fafafa;
   font-size: 28rpx;
   border-radius: 15rpx;
   padding: 6rpx 10rpx 6rpx 10rpx;
@@ -91,23 +92,95 @@
   opacity: 0.4;
 }
 
-.sell_text{
-  color: #b2b2b2;
+.band2{
+  width:100%;
+  height: 50rpx;
+  background: rgb(243, 243, 243);
+}
+/*价格部分*/
+#price{
+  margin: 20rpx 0rpx 0rpx 0rpx;
+  padding: 0 30rpx 0 30rpx;
 }
 
-.sell_hint_text {
-  color: #FF4F64;
+.price_title{
+  width: 100%;
+  font-size: 36rpx;
 }
 
-.sell_btn{
-  width: 90%;
-  margin-top: 50rpx;
-  margin-bottom: 50rpx;
-  background-color: #FF4F64;
-  color: white;
-  border-radius: 98rpx;
+/*输入金额*/
+#price_set{
+  margin-top: 10rpx;
   display: flex;
-  flex-direction: row;
+  direction: column;
+}
+
+#price_text{
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #404969;
+}
+
+#price_logo{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+  margin-top:8rpx;
+}
+
+/*设置支付类型*/
+.payType{
+  margin-top: 20rpx 0rpx;
+  display: flex;
+  direction: column;
+}
+.typeBlock{
+  width: 50%;
+  background: #fff;
+  margin: 20rpx 10rpx;
+  text-align: center;
+  border-radius: 25rpx;
+  padding: 10rpx 0;
+  border: 2rpx solid rgba(0,0,0,.3);
+}
+
+/*任务类型*/
+#taskType{
+  margin-top: 20rpx 0rpx;
+  display: flex;
+  direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.taskBlock{
+  background: #fff;
+  margin-left: 10rpx;
+  margin-top: 10rpx;
+  text-align: center;
+  border-radius: 25rpx;
+  padding: 10rpx 10rpx;
+  border: 2rpx solid rgba(0,0,0,.3);
+}
+
+/*按钮*/
+.buttonSet{
+  margin: 30rpx 30rpx;
+  display: flex;
+  direction: column;
+}
+.btn{
+  width: 50%;
+  display: flex;
+  border-radius: 50rpx;
   align-items: center;
   justify-content: center;
+  border: 2rpx solid rgba(0,0,0,.3);
+}
+
+#confirm_btn{
+  background: #ff7e67;
+  margin-right: 20rpx;
+}
+#save_btn{
+  background: #fafafa;
 }

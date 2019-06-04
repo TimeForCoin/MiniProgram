@@ -2,13 +2,13 @@
 <view id = "container">
   <form bindsubmit='formSubmit' bindreset="formReset">
     <!--标题和描述-->
-    <view id = "tile_detail">
+    <view class = "title_detail">
 
       <!--标题-->
       <view class="basic_info">
         <input name="title" class="input_title" placeholder="标题 各类品牌型号都是买家喜欢搜索的" placeholder-class='placeholder_title' maxlength='20' style = "font-weight: bold" />
       </view>
-      <view class = "band"></view>
+      <view class = "band1" />
       <view class="basic_info">
         <textarea name="describe" class="input_text" placeholder="描述宝贝的转手原因，入手渠道和使用感受" placeholder-class='placeholder' bindinput='bindInput' />
       </view>
@@ -33,32 +33,38 @@
         <image id = "addImage" src = "/images/icons/add_Item.png" bindtap="chooseImage"/>
       </view>
     </view>
-
-    <!-- 价格和原价-->
-    <!-- <view class='sell_cells'>
-      <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
-        <text class="sell_title">价格</text>
-        <input name="price" class="input_text price" type="digit" placeholder="￥0.00" placeholder-class='placeholder' maxlength='15' />
+    <view class = "band2" />
+    <view id = "price">
+      <text class = "price_title">开价</text>
+      <view style = "display:flex; direction:column">
+      <view id = "price_set">
+        <image src="/images/icons/price.png" id = "price_logo"/>
+        <input name="price" type="digit" id = "price_text" placeholder="0.00" placeholder-class='placeholder' maxlength='11' /></view>
       </view>
-
-      <view class="sell_cell">
-        <text class="sell_title">原价</text>
-        <input name="oriPrice" class="input_text price" type="digit" placeholder="￥0.00" placeholder-class='placeholder' maxlength='15' />
+      <view class = "band1" />
+      <text class = "price_title">支付类型</text>
+      <!--选择支付类型-->
+      <view class = "payType">
+        <text class = "typeBlock">咸鱼</text>
+        <text class = "typeBlock">闲币</text>
       </view>
-    </view> -->
-    <!-- -->
-
-    <!--分类-->
-    <!-- <view class='sell_cells'>
-      <view class="sell_cell">
-        <text class="sell_title">分类</text>
-        <picker style="flex:1;display:flex;justify-content:flex-end" bindchange="bindSectionChange" value="{{sId}}" range="{{sections}}">
-          <text class="sell_select">{{sections[sId]}}</text>
-        </picker>
+    </view>
+    <view class = "band2" />
+    <view class = 'title_detail' style='margin-top: 20rpx'>
+      <text class="sell_title">分类</text>
+      <view id = "taskType">
+        <text class = "taskBlock">我</text>
+        <text class = "taskBlock">菜虚鲲</text>
+        <text class = "taskBlock">就是未来的</text>
+        <text class = "taskBlock">NBA</text>
+        <text class = "taskBlock">球星</text>
+        <text class = "taskBlock">b站滚啊</text>
       </view>
-    </view> -->
-    <!---->
-
-    <!-- <button class="sell_btn" form-type='submit'>确认发布</button> -->
+    </view>
+    <view class = "band2"/>
+    <view class = "buttonSet">
+      <button class = "btn" id = "confirm_btn" form-type = "submit">确认发布</button>
+      <button class = "btn" id = "save_btn" form-type = "save">保存草稿</button>
+    </view>
   </form>
 </view>
