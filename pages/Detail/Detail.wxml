@@ -1,5 +1,5 @@
 <!--pages/Detail/Detail.wxml-->
-<view id = "container">
+<view id = "top">
   <view id = "user_info">
     <image src = "/images/index_sample.jpg" id = "touxiang"/>
     <view id = "user_basic_info">
@@ -9,14 +9,66 @@
   </view>
   <view class = "band1"/>
   <view id = "price_like">
-  <view id = "like_view">
-      <text class = "subtitle">点赞数 </text>
-      <text id = "like" class = "subtitle">13</text>
+    <view id = "like_view">
+      <view>
+        <text style = "font-size: 24rpx; color:gray;">点赞数 </text>
+        <text id = "like" class = "subtitle">13</text>
+     </view>
+     <view>
+        <text class = "subtitle" style = "font-size: 24rpx; margin-left: 15rpx; color:gray;">阅读量 </text>
+        <text id = "like" class = "subtitle">13</text>
+     </view>
     </view>
     <view id = "price_view">
       <image src = "/images/icons/price.png" id = "money"/>
       <text id = "price">9999</text>
       <text id = "payType">积分</text>
     </view>
+    <view id = "imgs">
+    </view>
+    <text id = "details" class = "title details">我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是徐坤我是蔡徐坤我是蔡徐坤我徐坤我是蔡徐坤我是蔡徐坤我徐坤我是蔡徐坤我是蔡徐坤我蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤</text>
   </view>
+</view>
+<view class = "band2"/>
+<!--他人留言-->
+<view id = "liuyan">
+  <view style = "display: flex; flex-direction: row; margin-top: 10rpx;">
+    <text class = "title" style = "font-weight: bold">留言  (</text>
+    <text id = "total" style = "font-weight: bold" class = "title">1</text>
+    <text class = "title" style = "font-weight: bold">)</text>
+  </view>
+  <view class = "band1"/>
+  <!--自己的留言-->
+  <view id = "mycomment">
+    <input id = "comment_input" placeholder='输入你的评论吧~' bindinput='inputChange' value='{{cmt}}' maxlength='15' />
+    <button id = "commit_btn">发送</button>
+  </view>
+  <view class = "band1" />
+   <!-- <view class="sell_uploader_imgbox" wx:for="{{files}}" wx:key="*this">
+          <image class="sell_uploader_img{{index===0?'_cover':''}}" bindtap="previewImage" src="{{item}}" data-index="{{index}}" mode="aspectFill" />
+          <image class="sell_uploader_img_del" bindtap="deleteImage" data-index="{{index}}" src="/images/icons/delete.png"/>
+    </view> -->
+    <!--测试图片-->
+    <view style = "display:flex; flex-direction:column">
+      <view class = "comment_user_info">
+        <image src = "/images/index_sample.jpg" style = "width:60rpx; height: 60rpx"/>
+        <view class = "comment">
+          <text class = "username subtitle" style = "margin-top:10rpx;">用户名</text>
+          <text class = "comment_text title" style = "margin-top:10rpx; margin-left:20rpx;">我是蔡徐坤</text>
+          <text class = "date subtitle" style = "margin-top:10rpx;">2019-6-21</text>
+        </view>
+      </view>
+      <view class = "band1" />
+    </view>
+    <text id = "bottom">没有更多内容了~</text>
+</view>
+
+<view class = "float_button" style="bottom: 400rpx;">
+  <image src = "/images/icons/collect.png" class = "btn_img"/>
+</view>
+<view class = "float_button" style='bottom: 500rpx;'>
+  <image src = "/images/icons/like.png" class = "btn_img" />
+</view>
+<view class = "float_button" style="bottom: 600rpx;">
+  <image src = "/images/icons/more.png" class = "btn_img"/>
 </view>

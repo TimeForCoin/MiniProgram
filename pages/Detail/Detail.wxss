@@ -1,5 +1,5 @@
 /* pages/Detail/Detail.wxss */
-#container{
+#top{
   padding-left: 30rpx;
   padding-right:30rpx;
 }
@@ -12,6 +12,7 @@
 #touxiang{
   width: 90rpx;
   height: 90rpx;
+  object-fit: fill;
   border-radius: 10rpx;
 }
 #user_basic_info{
@@ -61,14 +62,107 @@
 }
 
 #payType{
-  background: #e0fcff;
+  background: #ff7e67;
   margin: 6rpx 20rpx;
   padding: 3rpx 6rpx;
   font-size: 26rpx;
-  color: #404969;
+  color: #fff;
   border-radius: 5rpx;
 }
 
 #like_view{
   float:right;
+  display: flex;
+  flex-direction: row;
+}
+
+/*收藏量 阅读量*/
+#imgs{
+  width: 640rpx;
+  height: 480rpx;
+  margin: 40rpx auto 40rpx auto;
+  background: gray;
+}
+.details{
+  height: 200rpx;
+  width: 100%;
+}
+
+/*分割线*/
+.band2{
+  width:100%;
+  margin: 10rpx 0rpx;
+  height: 30rpx;
+  background: rgb(243, 243, 243);
+}
+
+/*自己的评论*/
+#mycomment{
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+}
+#comment_input{
+  flex:10;
+  font-size: 32rpx;
+  margin-top: 6rpx;
+  padding: 10rpx;
+  margin-right:20rpx;
+  background: rgba(231, 231, 231, 0.3);
+}
+
+#commit_btn{
+  flex:1;
+  border: 2rpx solid rgba(0,0,0,.3);
+  font-size: 28rpx;
+  padding: 0 15rpx;
+  border-radius: 20rpx;
+  background-color: #e0fcff;
+}
+
+#liuyan{
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+/*他人评论部分*/
+.comment_user_info{
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.comment{
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+#bottom{
+  text-align: center;
+  color: gray;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+}
+
+.float_button{
+   position: fixed;
+   right: 25rpx;
+   width: 90rpx;
+   height: 90rpx;
+   overflow: hidden;
+   z-index: 233; 
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #ff7e67;
+   border-radius: 50rpx;
+}
+
+.btn_img{
+  width: 50rpx;
+  height: 50rpx;
 }
