@@ -122,10 +122,10 @@
 }
 
 #price_logo{
-  width: 40rpx;
-  height: 40rpx;
+  width: 36rpx;
+  height: 36rpx;
   margin-right: 10rpx;
-  margin-top:8rpx;
+  margin-top: 5rpx;
 }
 
 /*设置支付类型*/
