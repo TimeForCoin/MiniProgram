@@ -1,0 +1,10 @@
+<!--pages/Detail/Detail.wxml-->
+<view id = "container">
+  <view id = "user_info">
+    <image src = "/images/index_sample.jpg" id = "touxiang"/>
+    <view id = "user_basic_info">
+      <text id = "username" class = "user_text">菜徐坤</text>
+      <text id = "location" class = "user_text">火星</text>
+    </view>
+  </view>
+</view>

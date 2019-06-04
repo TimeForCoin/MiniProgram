@@ -1,10 +1,12 @@
 {
   "pages": [
+    "pages/Detail/Detail",
     "pages/AddItem/AddItem",
     "pages/userInfo/userInfo",
     "pages/index/index",
     "pages/logs/logs",
     "pages/Home/Home"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
