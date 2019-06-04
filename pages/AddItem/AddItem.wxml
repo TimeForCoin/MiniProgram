@@ -2,54 +2,48 @@
 <view id = "container">
   <form bindsubmit='formSubmit' bindreset="formReset">
     <!--标题和描述-->
-    <view class="sell_cells">
-      <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
-        <text class="sell_title">标题</text>
-        <input name="title" class="sell_input" placeholder="请输入您的商品名称（不超过15个字）" placeholder-class='placeholder' maxlength='15' />
+    <view id = "tile_detail">
+
+      <!--标题-->
+      <view class="basic_info">
+        <input name="title" class="input_title" placeholder="标题 各类品牌型号都是买家喜欢搜索的" placeholder-class='placeholder_title' maxlength='20' style = "font-weight: bold" />
+      </view>
+      <view class = "band"></view>
+      <view class="basic_info">
+        <textarea name="describe" class="input_text" placeholder="描述宝贝的转手原因，入手渠道和使用感受" placeholder-class='placeholder' bindinput='bindInput' />
       </view>
 
-      <view class="sell_cell" style="align-items: flex-start">
-        <text class="sell_title">描述</text>
-        <textarea name="describe" class="sell_input" placeholder="请简要的描述一下您的商品，新旧程度、出售原因等（文字不超过140个字，附图不超过3张）" placeholder-class='placeholder' maxlength='140' bindinput='bindInput'></textarea>
-      </view>
-
-      <!-- 字数提示，超过130字变红-->
-      <view class="sell_cell" style="justify-content:flex-end">
-        <view wx:if="{{inputLength>130}}">
-          <text class="sell_hint_text">{{inputLength}}</text>
-          <text class="sell_text">/140</text>
-        </view>
-        <view wx:else>
-          <text class="sell_text">{{inputLength}}/140</text>
-        </view>
-      </view>
-      
-
-      <!-- 上传图片
-      <view class="sell-cell_uploader">
-        <view class="sell_uploader_imgbox" wx:for="{{files}}" wx:key="*this">
+      <!--上传图片-->
+      <view id = "image_upload">
+        <!-- <view class="sell_uploader_imgbox" wx:for="{{files}}" wx:key="*this">
           <image class="sell_uploader_img{{index===0?'_cover':''}}" bindtap="previewImage" src="{{item}}" data-index="{{index}}" mode="aspectFill" />
-          <image class="sell_uploader_img_del" bindtap="deleteImage" data-index="{{index}}" src="/images/x.png"/>
-        </view>
-        <view class="sell_uploader_box">
-          <view class="sell_uploader_input" bindtap="chooseImage"></view>
-        </view>
+          <image class="sell_uploader_img_del" bindtap="deleteImage" data-index="{{index}}" src="/images/icons/delete.png"/>
+        </view> -->
+        <text id = "firstTag" >主图</text>
+        <!--测试图片-->
+        <image class="img_del" bindtap="deleteImage" src="/images/icons/delete.png"/>
+        <image class = "imgs_first" bindtap="previewImage" src="/images/index_sample.jpg" mode="aspectFill" />
+
+        <image class="img_del" bindtap="deleteImage" src="/images/icons/delete.png"/>
+        <image class = "imgs_first" bindtap="previewImage" src="/images/index_sample.jpg" mode="aspectFill" />
+
+        <image class="img_del" bindtap="deleteImage" src="/images/icons/delete.png"/>
+        <image class = "imgs_first" bindtap="previewImage" src="/images/index_sample.jpg" mode="aspectFill" />
         
-      </view> -->
-      <!---->
+        <image id = "addImage" src = "/images/icons/add_Item.png" bindtap="chooseImage"/>
+      </view>
     </view>
-    <!---->
 
     <!-- 价格和原价-->
     <!-- <view class='sell_cells'>
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
         <text class="sell_title">价格</text>
-        <input name="price" class="sell_input price" type="digit" placeholder="￥0.00" placeholder-class='placeholder' maxlength='15' />
+        <input name="price" class="input_text price" type="digit" placeholder="￥0.00" placeholder-class='placeholder' maxlength='15' />
       </view>
 
       <view class="sell_cell">
         <text class="sell_title">原价</text>
-        <input name="oriPrice" class="sell_input price" type="digit" placeholder="￥0.00" placeholder-class='placeholder' maxlength='15' />
+        <input name="oriPrice" class="input_text price" type="digit" placeholder="￥0.00" placeholder-class='placeholder' maxlength='15' />
       </view>
     </view> -->
     <!-- -->
