@@ -9,37 +9,36 @@
 
 .basic_info {
   display: flex;
-  padding: 10rpx 0;
+  padding: 5rpx 0;
   align-items: flex-start;
 }
 
 .input_text {
-  height: 200rpx;
   width: 100%;
-  font-size: 32rpx;
+  font-size: 30rpx;
 }
 
 .input_title {
   width: 100%;
-  font-size: 36rpx;
+  font-size: 32rpx;
 }
 
 /*分割线*/
 .band1{
   width:100%;
-  margin: 10rpx 0;
+  margin: 5rpx 0;
   height: 3rpx;
   background: rgb(243, 243, 243);
 }
 
 /*占位符*/
 .placeholder_title{
-  font-size: 36rpx;
+  font-size: 32rpx;
   color: rgb(156, 156, 156);
 }
 
 .placeholder{
-  font-size: 32rpx;
+  font-size: 30rpx;
   color: rgb(156, 156, 156);
 }
 
@@ -73,7 +72,7 @@
   height: 35rpx;
   position:absolute;
 }
-
+/*主图*/
 #firstTag{
   z-index: 2;
   position: absolute;
@@ -97,18 +96,11 @@
   height: 50rpx;
   background: rgb(243, 243, 243);
 }
-/*价格部分*/
-#price{
-  margin: 20rpx 0rpx 0rpx 0rpx;
-  padding: 0 30rpx 0 30rpx;
-  display:flex;
-  flex-direction: column;
-}
 
-.price_title{
+.title{
   flex: 1;
   width: 100%;
-  font-size: 36rpx;
+  font-size: 32rpx;
 }
 
 /*输入金额*/
@@ -119,7 +111,7 @@
 }
 
 #price_text{
-  font-size: 36rpx;
+  font-size: 32rpx;
   font-weight: bold;
   color: #404969;
 }
@@ -132,18 +124,18 @@
 }
 
 /*设置支付类型*/
-.payType{
+.blockType{
   margin-top: 20rpx 0rpx;
   display: flex;
   direction: column;
+  font-size: 32rpx;
 }
 .typeBlock{
   width: 50%;
-  background: #fff;
   margin: 10rpx 10rpx;
   text-align: center;
   border-radius: 25rpx;
-  padding: 6rpx 0;
+  padding: 3rpx 0;
   border: 2rpx solid rgba(0,0,0,.3);
 }
 
@@ -161,7 +153,8 @@
   margin-top: 10rpx;
   text-align: center;
   border-radius: 25rpx;
-  padding: 6rpx 10rpx;
+  padding: 3rpx 10rpx;
+  font-size: 30rpx;
   border: 2rpx solid rgba(0,0,0,.3);
 }
 
@@ -174,7 +167,9 @@
 .btn{
   width: 50%;
   display: flex;
+  height: 80rpx;
   border-radius: 50rpx;
+  font-size: 32rpx;
   align-items: center;
   justify-content: center;
   border: 2rpx solid rgba(0,0,0,.3);

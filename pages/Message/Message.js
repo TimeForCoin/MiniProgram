@@ -1,4 +1,4 @@
-// pages/Home.js
+// pages/Message/Message.js
 Page({
 
   /**

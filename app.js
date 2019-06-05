@@ -66,21 +66,35 @@ App({
     sessionId: null,
     major: ["数计院", "管理学院", "岭南学院", "工学院", "微电子学院", "其他"],
     tabBar: {
-      "list": [{
-        "text": "首页",
-        "iconPath": "images/icons/home.png",
-        "selectedIconPath": "images/icons/home_selected.png",
-        "pagePath": "pages/index/index"
-      },
-      {
-        "text": "我的",
-        "iconPath": "images/icons/user.png",
-        "selectedIconPath": "images/icons/user_selected.png",
-        "pagePath": "pages/index/index"
-
-      }],
+      "list": [
+        {
+          "text": "首页",
+          "iconPath": "images/icons/home.png",
+          "selectedIconPath": "images/icons/home_selected.png",
+          "pagePath": "pages/index/index"
+        },
+        {
+          "text": "发布",
+          "iconPath": "images/icons/add.png",
+          "selectedIconPath": "images/icons/add_selected.png",
+          "pagePath": "pages/AddItem/AddItem"
+        },
+        {
+          "text": "消息",
+          "iconPath": "images/icons/message.png",
+          "selectedIconPath": "images/icons/message_selected.png",
+          "pagePath": "pages/Message/Message"
+        },
+        {
+          "text": "我的",
+          "iconPath": "images/icons/user.png",
+          "selectedIconPath": "images/icons/user_selected.png",
+          "pagePath": "pages/userInfo/userInfo"
+        }
+      ],
       "backgroundColor": "#fff",
-      "color": "#404969"
+      "color": "#404969",
+      "selectedColor": "#ff7e67"
     },
   }
 })

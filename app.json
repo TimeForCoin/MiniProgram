@@ -1,14 +1,13 @@
 {
   "pages": [
-    "pages/userInfo/userInfo",
-    "pages/SearchResult/SearchResult",
     "pages/AddItem/AddItem",
     "pages/index/index",
-    "pages/Detail/Detail",
-    
-    
     "pages/logs/logs",
-    "pages/Home/Home"
+    "pages/userInfo/userInfo",
+    "pages/SearchResult/SearchResult",
+    
+    "pages/Detail/Detail",
+    "pages/Message/Message"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -25,14 +24,27 @@
         "pagePath": "pages/index/index"
       },
       {
+        "text": "发布",
+        "iconPath": "images/icons/add.png",
+        "selectedIconPath": "images/icons/add_selected.png",
+        "pagePath": "pages/AddItem/AddItem"
+      },
+      {
+        "text": "消息",
+        "iconPath": "images/icons/message.png",
+        "selectedIconPath": "images/icons/message_selected.png",
+        "pagePath": "pages/Message/Message"
+      },
+      {
         "text": "我的",
         "iconPath": "images/icons/user.png",
         "selectedIconPath": "images/icons/user_selected.png",
-        "pagePath": "pages/index/index"
+        "pagePath": "pages/userInfo/userInfo"
       }
     ],
     "backgroundColor": "#fff",
-    "color": "#404969"
+    "color": "#404969",
+    "selectedColor": "#ff7e67"
   },
   "sitemapLocation": "sitemap.json"
 }
