@@ -1,11 +1,12 @@
 {
   "pages": [
+    "pages/userInfo/userInfo",
     "pages/SearchResult/SearchResult",
     "pages/AddItem/AddItem",
     "pages/index/index",
     "pages/Detail/Detail",
     
-    "pages/userInfo/userInfo",
+    
     "pages/logs/logs",
     "pages/Home/Home"
   ],

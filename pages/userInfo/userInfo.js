@@ -28,6 +28,7 @@ Page({
       id: 3,
       name: "我的设置"
     }],
+    showModal: true
   },
 
   /**
