@@ -1,12 +1,134 @@
 /**index.wxss**/
-#innerPage{
-  background-color: #fff;
-  padding:10rpx 0rpx;
+#container{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: 10rpx 0rpx;
+}
+#top_image{
+  width: 480 rpx;
+  height: 320 rpx;
+  border-radius: 3%;
+  margin: auto;
+}
+/*标签页切换*/
+.swiper-tab {
+  background-color: rgb(243, 243, 243);
+  width: 100%;
+  margin-top: 20rpx;
+  text-align: center;
+  line-height: 70rpx;
 }
 
-#index_image{
-  border-radius: 20rpx;
-  width:720rpx;
-  height:405rpx;
-  overflow: hidden;
+.swiper-tab-list {
+  font-size: 32rpx;
+  display: inline-block;
+  width: 25%;
+  color: #797979;
+}
+
+.on {
+  color: #ff7e67;
+  border-bottom: 5rpx solid #ff7e67;
+}
+
+/* 下方列表部分 */
+.list_container {
+  width:100%;
+  display:flex;
+  flex-direction: column;
+}
+.subtext{
+  color:gray;
+  font-size: 28rpx;
+}
+/*加载部分*/
+.loading_view{
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading {
+  margin-right: 10rpx;
+  width: 45rpx;
+  height: 45rpx;
+  animation: animation 1s linear infinite;
+}
+
+@keyframes animation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/*下方表格部分*/
+.list_left {
+  width: 350rpx;
+  margin: 20rpx 0rpx 0rpx 30rpx;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.list_item {
+  margin: 15rpx 0 0 0;
+  border-radius: 15rpx;
+  height: 480rpx;
+  width: 350rpx;
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,.3);
+}
+.item_img{
+  width: 350rpx;
+  height:220rpx;
+  border-radius: 15rpx;
+}
+
+.info{
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-left: 15rpx;
+  margin-right: 15rpx;
+}
+
+.info_title{
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.money_img{
+  width: 28rpx;
+  height:28rpx;
+
+}
+
+.money_text{
+  font-size: 32rpx;
+  color: #404969;
+}
+
+/*分割线*/
+.band1{
+  width:100%;
+  height: 3rpx;
+  background: rgb(243, 243, 243);
+}
+
+.item_touxiang{
+  margin-top: 20rpx;
+  width: 60rpx;
+  height:60rpx;
+}
+
+.item_owner{
+  font-size: 28rpx;
+  color: gray;
+  margin-left: 20rpx;
+  margin-top: 30rpx;
 }

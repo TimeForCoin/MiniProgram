@@ -1,22 +1,44 @@
 <!--index.wxml-->
-<view class = "container">
-  <view id = "innerPage">
-    <!--上方图片-->
-    <view id = "index_image_view">
-      <image id = "index_image" src = "/images/index_sample.jpg" />
-      <image src="{{userInfo.info.avatar}}" />
-      <p>{{userInfo.info.nickname}}</p>
-      <p>{{userInfo.info.location}}</p>
-      <button open-type="getUserInfo" bindgetuserinfo="setUserInfo">获取用户信息</button>
+<view id = "container">
+  <image src = "/images/index_sample.jpg" id = "top_image"/>
+  <!--标签页-->
+  <view class="swiper-tab">
+    <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">类型1</view>
+    <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">类型2</view>
+    <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">类型3</view>
+    <view class="swiper-tab-list {{currentTab==3 ? 'on' : ''}}" data-current="3" bindtap="swichNav">类型4</view>
+  </view>
+
+  <view class = "list_container">
+    <view class = "loading_view">
+      <image class="loading" src="/images/icons/loading.png"></image>
+      <text class = "subtext">正在载入更多...</text>
     </view>
 
-    <!--分类-->
-    <view id = "types">
+    <!--left-->
+    <view class="list_left">
+      <view class="list_item">
+        <image src = "/images/index_sample.jpg" class = "item_img" mode = "aspectFill"/>
+        <view class = "info">
+          <text class = "info_title" maxlength = "18" >蔡徐坤蔡徐坤蔡徐坤蔡徐坤蔡徐坤蔡徐坤</text>
+          <!--金额-->
+          <view style = "margin-top: 10rpx;">
+            <image src = "/images/icons/price.png" class = "money_img" />
+            <text classs = "money_text">999</text>
+          </view>
+          <view class = "band1"/>
+          <view style = "display: flex; flex-direction: row;">
+            <image src = "/images/index_sample.jpg" class = "item_touxiang" />
+            <text class = "item_owner">蔡徐坤他妈</text>
+          </view>
+        </view>
+      </view>
     </view>
-
-    <!--下方物品栏-->
-    
-
-    <tabbar tabbar="{{tabbar}}"/>
+    <text class = "subtext" style = "margin-top: 40rpx;">没有更多了~</text>
   </view>
 </view>
+
+<!-- <image src="{{userInfo.info.avatar}}" />
+<p>{{userInfo.info.nickname}}</p>
+<p>{{userInfo.info.location}}</p>
+<button open-type="getUserInfo" bindgetuserinfo="setUserInfo">获取用户信息</button> -->

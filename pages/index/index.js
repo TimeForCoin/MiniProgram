@@ -8,6 +8,10 @@ Page({
     userInfo: {},
     tabbar: {},
     hasUserInfo: false,
+    currentTab: 0,
+    list_a: [],
+    list_b: [],
+    Loading: false,
    // canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   onLoad: function () {
@@ -25,6 +29,35 @@ Page({
       avatarUrl: e.detail.userInfo.avatarUrl,
       location: e.detail.userInfo.country
     })
+  },
+  // onReady: function () {
+  //   var that = this;
+  //   wx.getSystemInfo({
+  //     success: function (res) {
+  //       that.setData({
+  //         winWidth: res.windowWidth,
+  //         winHeight: res.windowHeight
+  //       });
+  //     }
+  //   });
+  // },
+  // 滑动切换tab
+  bindChange: function (e) {
+    var that = this;
+    that.setData({
+      currentTab: e.detail.current
+    });
+  },
+  // 点击tab切换
+  swichNav: function (e) {
+    var that = this;
+    if (this.data.currentTab === e.target.dataset.current) {
+      return false;
+    } else {
+      that.setData({
+        currentTab: e.target.dataset.current
+      })
+    }
   }
   //事件处理函数
   // bindViewTap: function() {
