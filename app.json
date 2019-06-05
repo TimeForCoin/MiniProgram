@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/SearchResult/SearchResult",
     "pages/index/index",
     "pages/Detail/Detail",
     "pages/AddItem/AddItem",

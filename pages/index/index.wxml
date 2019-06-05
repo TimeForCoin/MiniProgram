@@ -25,6 +25,7 @@
           <view style = "margin-top: 10rpx;">
             <image src = "/images/icons/price.png" class = "money_img" />
             <text classs = "money_text">999</text>
+            <text class = "payType">积分</text>
           </view>
           <view class = "band1"/>
           <view style = "display: flex; flex-direction: row;">

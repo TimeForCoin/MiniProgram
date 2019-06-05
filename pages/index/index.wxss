@@ -88,6 +88,15 @@
   border-radius: 15rpx;
 }
 
+.payType{
+  background: #ff7e67;
+  margin: 0rpx 20rpx;
+  padding: 3rpx 6rpx;
+  font-size: 26rpx;
+  color: #fff;
+  border-radius: 5rpx;
+}
+
 .info{
   background-color: #fff;
   display: flex;
@@ -117,6 +126,7 @@
 .band1{
   width:100%;
   height: 3rpx;
+  margin-top: 5rpx;
   background: rgb(243, 243, 243);
 }
 
