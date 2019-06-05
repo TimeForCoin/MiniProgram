@@ -51,24 +51,31 @@
 <!--对话框-->
 <view class="modalDialog" wx:if="{{showModal}}">
   <image src = "/images/icons/close.png" class = "close" />
-  <image src = "/images/index_sample.jpg" class = "ava" />
-  <text class = "title">用户名</text>
-  <input name="username" class="input_setting" placeholder="用户名" maxlength='20' />
-  <view class = "band1"/>
+  <scroll-view scroll-y style = "height:800rpx;" >
+    <view id = "insideContainer">
+      <view style = "margin: 10rpx auto 0rpx auto;">
+        <image src = "/images/icons/up.png" class = "downImg"></image>
+        <text style = "font-size: 20rpx;color: gray; margin-left : 10rpx;">上滑</text>
+      </view>
+      <image src = "/images/index_sample.jpg" class = "ava" />
+      <text class = "title">用户名</text>
+      <input name="username" class="input_setting" placeholder="用户名" maxlength='20'/>
+      <view class = "band1"/>
   
-  <text class = "title">性别</text>
-  <radio-group name="radio-group" class = "info_text" style = "margin-left: 30rpx;">
-      <label><radio value="Gentleman" />Gentleman</label>
-      <label style = "margin-left:20rpx;"><radio value="Lady"/>Lady</label>
-  </radio-group>
-  <text class = "title">手机号码</text>
-  <input name="phone" class="input_setting" type='digit' placeholder="手机号码" maxlength='15'/>
-  <view class = "band1"/>
-  <text class = "title">地址</text>
-  <input name="address" class="input_setting" placeholder="手机号码" maxlength='20'/>
-  <view class = "band1"/>
-
+      <text class = "title">性别</text>
+      <radio-group name="radio-group" class = "info_text" style = "margin-left: 60rpx;">
+        <label><radio value="Gentleman" />Gentleman</label>
+        <label style = "margin-left:20rpx;"><radio value="Lady"/>Lady</label>
+      </radio-group>
+      <text class = "title">手机号码</text>
+      <input name="phone" class="input_setting" type='digit' placeholder="手机号码" maxlength='15'/>
+      <view class = "band1"/>
+      <text class = "title">地址</text>
+      <input name="address" class="input_setting" placeholder="您的地址" maxlength='20'/>
+      <view class = "band1"/>
+      <button class='submit_btn' bindtap="submit">提交</button>
+    </view>
+  </scroll-view>
 </view>
-<button class='recharge' bindtap="submit">充值</button>
 <!--蒙板-->
 <view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"/>
