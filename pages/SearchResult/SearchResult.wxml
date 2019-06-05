@@ -1,0 +1,17 @@
+<!--pages/SearchResult/SearchResult.wxml-->
+<view id = "container">
+  <view id = "top">
+    <view id = "search_view">
+      <image src = "/images/icons/search.png" class = "search_logo" />
+      <input name="search_input" class="input_title" placeholder="搜索 任务" maxlength='20'/>
+      <image src = "/images/icons/empty.png" class = "search_logo" />
+    </view>
+    <view class='sort-wrap'>
+      <view class='sort-btn'>综合</view>
+      <view class='sort-btn' data-index="{{daindex1}}" bindtap="choosesort1">销量<image src="{{imageurl1}}"/>
+      </view>
+      <view class='sort-btn' data-index="{{daindex2}}" bindtap="choosesort2">价格<image src="{{imageurl2}}"></image>
+      </view>
+    </view>
+  </view>
+</view>
