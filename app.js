@@ -1,6 +1,5 @@
 //app.js
 const server = require('./services/server.js')
-
 App({
   onLaunch: function () {
     // wx.hideTabBar();

@@ -16,5 +16,7 @@
     "url": "https://github.com/TimeForCoin/MiniProgram/issues"
   },
   "homepage": "https://github.com/TimeForCoin/MiniProgram#readme",
-  "dependencies": {}
+  "dependencies": {
+    "moment": "^2.24.0"
+  }
 }

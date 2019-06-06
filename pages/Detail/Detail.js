@@ -1,5 +1,6 @@
 // pages/Detail/Detail.js
-// const moment = require('moment');
+const moment = require('moment');
+
 Page({
 
   /**
