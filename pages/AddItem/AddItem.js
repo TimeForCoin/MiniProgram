@@ -17,11 +17,10 @@ Page({
     tags_input: "",
     start_date: 0,
     end_date: 0,
-    max_player: 0,
     startDate: "2019-06-01",
     endDate: "2019-06-01",
-    startTime: "0:00",
-    endTime:"0:00",
+    startTime: "00:00",
+    endTime:"00:00",
     max_player_input: "",
     max_player: 0,
     auto_in:[
@@ -32,7 +31,9 @@ Page({
     publish: true,
     attachment: [],
     errStr: "",
-    isErr: false
+    isErr: false,
+    isSubmit: false,
+    isSave: false
   },
 
   /**
@@ -143,7 +144,7 @@ Page({
 
   max_playerChange: function(e){
     this.setData({max_player_input: e.detail.value});
-    this.data.max_player = parseInt(max_player_input);
+    this.data.max_player = parseInt(this.data.max_player_input);
     console.log("max_player:" + this.data.max_player);
   },
   
@@ -193,53 +194,133 @@ Page({
     else this.data.auto_accept = false;
     console.log("是否同意加入" + this.data.auto_accept);
   },
-  formSubmit: function(e){
+  judgeValid:function(e){
     // 空判断
-    if(this.data.title == ""){
-      this.setData({isErr : true});
-      this.setData({errStr: "标题为空"});
-      return;
+    if (this.data.title == "") {
+      this.setData({ isErr: true });
+      this.setData({ errStr: "标题为空" });
+      return false;
     }
 
     if (this.data.describe == "") {
       this.setData({ isErr: true });
       this.setData({ errStr: "内容为空" });
-      return;
+      return false;
     }
 
     if (this.data.max_player <= 0) {
+      console.log("renshu" + this.data.max_player);
       this.setData({ isErr: true });
       this.setData({ errStr: "人数上限输入错误" });
-      return;
+      return false;
     }
 
     if (this.data.reward_value <= 0 && (this.data.reward == "money" || this.data.reward == "rmb")) {
       this.setData({ isErr: true });
       this.setData({ errStr: "交易金额输入错误" });
-      return;
+      return false;
     }
 
     if (this.data.reward_object == "" && this.data.reward == "physical") {
       this.setData({ isErr: true });
       this.setData({ errStr: "交易物品输入错误" });
-      return;
+      return false;
     }
 
     if (this.data.location == "") {
       this.setData({ isErr: true });
       this.setData({ errStr: "地点为空" });
-      return;
+      return false;
     }
 
     var st = new Date(this.data.startDate + 'T' + this.data.startTime + ":00");
     var et = new Date(this.data.endDate + 'T' + this.data.endTime + ":00");
-    console.log(st);
+    // 时间错误
+    if (et.getTime() / 1000 <= st.getTime() / 1000) {
+      this.setData({ isErr: true });
+      this.setData({ errStr: "时间输入错误" });
+      return false;
+    }
+    return true;
+  },
+  makeFile:function(flag){
+    // 生成json
+    var file = {
+      "title": this.data.title,
+      "content": this.data.describe,
+      "attachment": this.data.attachment,
+      "type": this.data.type,
+      "reward": this.data.reward,
+      "reward_value": this.data.reward_value,
+      "reward_object": this.data.reward_object,
+      "location": [
+        "中山大学"
+      ],
+      "tags": this.data.tags,
+      "top_time": 0,
+      "start_date": this.data.start_date,
+      "end_date": this.data.end_date,
+      "max_player": this.data.max_player,
+      "max_finish": 0,
+      "auto_accept": this.data.auto_accept,
+      "publish": flag
+    }
+  },
+  /*提交*/
+  formSubmit: function(e){
+    if( !this.judgeValid(e) ) return;
+    var st = new Date(this.data.startDate + 'T' + this.data.startTime + ":00");
+    var et = new Date(this.data.endDate + 'T' + this.data.endTime + ":00");
+    this.data.start_date = st.getTime() / 1000;
+    this.data.end_date = et.getTime() / 1000;
+    this.makeFile(true);
+    this.setData({isSubmit: true});
+  },
+  /*保存为草稿*/
+  formReset: function (e) {
+    if (!this.judgeValid(e)) return;
+    var st = new Date(this.data.startDate + 'T' + this.data.startTime + ":00");
+    var et = new Date(this.data.endDate + 'T' + this.data.endTime + ":00");
+    this.data.start_date = st.getTime() / 1000;
+    this.data.end_date = et.getTime() / 1000;
+    this.makeFile(false);
+    this.setData({ isSave: true });
+  },
+
+  /*确认*/
+  confirm: function(e){
+    if (this.data.isErr){
+      this.setData({isErr: false});
+      this.setData({errStr: ""});
+    }
+    if(this.data.isSubmit || this.data.isSave){
+      this.setData({isSubmit: false});
+      this.setData({ isSave: false });
+      this.setData({title: ""});
+      this.setData({ describe: "" });
+      this.setData({ type: "run" });
+      this.setData({ reward: "money" });
+      this.data.reward_object = "";
+      this.data.reward_value = 0;
+      this.setData({ reward_input: "" });
+      this.setData({ location: "" });
+      this.setData({ tags_input: "" });
+      this.data.tags = [];
+      this.data.start_date = 0;
+      this.data.end_date = 0;
+      this.data.max_player = 0;
+      this.setData({ startDate: "2019-06-01" });
+      this.setData({ endDate: "2019-06-01" });
+      this.setData({ startTime: "00:00" });
+      this.setData({ endTime: "00:00" });
+      this.setData({ max_player_input: "" });
+      this.data.attachment = [];
+      this.data.auto_accept =  true;
+    }
   },
   save: function(e){
 
   }
-
-  
 
 
 })
