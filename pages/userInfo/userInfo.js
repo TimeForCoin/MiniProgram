@@ -11,24 +11,31 @@ Page({
     hasUserInfo:false,
     nav_a: [{
       id: 1,
-      name: "我发布的"
+      name: "我发布的",
+      url: "/pages/AddedItems/AddedItems",
+      src: "added_item"
     }, {
       id: 2,
-      name: "我卖出的"
+      name: "我卖出的",
+      url: "/pages/SearchResult/SearchResult"
     }, {
       id: 3,
-      name: "我买到的"
+      name: "我买到的",
+      url: "/pages/SearchResult/SearchResult"
     }],
 
     nav_b: [{
       id: 1,
-      name: "客服妹妹"
+      name: "客服妹妹",
+      url: "/pages/SearchResult/SearchResult"
     }, {
       id: 2,
-      name: "安全中心"
+      name: "安全中心",
+      url: "/pages/SearchResult/SearchResult"
     }, {
       id: 3,
-      name: "我的设置"
+      name: "我的设置",
+      url: "/pages/SearchResult/SearchResult"
     }],
     // ----用于修改信息---------
     isEditInfo: false,

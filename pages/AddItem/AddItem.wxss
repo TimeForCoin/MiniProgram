@@ -3,7 +3,7 @@
 /*标题以及详情内容*/
 .title_detail {
   margin: 10rpx 0;
-  padding: 0 30rpx 0 30rpx;
+  padding: 0 32rpx 0 32rpx;
 }
 
 
@@ -15,12 +15,12 @@
 
 .input_text {
   width: 100%;
-  font-size: 30rpx;
+  font-size: 32rpx;
 }
 
 .input_title {
   width: 100%;
-  font-size: 32rpx;
+  font-size: 34rpx;
 }
 
 /*分割线*/
@@ -33,12 +33,12 @@
 
 /*占位符*/
 .placeholder_title{
-  font-size: 32rpx;
+  font-size: 34rpx;
   color: rgb(156, 156, 156);
 }
 
 .placeholder{
-  font-size: 30rpx;
+  font-size: 32rpx;
   color: rgb(156, 156, 156);
 }
 
@@ -78,7 +78,7 @@
   position: absolute;
   margin: 100rpx 0;
   background: #fafafa;
-  font-size: 28rpx;
+  font-size: 30rpx;
   border-radius: 15rpx;
   padding: 6rpx 10rpx 6rpx 10rpx;
 }
@@ -101,7 +101,7 @@
   flex: 1;
   width: 100%;
   margin-bottom: 20rpx;
-  font-size: 32rpx;
+  font-size: 34rpx;
 }
 
 /*输入金额*/
@@ -112,7 +112,7 @@
 }
 
 #price_text{
-  font-size: 32rpx;
+  font-size: 34rpx;
   font-weight: bold;
   color: #404969;
 }
@@ -129,7 +129,7 @@
   margin-top: 20rpx 0rpx;
   display: flex;
   direction: column;
-  font-size: 32rpx;
+  font-size: 34rpx;
 }
 .typeBlock{
   width: 50%;
@@ -155,13 +155,13 @@
   text-align: center;
   border-radius: 25rpx;
   padding: 3rpx 10rpx;
-  font-size: 30rpx;
+  font-size: 32rpx;
   border: 2rpx solid rgba(0,0,0,.3);
 }
 
 /*按钮*/
 .buttonSet{
-  margin: 30rpx 30rpx;
+  margin: 32rpx 32rpx;
   display: flex;
   direction: column;
 }
@@ -170,7 +170,7 @@
   display: flex;
   height: 80rpx;
   border-radius: 50rpx;
-  font-size: 32rpx;
+  font-size: 34rpx;
   align-items: center;
   justify-content: center;
   border: 2rpx solid rgba(0,0,0,.3);
@@ -230,7 +230,7 @@
   display: flex;
   height: 60rpx;
   border-radius: 50rpx;
-  font-size: 32rpx;
+  font-size: 34rpx;
   margin-top: 40rpx;
   align-items: center;
   justify-content: center;

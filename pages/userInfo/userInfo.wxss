@@ -95,30 +95,42 @@
 
 .cell{
   display: flex;
-  padding: 25rpx;
+  flex-direction:column;
   width:100%;
-  align-items: center;
+
   border-bottom: 1rpx solid rgb(243, 243, 243);
 }
 
+.item_view{
+  display:flex;
+  flex-direction: row;
+  padding-top: 25rpx;
+  padding-bottom: 25rpx;
+  padding-right: 40rpx;
+  padding-left: 35rpx;
+}
+
 .navi_icon {
-  margin:0 20rpx;
   width: 50rpx;
   height: 50rpx;
+  flex:1.5;
 }
 
 .navi_text{
+  margin-left: 40rpx;
   display:flex;
-  margin: 0rpx 5rpx;
   color:#404969;
+  flex:16;
   font-size:32rpx;
+  margin-top: 5rpx;
 }
 
 /*右边箭头*/
 .right_narrow {
+  margin-top: 10rpx;
   width: 32rpx;
+  flex:1;
   height: 32rpx;
-  margin-left:58%;
 }
 
 
