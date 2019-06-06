@@ -65,7 +65,7 @@
     </view>
     <view class = "band2"/>
 
-    <!--标签-->
+    <!--任务-->
     <view style = "display:flex; flex-direction:column" class = "title_detail">
       <text class = "title" style = "margin-top:20rpx;">任务地点</text>
       <input name="location" class = "input_text" placeholder="请输入任务地点" placeholder-class='placeholder' max_length = "50" bindinput="locationChange" value = "{{location_input}}"/>

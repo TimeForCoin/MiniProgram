@@ -108,31 +108,6 @@
   background: rgb(243, 243, 243);
 }
 
-/*自己的评论*/
-#mycomment{
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
-  display: flex;
-  flex-direction: row;
-}
-#comment_input{
-  flex:10;
-  font-size: 32rpx;
-  margin-top: 6rpx;
-  padding: 10rpx;
-  margin-right:20rpx;
-  background: rgba(231, 231, 231, 0.3);
-}
-
-#commit_btn{
-  flex:1;
-  border: 2rpx solid rgba(0,0,0,.3);
-  font-size: 28rpx;
-  padding: 0 15rpx;
-  border-radius: 20rpx;
-  background-color: #e0fcff;
-}
-
 #liuyan{
   padding-left: 30rpx;
   padding-right: 30rpx;
@@ -142,13 +117,7 @@
 
 /*他人评论部分*/
 .comment_user_info{
-  margin-top: 20rpx;
-  display: flex;
-  flex-direction: row;
-}
-
-.comment{
-  margin-left: 20rpx;
+  margin-top: 10rpx;
   display: flex;
   flex-direction: column;
 }
@@ -174,7 +143,97 @@
    border-radius: 50rpx;
 }
 
+/*自己的评论*/
+#mycomment_bottom{
+  background: #fff;
+  position:fixed;
+  bottom: 0rpx;
+  padding-bottom: 50rpx;
+  padding-top: 20rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  z-index: 9999;
+}
+#comment_input_bottom{
+  font-size: 32rpx;
+  margin-top: 6rpx;
+  padding: 10rpx 0rpx 10rpx 10rpx;
+  width: 75%;
+  background: rgba(231, 231, 231, 0.3);
+}
+
+#commit_btn_bottom{
+  border: 2rpx solid rgba(0,0,0,.3);
+  font-size: 32rpx;
+  padding: 0rpx 20rpx;
+  border-radius: 20rpx;
+  background-color: #e0fcff;
+}
+
 .btn_img{
   width: 50rpx;
   height: 50rpx;
+}
+
+/*任务类型*/
+.taskType{
+  margin: 10rpx 0rpx;
+  display: flex;
+  direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.taskBlock{
+  background: #fff;
+  margin-left: 10rpx;
+  margin-top: 10rpx;
+  text-align: center;
+  border-radius: 25rpx;
+  padding: 3rpx 10rpx;
+  font-size: 32rpx;
+  border: 2rpx solid rgba(0,0,0,.3);
+}
+
+/*自己的评论*/
+#mycomment{
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+}
+#comment_input{
+  flex:8;
+  font-size: 32rpx;
+  margin-top: 6rpx;
+  padding: 10rpx;
+  margin-right:10rpx;
+  background: rgba(231, 231, 231, 0.3);
+}
+
+#commit_btn{
+  flex:1;
+  border: 2rpx solid rgba(0,0,0,.3);
+  font-size: 32rpx;
+  padding: 0 15rpx;
+  border-radius: 20rpx;
+  background-color: #e0fcff;
+}
+
+/*评论相关参数*/
+.comment_type_view{
+  display:flex;
+  flex-direction:row;
+  justify-content: flex-end;
+  width: 250rpx;
+  margin-left: 60rpx;
+}
+
+.comment_ava{
+  width:85rpx;
+  height: 85rpx;
+  margin-left: 20rpx;
 }
