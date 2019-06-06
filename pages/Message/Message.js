@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    showSystemInfo: false,
+    
   },
 
   /**
@@ -62,5 +63,12 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  /*选择个人或者系统信息*/
+  chooceSystemInfo: function(e){
+    this.setData({ showSystemInfo: true });
+  },
+  choocePersonalInfo: function(e){
+    this.setData({showSystemInfo: false});
   }
 })

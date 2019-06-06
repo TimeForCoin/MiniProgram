@@ -1,38 +1,18 @@
-<!--pages/AddedItems/AddedItems.wxml-->
+<!--pages/Message/Message.wxml-->
 <view id = "container">
   <view id = "top">
-    <view id = "search_view">
-      <image src = "/images/icons/search.png" class = "search_logo" />
-      <input name="search_input" class="input_title" placeholder="搜索 任务" maxlength='20'/>
-      <image src = "/images/icons/empty.png" class = "search_logo" />
-    </view>
-    <!-- 排序 -->
+    <!-- 类型选择 -->
     <view class = "sort-wrap">
-      <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0">
-        <text>菜</text>
-        <view class = "img_set">
-          <image src="/images/icons/up.png" class = "sort_img img_up" />
-          <image src="/images/icons/down.png" class = "sort_img img_down"/>
-        </view>
+      <view class='sort-btn' bindtap='choocePersonalInfo'>
+        <text style = "color: {{showSystemInfo ? 'gray' : '#ff7e67'}}">个人消息</text>
       </view>
 
-      <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0">
-        <text>虚</text>
-        <view class = "img_set">
-          <image src="/images/icons/up.png" class = "sort_img img_up" />
-          <image src="/images/icons/down.png" class = "sort_img img_down"/>
-        </view>
-      </view>
-
-      <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0">
-        <text>坤</text>
-        <view class = "img_set">
-          <image src="/images/icons/up.png" class = "sort_img img_up" />
-          <image src="/images/icons/down.png" class = "sort_img img_down"/>
-        </view>
+      <view class='sort-btn' bindtap = 'chooceSystemInfo'>
+        <text style = "color: {{!showSystemInfo ? 'gray' : '#ff7e67'}}">系统消息</text>
       </view>
     </view>
   </view>
+  <view class = "band2" />
 
   <!--下面内容-->
     <view id = "list">
