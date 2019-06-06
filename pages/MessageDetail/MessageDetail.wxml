@@ -1,0 +1,14 @@
+<!--pages/MessageDetail/MessageDetail.wxml-->
+<view class = "messageDetail">
+  <!--显示时间-->
+  <text class = "showTime"> 2019-06-01 12:00</text>
+  <!--单独一个对话-->
+  <view class = "singleDialog">
+    <image class = "ava" src = "/images/index_sample.jpg" />
+    <view class = "details">
+      <text class = "username">chensh236</text>
+      <text class = "content">iloveyou</text>
+    </view>
+  </view>
+
+</view>

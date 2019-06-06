@@ -1,45 +1,77 @@
 <!--index.wxml-->
-<view id = "container">
-  <image src = "/images/index_sample.jpg" id = "top_image"/>
+<view id="container">
+  <swiper class="top_image" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+    <block wx:for="{{top_images}}" wx:key="index">
+      <swiper-item>
+        <image src="{{item.url}}" class="slide-image" mode="aspectFill" data-previewurl='{{top_images.url}}'
+          data-currenturl='{{item}}' />
+      </swiper-item>
+    </block>
+  </swiper>
   <!--标签页-->
   <view class="swiper-tab">
-    <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">类型1</view>
-    <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">类型2</view>
-    <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">类型3</view>
-    <view class="swiper-tab-list {{currentTab==3 ? 'on' : ''}}" data-current="3" bindtap="swichNav">类型4</view>
+    <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">推荐</view>
+    <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">跑腿</view>
+    <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">信息</view>
+    <view class="swiper-tab-list {{currentTab==3 ? 'on' : ''}}" data-current="3" bindtap="swichNav">问卷</view>
   </view>
 
-  <view class = "list_container">
-    <view class = "loading_view">
-      <image class="loading" src="/images/icons/loading.png"></image>
-      <text class = "subtext">正在载入更多...</text>
-    </view>
-
-    <!--left-->
-    <view class="list_left">
-      <view class="list_item">
-        <image src = "/images/index_sample.jpg" class = "item_img" mode = "aspectFill"/>
-        <view class = "info">
-          <text class = "info_title" maxlength = "18" >蔡徐坤蔡徐坤蔡徐坤蔡徐坤蔡徐坤蔡徐坤</text>
-          <!--金额-->
-          <view style = "margin-top: 10rpx;">
-            <image src = "/images/icons/price.png" class = "money_img" />
-            <text classs = "money_text">999</text>
-            <text class = "payType">积分</text>
+  <view class="list_container">
+    <view style="display:flex; flex-direction: row;">
+      <view style="display:flex; flex-direction: column;">
+        <!--left-->
+        <view class="list_left" wx:for="{{show_list_left}}" wx:key="id">
+          <view class="list_item">
+            <image src="{{item.attachment[0].id}}" class="item_img" mode="aspectFill" />
+            <text class="info_title">{{item.title}}</text>
+            <view class="info">
+              <!--金额-->
+              <view style="margin-top: 10rpx;">
+                <image src="/images/icons/price.png" class="money_img" wx:if="{{item.reward != 'physical'}}" />
+                <text classs="money_text">{{item.reward == 'physical' ? item.reward_object : item.reward_value}}</text>
+                <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'physical'? '实物' : '闲币' }}</text>
+              </view>
+              <view class="band1" />
+              <view style="display: flex; flex-direction: row;">
+                <image src="{{item.publisher.avatar}}" class="item_touxiang" />
+                <text class="item_owner">{{item.publisher.nickname}}</text>
+              </view>
+            </view>
           </view>
-          <view class = "band1"/>
-          <view style = "display: flex; flex-direction: row;">
-            <image src = "/images/index_sample.jpg" class = "item_touxiang" />
-            <text class = "item_owner">蔡徐坤他妈</text>
+        </view>
+      </view>
+      <!--right-->
+      <view style="display:flex; flex-direction: column; ">
+        <view class="list_right" wx:for="{{show_list_left}}" wx:key="id">
+          <view class="list_item">
+            <image src="{{item.attachment[0].id}}" class="item_img" mode="aspectFill" />
+            <text class="info_title">{{item.title}}</text>
+            <view class="info">
+              <!--金额-->
+              <view style="margin-top: 10rpx;">
+                <image src="/images/icons/price.png" class="money_img" wx:if="{{item.reward != 'physical'}}" />
+                <text classs="money_text">{{item.reward == 'physical' ? item.reward_object : item.reward_value}}</text>
+                <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'physical'? '实物' : '闲币' }}</text>
+              </view>
+              <view class="band1" />
+              <view style="display: flex; flex-direction: row;">
+                <image src="{{item.publisher.avatar}}" class="item_touxiang" />
+                <text class="item_owner">{{item.publisher.nickname}}</text>
+              </view>
+            </view>
           </view>
         </view>
       </view>
     </view>
-    <text class = "subtext" style = "margin-top: 40rpx;">没有更多了~</text>
+    <view class="loading_view" wx:if="{{isLoading}}">
+      <image class="loading" src="/images/icons/loading.png"></image>
+      <text class="subtext">正在载入更多...</text>
+    </view>
+    <text class="subtext" style="margin-top: 40rpx;" wx:if="{{noMore}}">没有更多了~</text>
   </view>
 </view>
 
-<image src="{{userInfo.info.avatar}}" />
-<p>{{userInfo.info.nickname}}</p>
+<!-- <image src="{{userInfo.info.avatar}}" /> -->
+<!-- <p>{{userInfo.info.nickname}}</p>
 <p>{{userInfo.info.location}}</p>
-<button open-type="getUserInfo" bindgetuserinfo="setUserInfo">获取用户信息</button>
+<button open-type="getUserInfo" bindgetuserinfo="setUserInfo">获取用户信息</button> -->

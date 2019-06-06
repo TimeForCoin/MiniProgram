@@ -4,13 +4,6 @@
   flex-direction: column;
 }
 
-#search_view{
-  background-color: rgba(231, 231, 231, 0.3);
-  display: flex;
-  margin: 10rpx 40rpx 10rpx 40rpx;
-  flex-direction: row;
-}
-
 #top{
   display: flex;
   flex-direction: column;
@@ -22,14 +15,8 @@
   flex:16;
   margin-top: 13rpx;
 }
-.search_logo{
-  width: 32rpx;
-  height:32rpx;
-  flex:1;
-  margin: 20rpx 20rpx;
-}
 
-/*排序部分*/
+/*选择部分*/
 .sort-wrap{
   display: flex;
   flex-direction: row;
@@ -40,10 +27,11 @@
 
 .sort-btn{
   display: flex;
-  font-size: 28rpx;
-  color: gray;
+  font-size: 32rpx;
   flex-direction: row;
   flex: 1;
+  padding-top: 25rpx;
+  padding-bottom: 20rpx;
   justify-content: center;
   justify-items: center;
 }
@@ -94,6 +82,15 @@
   margin-top: 5rpx;
   background: rgb(243, 243, 243);
 }
+
+/*分割线*/
+.band2{
+  width:100%;
+  height: 20rpx;
+  margin-top: 5rpx;
+  background: rgb(243, 243, 243);
+}
+
 
 .basic_info{
   margin-left: 20rpx;

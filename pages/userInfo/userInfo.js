@@ -25,15 +25,15 @@ Page({
     }],
 
     nav_b: [{
-      id: 1,
-      name: "客服妹妹",
-      url: "/pages/SearchResult/SearchResult"
+      id: 4,
+      name: "个人信息设置",
+      url: "infoSettings"
     }, {
-      id: 2,
+      id: 5,
       name: "安全中心",
       url: "/pages/SearchResult/SearchResult"
     }, {
-      id: 3,
+      id: 6,
       name: "我的设置",
       url: "/pages/SearchResult/SearchResult"
     }],
@@ -253,5 +253,24 @@ Page({
       })
       console.log(this.data.userInfo);
     })
+  },
+
+  // 跳转
+  navigate: function(e){
+    console.log(e);
+    if(e.currentTarget.dataset.item == "1"){
+      this.setData({ isEditInfo: true});
+    } else if (e.currentTarget.dataset.item == "2") {
+      this.setData({ isEditInfo: true });
+    } else if (e.currentTarget.dataset.item == "3") {
+      this.setData({ isEditInfo: true });
+    } else if (e.currentTarget.dataset.item == "4") {
+      this.setData({isEditInfo: true});
+      this.setData({ isEditInfo: true });
+    } else if (e.currentTarget.dataset.item == "5") {
+      this.setData({ isEditInfo: true });
+    } else if(e.currentTarget.dataset.item == "6"){
+      this.setData({ isEditInfo: true });
+    }
   }
 })

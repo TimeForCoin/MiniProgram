@@ -161,7 +161,10 @@
 
 /*按钮*/
 .buttonSet{
-  margin: 32rpx 32rpx;
+  margin-top: 40rpx;
+  margin-bottom: 60rpx;
+  margin-left: 40rpx;
+  margin-right: 40rpx;
   display: flex;
   direction: column;
 }

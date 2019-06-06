@@ -221,3 +221,7 @@ color: grba(128, 128, 128, 0.5);
   width: 25rpx;
   height: 15rpx;
 }
+
+.item_view:active{
+  background-color: rgb(243, 243, 243);
+}

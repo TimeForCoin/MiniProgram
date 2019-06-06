@@ -26,24 +26,24 @@
         <view class = "band"></view>
         <view wx:for = "{{nav_a}}" wx:key = "item.id" class = "cell">
           <!-- <image class="navi_icon" src="/images/userInfo/navi_1_{{item.id}}.png" /> -->
-          <navigator url = "{{item.url}}" class = "item_view">
+          <view class = "item_view" data-item = "{{item.id}}" bindtap='navigate'>
             <image class="navi_icon" src="/images/icons/{{item.src}}.png" />
             <text class="navi_text">{{item.name}}</text>
             <image class = "right_narrow" src="/images/icons/narrow.png" />
-          </navigator>
+          </view>
         </view>
       </view>
 
       <!--第二组导航-->
       <view class='navi_cells'>
       <view class = "band"></view>
-        <view wx:for = "{{nav_a}}" wx:key = "item.id" class = "cell">
+        <view wx:for = "{{nav_b}}" wx:key = "item.id" class = "cell" >
           <!-- <image class="navi_icon" src="/images/userInfo/navi_1_{{item.id}}.png" /> -->
-          <navigator url = "{{item.url}}" class = "item_view">
+          <view class = "item_view" data-item = "{{item.id}}" bindtap='navigate'>
             <image class="navi_icon" src="/images/icons/{{item.src}}.png" />
             <text class="navi_text">{{item.name}}</text>
             <image class = "right_narrow" src="/images/icons/narrow.png" />
-          </navigator>
+          </view>
         </view>
         <view class = "band"></view>
       </view>

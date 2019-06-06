@@ -5,12 +5,19 @@
   flex-direction: column;
   padding: 10rpx 0rpx;
 }
-#top_image{
-  width: 480 rpx;
-  height: 320 rpx;
-  border-radius: 3%;
-  margin: auto;
+.top_image{
+  width:90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  height:320rpx;
 }
+
+.slide-image{
+  height: 100%;
+  width: 100%;
+  border-radius: 2%;
+}
+
 /*标签页切换*/
 .swiper-tab {
   background-color: rgb(243, 243, 243);
@@ -69,17 +76,26 @@
 
 /*下方表格部分*/
 .list_left {
-  width: 350rpx;
-  margin: 20rpx 0rpx 0rpx 30rpx;
+  width: 30%;
+  margin: 20rpx 0rpx 0rpx 10rpx;
   display: inline-block;
   vertical-align: top;
 }
 
+.list_right {
+  width: 30%;
+  margin: 20rpx 10rpx 0rpx 20rpx;
+  display: inline-block;
+  vertical-align: top;
+}
+
+
 .list_item {
   margin: 15rpx 0 0 0;
   border-radius: 15rpx;
-  height: 480rpx;
   width: 350rpx;
+  display: flex;
+  flex-direction: column;
   box-shadow: 2px 2px 2px 2px rgba(0,0,0,.3);
 }
 .item_img{
@@ -98,16 +114,22 @@
 }
 
 .info{
-  background-color: #fff;
   display: flex;
   flex-direction: column;
   text-align: left;
+  justify-content: flex-end;
+  margin-bottom: 10rpx;
   margin-left: 15rpx;
+  height: 150rpx;
   margin-right: 15rpx;
 }
 
 .info_title{
   font-size: 32rpx;
+  margin-left: 15rpx;
+  margin-top: 20rpx;
+  text-align: left;
+  width: 320rpx;
   font-weight: bold;
 }
 
