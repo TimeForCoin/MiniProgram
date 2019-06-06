@@ -1,11 +1,10 @@
 {
   "pages": [
+    "pages/userInfo/userInfo",
     "pages/AddItem/AddItem",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/userInfo/userInfo",
     "pages/SearchResult/SearchResult",
-    
     "pages/Detail/Detail",
     "pages/Message/Message"
   ],

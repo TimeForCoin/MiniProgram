@@ -6,17 +6,17 @@
       <view wx:if="{{hasUserInfo}}">
        <!--头像部分-->
           <view id = "head_basic">
-            <image wx:if="{{hasUserInfo}}" class="head" src="/images/touxiang.jpg" />
+            <image wx:if="{{hasUserInfo}}" class="head" src="{{userInfo.info.avatar}}" />
             <image wx:else class="head" src="/images/touxiang.jpg" bindtap='bindLogin' />
           </view>
         <view class = "info_view">
-          <text class = "info_text" style = "font-weight:bold">蔡徐坤</text>
+          <text class = "info_text" style = "font-weight:bold">{{userInfo.info.nickname}}</text>
         </view>
         <view class = "info_view">
-          <text class = "info_text">卢本伟牛逼</text>
+          <text class = "info_text">国家：{{userInfo.info.location}}</text>
         </view>
       </view>
-      <view wx:else id = "login">点击头像登录</view>
+      <view wx:else id = "login" bindtap="getUserData">点击此处登录</view>
     </view>
   </view>
   <!--下半部分-->
@@ -49,8 +49,8 @@
 
 
 <!--对话框-->
-<view class="modalDialog" wx:if="{{showModal}}">
-  <image src = "/images/icons/close.png" class = "close" />
+<view class="modalDialog" wx:if="{{isEditInfo}}">
+  <image src = "/images/icons/close.png" class = "close" bindtap = "closeEditPage"/>
   <scroll-view scroll-y style = "height:800rpx;" >
     <view id = "insideContainer">
       <view style = "margin: 10rpx auto 0rpx auto;">
@@ -58,24 +58,33 @@
         <text style = "font-size: 20rpx;color: gray; margin-left : 10rpx;">上滑</text>
       </view>
       <image src = "/images/index_sample.jpg" class = "ava" />
-      <text class = "title">用户名</text>
-      <input name="username" class="input_setting" placeholder="用户名" maxlength='20'/>
+      <text class = "title">昵称</text>
+      <input name="username" class="input_setting" placeholder="请输入昵称" maxlength='25' value = "{{nickname}}" bindinput = "changeNickname"/>
       <view class = "band1"/>
-  
       <text class = "title">性别</text>
-      <radio-group name="radio-group" class = "info_text" style = "margin-left: 60rpx;">
-        <label><radio value="Gentleman" />Gentleman</label>
-        <label style = "margin-left:20rpx;"><radio value="Lady"/>Lady</label>
+      <radio-group name="radio-group" class = "info_text" style = "margin-left: 60rpx; display:flex; flex-direction:row;" bindchange = "changeGender">
+        <label class="radio"wx:for="{{gender_items}}" wx:key="val" >
+          <view><radio color="#ff7e67" value="{{item.val}}" style = "margin-left:50rpx;"/>{{item.val}}</view>
+        </label>
       </radio-group>
+      <text class = "title">个人简介</text>
+      <textarea name="bio" class="input_setting" placeholder="请输入个人简介" maxlength='128' value = "{{bio}}" bindinput = "changeBio" style = "height: 150rpx; width:80%; word-wrap:break-word"/>
+      <view class = "band1"/>
+      <text class = "title">邮箱</text>
+      <input name="email" class="input_setting" placeholder="请输入邮箱" maxlength='25' value = "{{email}}" bindinput = "changeEmail"/>
+      <view class = "band1"/>
       <text class = "title">手机号码</text>
-      <input name="phone" class="input_setting" type='digit' placeholder="手机号码" maxlength='15'/>
+      <input name="phone" class="input_setting" type='digit' placeholder="手机号码" maxlength='15' value = "{{phone}}" bindinput = "changePhone"/>
+      <view class = "band1"/>
+      <text class = "title">学校</text>
+      <input name="school" class="input_setting" placeholder="请输入您的学校" maxlength='25' value = "{{school}}" bindinput = "changeSchool"/>
       <view class = "band1"/>
       <text class = "title">地址</text>
-      <input name="address" class="input_setting" placeholder="您的地址" maxlength='20'/>
+      <textarea name="address" class="input_setting" placeholder="请输入您的地址" maxlength='32' value = "{{location}}" bindinput = "changeLocation" style = "height: 80rpx; width:80%; word-wrap:break-word"/>
       <view class = "band1"/>
       <button class='submit_btn' bindtap="submit">提交</button>
     </view>
   </scroll-view>
 </view>
 <!--蒙板-->
-<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"/>
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{isEditInfo}}"/>

@@ -39,7 +39,7 @@
   </view>
 </view>
 
-<!-- <image src="{{userInfo.info.avatar}}" />
+<image src="{{userInfo.info.avatar}}" />
 <p>{{userInfo.info.nickname}}</p>
 <p>{{userInfo.info.location}}</p>
-<button open-type="getUserInfo" bindgetuserinfo="setUserInfo">获取用户信息</button> -->
+<button open-type="getUserInfo" bindgetuserinfo="setUserInfo">获取用户信息</button>

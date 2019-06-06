@@ -12,7 +12,8 @@ Page({
     reward_value: 0,
     reward_object: "",
     reward_input: "",
-    location: "",
+    location_input: "",
+    location: [],
     tags: [],
     tags_input: "",
     start_date: 0,
@@ -33,7 +34,8 @@ Page({
     errStr: "",
     isErr: false,
     isSubmit: false,
-    isSave: false
+    isSave: false,
+    file : {}
   },
 
   /**
@@ -137,8 +139,20 @@ Page({
     console.log("reward_object:" + this.data.reward_object);
   },
 
+  splitData: function(str){
+    var origin = str.split(/[,|，]/);
+    var arr = [];
+    for (var val of origin) {
+      if (val != "" && val != undefined) {
+        arr.push(val);
+      }
+    }
+    return arr;
+  },
   locationChange: function(e){
-    this.setData({location: e.detail.value});
+    this.data.location = this.splitData(e.detail.value);
+    this.setData({location_input: e.detail.value});
+    console.log("number of logs:" + this.data.location.length);
     console.log("location: " + this.data.location);
   },
 
@@ -149,15 +163,7 @@ Page({
   },
   
   tagsChange: function(e){
-    this.data.tags = e.detail.value.split(/[,|，]/);
-    /*去除空字符串*/
-    var arr = [];
-    for (var val of this.data.tags){
-      if (val != "" && val != undefined){
-        arr.push(val);
-      }
-    }
-    this.data.tags = arr;
+    this.data.tags = this.splitData(e.detail.value);
     console.log("number of logs:" + this.data.tags.length);
     this.setData({ tags_input: e.detail.value});
     console.log("tags:" + this.data.tags);
@@ -189,7 +195,6 @@ Page({
     //     break;
     //   }
     // }
-    console.log(e);
     if (e.detail.value == '是') this.data.auto_accept = true;
     else this.data.auto_accept = false;
     console.log("是否同意加入" + this.data.auto_accept);
@@ -245,7 +250,7 @@ Page({
   },
   makeFile:function(flag){
     // 生成json
-    var file = {
+    this.data.file = {
       "title": this.data.title,
       "content": this.data.describe,
       "attachment": this.data.attachment,
@@ -253,9 +258,7 @@ Page({
       "reward": this.data.reward,
       "reward_value": this.data.reward_value,
       "reward_object": this.data.reward_object,
-      "location": [
-        "中山大学"
-      ],
+      "location": this.data.location,
       "tags": this.data.tags,
       "top_time": 0,
       "start_date": this.data.start_date,
@@ -265,6 +268,7 @@ Page({
       "auto_accept": this.data.auto_accept,
       "publish": flag
     }
+    console.log(this.data.file);
   },
   /*提交*/
   formSubmit: function(e){

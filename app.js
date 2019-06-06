@@ -61,7 +61,7 @@ App({
   },
 
   globalData: {
-    userInfo: null,
+    userInfo: {},
     hasUserInfo: false,
     sessionId: null,
     major: ["数计院", "管理学院", "岭南学院", "工学院", "微电子学院", "其他"],
