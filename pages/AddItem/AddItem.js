@@ -8,25 +8,31 @@ Page({
     title: "",
     describe: "",
     type: "run",
-    reward: "",
-    reward_value: "",
+    reward: "money",
+    reward_value: 0,
+    reward_object: "",
+    reward_input: "",
     location: "",
     tags: [],
+    tags_input: "",
     start_date: 0,
     end_date: 0,
     max_player: 0,
     startDate: "2019-06-01",
-    endDate: "2019-06-02",
+    endDate: "2019-06-01",
     startTime: "0:00",
     endTime:"0:00",
-    max_player: "3",
+    max_player_input: "",
+    max_player: 0,
     auto_in:[
       { val:'是', checked:'true'},
       { val:'否'},
     ],
     auto_accept: true,
     publish: true,
-    attachment: []
+    attachment: [],
+    errStr: "",
+    isErr: false
   },
 
   /**
@@ -93,7 +99,7 @@ Page({
 
   describeChange: function (e) {
     this.data.describe = e.detail.value;
-    console.log("title:" + this.data.describe);
+    console.log("describe:" + this.data.describe);
   },
 
   /*修改任务分类*/
@@ -123,23 +129,37 @@ Page({
     console.log("选择physical");
   },
   priceChange: function(e){
-    this.setData({reward_value: e.detail.value});
-    console.log(this.data.reward_value);
+    this.setData({reward_input: e.detail.value});
+    if (this.data.reward == "physical") this.data.reward_object = this.data.reward_input;
+    else this.data.reward_value = parseInt (this.data.reward_input);
+    console.log("reward_value:" + this.data.reward_value);
+    console.log("reward_object:" + this.data.reward_object);
   },
 
   locationChange: function(e){
     this.setData({location: e.detail.value});
-    console.log(this.data.location);
+    console.log("location: " + this.data.location);
   },
 
   max_playerChange: function(e){
-    this.setData({max_player: e.detail.value});
-    console.log(this.data.max_player);
+    this.setData({max_player_input: e.detail.value});
+    this.data.max_player = parseInt(max_player_input);
+    console.log("max_player:" + this.data.max_player);
   },
-
-  tagesChange: function(e){
-    tags = e.detail.value.split(";");
-    console.log(this.data.tags);
+  
+  tagsChange: function(e){
+    this.data.tags = e.detail.value.split(/[,|，]/);
+    /*去除空字符串*/
+    var arr = [];
+    for (var val of this.data.tags){
+      if (val != "" && val != undefined){
+        arr.push(val);
+      }
+    }
+    this.data.tags = arr;
+    console.log("number of logs:" + this.data.tags.length);
+    this.setData({ tags_input: e.detail.value});
+    console.log("tags:" + this.data.tags);
   },
   
   changeBeginDate(e) {
@@ -171,8 +191,55 @@ Page({
     console.log(e);
     if (e.detail.value == '是') this.data.auto_accept = true;
     else this.data.auto_accept = false;
-    console.log("是否同意加入" + this.data.auto_in_choice);
+    console.log("是否同意加入" + this.data.auto_accept);
+  },
+  formSubmit: function(e){
+    // 空判断
+    if(this.data.title == ""){
+      this.setData({isErr : true});
+      this.setData({errStr: "标题为空"});
+      return;
+    }
+
+    if (this.data.describe == "") {
+      this.setData({ isErr: true });
+      this.setData({ errStr: "内容为空" });
+      return;
+    }
+
+    if (this.data.max_player <= 0) {
+      this.setData({ isErr: true });
+      this.setData({ errStr: "人数上限输入错误" });
+      return;
+    }
+
+    if (this.data.reward_value <= 0 && (this.data.reward == "money" || this.data.reward == "rmb")) {
+      this.setData({ isErr: true });
+      this.setData({ errStr: "交易金额输入错误" });
+      return;
+    }
+
+    if (this.data.reward_object == "" && this.data.reward == "physical") {
+      this.setData({ isErr: true });
+      this.setData({ errStr: "交易物品输入错误" });
+      return;
+    }
+
+    if (this.data.location == "") {
+      this.setData({ isErr: true });
+      this.setData({ errStr: "地点为空" });
+      return;
+    }
+
+    var st = new Date(this.data.startDate + 'T' + this.data.startTime + ":00");
+    var et = new Date(this.data.endDate + 'T' + this.data.endTime + ":00");
+    console.log(st);
+  },
+  save: function(e){
+
   }
+
+  
 
 
 })
