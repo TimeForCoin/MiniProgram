@@ -9,8 +9,7 @@ Page({
     describe: "",
     type: "run",
     reward: "",
-    reward_value: 0,
-    rewardobject: "",
+    reward_value: "",
     location: "",
     tags: [],
     start_date: 0,
@@ -123,8 +122,26 @@ Page({
     this.setData({ reward: "physical" });
     console.log("选择physical");
   },
+  priceChange: function(e){
+    this.setData({reward_value: e.detail.value});
+    console.log(this.data.reward_value);
+  },
 
+  locationChange: function(e){
+    this.setData({location: e.detail.value});
+    console.log(this.data.location);
+  },
 
+  max_playerChange: function(e){
+    this.setData({max_player: e.detail.value});
+    console.log(this.data.max_player);
+  },
+
+  tagesChange: function(e){
+    tags = e.detail.value.split(";");
+    console.log(this.data.tags);
+  },
+  
   changeBeginDate(e) {
     this.setData({ startDate: e.detail.value });
   },

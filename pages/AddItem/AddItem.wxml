@@ -60,7 +60,7 @@
       <view style = "display:flex; direction:column">
       <view id = "price_set">
         <image src="/images/icons/price.png" style = "display:{{reward == 'physical'? 'none' : 'block'}}" id = "price_logo"/>
-        <input name="price" type="{{reward == 'physical'? 'text' : 'digit'}}" id = "price_text" placeholder="{{reward == 'physical'? '请输入物品' : '0.00'}}" placeholder-class='placeholder' maxlength='11' /></view>
+        <input name="price" type="{{reward == 'physical'? 'text' : 'digit'}}" id = "price_text" placeholder="{{reward == 'physical'? '请输入物品' : '0.00'}}" placeholder-class='placeholder' maxlength='11' bindinput = "priceChange" value = "{{reward_value}}" /></view>
       </view>
     </view>
     <view class = "band2"/>
