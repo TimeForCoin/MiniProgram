@@ -28,7 +28,7 @@ Page({
       },
       "data": [
         {
-          "id": "5c9ecbbba4a3f52e3195fa68",
+          "id": "5c9ecbbba4a13f52e3195fa68",
           "publisher": {
             "id": "5c9ecbbba4a3f52e3195fa68",
             "nickname": "tp",
@@ -73,7 +73,7 @@ Page({
           "like": false
         },
         {
-          "id": "5c9ecbbba4a3f52e3195fa68",
+          "id": "5c9ecbbba24a3f52e3195fa68",
           "publisher": {
             "id": "5c9ecbbba4a3f52e3195fa68",
             "nickname": "vtp",
@@ -242,5 +242,10 @@ Page({
   // }
   onReachBottom(){
     this.setData({isLoading: true});
+  },
+  navigateToDetail: function(e){
+    wx.navigateTo({
+      url: '/pages/Detail/Detail?id=' + e.currentTarget.item,
+    });
   }
 })

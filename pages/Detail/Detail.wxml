@@ -1,74 +1,112 @@
 <!--pages/Detail/Detail.wxml-->
-<view id = "top">
-  <view id = "user_info">
-    <image src = "/images/index_sample.jpg" id = "touxiang"/>
-    <view id = "user_basic_info">
-      <text id = "username" class = "title">菜徐坤</text>
-      <text id = "location" class = "subtitle">火星</text>
+<view id="top">
+  <view id="user_info">
+    <image src="{{testSameple.data.publisher.avatar}}" id="touxiang" />
+    <view id="user_basic_info">
+      <text id="username" class="title">{{testSameple.data.publisher.nickname}}</text>
+      <text id="location" class="subtitle">{{testSameple.data.location[0]}}</text>
     </view>
   </view>
-  <view class = "band1"/>
-  <view id = "price_like">
-    <view id = "like_view">
+  <view class="band1" />
+  <view id="price_like">
+    <view id="like_view">
+      <!--阅读-->
       <view>
-        <text style = "font-size: 24rpx; color:gray;">点赞数 </text>
-        <text id = "like" class = "subtitle">13</text>
-     </view>
-     <view>
-        <text class = "subtitle" style = "font-size: 24rpx; margin-left: 15rpx; color:gray;">阅读量 </text>
-        <text id = "like" class = "subtitle">13</text>
-     </view>
+        <image src="/images/icons/read_top.png" style="width: 32rpx; height:32rpx; margin-top: 5rpx;" />
+        <text class="subtitle" style="margin-left: 10rpx;">{{testSameple.data.view_count}}</text>
+      </view>
+      <!--收藏-->
+      <view>
+        <image src="/images/icons/collected_top.png"
+          style="width: 32rpx; height:32rpx; margin-top: 10rpx; margin-left: 15rpx;" />
+        <text class="subtitle" style="margin-left: 10rpx;">{{testSameple.data.collect_count}}</text>
+      </view>
+      <!--喜欢-->
+      <view>
+        <image src="/images/icons/liked_top.png"
+          style="width: 32rpx; height:32rpx; margin-top: 10rpx; margin-left: 15rpx;" />
+        <text class="subtitle" style="margin-left: 10rpx;">{{testSameple.data.like_count}}</text>
+      </view>
     </view>
-    <view id = "price_view">
-      <image src = "/images/icons/price.png" id = "money"/>
-      <text id = "price">9999</text>
-      <text id = "payType">积分</text>
+
+    <view id="price_view">
+      <image src="/images/icons/price.png" id="money" wx:if="{{testSameple.data.reward != 'physical'}}" />
+      <text
+        id="price">{{testSameple.data.reward == 'physical' ? testSameple.data.reward_object : testSameple.data.reward_value}}</text>
+      <text
+        class = "payType">{{reward == 'rmb' ? '人民币' : testSameple.data.reward == 'physical'? '实物' : '闲币' }}</text>
+      <text
+        class = "payType">{{testSameple.data.status == 'wait' ? '等待' : testSameple.data.status == 'run' ? '执行中' : testSameple.data.status == 'close'? '已关闭' : testSameple.data.status == 'finish'? '已完成' : testSameple.data.status == 'overdue' ? '已过期' : '草稿'}}</text>
+      <text
+        class = "payType">{{testSameple.data.type == 'run' ? '跑腿任务' : testSameple.data.type == 'questionnaire' ? '问卷任务' : '信息任务' }}</text>
     </view>
-    <view id = "imgs">
+  </view>
+  <!--滚动显示图片-->
+  <swiper class="imgs" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+    <block wx:for="{{testSameple.data.attachment}}" wx:key="id">
+      <swiper-item>
+        <image src="{{item.id}}" class="slide-image" mode="aspectFill"
+          data-previewurl='{{testSample.data.attachment.id}}' />
+      </swiper-item>
+    </block>
+  </swiper>
+  <!--主体内容-->
+  <view style="display:flex; flex-direction:column; margin-left:20rpx; margin-right:20rpx;">
+    <view class = "content_list">
+      <text class="title" style = "color: #ff7e67;">人数：</text>
+      <text class="title">{{testSameple.data.player_count}} / {{testSameple.data.max_player}}</text>
     </view>
-    <text id = "details" class = "title details">我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是徐坤我是蔡徐坤我是蔡徐坤我徐坤我是蔡徐坤我是蔡徐坤我徐坤我是蔡徐坤我是蔡徐坤我蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤我是蔡徐坤</text>
+    <view class = "content_list">
+      <text class="title" style = "color: #ff7e67;">自动接受：</text>
+      <text class="title">{{testSameple.data.auto_accept? '是' : '否'}}</text>
+    </view>
+    <view class = "content_list">
+      <text class="title" style = "color: #ff7e67;">当前人数：</text>
+      <text class="title">{{testSameple.data.player_count}}</text>
+    </view>
+    <text class="title content_list">{{testSameple.data.content}}</text>
   </view>
 </view>
-<view class = "band2"/>
+<view class="band2" />
 <!--他人留言-->
-<view id = "liuyan">
-  <view style = "display: flex; flex-direction: row; margin-top: 10rpx;">
-    <text class = "title" style = "font-weight: bold">留言  (</text>
-    <text id = "total" style = "font-weight: bold" class = "title">1</text>
-    <text class = "title" style = "font-weight: bold">)</text>
+<view id="liuyan">
+  <view style="display: flex; flex-direction: row; margin-top: 10rpx;">
+    <text class="title" style="font-weight: bold">留言 (</text>
+    <text id="total" style="font-weight: bold" class="title">{{testSameple.data.comment_count}}</text>
+    <text class="title" style="font-weight: bold">)</text>
   </view>
-  <view class = "band1"/>
+  <view class="band1" />
   <!--自己的留言-->
-  <view id = "mycomment">
-    <input id = "comment_input" placeholder='输入你的评论吧~' bindinput='inputChange' value='{{cmt}}' maxlength='15' />
-    <button id = "commit_btn">发送</button>
+  <view id="mycomment">
+    <input id="comment_input" placeholder='输入你的评论吧~' bindinput='inputChange' value='{{cmt}}' maxlength='15' />
+    <button id="commit_btn">发送</button>
   </view>
-  <view class = "band1" />
-   <!-- <view class="sell_uploader_imgbox" wx:for="{{files}}" wx:key="*this">
+  <view class="band1" />
+  <!-- <view class="sell_uploader_imgbox" wx:for="{{files}}" wx:key="*this">
           <image class="sell_uploader_img{{index===0?'_cover':''}}" bindtap="previewImage" src="{{item}}" data-index="{{index}}" mode="aspectFill" />
           <image class="sell_uploader_img_del" bindtap="deleteImage" data-index="{{index}}" src="/images/icons/delete.png"/>
     </view> -->
-    <!--测试图片-->
-    <view style = "display:flex; flex-direction:column">
-      <view class = "comment_user_info">
-        <image src = "/images/index_sample.jpg" style = "width:60rpx; height: 60rpx"/>
-        <view class = "comment">
-          <text class = "username subtitle" style = "margin-top:10rpx;">用户名</text>
-          <text class = "comment_text title" style = "margin-top:10rpx; margin-left:20rpx;">我是蔡徐坤</text>
-          <text class = "date subtitle" style = "margin-top:10rpx;">2019-6-21</text>
-        </view>
+  <!--测试图片-->
+  <view style="display:flex; flex-direction:column">
+    <view class="comment_user_info">
+      <image src="/images/index_sample.jpg" style="width:60rpx; height: 60rpx" />
+      <view class="comment">
+        <text class="username subtitle" style="margin-top:10rpx;">用户名</text>
+        <text class="comment_text title" style="margin-top:10rpx; margin-left:20rpx;">我是蔡徐坤</text>
+        <text class="date subtitle" style="margin-top:10rpx;">2019-6-21</text>
       </view>
-      <view class = "band1" />
     </view>
-    <text id = "bottom">没有更多内容了~</text>
+    <view class="band1" />
+  </view>
+  <text id="bottom">没有更多内容了~</text>
 </view>
 
-<view class = "float_button" style="bottom: 400rpx;">
-  <image src = "/images/icons/collect.png" class = "btn_img"/>
+<view class="float_button" style="bottom: 400rpx;" wx:if="{{showButtons}}">
+  <image src="/images/icons/collect.png" class="btn_img" />
 </view>
-<view class = "float_button" style='bottom: 500rpx;'>
-  <image src = "/images/icons/like.png" class = "btn_img" />
+<view class="float_button" style='bottom: 500rpx;' wx:if="{{showButtons}}">
+  <image src="/images/icons/like.png" class="btn_img" />
 </view>
-<view class = "float_button" style="bottom: 600rpx;">
-  <image src = "/images/icons/more.png" class = "btn_img"/>
+<view class="float_button" style="bottom: 600rpx;">
+  <image src="/images/icons/more.png" class="btn_img" />
 </view>

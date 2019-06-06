@@ -21,7 +21,7 @@
       <view style="display:flex; flex-direction: column;">
         <!--left-->
         <view class="list_left" wx:for="{{show_list_left}}" wx:key="id">
-          <view class="list_item">
+          <view class="list_item" bindtap = "navigateToDetail" data-item = "{{item.id}}">
             <image src="{{item.attachment[0].id}}" class="item_img" mode="aspectFill" />
             <text class="info_title">{{item.title}}</text>
             <view class="info">
@@ -43,7 +43,7 @@
       <!--right-->
       <view style="display:flex; flex-direction: column; ">
         <view class="list_right" wx:for="{{show_list_left}}" wx:key="id">
-          <view class="list_item">
+          <view class="list_item" bindtap = "navigateToDetail" data-item = "{{item.id}}">
             <image src="{{item.attachment[0].id}}" class="item_img" mode="aspectFill" />
             <text class="info_title">{{item.title}}</text>
             <view class="info">

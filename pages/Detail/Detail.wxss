@@ -1,7 +1,9 @@
 /* pages/Detail/Detail.wxss */
 #top{
+  margin-top: 10rpx;
   padding-left: 30rpx;
   padding-right:30rpx;
+  margin-bottom: 20rpx;
 }
 #user_info{
   display: flex;
@@ -11,8 +13,9 @@
 
 #touxiang{
   width: 90rpx;
-  height: 90rpx;
+  height: 85rpx;
   object-fit: fill;
+  margin-top: 5rpx;
   border-radius: 10rpx;
 }
 #user_basic_info{
@@ -25,7 +28,7 @@
 }
 
 .title{
-  font-size: 36rpx;
+  font-size: 32rpx;
 }
 .subtitle{
   font-size: 28rpx;
@@ -63,10 +66,10 @@
   color: #404969;
 }
 
-#payType{
+.payType{
   background: #ff7e67;
-  margin: 6rpx 20rpx;
-  padding: 3rpx 6rpx;
+  margin: 6rpx 10rpx;
+  padding: 3rpx 5rpx;
   font-size: 26rpx;
   color: #fff;
   border-radius: 5rpx;
@@ -79,15 +82,22 @@
 }
 
 /*收藏量 阅读量*/
-#imgs{
+.imgs{
   width: 640rpx;
   height: 480rpx;
-  margin: 40rpx auto 40rpx auto;
+  margin: 20rpx auto 20rpx auto;
   background: gray;
 }
 .details{
   height: 200rpx;
   width: 100%;
+  margin-bottom: 20rpx;
+}
+
+.content_list{
+  display:flex;
+  flex-direction:row;
+  margin-top:10rpx;
 }
 
 /*分割线*/
