@@ -32,8 +32,8 @@
 
 #list{
   margin-top: 20rpx;
-  padding-left: 30rpx;
-  padding-right: 30rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
 }
 
 /*管理列表*/
@@ -47,7 +47,7 @@
 .item_img{
   margin-top: 15rpx;
   margin-left: 20rpx;
-  width: 160rpx;
+  width: 180rpx;
   height: 120rpx;
   border-radius: 20rpx;
 }
@@ -71,12 +71,14 @@
 
 .basic_info{
   margin-left: 20rpx;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .row_view{
   display:flex;
+  width: 100%;
   flex-direction: row;
   align-items:center;
 }
@@ -89,7 +91,6 @@
   background: #ff7e67;
   margin: 20rpx 20rpx 0rpx 0rpx;
   padding: 3rpx 6rpx;
-  height: 32 rpx;
   font-size: 26rpx;
   color: #fff;
   border-radius: 5rpx;
@@ -99,4 +100,11 @@
   margin-top: 25rpx;
   color: gray;
   font-size: 30rpx;
+}
+
+.item_time{
+  font-size: 28rpx;
+  color: gray;
+  margin-top: 20rpx;
+  margin-left: 100rpx;
 }

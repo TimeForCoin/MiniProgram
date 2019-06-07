@@ -17,11 +17,12 @@ Page({
             "nickname": "tp",
             "avatar": "/images/index_sample.jpg",
             "gender": "man",
-            "type": "normal"
+            "type": "normal",
           },
+          "last_message": "测试消息",
           "unread": 0,
-          "last_time": 12344512
-        }
+          "last_time": "2019-06-01 12:00"
+        },
       ]
     },
   },

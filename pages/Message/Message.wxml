@@ -22,9 +22,11 @@
           <view class = "row_view">
             <text class = "title" style = "margin-right:20rpx;">{{item.user.nickname}}</text>
             <text class="payType">{{item.user.gender == 'man' ? '男' : '女'}}</text>
-            <text class="payType">未读</text>
+            <text class="payType">{{item.unread == 0 ? '已读':'未读'}}</text>
+            <text class = "item_time">{{item.last_time}}</text>
           </view>
-          <text class = "subtitle">15个字最多</text>
+          <!--新增最后一条消息-->
+          <text class = "subtitle">{{item.last_message}}</text>
         </view>
       </view>
       <view class = "band1" />
