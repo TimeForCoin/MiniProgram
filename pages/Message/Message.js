@@ -6,7 +6,24 @@ Page({
    */
   data: {
     showSystemInfo: false,
-    
+    testMessage: {
+      "count": 123,
+      "data": [
+        {
+          "id": "5c9ecbbba4a3f52e3195fa68",
+          "type": "chat",
+          "user": {
+            "id": "5c9ecbbba4a3f52e3195fa68",
+            "nickname": "tp",
+            "avatar": "/images/index_sample.jpg",
+            "gender": "man",
+            "type": "normal"
+          },
+          "unread": 0,
+          "last_time": 12344512
+        }
+      ]
+    },
   },
 
   /**
