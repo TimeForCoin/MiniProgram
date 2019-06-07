@@ -201,13 +201,13 @@ Page({
   },
   judgeValid:function(e){
     // 空判断
-    if (this.data.title == "") {
+    if (!/[^\s]+/.test(this.data.title)) {
       this.setData({ isErr: true });
       this.setData({ errStr: "标题为空" });
       return false;
     }
 
-    if (this.data.describe == "") {
+    if (!/[^\s]+/.test(this.data.describe)) {
       this.setData({ isErr: true });
       this.setData({ errStr: "内容为空" });
       return false;
@@ -226,13 +226,13 @@ Page({
       return false;
     }
 
-    if (this.data.reward_object == "" && this.data.reward == "physical") {
+    if (!/[^\s]+/.test(this.data.reward_object) && this.data.reward == "physical") {
       this.setData({ isErr: true });
       this.setData({ errStr: "交易物品输入错误" });
       return false;
     }
 
-    if (this.data.location == "") {
+    if (!/[^\s]+/.test(this.data.location)) {
       this.setData({ isErr: true });
       this.setData({ errStr: "地点为空" });
       return false;

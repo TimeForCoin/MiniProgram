@@ -97,10 +97,24 @@ Page({
     endDate: "",
     // 决定是否显示按钮
     showButtons: false,
+    // 是否点赞
     isLove: false,
+    // 是否收藏
     isCollected: false,
+    // 是否正在回复
     isReplying: false,
-  },
+    // 正在回复的评论id
+    replyCommentID: "",
+    // 正在回复的评论所有者
+    replyCommentOwner: "",
+    // 评论和回复内容
+    comment_content: "",
+    reply_content: "",
+    // 加载更多评论
+    isLoading: false,
+    // 没有更多评论内容
+    noMoreComment: false
+},
   /**
    * 生命周期函数--监听页面加载
    */
@@ -176,6 +190,7 @@ Page({
       this.setData({isLove : false});
     } else{
       this.setData({isLove : true});
+      // TODO: 在线更新
     }
   },
   // 是否收藏
@@ -184,6 +199,116 @@ Page({
       this.setData({isCollected : false});
     } else{
       this.setData({isCollected : true});
+      // TODO: 在线更新
     }
+  },
+  // 评论点赞
+  clickCommentLike: function(e) {
+    // 记录id
+    var id = e.currentTarget.dataset.item;
+    var like = e.currentTarget.dataset.like;
+    // 重写评论
+    var arr = [];
+    for(var value of this.data.testComment.data) {
+      var item = value;  
+      if(item.id == id) {
+          if(item.like == true){
+            item.like = false;
+          } else{
+            item.like = true;
+          }
+        }
+        arr.push(item);
+    }
+    // 重构评论类
+    var total = {
+      "pagination": {
+        "page": this.data.testComment.pagination.page,
+        "size": this.data.testComment.pagination.size,
+        "total": this.data.testComment.pagination.total
+      },
+      "data": arr
+    };
+    this.setData({testComment: total})
+    // TODO: 在线更新
+  },
+  showToast:function(str, src){
+    if(src == ""){
+      wx.showToast({
+        title: str,
+        icon: 'success',//图标，支持"success"、"loading" 
+        //image: src,//自定义图标的本地路径，image 的优先级高于 icon
+        duration: 2000,//提示的延迟时间，单位毫秒，默认：1500 
+        mask: false,//是否显示透明蒙层，防止触摸穿透，默认：false 
+        success: function () { },
+        fail: function () { },
+        complete: function () { }
+      });
+    }else{
+      wx.showToast({
+        title: str,
+        //icon: 'loading',//图标，支持"success"、"loading" 
+        image: src,//自定义图标的本地路径，image 的优先级高于 icon
+        duration: 2000,//提示的延迟时间，单位毫秒，默认：1500 
+        mask: false,//是否显示透明蒙层，防止触摸穿透，默认：false 
+        success: function () { },
+        fail: function () { },
+        complete: function () { }
+      });
+    }
+  },
+  // 回复评论
+  clickReply: function(e) {
+    this.data.replyCommentID = e.currentTarget.dataset.item;
+    this.data.replyCommentOwner = e.currentTarget.dataset.owner;
+    console.log(this.data.replyCommentOwner);
+    console.log(this.data.replyCommentID);
+    this.setData({isReplying: true});
+  },
+  // 提交回复
+  submitRely: function(e) {
+    // 评论为空
+    if (!/[^\s]+/.test(this.data.reply_content)) {
+        this.setData({isReplying: false});
+        this.setData({reply_content: ""});
+        this.showToast("回复为空", "/images/icons/error.png");
+        return;
+    }
+    var reply = this.data.reply_content;
+    reply = "回复@" + this.data.replyCommentOwner + ":" + reply;
+    console.log(reply);
+    this.setData({isReplying: false});
+    // TODO: 在线更新该回复
+    this.showToast("回复提交", "");
+    this.setData({reply_content: ""});
+  },
+  // 评论内容刷新
+  replyInputChange: function(e) {
+    this.setData({reply_content: e.detail.value});
+  },
+  commentInputChange: function(e) {
+    this.setData({comment_content: e.detail.value});
+  },
+  //提交评论
+  submitComment: function(e){
+    console.log(this.data.comment_content);
+    if (!/[^\s]+/.test(this.data.comment_content)) {
+      this.setData({comment_content: ""});
+      this.showToast("评论为空", "/images/icons/error.png");
+      return;
+    }
+    // TODO: 在线更新该评论
+    console.log(this.data.comment_content);
+    this.showToast("评论提交", "");
+    this.setData({comment_content: ""});
+  },
+  // 点击空白取消评论
+  cancelReplying: function(e) {
+    this.setData({isReplying: false});
+    this.setData({reply_content: ""});
+  },
+  // 拉底刷新内容
+  onReachBottom(){
+    this.setData({isLoading: true});
   }
 })

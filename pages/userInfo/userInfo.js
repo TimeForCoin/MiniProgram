@@ -7,8 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo:null,
-    hasUserInfo:false,
+    userInfo: null,
+    hasUserInfo: false,
     nav_a: [{
       id: 1,
       name: "我发布的",
@@ -42,9 +42,9 @@ Page({
     avatar: "",
     bio: "",
     school: "",
-    email:"",
-    gender:"",
-    location:"",
+    email: "",
+    gender: "",
+    location: "",
     nickname: "",
     phone: "",
     gender_items: [
@@ -52,7 +52,7 @@ Page({
       { val: '女' },
       { val: '不便透露' },
     ],
-    file:{}
+    file: {}
     //----------------------
   },
 
@@ -66,7 +66,7 @@ Page({
         userInfo: res.data
       })
       console.log(this.data.userInfo);
-      if(this.data.userInfo != null){
+      if (this.data.userInfo != null) {
         this.setData({ hasUserInfo: true });
       }
     })
@@ -129,23 +129,23 @@ Page({
 
   },
 
-  closeEditPage: function(e){
-    if(this.data.isEditInfo){
-      this.setData({isEditInfo: false});
+  closeEditPage: function (e) {
+    if (this.data.isEditInfo) {
+      this.setData({ isEditInfo: false });
     }
   },
-  changeNickname: function(e){
-    this.setData({nickname: e.detail.value});
+  changeNickname: function (e) {
+    this.setData({ nickname: e.detail.value });
     console.log("nickname:" + this.data.nickname);
   },
 
-  changeGender: function(e){
+  changeGender: function (e) {
     this.data.gender = e.detail.value;
-    if(e.detail.value == "不便透露") this.data.gender = "未知";
+    if (e.detail.value == "不便透露") this.data.gender = "未知";
     console.log("gender:" + this.data.gender);
   },
 
-  changeBio: function(e){
+  changeBio: function (e) {
     this.setData({ bio: e.detail.value });
     console.log("bio:" + this.data.bio);
   },
@@ -165,8 +165,8 @@ Page({
     this.setData({ location: e.detail.value });
     console.log("location:" + this.data.location);
   },
-  showToast:function(str, src){
-    if(src == ""){
+  showToast: function (str, src) {
+    if (src == "") {
       wx.showToast({
         title: str,
         icon: 'success',//图标，支持"success"、"loading" 
@@ -177,7 +177,7 @@ Page({
         fail: function () { },
         complete: function () { }
       });
-    }else{
+    } else {
       wx.showToast({
         title: str,
         //icon: 'loading',//图标，支持"success"、"loading" 
@@ -190,31 +190,31 @@ Page({
       });
     }
   },
-  submit:function(e){
+  submit: function (e) {
     // 合法性判断
-    if (this.data.nickname == ""){
+    if (!/[^\s]+/.test(this.data.nickname)) {
       this.showToast("昵称为空", '/images/icons/error.png');
       return;
     }
-    if (this.data.gender == "") {
+    if (!/[^\s]+/.test(this.data.gender)) {
       this.showToast("性别为空", '/images/icons/error.png');
       return;
     }
-    if (this.data.email == "") {
+    if (!/[^\s]+/.test(this.data.email)) {
       this.showToast("邮箱为空", '/images/icons/error.png');
       return;
     }
-    if (this.data.phone == "") {
+    if (!/[^\s]+/.test(this.data.phone)) {
       this.showToast("手机为空", '/images/icons/error.png');
       return;
     }
-    if (this.data.school == "") {
+    if (!/[^\s]+/.test(this.data.school)) {
       this.showToast("学校为空", '/images/icons/error.png');
       return;
     }
-   
 
-    if (this.data.location == "") {
+
+    if (!/[^\s]+/.test(this.data.location)) {
       this.showToast("地址为空", '/images/icons/error.png');
       return;
     }
@@ -226,7 +226,7 @@ Page({
     }
 
     var isPhone = /^1[3456789]\d{9}$/;
-    if(!isPhone.test(this.data.phone)){
+    if (!isPhone.test(this.data.phone)) {
       this.showToast("手机格式错误", '/images/icons/error.png');
       return;
     }
@@ -241,11 +241,11 @@ Page({
       "phone": this.data.phone,
     };
     this.showToast("修改成功", "");
-    this.setData({isEditInfo: false});
+    this.setData({ isEditInfo: false });
   },
 
   //获取用户信息
-  getUserData:function(e){
+  getUserData: function (e) {
     app.editTabbar();
     server.request('GET', 'users/info/me').then(res => {
       this.setData({
@@ -256,20 +256,20 @@ Page({
   },
 
   // 跳转
-  navigate: function(e){
+  navigate: function (e) {
     console.log(e);
-    if(e.currentTarget.dataset.item == "1"){
-      this.setData({ isEditInfo: true});
+    if (e.currentTarget.dataset.item == "1") {
+      this.setData({ isEditInfo: true });
     } else if (e.currentTarget.dataset.item == "2") {
       this.setData({ isEditInfo: true });
     } else if (e.currentTarget.dataset.item == "3") {
       this.setData({ isEditInfo: true });
     } else if (e.currentTarget.dataset.item == "4") {
-      this.setData({isEditInfo: true});
+      this.setData({ isEditInfo: true });
       this.setData({ isEditInfo: true });
     } else if (e.currentTarget.dataset.item == "5") {
       this.setData({ isEditInfo: true });
-    } else if(e.currentTarget.dataset.item == "6"){
+    } else if (e.currentTarget.dataset.item == "6") {
       this.setData({ isEditInfo: true });
     }
   }

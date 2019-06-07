@@ -184,7 +184,7 @@ Page({
       // }
       // value.title = value.title + "...";
       arr.push(value);
-
+      // TODO: 在线获取
     }
     this.setData({show_list_left: arr});
   },
@@ -241,6 +241,7 @@ Page({
   //   })
   // }
   onReachBottom(){
+    // TODO: 刷新内容
     this.setData({isLoading: true});
   },
   navigateToDetail: function(e){

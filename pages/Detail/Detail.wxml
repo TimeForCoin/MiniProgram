@@ -12,7 +12,7 @@
     <view id="like_view">
       <!--阅读-->
       <view>
-        <image src="/images/icons/read_top.png" style="width: 32rpx; height:32rpx; margin-top: 5rpx;" />
+        <image src="/images/icons/read_top.png" style="width: 32rpx; height:32rpx; margin-top: 10rpx;" />
         <text class="subtitle" style="margin-left: 10rpx;">{{testSample.data.view_count}}</text>
       </view>
       <!--收藏-->
@@ -96,29 +96,30 @@
   </view>
   <view class="band1" />
   <!--自己的留言-->
-  <view id="mycomment">
-    <input id="comment_input" placeholder='输入你的评论吧~' bindinput='inputChange' value='{{cmt}}' maxlength='15' />
-    <button id="commit_btn">发送</button>
+  <view class="mycomment">
+    <textarea class="comment_input" placeholder='输入你的评论吧~' bindinput='commentInputChange' value='{{comment_content}}' style = "width: 75%;" />
+    <button class="commit_btn" bindtap='submitComment'>发送</button>
   </view>
   <view class="band1" />
   <!--其他留言-->
   <view style="display:flex; flex-direction:column">
     <view class="comment_user_info" wx:for="{{testComment.data}}" wx:key="item.id">
       <view class = "content_list">
+      <!--下面不是很清楚user_id和content_owner哪个是评论者!~!!!!!-->
       <image src="{{item.user_id.avatar}}" class = "comment_ava" />
       <view style="display:flex; flex-direction:row; margin-left: 20rpx;">
           <text class="subtitle" style="margin-top:10rpx;">{{item.user_id.nickname}}</text>
           <text class="subtitle" style="margin-top:10rpx; margin-left: 20rpx;">{{item.time}}</text>
           <view class = "comment_type_view">
             <!--回复-->
-            <view bindtap = "clickReply" style = "display:flex; flex-direction: row;">
+            <view bindtap = "clickReply" style = "display:flex; flex-direction: row;" data-item = "{{item.id}}" data-owner = "{{item.user_id.nickname}}">
               <image src="/images/icons/comment_reply.png"
                 style="width: 45rpx; height:45rpx; margin-top: 10rpx;" />
               <text class="subtitle" style="margin-left: 10rpx; margin-top: 15rpx;">{{item.reply_count}}</text>
             </view>
             <!--喜欢-->
-            <view bindtap = "clickCommentLove" style = "margin-left: 60rpx; display:flex; flex-direction: row;">
-              <image src="/images/icons/liked_top.png"
+            <view bindtap = "clickCommentLove" style = "margin-left: 60rpx; display:flex; flex-direction: row;" bindtap='clickCommentLike' data-item = '{{item.id}}' data-like = '{{item.like}}' >
+              <image src="/images/icons/{{item.like ? 'comment_liked' : 'liked_top'}}.png"
                 style="width: 45rpx; height:45rpx; margin-top: 10rpx;" />
               <text class="subtitle" style="margin-left: 10rpx; margin-top: 15rpx;">{{item.like_count}}</text>
             </view>
@@ -129,7 +130,11 @@
     </view>
     <view class="band1" />
   </view>
-  <text id="bottom">没有更多内容了~</text>
+  <view class="loading_view" wx:if="{{isLoading}}">
+      <image class="loading" src="/images/icons/loading.png"></image>
+      <text class="subtext">正在载入更多...</text>
+  </view>
+  <text id="bottom" wx:if = "{{noMoreComment}}">没有更多评论了~</text>
 </view>
 
 <!--收藏-->
@@ -145,7 +150,8 @@
 </view>
 
 <!--自己的留言-->
-<view id="mycomment_bottom" wx:if="{{isReplying}}">
-  <input id="comment_input_bottom" placeholder='输入你的回复吧~' bindinput='inputChange' value='{{cmt}}' maxlength='15' />
-  <button id="commit_btn_bottom">发送</button>
+<view class="mycomment comment_bottom" wx:if="{{isReplying}}">
+  <textarea class="comment_input" placeholder='输入你的回复吧~' bindinput='replyInputChange' value='{{reply_content}}' style = "width: 70%;" />
+  <button class="commit_btn" bindtap = 'submitRely'>发送</button>
 </view>
+<view class="mask" catchtouchmove="preventTouchMove" bindtap = "cancelReplying" wx:if="{{isReplying}}"/>

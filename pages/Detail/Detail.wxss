@@ -127,6 +127,7 @@
   color: gray;
   font-size: 28rpx;
   margin-top: 20rpx;
+  margin-bottom: 60rpx;
 }
 
 .float_button{
@@ -160,8 +161,9 @@
 }
 #comment_input_bottom{
   font-size: 32rpx;
-  margin-top: 6rpx;
-  padding: 10rpx 0rpx 10rpx 10rpx;
+  margin-top: 15rpx;
+  height: 56rpx;
+  padding: 6rpx 0rpx 10rpx 10rpx;
   width: 75%;
   background: rgba(231, 231, 231, 0.3);
 }
@@ -169,7 +171,7 @@
 #commit_btn_bottom{
   border: 2rpx solid rgba(0,0,0,.3);
   font-size: 32rpx;
-  padding: 0rpx 20rpx;
+  padding: 0rpx 15rpx;
   border-radius: 20rpx;
   background-color: #e0fcff;
 }
@@ -199,31 +201,41 @@
 }
 
 /*自己的评论*/
-#mycomment{
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
-  display: flex;
+.mycomment{
+  display:flex;
   flex-direction: row;
+  align-items:center;
+  justify-content: center;
 }
-#comment_input{
-  flex:8;
+.comment_input{
   font-size: 32rpx;
-  margin-top: 6rpx;
-  padding: 10rpx;
-  margin-right:10rpx;
+  height:80rpx;
+  padding-left: 20rpx;
+  padding-top: 10rpx;
   background: rgba(231, 231, 231, 0.3);
 }
 
-#commit_btn{
-  flex:1;
+.commit_btn{
   border: 2rpx solid rgba(0,0,0,.3);
   font-size: 32rpx;
-  padding: 0 15rpx;
+  height: 80rpx;
+  text-align: center;
+  align-items:center;
   border-radius: 20rpx;
   background-color: #e0fcff;
 }
-
-/*评论相关参数*/
+.comment_bottom{
+  background: #fff;
+  position:fixed;
+  bottom: 0rpx;
+  width: 100%;
+  z-index: 9999;
+  padding-left: 20rpx;
+  padding-right: 30rpx;
+  padding-top: 40rpx;
+  padding-bottom: 40rpx;
+}
+/*他人评论相关参数*/
 .comment_type_view{
   display:flex;
   flex-direction:row;
@@ -236,4 +248,43 @@
   width:85rpx;
   height: 85rpx;
   margin-left: 20rpx;
+}
+/*弹窗*/
+.mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: gray;
+  z-index: 480;
+  opacity: 0.7;
+}
+
+/*加载更多*/
+.loading_view{
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:gray;
+  font-size: 28rpx;
+  margin-bottom: 60rpx;
+}
+
+.loading {
+  margin-right: 10rpx;
+  width: 45rpx;
+  height: 45rpx;
+  animation: animation 1s linear infinite;
+}
+
+@keyframes animation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
 }
