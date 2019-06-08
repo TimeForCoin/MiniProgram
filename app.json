@@ -5,7 +5,6 @@
     "pages/MessageDetail/MessageDetail",
     "pages/Detail/Detail",
     "pages/Message/Message",
-    "pages/AddedItems/AddedItems",
     "pages/userInfo/userInfo",
     "pages/AddItem/AddItem",
     "pages/logs/logs"
