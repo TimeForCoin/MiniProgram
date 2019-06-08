@@ -6,6 +6,19 @@
       <input name="search_input" class="input_title" placeholder="搜索 任务" maxlength='20' focus = "true" bindinput='typing' value = "{{typing_content}}" bindconfirm = 'searchResult'/>
       <image src = "/images/icons/empty.png" class = "search_logo" wx:if = "{{isFocus}}" bindtap='cleaning'/>
     </view>
+    <!--任务类型选择器-->
+    <view class = "picker_field">
+      <picker value="{{chosed_type}}" bindchange="change_type" range = "{{task_type}}" class = "picker_font">
+      <text>类型：</text><text style = "color: #ff7e67;">{{chosed_type}}</text>
+    </picker>
+     <picker value="{{chosed_status}}" bindchange="change_status" range = "{{task_status}}" class = "picker_font">
+      <text>状态：</text><text style = "color: #ff7e67;">{{chosed_status}}</text>
+    </picker>
+     <picker value="{{chosed_reward}}" bindchange="change_reward" range = "{{task_reward}}" class = "picker_font">
+      <text>酬劳：</text><text style = "color: #ff7e67;">{{chosed_reward}}</text>
+    </picker>
+    </view>
+    <view class = "band2" />
     <!-- 排序 -->
     <view class = "sort-wrap">
       <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0"  style = "color: {{btn_state1 ? 'gray' : '#ff7e67'}}">

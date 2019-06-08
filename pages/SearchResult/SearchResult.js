@@ -10,7 +10,17 @@ Page({
     // 搜索内容
     typing_content: "",
     isFocus: true,
-
+    // 供给选择器
+    task_type:['所有', '跑腿任务', '问卷任务', '信息任务'],
+    task_status: ['所有', '执行中', '等待接受', '已关闭','已完成','已过期'],
+    task_reward: ['所有','闲钱币','人民币','实物'],
+    chosed_type: "请选择",
+    chosed_status: "请选择",
+    chosed_reward: "请选择",
+    // 筛选条件
+    type: "",
+    status: "",
+    reward: "",
     // 测试列表
     testList: {
       "pagination": {
@@ -215,18 +225,18 @@ Page({
   },
 
   sort_type0: function (e) {
-    if(this.data.btn_state1 == true){
-      this.setData({btn_state0: true});
-      this.setData({ btn_state1: false });
-      // TODO: 获取热门任务
-    }
+    this.setData({ btn_state0: true });
+    this.setData({ btn_state1: false });
+    
+    this.logicalJudge();
+    // TODO: 获取热门任务
   },
   sort_type1: function (e) {
-    if (this.data.btn_state0 == true) {
-      this.setData({ btn_state1: true });
-      this.setData({ btn_state0: false });
-      // TODO: 获取最新任务
-    }
+    this.setData({ btn_state1: true });
+    this.setData({ btn_state0: false });
+    
+    this.logicalJudge();
+    // TODO: 获取最新任务
   },
   // 缩减字数
   reduce: function(){
@@ -258,11 +268,71 @@ Page({
     this.setData({typing_content: e.detail.value});
     this.setData({isFocus: true});
   },
+  // 用户点击回车键进行搜索
   searchResult: function(e){
     this.cleaning();
+    
+    this.logicalJudge();
+    // TODO: 任务搜索
   },
   cleaning: function(e){
     this.setData({ typing_content: "" });
     this.setData({ isFocus: false });
+  },
+  change_type: function(e){
+    this.setData({ chosed_type: this.data.task_type[e.detail.value]});
+  },
+  change_status: function (e) {
+    this.setData({ chosed_status: this.data.task_status[e.detail.value] });
+  },
+  change_reward: function (e) {
+    this.setData({ chosed_reward: this.data.task_reward[e.detail.value] });
+  },
+  // 搜索前进行逻辑判断
+  logicalJudge: function(){
+    if (this.data.chosed_type == '所有'){
+      this.data.type = 'all';
+    } else if (this.data.chosed_type == '跑腿任务'){
+      this.data.type = 'run';
+    } else if (this.data.chosed_type == '问卷任务'){
+      this.data.type = 'questionnaire';
+    } else if (this.data.chosed_type == '信息任务') {
+      this.data.type = 'info';
+    } else{
+      this.data.type = '';
+    }
+
+    if (this.data.chosed_status == '所有') {
+      this.data.status = 'all';
+    } else if (this.data.chosed_status == '执行中') {
+      this.data.status = 'run';
+    } else if (this.data.chosed_status == '等待接受') {
+      this.data.status = 'wait';
+    } else if (this.data.chosed_status == '已关闭') {
+      this.data.status = 'close';
+    } else if (this.data.chosed_status == '已完成') {
+      this.data.status = 'finish';
+    } else if (this.data.chosed_status == '已过期') {
+      this.data.status = 'overdue';
+    } else {
+      this.data.status = '';
+    }
+
+    if (this.data.chosed_reward == '所有') {
+      this.data.reward = 'all';
+    } else if (this.data.chosed_reward == '闲钱币') {
+      this.data.reward = 'money';
+    } else if (this.data.chosed_reward == '人民币') {
+      this.data.reward = 'rmb';
+    } else if (this.data.chosed_reward == '实物') {
+      this.data.reward = 'object';
+    } else {
+      this.data.reward = '';
+    }
+
+    console.log(this.data.type);
+    console.log(this.data.status);
+    console.log(this.data.reward);
+
   }
 })

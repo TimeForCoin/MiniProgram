@@ -38,9 +38,24 @@
   justify-items: center;
 }
 
+/* 筛选器 */
+.picker_field{
+  display: flex;
+  padding-left: 60rpx;
+  padding-right: 20rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  flex-direction: row;
+}
+.picker_font{
+  flex:1;
+  font-size: 30rpx;
+  color: gray;
+}
+
 .sort-btn{
   display: flex;
-  font-size: 28rpx;
+  font-size: 30rpx;
   color: gray;
   flex-direction: row;
   flex: 1;
@@ -112,6 +127,13 @@
   height: 3rpx;
   margin-top: 20rpx;
   margin-bottom: 20rpx;
+  background: rgb(243, 243, 243);
+}
+.band2{
+  width:100%;
+  height: 20rpx;
+  margin-top: 5rpx;
+  margin-bottom: 15rpx;
   background: rgb(243, 243, 243);
 }
 
