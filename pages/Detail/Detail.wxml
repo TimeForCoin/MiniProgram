@@ -71,6 +71,16 @@
   </view>
   <!--主体内容-->
   <view style="display:flex; flex-direction:column; margin-left:20rpx; margin-right:20rpx; margin-bottom: 20rpx;">
+    <!--开始时间-->
+    <view class="content_list">
+      <text class="title" style="color: #ff7e67;">开始时间：</text>
+      <text class="title">{{startDate}}</text>
+    </view>
+    <!--结束时间-->
+    <view class="content_list">
+      <text class="title" style="color: #ff7e67;">结束时间：</text>
+      <text class="title">{{endDate}}</text>
+    </view>
     <view class="content_list">
       <text class="title" style="color: #ff7e67;">人数：</text>
       <text class="title">{{testSample.data.player_count}} / {{testSample.data.max_player}}</text>

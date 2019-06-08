@@ -108,3 +108,34 @@
   margin-top: 20rpx;
   margin-left: 100rpx;
 }
+
+/*加载部分*/
+.loading_view{
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 60rpx;
+}
+
+.loading {
+  margin-right: 10rpx;
+  width: 45rpx;
+  height: 45rpx;
+  animation: animation 1s linear infinite;
+}
+
+@keyframes animation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.subtext{
+  color:gray;
+  font-size: 28rpx;
+}

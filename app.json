@@ -1,9 +1,11 @@
 {
   "pages": [
+    "pages/MessageDetail/MessageDetail",
+    "pages/Detail/Detail",
     "pages/Message/Message",
     "pages/index/index",
-    "pages/Detail/Detail",
-    "pages/MessageDetail/MessageDetail",
+    
+    
     "pages/AddedItems/AddedItems",
     "pages/userInfo/userInfo",
     "pages/AddItem/AddItem",

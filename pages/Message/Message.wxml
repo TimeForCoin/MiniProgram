@@ -16,14 +16,14 @@
 
   <!--下面内容-->
     <view id = "list">
-      <view class = "list_item" wx:for = "{{testMessage.data}}" wx:key = "item.id">
+      <view class = "list_item" wx:for = "{{testMessage.data}}" wx:key = "item.id" bindtap = 'navigateToMessageDetail' data-id = "{{item.id}}">
         <image class = "item_img" src = "{{item.user.avatar}}" />
         <view class = "basic_info">
           <view class = "row_view">
             <text class = "title" style = "margin-right:20rpx;">{{item.user.nickname}}</text>
             <text class="payType">{{item.user.gender == 'man' ? '男' : '女'}}</text>
             <text class="payType">{{item.unread == 0 ? '已读':'未读'}}</text>
-            <text class = "item_time">{{item.last_time}}</text>
+            <text class = "item_time">{{item.string_last_time}}</text>
           </view>
           <!--新增最后一条消息-->
           <text class = "subtitle">{{item.last_message}}</text>
@@ -31,4 +31,9 @@
       </view>
       <view class = "band1" />
     </view>
+    <view class="loading_view" wx:if="{{isLoading}}">
+      <image class="loading" src="/images/icons/loading.png"></image>
+      <text class="subtext">正在载入更多...</text>
+    </view>
+    <text class="subtext" style="margin-top: 40rpx; margin-bottom: 60rpx;" wx:if="{{noMore}}">没有更多了~</text>
 </view>

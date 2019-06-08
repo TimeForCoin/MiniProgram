@@ -1,4 +1,5 @@
 // pages/Message/Message.js
+const moment = require('moment');
 Page({
 
   /**
@@ -21,17 +22,32 @@ Page({
           },
           "last_message": "测试消息",
           "unread": 0,
-          "last_time": "2019-06-01 12:00"
+          "last_time": 123214124,
         },
       ]
     },
+    isLoading: false,
+    noMore: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    moment.locale('en', {
+      longDateFormat: {
+        l: "YYYY-MM-DD",
+        L: "YYYY-MM-DD HH:mm"
+      }
+    });
+    // 对所有消息进行处理，加上时间
+    var tmp = [];
+    for (var value of this.data.testMessage.data){
+      value.string_last_time = moment(value.last_time).format('L');
+      tmp.push(value);
+    }
+    this.data.testMessage.data = tmp;
+    this.setData({testMessage : this.data.testMessage});
   },
 
   /**
@@ -85,8 +101,23 @@ Page({
   /*选择个人或者系统信息*/
   chooceSystemInfo: function(e){
     this.setData({ showSystemInfo: true });
+    // TODO:在线获取数据并添加时间 string_last_time 可以参照onLoad函数
   },
   choocePersonalInfo: function(e){
     this.setData({showSystemInfo: false});
-  }
+     // TODO:在线获取数据并添加时间 string_last_time 可以参照onLoad函数
+  },
+  // 跳转详情
+  navigateToMessageDetail: function(e){
+    console.log(e);
+    var id = e.currentTarget.dataset.id;   
+    wx.navigateTo({
+      url: '/pages/MessageDetail/MessageDetail?id=' + id,
+    }) 
+  }, 
+  // 到达底部刷新
+  onReachBottom() {
+    // TODO: 刷新内容
+    this.setData({ isLoading: true });
+  },
 })

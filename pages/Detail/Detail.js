@@ -119,11 +119,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // var util = require("/util/moment.js");
-    // let timestamp = '1546841820000';//时间戳或者别的格式的时间皆可
-    // let time = util.timestampToString(timestamp, 'L');
+    moment.locale('en', {
+      longDateFormat: {
+        l: "YYYY-MM-DD",
+        L: "YYYY-MM-DD HH:mm"
+      }
+    });
+    this.setData({ publishDate: moment(this.data.testSample.data.publish_date).format('l')});
+    this.setData({ startDate: moment(this.data.testSample.data.start_date).format('L') });
+    this.setData({ endDate: moment(this.data.testSample.data.end_date).format('L') });
     this.setData({isLove : this.data.testSample.data.like});
-    //this.setData({isCollected : this.data.testSample.data.collect});
 
   },
 

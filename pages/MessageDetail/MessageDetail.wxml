@@ -1,14 +1,48 @@
 <!--pages/MessageDetail/MessageDetail.wxml-->
-<view class = "messageDetail">
-  <!--显示时间-->
-  <text class = "showTime"> 2019-06-01 12:00</text>
-  <!--单独一个对话-->
-  <view class = "singleDialog">
-    <image class = "ava" src = "/images/index_sample.jpg" />
-    <view class = "details">
-      <text class = "username">chensh236</text>
-      <text class = "content">iloveyou</text>
+<view class="messageDetail">
+  <!-- 相关物品详情 -->
+  <view class = "objectDetail">
+    <view style = "display:flex; margin-bottom:20rpx;">
+    <image src = "{{detailImage}}"  style = "width: 120rpx; height: 120rpx;"/>
+    <view class = "title_content">
+      <text style = "font-size:36rpx; text-align: left; margin-top :10rpx;">{{testSample.data.title}}</text>
+      <text class = "subtext" style = "margin-top: 10rpx; text-align: left;">{{testSample.data.content}}</text>      
     </view>
   </view>
-
+  <!--顶部下方价格部分-->
+  <view id="price_view">
+      <image src="/images/icons/price.png" id="money" wx:if="{{testSample.data.reward != 'physical'}}" />
+      <text
+        id="price">{{testSample.data.reward == 'physical' ? testSample.data.reward_object : testSample.data.reward_value}}</text>
+      <text class="payType">{{reward == 'rmb' ? '人民币' : testSample.data.reward == 'physical'? '实物' : '闲币' }}</text>
+      <text
+        class="payType">{{testSample.data.status == 'wait' ? '等待' : testSample.data.status == 'run' ? '执行中' : testSample.data.status == 'close'? '已关闭' : testSample.data.status == 'finish'? '已完成' : testSample.data.status == 'overdue' ? '已过期' : '草稿'}}</text>
+      <text
+        class="payType">{{testSample.data.type == 'run' ? '跑腿任务' : testSample.data.type == 'questionnaire' ? '问卷任务' : '信息任务' }}</text>
+    </view>
+  </view>
+  <!-- 消息列表 -->
+  <view id="dialog_list">
+    <!--显示时间-->
+    <text class="showTime"> 2019-06-01 12:00</text>
+    <!--单独一个对话-->
+    <view class="singleDialog" wx:for = "{{testMessageDetail.data}}" wx:key = "item.content">
+      <image class="ava" src="/images/index_sample.jpg" />
+      <view class="details">
+        <text class="username">chensh236</text>
+        <text class="content">iloveyou</text>
+      </view>
+    </view>
+    <view class="loading_view" wx:if="{{isLoading}}">
+      <image class="loading" src="/images/icons/loading.png"></image>
+      <text class="subtext">正在载入更多...</text>
+    </view>
+    <text class="subtext" style="margin-top: 40rpx; margin-bottom: 60rpx;" wx:if="{{noMore}}">没有更多了~</text>
+  </view>
 </view>
+<!--发送信息-->
+<view class="mycomment comment_bottom">
+  <textarea class="comment_input" bindinput='replyInputChange' value='{{reply_content}}' style = "width: 70%;" />
+  <button class="commit_btn" bindtap = 'submitRely'>发送</button>
+</view>
+<view class="mask" catchtouchmove="preventTouchMove" bindtap = "cancelReplying" wx:if="{{isReplying}}"/>

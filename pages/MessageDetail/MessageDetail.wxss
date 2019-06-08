@@ -6,15 +6,67 @@
   position: fixed;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  text-align: center;
 }
 
+/*上方物品信息 */
+.objectDetail{
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  padding-bottom: 20rpx;
+}
+
+.detailImage{
+  width: 120rpx;
+  height: 120rpx;
+}
+
+/* 文字信息 */
+.title_content{
+  display:flex;
+  flex-direction: column;
+  margin-left: 30rpx;
+}
+
+#price_view{
+  display: flex;
+  flex-direction: row;
+}
+
+#money{
+  width: 26rpx;
+  height: 26rpx;
+  margin-top: 15rpx;
+}
+
+#price{
+  font-size: 36rpx;
+  color: #404969;
+}
+
+.payType{
+  background: #ff7e67;
+  margin: 6rpx 10rpx;
+  padding: 3rpx 5rpx;
+  font-size: 26rpx;
+  color: #fff;
+  border-radius: 5rpx;
+}
+/* 对话列表 */
+#dialog_list{
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
 .singleDialog{
   width:100%;
   height:50rpx;
   display:flex;
   flex-direction: row;
-  margin: 40rpx 30rpx;
+  margin: 10rpx 30rpx;
 }
 
 .ava{
@@ -45,10 +97,77 @@
 
 .showTime{
   font-size: 28rpx;
-  margin: 40rpx 0rpx;
+  margin: 40rpx auto;
   padding: 5rpx 40rpx;
   background: rgb(206, 206, 206);
   border-radius: 20rpx;
   text-align: center;
 
+}
+
+/*加载部分*/
+.loading_view{
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 60rpx;
+}
+
+.loading {
+  margin-right: 10rpx;
+  width: 45rpx;
+  height: 45rpx;
+  animation: animation 1s linear infinite;
+}
+
+@keyframes animation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.subtext{
+  color:gray;
+  font-size: 28rpx;
+}
+
+/* 发送信息 */
+.mycomment{
+  display:flex;
+  flex-direction: row;
+  align-items:center;
+  justify-content: center;
+}
+.comment_input{
+  font-size: 32rpx;
+  height:80rpx;
+  padding-left: 20rpx;
+  padding-top: 10rpx;
+  background: rgba(231, 231, 231, 0.3);
+}
+
+.commit_btn{
+  border: 2rpx solid rgba(0,0,0,.3);
+  font-size: 32rpx;
+  height: 80rpx;
+  text-align: center;
+  align-items:center;
+  border-radius: 20rpx;
+  background-color: #e0fcff;
+}
+.comment_bottom{
+  background: #fff;
+  position:fixed;
+  bottom: 0rpx;
+  width: 100%;
+  z-index: 9999;
+  padding-left: 20rpx;
+  padding-right: 30rpx;
+  padding-top: 40rpx;
+  padding-bottom: 40rpx;
 }
