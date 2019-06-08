@@ -1,0 +1,98 @@
+<!--pages/AddedItems/AddedItems.wxml-->
+<view id="container">
+  <view id="top">
+    <view id="search_view">
+      <image src="/images/icons/search.png" class="search_logo" />
+      <input name="search_input" class="input_title" placeholder="搜索 任务" maxlength='20' bindinput='typing'
+        value="{{typing_content}}" bindconfirm='searchResult' />
+      <image src="/images/icons/empty.png" class="search_logo" wx:if="{{isFocus}}" bindtap='cleaning' />
+    </view>
+    <!--任务类型选择器-->
+    <view class="picker_field">
+      <picker value="{{chosed_type}}" bindchange="change_type" range="{{task_type}}" class="picker_font">
+        <text>类型：</text><text style="color: #ff7e67;">{{chosed_type}}</text>
+      </picker>
+      <picker value="{{chosed_status}}" bindchange="change_status" range="{{task_status}}" class="picker_font">
+        <text>状态：</text><text style="color: #ff7e67;">{{chosed_status}}</text>
+      </picker>
+      <picker value="{{chosed_reward}}" bindchange="change_reward" range="{{task_reward}}" class="picker_font">
+        <text>酬劳：</text><text style="color: #ff7e67;">{{chosed_reward}}</text>
+      </picker>
+    </view>
+    <view class="band2" />
+    <!-- 排序 -->
+    <view class="sort-wrap">
+      <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0"
+        style="color: {{btn_state1 ? 'gray' : '#ff7e67'}}">
+        <text>热门</text>
+        <!-- <view class = "img_set">
+          <image src="/images/icons/up.png" class = "sort_img img_up" />
+          <image src="/images/icons/down.png" class = "sort_img img_down"/>
+        </view> -->
+      </view>
+
+      <view class='sort-btn' data-index="{{btn_state1}}" bindtap="sort_type1"
+        style="color: {{btn_state0 ? 'gray' : '#ff7e67'}}">
+        <text>最新</text>
+        <!-- <view class = "img_set">
+          <image src="/images/icons/up.png" class = "sort_img img_up" />
+          <image src="/images/icons/down.png" class = "sort_img img_down"/>
+        </view> -->
+      </view>
+
+      <!-- <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0">
+        <text>坤</text>
+        <view class = "img_set">
+          <image src="/images/icons/up.png" class = "sort_img img_up" />
+          <image src="/images/icons/down.png" class = "sort_img img_down"/>
+        </view>
+      </view> -->
+    </view>
+  </view>
+
+  <!--下面内容-->
+  <view id="list">
+    <view style = "display:flex; flex-direction: row;" wx:for="{{testList.data}}" wx:key="item.id" >
+      <view class="list_item" bindtap="navigateToDetail" data-id="{{item.id}}">
+       <image class="item_img" src="{{item.attachment[0].id}}" />
+      <view class="basic_info">
+        <text class="title">{{item.title}}</text>
+        <!--金额-->
+        <view style="margin-top: 10rpx;">
+          <image src="/images/icons/price.png" class="money_img" wx:if="{{item.reward != 'physical'}}" />
+          <text classs="money_text">{{item.reward == 'physical' ? item.reward_object : item.reward_value}}</text>
+          <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'physical'? '实物' : '闲币' }}</text>
+          <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
+        </view>
+        <text class="subtitle">{{item.content}}</text>
+        <view class="band1" />
+      </view>
+      </view>
+      <!--删除或置顶-->
+      <view class="float_button" style="bottom: 400rpx;" bindtap='clickCollect' data-status = "{{item.status}}" data-id = "{{item.id}}" catchtap = 'top_delete'>
+        <image src="/images/icons/{{item.status == 'draft' ? 'rubbish' : 'toTop'}}.png" class="btn_img" />
+      </view>
+      <!-- <view class = "item_btn_set">
+          <image src = "/images/icons/user.png" class = "item_btn" />
+          <image src = "/images/icons/user.png" class = "item_btn"/>
+        </view> -->
+    </view>
+    <!--加载动画-->
+    <view class="loading_view" wx:if="{{isLoading}}">
+      <image class="loading" src="/images/icons/loading.png"></image>
+      <text class="subtext">正在载入更多...</text>
+    </view>
+    <text class="subtext" style="margin-top: 40rpx; margin-bottom: 60rpx;" wx:if="{{noMore}}">没有更多了~</text>
+  </view>
+</view>
+
+<!--对话框-->
+<view class="modalDialog" wx:if="{{isDelete}}">
+  <text class = "dialogTitle">是否删除该任务？</text>
+  <view style = "display:flex; flex-direcion: row">
+    <button bindtap="confirm_delete" class = "ok_btn" style = "background-color: #ff7e67; color:#fff" >确认</button>
+    <button bindtap="cancel_delete" class = "ok_btn" >取消</button>
+  </view>
+</view>
+<!--蒙板-->
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{isDelete}}"/>

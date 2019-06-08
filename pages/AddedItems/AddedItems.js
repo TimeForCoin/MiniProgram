@@ -1,4 +1,4 @@
-// pages/SearchResult/SearchResult.js
+// pages/AddedItems/AddedItems.js
 Page({
 
   /**
@@ -9,10 +9,10 @@ Page({
     btn_state1: false,
     // 搜索内容
     typing_content: "",
-    isFocus: true,
+    isFocus: false,
     // 供给选择器
     task_type:['所有', '跑腿任务', '问卷任务', '信息任务'],
-    task_status: ['所有', '执行中', '等待接受', '已关闭','已完成','已过期'],
+    task_status: ['所有', '草稿', '执行中', '等待接受', '已关闭','已完成','已过期'],
     task_reward: ['所有','闲钱币','人民币','实物'],
     chosed_type: "请选择",
     chosed_status: "请选择",
@@ -22,8 +22,11 @@ Page({
     status: "",
     reward: "",
     // 加载动画
-    isLoading: true,
-    noMore: false,
+    isLoading: false,
+    noMore: true,
+    // 询问是否删除
+    isDelete: false,
+    delete_id: "",
     // 测试列表
     testList: {
       "pagination": {
@@ -48,7 +51,7 @@ Page({
             "打游戏"
           ],
           "top_time": 1244123123,
-          "status": "wait",
+          "status": "draft",
           "type": "run",
           "attachment": [
             {
@@ -307,6 +310,8 @@ Page({
 
     if (this.data.chosed_status == '所有') {
       this.data.status = 'all';
+    } else if (this.data.chosed_status == '草稿') {
+      this.data.status = 'draft';
     } else if (this.data.chosed_status == '执行中') {
       this.data.status = 'run';
     } else if (this.data.chosed_status == '等待接受') {
@@ -337,5 +342,25 @@ Page({
     console.log(this.data.status);
     console.log(this.data.reward);
 
+  },
+  // 删除或者置顶
+  top_delete: function(e){
+    var id = e.currentTarget.dataset.id;
+    console.log(id);
+    console.log(e.currentTarget.dataset.status)
+    if (e.currentTarget.dataset.status == 'draft'){
+      this.setData({ isDelete: true });
+      this.data.delete_id = id;
+    } else{
+      // TODO: 置顶对影项
+    }
+  },
+  confirm_delete:function(e){
+    console.log(this.data.delete_id);
+    this.setData({ isDelete: false });
+     // TODO: 删除对应项
+  },
+  cancel_delete: function(e) {
+    this.setData({isDelete: false});
   }
 })

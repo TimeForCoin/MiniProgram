@@ -68,6 +68,11 @@
           <image src = "/images/icons/user.png" class = "item_btn"/>
         </view> -->
       </view>
-      
+      <!--加载动画-->
+    <view class="loading_view" wx:if="{{isLoading}}">
+      <image class="loading" src="/images/icons/loading.png"></image>
+      <text class="subtext">正在载入更多...</text>
+    </view>
+    <text class="subtext" style="margin-top: 40rpx; margin-bottom: 60rpx;" wx:if="{{noMore}}">没有更多了~</text>
     </view>
 </view>
