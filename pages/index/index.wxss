@@ -11,11 +11,35 @@
   margin-right: 5%;
   height:320rpx;
 }
+/* 搜索部分 */
+#search_view{
+  background-color: rgba(231, 231, 231, 0.3);
+  display: flex;
+  margin: 10rpx 40rpx 10rpx 40rpx;
+  flex-direction: row;
+}
 
+#top{
+  display: flex;
+  flex-direction: column;
+}
+
+.input_title{
+  font-size: 32rpx;
+  margin-left: 20rpx;
+  text-align: left;
+  margin-top: 13rpx;
+}
+.search_logo{
+  width: 32rpx;
+  height:32rpx;
+  margin: 20rpx 20rpx;
+}
+/* 滑动图片 */
 .slide-image{
   height: 100%;
   width: 100%;
-  border-radius: 2%;
+  margin-top: 20rpx;
 }
 
 /*标签页切换*/
@@ -107,7 +131,7 @@
 
 .payType{
   background: #ff7e67;
-  margin: 0rpx 20rpx;
+  margin: 0rpx 10rpx;
   padding: 3rpx 6rpx;
   font-size: 26rpx;
   color: #fff;

@@ -1,5 +1,9 @@
 <!--index.wxml-->
 <view id="container">
+  <view id = "search_view" bindtap = "navigateToResult">
+      <image src = "/images/icons/search.png" class = "search_logo" />
+      <input name="search_input" class="input_title" placeholder="搜索 任务" maxlength='20'/>
+    </view>
   <swiper class="top_image" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
     <block wx:for="{{top_images}}" wx:key="index">
       <swiper-item>
@@ -30,6 +34,7 @@
                 <image src="/images/icons/price.png" class="money_img" wx:if="{{item.reward != 'physical'}}" />
                 <text classs="money_text">{{item.reward == 'physical' ? item.reward_object : item.reward_value}}</text>
                 <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'physical'? '实物' : '闲币' }}</text>
+                <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
               </view>
               <view class="band1" />
               <view style="display: flex; flex-direction: row;">
@@ -52,6 +57,7 @@
                 <image src="/images/icons/price.png" class="money_img" wx:if="{{item.reward != 'physical'}}" />
                 <text classs="money_text">{{item.reward == 'physical' ? item.reward_object : item.reward_value}}</text>
                 <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'physical'? '实物' : '闲币' }}</text>
+                <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
               </view>
               <view class="band1" />
               <view style="display: flex; flex-direction: row;">

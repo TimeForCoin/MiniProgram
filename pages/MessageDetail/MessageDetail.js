@@ -97,9 +97,12 @@ Page({
     for(var value of this.data.testMessageDetail.data){
       // 整数时间才进行显示
       var time = moment(value.time).format('L');
+      console.log(time);
       // 整点判断
       if(time[time.length - 1] == 0 && time[time.length - 2] == 0){
+        
         value.string_time = moment(value.time).format('l');
+        console.log(value.string_time);
         value.showTime = true;
       }
       arr.push(value);

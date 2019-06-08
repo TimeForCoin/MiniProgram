@@ -1,16 +1,16 @@
 <!--pages/MessageDetail/MessageDetail.wxml-->
 <view class="messageDetail">
   <!-- 相关物品详情 -->
-  <view class = "objectDetail">
-    <view style = "display:flex; margin-bottom:20rpx;">
-    <image src = "{{detailImage}}"  style = "width: 120rpx; height: 120rpx;"/>
-    <view class = "title_content">
-      <text style = "font-size:36rpx; text-align: left; margin-top :10rpx;">{{testSample.data.title}}</text>
-      <text class = "subtext" style = "margin-top: 10rpx; text-align: left;">{{testSample.data.content}}</text>      
+  <view class="objectDetail">
+    <view style="display:flex; margin-bottom:20rpx;">
+      <image src="{{detailImage}}" style="width: 120rpx; height: 120rpx;" />
+      <view class="title_content">
+        <text style="font-size:36rpx; text-align: left; margin-top :10rpx;">{{testSample.data.title}}</text>
+        <text class="subtext" style="margin-top: 10rpx; text-align: left;">{{testSample.data.content}}</text>
+      </view>
     </view>
-  </view>
-  <!--顶部下方价格部分-->
-  <view id="price_view">
+    <!--顶部下方价格部分-->
+    <view id="price_view">
       <image src="/images/icons/price.png" id="money" wx:if="{{testSample.data.reward != 'physical'}}" />
       <text
         id="price">{{testSample.data.reward == 'physical' ? testSample.data.reward_object : testSample.data.reward_value}}</text>
@@ -23,14 +23,16 @@
   </view>
   <!-- 消息列表 -->
   <view id="dialog_list">
-    <!--显示时间-->
-    <text class="showTime"> 2019-06-01 12:00</text>
     <!--单独一个对话-->
-    <view class="singleDialog" wx:for = "{{testMessageDetail.data}}" wx:key = "item.content">
-      <image class="ava" src="/images/index_sample.jpg" />
-      <view class="details">
-        <text class="username">chensh236</text>
-        <text class="content">iloveyou</text>
+    <view class="singleDialog" wx:for="{{testMessageDetail.data}}" wx:key="item.content">
+      <!--显示时间-->
+      <text class="showTime" wx:if="{{item.showTime}}">{{item.string_time}}</text>
+      <view style="display:flex; flex-direction: row; padding: 20rpx 30rpx; margin-top: 20rpx;">
+        <image class="ava" src="/images/index_sample.jpg" />
+        <view class="details">
+          <text class="username">chensh236</text>
+          <text class="content">{{item.content}}</text>
+        </view>
       </view>
     </view>
     <view class="loading_view" wx:if="{{isLoading}}">
@@ -42,7 +44,7 @@
 </view>
 <!--发送信息-->
 <view class="mycomment comment_bottom">
-  <textarea class="comment_input" bindinput='replyInputChange' value='{{reply_content}}' style = "width: 70%;" />
+  <textarea class="comment_input" bindinput='replyInputChange' value='{{reply_content}}' style="width: 70%;" />
   <button class="commit_btn" bindtap = 'submitRely'>发送</button>
 </view>
 <view class="mask" catchtouchmove="preventTouchMove" bindtap = "cancelReplying" wx:if="{{isReplying}}"/>

@@ -3,50 +3,58 @@
   <view id = "top">
     <view id = "search_view">
       <image src = "/images/icons/search.png" class = "search_logo" />
-      <input name="search_input" class="input_title" placeholder="搜索 任务" maxlength='20'/>
-      <image src = "/images/icons/empty.png" class = "search_logo" />
+      <input name="search_input" class="input_title" placeholder="搜索 任务" maxlength='20' focus = "true" bindinput='typing' value = "{{typing_content}}" bindconfirm = 'searchResult'/>
+      <image src = "/images/icons/empty.png" class = "search_logo" wx:if = "{{isFocus}}" bindtap='cleaning'/>
     </view>
     <!-- 排序 -->
     <view class = "sort-wrap">
-      <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0">
-        <text>菜</text>
-        <view class = "img_set">
+      <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0"  style = "color: {{btn_state1 ? 'gray' : '#ff7e67'}}">
+        <text>热门</text>
+        <!-- <view class = "img_set">
           <image src="/images/icons/up.png" class = "sort_img img_up" />
           <image src="/images/icons/down.png" class = "sort_img img_down"/>
-        </view>
+        </view> -->
       </view>
 
-      <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0">
-        <text>虚</text>
-        <view class = "img_set">
+      <view class='sort-btn' data-index="{{btn_state1}}" bindtap="sort_type1" style = "color: {{btn_state0 ? 'gray' : '#ff7e67'}}">
+        <text>最新</text>
+        <!-- <view class = "img_set">
           <image src="/images/icons/up.png" class = "sort_img img_up" />
           <image src="/images/icons/down.png" class = "sort_img img_down"/>
-        </view>
+        </view> -->
       </view>
 
-      <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0">
+      <!-- <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0">
         <text>坤</text>
         <view class = "img_set">
           <image src="/images/icons/up.png" class = "sort_img img_up" />
           <image src="/images/icons/down.png" class = "sort_img img_down"/>
         </view>
-      </view>
+      </view> -->
     </view>
   </view>
 
   <!--下面内容-->
     <view id = "list">
-      <view class = "list_item">
-        <image class = "item_img" src = "/images/index_sample.jpg" />
+      <view class = "list_item" wx:for = "{{testList.data}}" wx:key="item.id" bindtap = "navigateToDetail" data-id = "{{item.id}}">
+        <image class = "item_img" src = "{{item.attachment[0].id}}" />
         <view class = "basic_info">
-          <text class = "title">蔡徐坤</text>
-          <text class = "subtitle">蔡徐坤他妈</text>
+          <text class = "title">{{item.title}}</text>
+           <!--金额-->
+              <view style="margin-top: 10rpx;">
+                <image src="/images/icons/price.png" class="money_img" wx:if="{{item.reward != 'physical'}}" />
+                <text classs="money_text">{{item.reward == 'physical' ? item.reward_object : item.reward_value}}</text>
+                <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'physical'? '实物' : '闲币' }}</text>
+                <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
+              </view>
+          <text class = "subtitle">{{item.content}}</text>
+          <view class = "band1" />
         </view>
-        <view class = "item_btn_set">
+        <!-- <view class = "item_btn_set">
           <image src = "/images/icons/user.png" class = "item_btn" />
           <image src = "/images/icons/user.png" class = "item_btn"/>
-        </view>
+        </view> -->
       </view>
-      <view class = "band1" />
+      
     </view>
 </view>

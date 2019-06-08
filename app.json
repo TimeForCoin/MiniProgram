@@ -1,16 +1,15 @@
 {
   "pages": [
+    "pages/index/index",
+    "pages/SearchResult/SearchResult",
     "pages/MessageDetail/MessageDetail",
     "pages/Detail/Detail",
     "pages/Message/Message",
-    "pages/index/index",
-    
-    
     "pages/AddedItems/AddedItems",
     "pages/userInfo/userInfo",
     "pages/AddItem/AddItem",
-    "pages/logs/logs",
-    "pages/SearchResult/SearchResult"
+    "pages/logs/logs"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

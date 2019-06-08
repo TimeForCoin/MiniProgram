@@ -207,6 +207,12 @@ Page({
   //     }
   //   });
   // },
+  // 点击搜索栏跳转
+  navigateToResult: function(e){
+    wx.navigateTo({
+      url: '/pages/SearchResult/SearchResult',
+    })
+  },
   // 滑动切换tab
   bindChange: function (e) {
     var that = this;
