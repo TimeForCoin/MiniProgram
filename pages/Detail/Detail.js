@@ -342,7 +342,7 @@ Page({
 
     } else{
       wx.navigateTo({
-        url: '/pages/Comment/Comment?feedback=' + 'noFeedBack',
+        url: '/pages/Comment/Comment?feedback=' + 'false&id=' + this.data.testSample.data.id,
       })
     }
   }

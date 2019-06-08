@@ -17,7 +17,7 @@ Page({
     }, {
       id: 2,
       name: "我参与过的任务",
-      url: "/pages/ParticipateTast/ParticipateTask",
+      url: "/pages/ParticipateTask/ParticipateTask",
       src: "participate"
     }, {
       id: 3,

@@ -1,14 +1,12 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/ParticipateTask/ParticipateTask",
+  
     "pages/userInfo/userInfo",
-    
     "pages/Detail/Detail",
-    
     "pages/MessageDetail/MessageDetail",
-    
     "pages/Message/Message",
-    
     "pages/AddItem/AddItem",
     "pages/Comment/Comment",
     "pages/CollectList/CollectList",

@@ -9,13 +9,14 @@ Page({
     inputValue: "",
     // 判断申请或者反馈
     isFeedback: false,
+    id: "",
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if(options == 'feedback'){
+    if(options.feedback == 'true'){
       this.setData({holder: "请输入您的反馈"});
       this.setData({ isFeedback: true });
     } else{
@@ -23,6 +24,8 @@ Page({
       this.data.isFeedback = false;
       this.setData({ isFeedback: false });
     }
+    console.log(options.id);
+    this.data.id = options.id;
   },
 
   /**
@@ -88,13 +91,31 @@ Page({
     if(this.data.isFeedback){
       wx.showToast({
         title: '反馈成功',
+        success: function () {
+          setTimeout(function () {
+            // 返回
+            wx.navigateBack({
+
+            })
+          }, 1000);
+        }
       })
       // TODO: 提交反馈信息
     } else{
       wx.showToast({
         title: '申请成功',
+        success: function(){
+          setTimeout(function(){
+            // 返回
+            wx.navigateBack({
+
+            })
+          }, 1000);
+        }
       })
       // TODO: 提交申请信息
     }
+
+    
   }
 })

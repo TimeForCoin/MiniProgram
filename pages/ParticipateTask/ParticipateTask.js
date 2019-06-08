@@ -22,14 +22,62 @@ Page({
       },
       "data": [
         {
-          "task": "5c9ecbbba4a3f52e3195fa68",
-          "owner": "5c9ecbbba4a3f52e3195fa68",
-          "status": "running",
-          "note": "我要加入",
-          "degree": 100,
-          "remark": "很好",
-          "score": 100,
-          "feedback": "我觉得还行"
+          "status": {
+            "task": "5c9ecbbba4a3f52e3195fa68",
+            "player": {
+              "id": "5c9ecbbba4a3f52e3195fa68",
+              "nickname": "tp",
+              "avatar": "https://xxx.png",
+              "gender": "man",
+              "type": "normal",
+              "status": "finish",
+            },
+            
+            "note": "我要加入",
+            "degree": 100,
+            "remark": "很好",
+            "score": 100,
+            "feedback": "我觉得还行"
+          },
+          "task": {
+            "id": "5c9ecbbba4a3f52e3195fa68",
+            "publisher": {
+              "id": "5c9ecbbba4a3f52e3195fa68",
+              "nickname": "tp",
+              "avatar": "https://xxx.png",
+              "gender": "man",
+              "type": "normal"
+            },
+            "title": "帮我洗澡",
+            "content": "过来至二634洗澡澡",
+            "location": [
+              "中山大学"
+            ],
+            "tags": [
+              "打游戏"
+            ],
+            "top_time": 1244123123,
+            "status": "wait",
+            "type": "run",
+            "images": [
+              {
+                "id": "5c9ecbbba4a3f52e3195fa68",
+                "url": "/images/index_sample.jpg"
+              }
+            ],
+            "reward": "rmb",
+            "reward_value": 100,
+            "reward_object": "一个吻",
+            "publish_date": 112312341243,
+            "start_date": 121414124,
+            "end_date": 121414124,
+            "player_count": 12,
+            "max_player": 30,
+            "comment_count": 30,
+            "view_count": 30,
+            "collect_count": 30,
+            "like_count": 30
+          }
         }
       ]
     },
@@ -94,15 +142,15 @@ Page({
   reduce: function(){
     var arr = [];
     for(var value of this.data.testList.data){
-      if(value.title.length >= 10){
-        value.title = value.title.substring(0, 10);
-        value.title = value.title + "...";
+      if(value.task.title.length >= 10){
+        value.task.title = value.task.title.substring(0, 10);
+        value.task.title = value.task.title + "...";
       }
-      if(value.content.length > 12){
-        value.content = value.content.substring(0, 12);
-        value.content = value.content + "...";
+      if (value.task.content.length > 12){
+        value.task.content = value.task.content.substring(0, 12);
+        value.task.content = value.task.content + "...";
       }
-      console.log(value.title);
+      console.log(value.task.title);
       arr.push(value);
     }
     this.data.testList.data = arr;
@@ -140,5 +188,12 @@ Page({
     }
     console.log(this.data.status);
 
+  },
+  // 跳转评论
+  commentTask: function(e){
+    console.log(e.currentTarget.dataset.id);
+    wx.navigateTo({
+      url: '/pages/Comment/Comment?feedback=' + 'true&id=' + e.currentTarget.dataset.id,
+    })
   }
 })
