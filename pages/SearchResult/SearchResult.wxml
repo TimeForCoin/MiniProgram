@@ -49,7 +49,7 @@
 
   <!--下面内容-->
     <view id = "list">
-      <view class = "list_item" wx:for = "{{testList.data}}" wx:key="item.id" bindtap = "navigateToDetail" data-id = "{{item.id}}">
+      <view class = "list_item" wx:for = "{{testList.data}}" wx:key="item.id" bindtap = "navigateToDetail" data-id = "{{item.id}}" style = "text-align: left;">
         <image class = "item_img" src = "{{item.attachment[0].id}}" />
         <view class = "basic_info">
           <text class = "title">{{item.title}}</text>
@@ -59,6 +59,7 @@
                 <text classs="money_text">{{item.reward == 'physical' ? item.reward_object : item.reward_value}}</text>
                 <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'physical'? '实物' : '闲币' }}</text>
                 <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
+                <text class="payType">{{item.status == 'draft' ? '草稿' : item.status == 'wait' ? '等待' : item.status == 'close' ? '关闭' : '完成' }}</text>
               </view>
           <text class = "subtitle">{{item.content}}</text>
           <view class = "band1" />

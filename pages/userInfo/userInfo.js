@@ -11,31 +11,26 @@ Page({
     hasUserInfo: false,
     nav_a: [{
       id: 1,
-      name: "我发布的",
+      name: "我创建的任务",
       url: "/pages/AddedItems/AddedItems",
       src: "added_item"
     }, {
       id: 2,
-      name: "我卖出的",
-      url: "/pages/SearchResult/SearchResult"
+      name: "我参与过的任务",
+      url: "/pages/ParticipateTast/ParticipateTask",
+      src: "participate"
     }, {
       id: 3,
-      name: "我买到的",
-      url: "/pages/SearchResult/SearchResult"
+      name: "我收藏的任务",
+      url: "/pages/CollectList/CollectList",
+      src: "user_collect"
     }],
 
     nav_b: [{
       id: 4,
       name: "个人信息设置",
-      url: "infoSettings"
-    }, {
-      id: 5,
-      name: "安全中心",
-      url: "/pages/SearchResult/SearchResult"
-    }, {
-      id: 6,
-      name: "我的设置",
-      url: "/pages/SearchResult/SearchResult"
+      url: "infoSettings",
+      src: "user"
     }],
     // ----用于修改信息---------
     isEditInfo: false,
@@ -258,19 +253,13 @@ Page({
   // 跳转
   navigate: function (e) {
     console.log(e);
-    if (e.currentTarget.dataset.item == "1") {
+    if (e.currentTarget.dataset.item == "4") {
       this.setData({ isEditInfo: true });
-    } else if (e.currentTarget.dataset.item == "2") {
-      this.setData({ isEditInfo: true });
-    } else if (e.currentTarget.dataset.item == "3") {
-      this.setData({ isEditInfo: true });
-    } else if (e.currentTarget.dataset.item == "4") {
-      this.setData({ isEditInfo: true });
-      this.setData({ isEditInfo: true });
-    } else if (e.currentTarget.dataset.item == "5") {
-      this.setData({ isEditInfo: true });
-    } else if (e.currentTarget.dataset.item == "6") {
-      this.setData({ isEditInfo: true });
+    } else{
+      console.log(this.data.nav_a[e.currentTarget.dataset.item - 1]);
+      wx.navigateTo({
+        url: this.data.nav_a[e.currentTarget.dataset.item - 1].url,
+      })
     }
   }
 })

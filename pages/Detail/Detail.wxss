@@ -99,7 +99,14 @@
   flex-direction:row;
   margin-top:10rpx;
 }
-
+/* 加入按钮 */
+.joininButton{
+  margin-top: 30rpx;
+  width: 80%;
+  background-color: #ff7e67;
+  color: #fff;
+  margin-bottom: 30rpx;
+}
 /*分割线*/
 .band2{
   width:100%;

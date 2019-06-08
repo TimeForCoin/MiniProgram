@@ -1,12 +1,7 @@
-<!--pages/AddedItems/AddedItems.wxml-->
+<!--pages/CollectList/CollectList.wxml-->
 <view id="container">
   <view id="top">
-    <view id="search_view">
-      <image src="/images/icons/search.png" class="search_logo" />
-      <input name="search_input" class="input_title" placeholder="搜索 任务" maxlength='20' bindinput='typing'
-        value="{{typing_content}}" bindconfirm='searchResult' />
-      <image src="/images/icons/empty.png" class="search_logo" wx:if="{{isFocus}}" bindtap='cleaning' />
-    </view>
+    <text>收藏列表</text>
     <!--任务类型选择器-->
     <view class="picker_field">
       <picker value="{{chosed_type}}" bindchange="change_type" range="{{task_type}}" class="picker_font">
@@ -54,7 +49,7 @@
   <view id="list">
     <view style = "display:flex; flex-direction: row; text-align: left;" wx:for="{{testList.data}}" wx:key="item.id" >
       <view class="list_item" bindtap="navigateToDetail" data-id="{{item.id}}">
-       <image class="item_img" src="{{item.attachment[0].id}}" />
+       <image class="item_img" src="{{item.images[0].url}}" />
       <view class="basic_info">
         <text class="title">{{item.title}}</text>
         <!--金额-->
@@ -63,15 +58,15 @@
           <text classs="money_text">{{item.reward == 'physical' ? item.reward_object : item.reward_value}}</text>
           <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'physical'? '实物' : '闲币' }}</text>
           <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
-          <text class="payType">{{item.status == 'wait' ? '等待' : item.status == 'refuse'? '被拒绝' : item.status == 'close' ? '关闭' : item.status == 'running' ? '进行中' : item.status == 'finish' ? '完成' : item.status == 'give_up' ? '放弃' : '失败' }}</text>
+          <text class="payType">{{item.status == 'draft' ? '草稿' : item.status == 'wait' ? '等待' : item.status == 'close' ? '关闭' : '完成' }}</text>
         </view>
         <text class="subtitle">{{item.content}}</text>
         <view class="band1" />
       </view>
       </view>
       <!--删除或置顶-->
-      <view class="float_button" style="bottom: 400rpx;" bindtap='clickCollect' data-status = "{{item.status}}" data-id = "{{item.id}}" catchtap = 'top_delete'>
-        <image src="/images/icons/{{item.status == 'draft' ? 'rubbish' : 'toTop'}}.png" class="btn_img" />
+      <view class="float_button" style="bottom: 400rpx;" bindtap='clickCollect' data-id = "{{item.id}}" catchtap = 'delete'>
+        <image src="/images/icons/rubbish.png" class="btn_img" />
       </view>
       <!-- <view class = "item_btn_set">
           <image src = "/images/icons/user.png" class = "item_btn" />

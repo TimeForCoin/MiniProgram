@@ -1,0 +1,48 @@
+<!--pages/ParticipateTask/ParticipateTask.wxml-->
+<view id="container">
+  <view id="top">
+    <text>参与列表</text>
+    <!--任务类型选择器-->
+    <view class="picker_field">
+      <picker value="{{chosed_status}}" bindchange="change_status" range="{{task_status}}" class="picker_font">
+        <text>状态：</text><text style="color: #ff7e67;">{{chosed_status}}</text>
+      </picker>
+    </view>
+    <view class="band2" />
+  </view>
+
+  <!--下面内容-->
+  <view id="list">
+    <view style = "display:flex; flex-direction: row; text-align: left;" wx:for="{{testList.data}}" wx:key="item.id" >
+      <view class="list_item" bindtap="navigateToDetail" data-id="{{item.id}}">
+       <image class="item_img" src="{{item.attachment[0].id}}" />
+      <view class="basic_info">
+        <text class="title">{{item.title}}</text>
+        <!--金额-->
+        <view style="margin-top: 10rpx;">
+          <image src="/images/icons/price.png" class="money_img" wx:if="{{item.reward != 'physical'}}" />
+          <text classs="money_text">{{item.reward == 'physical' ? item.reward_object : item.reward_value}}</text>
+          <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'physical'? '实物' : '闲币' }}</text>
+          <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
+        </view>
+        <text class="subtitle">{{item.content}}</text>
+        <view class="band1" />
+      </view>
+      </view>
+      <!--评论-->
+      <view class="float_button" style="bottom: 400rpx;" bindtap='clickCollect' data-status = "{{item.status}}" data-id = "{{item.id}}" catchtap = 'commentTask' style = "opacity: {{item.status == 'finish' ? '1.0' : '0.0'}}">
+        <image src="/images/icons/task_comment.png" class="btn_img" />
+      </view>
+      <!-- <view class = "item_btn_set">
+          <image src = "/images/icons/user.png" class = "item_btn" />
+          <image src = "/images/icons/user.png" class = "item_btn"/>
+        </view> -->
+    </view>
+    <!--加载动画-->
+    <view class="loading_view" wx:if="{{isLoading}}">
+      <image class="loading" src="/images/icons/loading.png"></image>
+      <text class="subtext">正在载入更多...</text>
+    </view>
+    <text class="subtext" style="margin-top: 40rpx; margin-bottom: 60rpx;" wx:if="{{noMore}}">没有更多了~</text>
+  </view>
+</view>

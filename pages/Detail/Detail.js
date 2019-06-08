@@ -24,7 +24,7 @@ Page({
           "打游戏", "打游戏", "打游戏"
         ],
         "top_time": 1244123123,
-        "status": "overdue",
+        "status": "wait",
         "type": "info",
         "attachment": [
           {
@@ -54,7 +54,7 @@ Page({
         "end_date": 121414124,
         "player_count": 12,
         "max_player": 30,
-        "auto_accept": true,
+        "auto_accept": false,
         "comment_count": 30,
         "view_count": 30,
         "collect_count": 30,
@@ -113,7 +113,9 @@ Page({
     // 加载更多评论
     isLoading: false,
     // 没有更多评论内容
-    noMoreComment: false
+    noMoreComment: false,
+    // 如果是自己的任务不进行立即加入按钮显示
+    isMine: false,
 },
   /**
    * 生命周期函数--监听页面加载
@@ -315,5 +317,18 @@ Page({
   // 拉底刷新内容
   onReachBottom(){
     this.setData({isLoading: true});
+  },
+  joinin: function(e){
+    if(this.data.testSample.data.auto_accept){
+      wx.showToast({
+        title: '自动加入成功',
+      })
+      // TODO: 完成加入
+
+    } else{
+      wx.navigateTo({
+        url: '/pages/Comment/Comment?feedback=' + 'noFeedBack',
+      })
+    }
   }
 })

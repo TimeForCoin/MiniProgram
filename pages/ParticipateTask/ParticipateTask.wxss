@@ -1,32 +1,13 @@
-/* pages/SearchResult/SearchResult.wxss */
+/* pages/ParticipateTask/ParticipateTask.wxss */
 #container{
   display: flex;
   flex-direction: column;
 }
 
-#search_view{
-  background-color: rgba(231, 231, 231, 0.3);
-  display: flex;
-  margin: 10rpx 40rpx 10rpx 40rpx;
-  flex-direction: row;
-}
-
 #top{
   display: flex;
   flex-direction: column;
-}
-
-.input_title{
-  font-size: 32rpx;
-  margin-left: 20rpx;
-  flex:16;
-  margin-top: 13rpx;
-}
-.search_logo{
-  width: 32rpx;
-  height:32rpx;
-  flex:1;
-  margin: 20rpx 20rpx;
+  align-items: center;
 }
 
 /*排序部分*/
@@ -43,8 +24,8 @@
   display: flex;
   padding-left: 60rpx;
   padding-right: 20rpx;
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
+  margin-top: 30rpx;
+  margin-bottom: 10rpx;
   flex-direction: row;
 }
 .picker_font{
@@ -83,14 +64,15 @@
 
 #list{
   margin-top: 20rpx;
-  text-align: center;
   padding-left: 30rpx;
+  text-align: center;
   padding-right: 30rpx;
 }
 
 /*管理列表*/
 .list_item{
   display: flex;
+  flex:7.5;
   flex-direction: row;
 }
 
@@ -120,6 +102,23 @@
   font-size: 26rpx;
   color: #fff;
   border-radius: 5rpx;
+}
+/* 删除或者置顶 */
+.float_button{
+   margin-top: 40rpx;
+   width: 80rpx;
+   height: 80rpx;
+   flex:1;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #ff7e67;
+   border-radius: 50rpx;
+}
+
+.btn_img{
+  width: 50rpx;
+  height: 50rpx;
 }
 
 /*分割线*/

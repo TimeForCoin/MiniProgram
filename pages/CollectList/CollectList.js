@@ -1,4 +1,4 @@
-// pages/AddedItems/AddedItems.js
+// pages/CollectList/CollectList.js
 Page({
 
   /**
@@ -36,13 +36,15 @@ Page({
       },
       "data": [
         {
-          "id": "5c9ecbbba4a13f52e3195fa68",
+          "id": "5c9ecbbba4a3f52e3195fa68",
           "publisher": {
             "id": "5c9ecbbba4a3f52e3195fa68",
             "nickname": "tp",
-            "avatar": "/images/icons/user.png"
+            "avatar": "https://xxx.png",
+            "gender": "man",
+            "type": "normal"
           },
-          "title": "帮我洗帮我洗帮我洗帮我洗帮我洗帮我洗帮洗帮我洗帮我洗帮我洗帮我洗帮我洗帮我洗澡",
+          "title": "帮我洗澡",
           "content": "过来至二634洗澡澡",
           "location": [
             "中山大学"
@@ -51,56 +53,17 @@ Page({
             "打游戏"
           ],
           "top_time": 1244123123,
-          "status": "draft",
+          "status": "failure",
           "type": "run",
-          "attachment": [
+          "images": [
             {
-              "id": "/images/icons/user.png",
-              "type": "image",
-              "name": "秀秀照片",
-              "description": "洗澡",
-              "size": 147872,
-              "time": 123214124,
-              "public": false
+              "id": "5c9ecbbba4a3f52e3195fa68",
+              "url": "/images/index_sample.jpg"
             }
           ],
-          "reward": "money",
-          "reward_value": 100,
-          "reward_object": "一个吻",
-          "publish_date": 112312341243,
-          "start_date": 121414124,
-          "end_date": 121414124,
-          "player_count": 12,
-          "max_player": 30,
-          "max_finish": 30,
-          "auto_accept": true,
-          "comment_count": 30,
-          "view_count": 30,
-          "collect_count": 30,
-          "like_count": 30,
-          "like": false
-        },
-        {
-          "id": "5c9ecbbba24a3f52e3195fa68",
-          "publisher": {
-            "id": "5c9ecbbba4a3f52e3195fa68",
-            "nickname": "vtp",
-            "avatar": "/images/icons/user.png"
-          },
-          "title": "帮我洗帮我洗澡",
-          "content": "过来至二不来不来不来爱的啊澡澡",
-          "location": [
-            "中山大学"
-          ],
-          "tags": [
-            "打游戏"
-          ],
-          "top_time": 1244123123,
-          "status": "wait",
-          "type": "run",
           "attachment": [
             {
-              "id": "/images/icons/user.png",
+              "id": "5c9ecbbba4a3f52e3195fa68",
               "type": "image",
               "name": "秀秀照片",
               "description": "洗澡",
@@ -117,58 +80,13 @@ Page({
           "end_date": 121414124,
           "player_count": 12,
           "max_player": 30,
-          "max_finish": 30,
           "auto_accept": true,
           "comment_count": 30,
           "view_count": 30,
           "collect_count": 30,
           "like_count": 30,
-          "like": false
-        },
-        {
-          "id": "5c9ecbbba4a3f52e3195fa68",
-          "publisher": {
-            "id": "5c9ecbbba4a3f52e3195fa68",
-            "nickname": "tp",
-            "avatar": "/images/icons/user.png"
-          },
-          "title": "帮我洗帮我洗帮我洗帮我洗帮我洗澡",
-          "content": "过来至二634洗澡澡",
-          "location": [
-            "中山大学"
-          ],
-          "tags": [
-            "打游戏"
-          ],
-          "top_time": 1244123123,
-          "status": "wait",
-          "type": "run",
-          "attachment": [
-            {
-              "id": "/images/icons/user.png",
-              "type": "image",
-              "name": "秀秀照片",
-              "description": "洗澡",
-              "size": 147872,
-              "time": 123214124,
-              "public": false
-            }
-          ],
-          "reward": "physical",
-          "reward_value": 100,
-          "reward_object": "一个吻",
-          "publish_date": 112312341243,
-          "start_date": 121414124,
-          "end_date": 121414124,
-          "player_count": 12,
-          "max_player": 30,
-          "max_finish": 30,
-          "auto_accept": true,
-          "comment_count": 30,
-          "view_count": 30,
-          "collect_count": 30,
-          "like_count": 30,
-          "like": false
+          "collected": false,
+          "liked": false
         }
       ]
     },
@@ -344,16 +262,12 @@ Page({
 
   },
   // 删除或者置顶
-  top_delete: function(e){
+  delete: function(e){
     var id = e.currentTarget.dataset.id;
     console.log(id);
     console.log(e.currentTarget.dataset.status)
-    if (e.currentTarget.dataset.status == 'draft'){
-      this.setData({ isDelete: true });
-      this.data.delete_id = id;
-    } else{
-      // TODO: 置顶对影项
-    }
+    this.setData({ isDelete: true });
+    this.data.delete_id = id;
   },
   confirm_delete:function(e){
     console.log(this.data.delete_id);

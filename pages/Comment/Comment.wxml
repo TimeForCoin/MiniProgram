@@ -1,0 +1,6 @@
+<!--pages/Comment/Comment.wxml-->
+<view id = "container">
+  <text class = 'title'>{{isFeedback ? '您的反馈' : '申请备注'}}</text>
+  <textarea maxlength='300' bindinput='inputProcess' class = 'input' placeholder='{{holder}}'  value = "{{inputValue}}"/>
+  <button class = 'submitBtn' bindtap='submit'>提交</button>
+</view>

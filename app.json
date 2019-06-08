@@ -1,15 +1,19 @@
 {
   "pages": [
+    "pages/userInfo/userInfo",
+    "pages/index/index",
+    "pages/Detail/Detail",
+    
+    "pages/MessageDetail/MessageDetail",
+    
+    "pages/Message/Message",
+    
+    "pages/AddItem/AddItem",
+    "pages/Comment/Comment",
+    "pages/CollectList/CollectList",
     "pages/AddedItems/AddedItems",
     "pages/SearchResult/SearchResult",
-    "pages/index/index",
-    "pages/MessageDetail/MessageDetail",
-    "pages/Detail/Detail",
-    "pages/Message/Message",
-    "pages/userInfo/userInfo",
-    "pages/AddItem/AddItem",
     "pages/logs/logs"
-    
   ],
   "window": {
     "backgroundTextStyle": "light",
