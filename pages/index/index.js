@@ -251,8 +251,9 @@ Page({
     this.setData({isLoading: true});
   },
   navigateToDetail: function(e){
+    //console.log(e.currentTarget.dataset.item);
     wx.navigateTo({
-      url: '/pages/Detail/Detail?id=' + e.currentTarget.item,
+      url: '/pages/Detail/Detail?id=' + e.currentTarget.dataset.item,
     });
   }
 })

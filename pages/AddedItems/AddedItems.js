@@ -266,7 +266,7 @@ Page({
   navigateToDetail: function(e){
     this.cleaning();
     wx.navigateTo({
-      url: '/pages/Detail/Detail?id=' + e.currentTarget.dataset.id,
+      url: '/pages/Detail/Detail?id=' + e.currentTarget.dataset.id + '&isMine=' + 'true',
     })
   },
   // 检测用户输入

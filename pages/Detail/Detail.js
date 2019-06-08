@@ -121,6 +121,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // 进行个人状态判断
+    if(options == undefined){
+
+    }else{
+      if(options.isMine == undefined){
+        this.setData({isMine: false});
+      } else{
+        if(options.isMine == 'true'){
+          this.setData({isMine: true});
+        } else{
+          this.setData({isMine: false});
+        }
+      }
+    }
+    console.log(options.id);
     moment.locale('en', {
       longDateFormat: {
         l: "YYYY-MM-DD",

@@ -95,7 +95,7 @@
     </view>
     <text class="title content_list">{{testSample.data.content}}</text>
 
-    <button class = 'joininButton' bindtap = 'joinin' wx:if ="{{testSample.data.status == 'wait'}}" >{{testSample.data.auto_accept ? '立即加入' : '申请加入'}}</button>
+    <button class = 'joininButton' bindtap = 'joinin' wx:if ="{{testSample.data.status == 'wait' && !isMine}}" >{{testSample.data.auto_accept ? '立即加入' : '申请加入'}}</button>
   </view>
 </view>
 <view class="band2" />
