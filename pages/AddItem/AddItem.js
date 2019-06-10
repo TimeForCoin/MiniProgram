@@ -41,9 +41,13 @@ Page({
       { index:0, src:"" },
       { index: 1, src: "" },
       { index: 2, src: "" },
+      { index: 3, src: "" },
 
     ],
     image_count:0,
+    isDelete: false,
+    // 删除图像的id
+    delete_id: -1,
   },
 
   /**
@@ -336,7 +340,7 @@ Page({
   // 添加图片
   addImage: function(e){
     wx.chooseImage({
-      count: 3,
+      count: 4,
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: res => {
@@ -349,16 +353,16 @@ Page({
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         let tempFilePaths = res.tempFilePaths;
         for(var value of tempFilePaths){
-          if(this.data.image_count >= 3) {
+          if(this.data.image_count >= 4) {
             wx.showToast({
-              title: '最多上传三张',
+              title: '最多上传四张',
               image: '/images/icons/error.png',
               mask: true,
               duration: 1000
             })
             break;
           }
-          if(this.data.image_count < 3){
+          if(this.data.image_count < 4){
             this.data.addedImages[this.data.image_count].src = value;
             this.setData({image_count: this.data.image_count + 1});
             console.log("图像个数" + this.data.image_count);
@@ -371,20 +375,30 @@ Page({
   // 删除图片
   deleteImage: function(e){
     var id = e.currentTarget.dataset.index;
+    this.data.delete_id = id;
+    this.setData({isDelete: true});
+  },
+  confirm_delete: function(e) {
+    var id = this.data.delete_id;
+    if(id == -1) return;
     this.setData({ image_count: this.data.image_count - 1 });
-    if(id == 2){
-      this.data.addedImages[2].src = "";
-      this.setData({addedImages: this.data.addedImages});
-    } else if(id == 1){
+    if (id == 3) {
+    } else if (id == 2) {
+      this.data.addedImages[2].src = this.data.addedImages[3].src;
+    } else if (id == 1) {
       this.data.addedImages[1].src = this.data.addedImages[2].src;
-      this.data.addedImages[2].src = "";
-      this.setData({ addedImages: this.data.addedImages });
-    } else if(id == 0){
+      this.data.addedImages[2].src = this.data.addedImages[3].src;
+    } else if (id == 0) {
       this.data.addedImages[0].src = this.data.addedImages[1].src;
       this.data.addedImages[1].src = this.data.addedImages[2].src;
-      this.data.addedImages[2].src = "";
-      this.setData({ addedImages: this.data.addedImages });
+      this.data.addedImages[2].src = this.data.addedImages[3].src;
     }
+    this.data.addedImages[3].src = "";
+    this.setData({ addedImages: this.data.addedImages });
+    this.cancel_delete(e);
+  },
+  cancel_delete: function(e){
+    this.setData({isDelete: false});
   }
 
 
