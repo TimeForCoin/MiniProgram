@@ -58,15 +58,15 @@
         <image src = "/images/icons/up.png" class = "downImg"></image>
         <text style = "font-size: 20rpx;color: gray; margin-left : 10rpx;">上滑</text>
       </view>
-      <image src = "/images/index_sample.jpg" class = "ava" />
+      <image src="{{userInfo.info.avatar}}" class = "ava" />
       <text class = "title">昵称</text>
       <input name="username" class="input_setting" placeholder="请输入昵称" maxlength='25' value = "{{nickname}}" bindinput = "changeNickname"/>
       <view class = "band1"/>
       <text class = "title">性别</text>
       <radio-group name="radio-group" class = "info_text" style = "margin-left: 60rpx; display:flex; flex-direction:row;" bindchange = "changeGender">
-        <label class="radio"wx:for="{{gender_items}}" wx:key="val" >
-          <view><radio color="#ff7e67" value="{{item.val}}" style = "margin-left:50rpx;"/>{{item.val}}</view>
-        </label>
+        <view class="radio" wx:for="{{gender_items}}" wx:key="val" >
+          <radio color="#ff7e67" value="{{item.val}}" checked="{{gender == item.val}}" style = "margin-left:50rpx;"/>{{item.name}}
+        </view>
       </radio-group>
       <text class = "title">个人简介</text>
       <textarea name="bio" class="input_setting" placeholder="请输入个人简介" maxlength='128' value = "{{bio}}" bindinput = "changeBio" style = "height: 150rpx; width:80%; word-wrap:break-word"/>

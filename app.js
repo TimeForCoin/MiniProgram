@@ -41,7 +41,7 @@ App({
     const resInfo = await server.request('GET', 'users/info/me')
     this.globalData.userInfo = resInfo.data
     this.globalData.hasUserInfo = true
-    console.log(resInfo.data)
+    return resInfo.data
   },
 
   editTabbar: function () {

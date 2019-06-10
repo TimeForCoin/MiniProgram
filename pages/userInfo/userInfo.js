@@ -44,9 +44,9 @@ Page({
     nickname: "",
     phone: "",
     gender_items: [
-      { val: '男' },
-      { val: '女' },
-      { val: '不便透露' },
+      { val: 'man', name: '男' },
+      { val: 'woman', name: "女" },
+      { val: 'other', name: "保密" },
     ],
     file: {}
     //----------------------
@@ -56,12 +56,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    app.editTabbar();
-    console.log(app.globalData)
+    app.editTabbar()
     this.setData({
       userInfo: app.globalData.userInfo,
       hasUserInfo: app.globalData.hasUserInfo
     })
+    this.setFormData()
   },
 
   /**
@@ -113,6 +113,20 @@ Page({
 
   },
 
+  setFormData: function () {
+    this.setData({
+      avatar: app.globalData.userInfo.info.avatar,
+      bio: app.globalData.userInfo.info.bio,
+      email: app.globalData.userInfo.info.email,
+      gender: app.globalData.userInfo.info.gender,
+      school: app.globalData.userInfo.info.school,
+      location: app.globalData.userInfo.info.location,
+      nickname: app.globalData.userInfo.info.nickname,
+      phone: app.globalData.userInfo.info.phone,
+    })
+
+  },
+
   setUserInfo: async function (e) {
     try {
       await server.request('PUT', 'users/info', {
@@ -120,12 +134,10 @@ Page({
         avatarUrl: e.detail.userInfo.avatarUrl,
         location: e.detail.userInfo.country
       })
-      const res = await server.request('GET', 'users/info/me')
-      app.globalData.userInfo = res.data
-      app.globalData.hasUserInfo = true
+      const userInfo = await app.getUserInfo()
       this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: app.globalData.hasUserInfo
+        userInfo: userInfo,
+        hasUserInfo: true,
       })
     } catch (err) {
       console.log(err)
@@ -193,7 +205,7 @@ Page({
       });
     }
   },
-  submit: function (e) {
+  submit: async function (e) {
     // 合法性判断
     if (!/[^\s]+/.test(this.data.nickname)) {
       this.showToast("昵称为空", '/images/icons/error.png');
@@ -233,7 +245,6 @@ Page({
       return;
     }
     file = {
-      "avatar": "",
       "bio": this.data.bio,
       "school": this.data.school,
       "email": this.data.email,
@@ -242,20 +253,22 @@ Page({
       "nickname": this.data.nickname,
       "phone": this.data.phone,
     };
-    this.showToast("修改成功", "");
-    this.setData({ isEditInfo: false });
+
+    try {
+      await server.request('PUT', 'users/info', file)
+      const userInfo = await app.getUserInfo()
+      this.showToast("修改成功", "");
+      this.setData({
+        userInfo: userInfo,
+        hasUserInfo: true,
+        isEditInfo: false 
+      })
+      this.setFormData()
+    } catch (err) {
+      console.log(err)
+    }
   },
 
-  //获取用户信息
-  getUserData: function (e) {
-    app.editTabbar();
-    server.request('GET', 'users/info/me').then(res => {
-      this.setData({
-        userInfo: res.data
-      })
-      console.log(this.data.userInfo);
-    })
-  },
 
   // 跳转
   navigate: function (e) {
