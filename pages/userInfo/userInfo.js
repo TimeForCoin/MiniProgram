@@ -132,7 +132,7 @@ Page({
     try {
       await server.request('PUT', 'users/info', {
         nickname: e.detail.userInfo.nickName,
-        avatarUrl: e.detail.userInfo.avatarUrl,
+        avatar_url: e.detail.userInfo.avatarUrl,
         location: e.detail.userInfo.country
       })
       await app.getUserInfo()

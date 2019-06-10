@@ -2,6 +2,7 @@
 //获取应用实例
 const app = getApp()
 const server = require('../../services/server.js')
+const util = require('../../utils/util.js')
 
 Page({
   data: {
@@ -171,6 +172,9 @@ Page({
   onLoad: function () {
     app.editTabbar();
 
+    // 获取列表
+
+
     // ---- 获取显示列表-----
     var arr = [];
     for(var value of this.data.testList.data){
@@ -183,13 +187,9 @@ Page({
     }
     this.setData({show_list_left: arr});
   },
-  setUserInfo: async (e) => {
-    console.log(e)
-    await server.request('PUT', 'users/info', {
-      nickname: e.detail.userInfo.nickName,
-      avatarUrl: e.detail.userInfo.avatarUrl,
-      location: e.detail.userInfo.country
-    })
+  
+  getTaskList: async function () {
+    
   },
   // onReady: function () {
   //   var that = this;

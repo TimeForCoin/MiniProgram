@@ -15,12 +15,13 @@
 
       <!--上传图片-->
       <view id = "image_upload">
-        <text id = "firstTag" wx:if = "{{image_count != 0}}" >主图</text>
-        <view style = "display:inline-block;" wx:for="{{addedImages}}" wx:key="item.index" bindtap="deleteImage" data-index = "{{item.index}}">
-            <image class="img_del"  src="/images/icons/delete.png"  wx:if="{{item.src != ''}}"/>
-            <image class = "imgs_first" bindtap="previewImage" src="{{item.src}}" wx:if ="{{item.src != ''}}" mode="aspectFill" />
+        <text id = "firstTag" wx:if = "{{addedImages.length != 0}}" >主图</text>
+        <view style = "display:inline-block;" wx:for="{{addedImages}}" wx:key="{{index}}" bindtap="deleteImage" 
+         data-index = "{{index}}">
+            <image class="img_del" src="/images/icons/delete.png"/>
+            <image class="imgs_first" bindtap="previewImage" src="{{item.src}}" mode="aspectFill" />
         </view>
-        <image id = "addImage" src = "/images/icons/add_Item.png" bindtap="chooseImage" wx:if = "{{image_count <= 3}}" bindtap = 'addImage'/>
+        <image id="addImage" src="/images/icons/add_Item.png" wx:if="{{addedImages.length < 4}}" bindtap='addImage'/>
       </view>
     </view>
     <view class = "band2" />
