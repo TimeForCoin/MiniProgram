@@ -12,11 +12,8 @@
         <view class = "info_view">
           <text class = "info_text" style = "font-weight:bold">{{userInfo.info.nickname}}</text>
         </view>
-        <view class = "info_view">
-          <text class = "info_text">国家：{{userInfo.info.location}}</text>
-        </view>
       </view>
-      <view wx:else id = "login" bindtap="getUserData">点击此处登录</view>
+      <button wx:else id="login" open-type="getUserInfo"  bindgetuserinfo="setUserInfo">点击此处登录</button>
     </view>
   </view>
   <!--下半部分-->

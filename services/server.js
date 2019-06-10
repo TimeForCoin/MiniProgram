@@ -1,24 +1,30 @@
 const ROOT = 'https://coin.zhenly.cn/api/'
 // const ROOT = 'http://127.0.0.1:30233/'
+let sessionId = ""
+
 module.exports = {
   request: (method, url, data) => {
     return new Promise((resolve, reject) => {
+      if (sessionId == "") {
+        sessionId = wx.getStorageSync("sessionId")
+      }
+
       wx.request({
         method: method,
         url: ROOT + url,
         header: {
-          cookie: "time-for-coin=" + wx.getStorageSync("sessionId")
+          cookie: "time-for-coin=" + sessionId
         },
         data: data,
         success: (res) => {
           if (res.cookies && res.cookies.length > 0) {
-            let sessionID = res.cookies[0].match(/time-for-coin=(\S*);/)[1]
-            wx.setStorageSync("sessionId", sessionID)
+            sessionId = res.cookies[0].match(/time-for-coin=(\S*);/)[1]
+            wx.setStorageSync("sessionId", sessionId)
           }
           resolve(res)
         },
-        fail: () => {
-          reject()
+        fail: (err) => {
+          reject(err)
         }
       })
     })

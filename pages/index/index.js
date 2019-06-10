@@ -170,11 +170,6 @@ Page({
   },
   onLoad: function () {
     app.editTabbar();
-    server.request('GET', 'users/info/me').then(res => {
-      this.setData({
-        userInfo: res.data
-      })
-    })
 
     // ---- 获取显示列表-----
     var arr = [];

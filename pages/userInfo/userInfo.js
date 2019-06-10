@@ -1,6 +1,7 @@
 // pages/userInfo/userInfo.js
 const app = getApp()
 const server = require('../../services/server.js')
+const util = require('../../utils/util.js')
 Page({
 
   /**
@@ -56,22 +57,10 @@ Page({
    */
   onLoad: function () {
     app.editTabbar();
-    server.request('GET', 'users/info/me').then(res => {
-      this.setData({
-        userInfo: res.data
-      })
-      console.log(this.data.userInfo);
-      if (this.data.userInfo != null) {
-        this.setData({ hasUserInfo: true });
-      }
-    })
-  },
-  setUserInfo: async (e) => {
-    console.log(e)
-    await server.request('PUT', 'users/info', {
-      nickname: e.detail.userInfo.nickName,
-      avatarUrl: e.detail.userInfo.avatarUrl,
-      location: e.detail.userInfo.country
+    console.log(app.globalData)
+    this.setData({
+      userInfo: app.globalData.userInfo,
+      hasUserInfo: app.globalData.hasUserInfo
     })
   },
 
@@ -122,6 +111,25 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  setUserInfo: async function (e) {
+    try {
+      await server.request('PUT', 'users/info', {
+        nickname: e.detail.userInfo.nickName,
+        avatarUrl: e.detail.userInfo.avatarUrl,
+        location: e.detail.userInfo.country
+      })
+      const res = await server.request('GET', 'users/info/me')
+      app.globalData.userInfo = res.data
+      app.globalData.hasUserInfo = true
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: app.globalData.hasUserInfo
+      })
+    } catch (err) {
+      console.log(err)
+    }
   },
 
   closeEditPage: function (e) {
@@ -207,7 +215,6 @@ Page({
       this.showToast("学校为空", '/images/icons/error.png');
       return;
     }
-
 
     if (!/[^\s]+/.test(this.data.location)) {
       this.showToast("地址为空", '/images/icons/error.png');

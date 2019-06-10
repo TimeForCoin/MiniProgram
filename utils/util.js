@@ -14,6 +14,22 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const as = function (fn, params) {
+  return new Promise((resolve, reject) => {
+    const p = {
+      success: (res) => {
+        resolve(res)
+      },
+      fail: (err) => {
+        reject(err)
+      }
+    }
+    Object.assign(p, params)
+    fn(p)
+  })
+}
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  as: as
 }
