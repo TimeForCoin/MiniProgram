@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/AddItem/AddItem",
     "pages/index/index",
     "pages/ParticipateTask/ParticipateTask",
   
@@ -7,7 +8,7 @@
     "pages/Detail/Detail",
     "pages/MessageDetail/MessageDetail",
     "pages/Message/Message",
-    "pages/AddItem/AddItem",
+    
     "pages/Comment/Comment",
     "pages/CollectList/CollectList",
     "pages/AddedItems/AddedItems",
