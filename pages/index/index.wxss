@@ -155,6 +155,7 @@
   margin-top: 20rpx;
   text-align: left;
   width: 320rpx;
+  word-break:break-all;
   font-weight: bold;
 }
 

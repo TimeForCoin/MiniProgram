@@ -147,7 +147,7 @@ Page({
               "public": false
             }
           ],
-          "reward": "physical",
+          "reward": "object",
           "reward_value": 100,
           "reward_object": "一个吻",
           "publish_date": 112312341243,
@@ -166,26 +166,38 @@ Page({
       ]
     },
     show_list_left: [],
+    show_list_right: [],
     isLoading: false,
     noMore:false,
   },
-  onLoad: function () {
+  onLoad: async function () {
     app.editTabbar();
 
     // 获取列表
 
+    let res = await server.request('GET', 'tasks', {
+      page: 1,
+      size: 10
+    })
 
-    // ---- 获取显示列表-----
-    var arr = [];
-    for(var value of this.data.testList.data){
-      // if (value.title.length > 20){
-      //   value.title = value.title.substring(0, 18);
-      // }
-      // value.title = value.title + "...";
-      arr.push(value);
-      // TODO: 在线获取
+    let isLeft = true
+
+    for (let task of res.data.tasks) {
+      if (isLeft) {
+        this.data.show_list_left.push(task)
+      } else {
+        this.data.show_list_right.push(task)
+      }
+      isLeft = !isLeft
     }
-    this.setData({show_list_left: arr});
+    if (res.data.pagination.total <= 10) {
+      this.setData({noMore: true})
+    }
+
+    this.setData({
+      show_list_left: this.data.show_list_left,
+      show_list_right: this.data.show_list_right  
+    });
   },
   
   getTaskList: async function () {
@@ -243,7 +255,9 @@ Page({
   // }
   onReachBottom(){
     // TODO: 刷新内容
-    this.setData({isLoading: true});
+    if (this.data.noMore === false) {
+      this.setData({ isLoading: true });
+    }
   },
   navigateToDetail: function(e){
     //console.log(e.currentTarget.dataset.item);

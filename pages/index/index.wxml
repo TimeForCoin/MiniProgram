@@ -26,14 +26,14 @@
         <!--left-->
         <view class="list_left" wx:for="{{show_list_left}}" wx:key="id">
           <view class="list_item" bindtap = "navigateToDetail" data-item = "{{item.id}}">
-            <image src="{{item.attachment[0].id}}" class="item_img" mode="aspectFill" />
+            <image src="{{item.images[0].url}}" class="item_img" mode="aspectFill" />
             <text class="info_title">{{item.title}}</text>
             <view class="info">
               <!--金额-->
               <view style="margin-top: 10rpx;">
-                <image src="/images/icons/price.png" class="money_img" wx:if="{{item.reward != 'physical'}}" />
-                <text classs="money_text">{{item.reward == 'physical' ? item.reward_object : item.reward_value}}</text>
-                <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'physical'? '实物' : '闲币' }}</text>
+                <image src="/images/icons/price.png" class="money_img" wx:if="{{item.reward != 'object'}}" />
+                <text classs="money_text">{{item.reward == 'object' ? item.reward_object : item.reward_value}}</text>
+                <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'object'? '实物' : '闲币' }}</text>
                 <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
               </view>
               <view class="band1" />
@@ -47,16 +47,16 @@
       </view>
       <!--right-->
       <view style="display:flex; flex-direction: column; ">
-        <view class="list_right" wx:for="{{show_list_left}}" wx:key="id">
+        <view class="list_right" wx:for="{{show_list_right}}" wx:key="id">
           <view class="list_item" bindtap = "navigateToDetail" data-item = "{{item.id}}">
-            <image src="{{item.attachment[0].id}}" class="item_img" mode="aspectFill" />
+            <image src="{{item.images[0].url}}" class="item_img" mode="aspectFill" />
             <text class="info_title">{{item.title}}</text>
             <view class="info">
               <!--金额-->
               <view style="margin-top: 10rpx;">
-                <image src="/images/icons/price.png" class="money_img" wx:if="{{item.reward != 'physical'}}" />
-                <text classs="money_text">{{item.reward == 'physical' ? item.reward_object : item.reward_value}}</text>
-                <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'physical'? '实物' : '闲币' }}</text>
+                <image src="/images/icons/price.png" class="money_img" wx:if="{{item.reward != 'object'}}" />
+                <text classs="money_text">{{item.reward == 'object' ? item.reward_object : item.reward_value}}</text>
+                <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'object'? '实物' : '闲币' }}</text>
                 <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
               </view>
               <view class="band1" />

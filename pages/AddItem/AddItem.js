@@ -33,7 +33,7 @@ Page({
     ],
     auto_accept: true,
     publish: true,
-    attachment: [],
+    images: [],
     errStr: "",
     isErr: false,
     isSubmit: false,
@@ -135,21 +135,21 @@ Page({
     console.log("选择rmb");
   },
 
-  choosePhysical: function (e) {
-    this.setData({ reward: "physical" });
-    console.log("选择physical");
+  chooseObject: function (e) {
+    this.setData({ reward: "object" });
+    console.log("选择object");
   },
 
   priceChange: function(e){
     this.setData({reward_input: e.detail.value});
-    if (this.data.reward == "physical") this.data.reward_object = this.data.reward_input;
+    if (this.data.reward == "object") this.data.reward_object = this.data.reward_input;
     else this.data.reward_value = parseInt (this.data.reward_input);
     console.log("reward_value:" + this.data.reward_value);
     console.log("reward_object:" + this.data.reward_object);
   },
 
   splitData: function(str){
-    var origin = str.split(/[,|，]/);
+    var origin = str.split(/[,|，| ]/);
     var arr = [];
     for (var val of origin) {
       if (val != "" && val != undefined) {
@@ -235,7 +235,7 @@ Page({
       return false;
     }
 
-    if (!/[^\s]+/.test(this.data.reward_object) && this.data.reward == "physical") {
+    if (!/[^\s]+/.test(this.data.reward_object) && this.data.reward == "object") {
       this.setData({ isErr: true });
       this.setData({ errStr: "交易物品输入错误" });
       return false;
@@ -258,77 +258,109 @@ Page({
     return true;
   },
   makeFile:function(flag){
+
+    const imagesId = []
+    for (let image of this.data.addedImages) {
+      imagesId.push(image.id)
+    }
+
+
     // 生成json
     this.data.file = {
       "title": this.data.title,
       "content": this.data.describe,
-      "attachment": this.data.attachment,
+      "images": this.data.images,
       "type": this.data.type,
       "reward": this.data.reward,
       "reward_value": this.data.reward_value,
       "reward_object": this.data.reward_object,
       "location": this.data.location,
       "tags": this.data.tags,
-      "top_time": 0,
       "start_date": this.data.start_date,
       "end_date": this.data.end_date,
       "max_player": this.data.max_player,
-      "max_finish": 0,
       "auto_accept": this.data.auto_accept,
-      "publish": flag
+      "publish": flag,
+      "images": imagesId
     }
     console.log(this.data.file);
   },
   /*提交*/
-  formSubmit: function(e){
-    if( !this.judgeValid(e) ) return;
-    var st = new Date(this.data.startDate + 'T' + this.data.startTime + ":00");
-    var et = new Date(this.data.endDate + 'T' + this.data.endTime + ":00");
-    this.data.start_date = st.getTime() / 1000;
-    this.data.end_date = et.getTime() / 1000;
-    this.makeFile(true);
-    this.setData({isSubmit: true});
+  formSubmit: function (e) {
+    this.publishTask(e, true)
+
   },
   /*保存为草稿*/
   formReset: function (e) {
+    this.publishTask(e, false)
+  },
+
+  publishTask: async function (e, isPublish) {
     if (!this.judgeValid(e)) return;
     var st = new Date(this.data.startDate + 'T' + this.data.startTime + ":00");
     var et = new Date(this.data.endDate + 'T' + this.data.endTime + ":00");
     this.data.start_date = st.getTime() / 1000;
     this.data.end_date = et.getTime() / 1000;
-    this.makeFile(false);
-    this.setData({ isSave: true });
+    this.makeFile(isPublish);
+    try {
+      const res = await server.request('POST', 'tasks', this.data.file)
+      console.log(res)
+      if (res.statusCode === 200) {
+        if (!isPublish) {
+          this.setData({ isSave: true });
+        } else {
+          this.setData({ isSubmit: true });
+        }
+      } else {
+        wx.showToast({
+          title: '发布失败：' + res.data.message,
+        })
+      }
+    } catch (err) {
+      console.log(err)
+    }
+
+
   },
 
   /*确认*/
   confirm: function(e){
     if (this.data.isErr){
-      this.setData({isErr: false});
-      this.setData({errStr: ""});
+      this.setData({
+        isErr: false,
+        errStr: ""
+      })
     }
-    if(this.data.isSubmit || this.data.isSave){
-      this.setData({ isSubmit: false});
-      this.setData({ isSave: false });
-      this.setData({ title: ""});
-      this.setData({ describe: "" });
-      this.setData({ type: "run" });
-      this.setData({ reward: "money" });
-      this.data.reward_object = "";
-      this.data.reward_value = 0;
-      this.setData({ reward_input: "" });
-      this.setData({ location: "" });
-      this.setData({ tags_input: "" });
-      this.data.tags = [];
-      this.data.start_date = 0;
-      this.data.end_date = 0;
-      this.data.max_player = 0;
-      this.setData({ startDate: "2019-06-01" });
-      this.setData({ endDate: "2019-06-01" });
-      this.setData({ startTime: "00:00" });
-      this.setData({ endTime: "00:00" });
-      this.setData({ max_player_input: "" });
-      this.data.attachment = [];
-      this.data.auto_accept =  true;
+    if (this.data.isSubmit || this.data.isSave) {
+      this.setData({
+        isSubmit: false,
+        isSave: false,
+        title: "",
+        describe: "",
+        type: "run",
+        reward: "money",
+        reward_object: "",
+        reward_value: 0,
+        reward_input: "",
+        location_input: "",
+        location: [],
+        tags_input: "",
+        tags: [],
+        start_date: 0,
+        end_date: 0,
+        max_player: 0,
+        startDate: "2019-06-01",
+        endDate:"2019-06-01",
+        startTime: "00:00",
+        endTime: "00:00",
+        max_player_input: "",
+        addedImages: [],
+        auto_accept: true,
+        auto_in: [
+          { val: '是', checked: 'true' },
+          { val: '否' },
+        ],
+      })
     }
   },
   save: function(e){

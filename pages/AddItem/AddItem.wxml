@@ -6,7 +6,7 @@
 
       <!--标题-->
       <view class="basic_info">
-        <input name="title" class="input_title" placeholder="标题 各类品牌型号都是买家喜欢搜索的" placeholder-class='placeholder_title' maxlength='20' style = "font-weight: bold" bindinput = "titleChange" value = "{{title}}" />
+        <input name="title" class="input_title" placeholder="标题 各类品牌型号都是买家喜欢搜索的" placeholder-class='placeholder_title' maxlength='16' style = "font-weight: bold" bindinput = "titleChange" value = "{{title}}" />
       </view>
       <view class = "band1" />
       <view class="basic_info">
@@ -42,7 +42,7 @@
       <view class = "blockType">
         <text class = "typeBlock" bindtap="chooseMoney" style = "background: {{reward == 'money' ? '#ff7e67' : '#fff'}}; color: {{reward == 'money' ? '#fff' : '#000'}};">闲钱币</text>
         <text class = "typeBlock" bindtap="chooseRmb" style = "background: {{reward == 'rmb' ? '#ff7e67' : '#fff'}}; color: {{reward == 'rmb' ? '#fff' : '#000'}};">人民币</text>
-        <text class = "typeBlock" bindtap="choosePhysical" style = "background: {{reward == 'physical' ? '#ff7e67' : '#fff'}}; color: {{reward == 'physical' ? '#fff' : '#000'}};">实物</text>
+        <text class = "typeBlock" bindtap="chooseObject" style = "background: {{reward == 'object' ? '#ff7e67' : '#fff'}}; color: {{reward == 'object' ? '#fff' : '#000'}};">实物</text>
       </view>
     </view>
     <!--价格-->
@@ -50,8 +50,8 @@
       <text class = "title">开价</text>
       <view style = "display:flex; direction:column">
       <view id = "price_set">
-        <image src="/images/icons/price.png" style = "display:{{reward == 'physical'? 'none' : 'block'}}" id = "price_logo"/>
-        <input name="price" type="{{reward == 'physical'? 'text' : 'digit'}}" id = "price_text" placeholder="{{reward == 'physical'? '请输入物品' : '0.00'}}" placeholder-class='placeholder' maxlength='11' bindinput = "priceChange" value = "{{reward_input}}" /></view>
+        <image src="/images/icons/price.png" style = "display:{{reward == 'object'? 'none' : 'block'}}" id = "price_logo"/>
+        <input name="price" type="{{reward == 'object'? 'text' : 'digit'}}" id = "price_text" placeholder="{{reward == 'object'? '请输入物品' : '0.00'}}" placeholder-class='placeholder' maxlength='11' bindinput = "priceChange" value = "{{reward_input}}" /></view>
       </view>
     </view>
     <view class = "band2"/>
