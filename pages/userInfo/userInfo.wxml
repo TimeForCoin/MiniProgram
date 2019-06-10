@@ -50,7 +50,7 @@
 
 
 <!--对话框-->
-<view class="modalDialog" wx:if="{{isEditInfo}}">
+<view class="modalDialog" wx:if="{{hasUserInfo && isEditInfo}}">
   <image src = "/images/icons/close.png" class = "close" bindtap = "closeEditPage"/>
   <scroll-view scroll-y style = "height:800rpx;" >
     <view id = "insideContainer">

@@ -17,19 +17,13 @@ App({
       } else if (loginStatus == 'wechat_new') {
         // 微信新用户，未设置信息
       } else {
-        // 未登录
+        // 未登录，立刻登陆
         const res = await util.as(wx.login)
-        console.log(res)
         const resLogin = await server.request('POST', 'session/wechat', {
           code: res.code
         })
-        if (resLogin.statusCode == 200) {
-          if (resLogin.data.new == true) {
-            console.log('新用户')
-          } else {
-            // 获取用户信息
-            this.getUserInfo()
-          }
+        if (resLogin.statusCode == 200 && resLogin.data.new == false) {
+          this.getUserInfo()
         }
       }
     } catch (err) {

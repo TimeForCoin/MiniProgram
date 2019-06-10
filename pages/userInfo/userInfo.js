@@ -114,17 +114,18 @@ Page({
   },
 
   setFormData: function () {
-    this.setData({
-      avatar: app.globalData.userInfo.info.avatar,
-      bio: app.globalData.userInfo.info.bio,
-      email: app.globalData.userInfo.info.email,
-      gender: app.globalData.userInfo.info.gender,
-      school: app.globalData.userInfo.info.school,
-      location: app.globalData.userInfo.info.location,
-      nickname: app.globalData.userInfo.info.nickname,
-      phone: app.globalData.userInfo.info.phone,
-    })
-
+    if (app.globalData.hasUserInfo) {
+      this.setData({
+        avatar: app.globalData.userInfo.info.avatar,
+        bio: app.globalData.userInfo.info.bio,
+        email: app.globalData.userInfo.info.email,
+        gender: app.globalData.userInfo.info.gender,
+        school: app.globalData.userInfo.info.school,
+        location: app.globalData.userInfo.info.location,
+        nickname: app.globalData.userInfo.info.nickname,
+        phone: app.globalData.userInfo.info.phone,
+      })
+    }
   },
 
   setUserInfo: async function (e) {
@@ -134,11 +135,12 @@ Page({
         avatarUrl: e.detail.userInfo.avatarUrl,
         location: e.detail.userInfo.country
       })
-      const userInfo = await app.getUserInfo()
+      await app.getUserInfo()
       this.setData({
-        userInfo: userInfo,
-        hasUserInfo: true,
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: app.globalData.hasUserInfo,
       })
+      this.setFormData()
     } catch (err) {
       console.log(err)
     }
@@ -256,11 +258,11 @@ Page({
 
     try {
       await server.request('PUT', 'users/info', file)
-      const userInfo = await app.getUserInfo()
+      await app.getUserInfo()
       this.showToast("修改成功", "");
       this.setData({
-        userInfo: userInfo,
-        hasUserInfo: true,
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: app.globalData.hasUserInfo,
         isEditInfo: false 
       })
       this.setFormData()
