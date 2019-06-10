@@ -1,52 +1,49 @@
 //app.js
 const server = require('./services/server.js')
+const util = require('./utils/util.js')
+
 App({
   onLaunch: function () {
-    // wx.hideTabBar();
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    // logs.unshift(Date.now())
-    // wx.setStorageSync('logs', logs)
     this.login()
-
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          // this.getUserInfo() 
-        }
-      }
-    })
   },
 
-  login: async () => {
-    // await server.request('DELETE', 'session')
-    const resStatus = await server.request('GET', 'session/status')
-    if (resStatus.data.status != 'wechat') {
-      // 登录
-      wx.login({
-        success: async (res) => {
-          if (res.code) {
-            // console.log(res.code)
-            // return
-            const resLogin = await server.request('POST', 'session/wechat', {
-              code: res.code
-            })
-            if (resLogin.statusCode == 200) {
-              if (resLogin.data.new == true) {
-                console.log('新用户')
-              }
-            }
+  login: async function () {
+    try {
+      const resStatus = await server.request('GET', 'session/status')
+      const loginStatus = resStatus.data.status
+      if (loginStatus == 'wechat') {
+        // 已通过微信登陆
+        this.getUserInfo()
+      } else if (loginStatus == 'wechat_new') {
+        // 微信新用户，未设置信息
+      } else {
+        // 未登录
+        const res = await util.as(wx.login)
+        console.log(res)
+        const resLogin = await server.request('POST', 'session/wechat', {
+          code: res.code
+        })
+        if (resLogin.statusCode == 200) {
+          if (resLogin.data.new == true) {
+            console.log('新用户')
           } else {
-            console.log('登录失败！' + res.errMsg)
+            // 获取用户信息
+            this.getUserInfo()
           }
         }
-      })
+      }
+    } catch (err) {
+      console.log('登陆失败', err)
     }
   },
 
-  //自定义tabbar组件
+  getUserInfo: async function () {
+    const resInfo = await server.request('GET', 'users/info/me')
+    this.globalData.userInfo = resInfo.data
+    this.globalData.hasUserInfo = true
+    console.log(resInfo.data)
+  },
+
   editTabbar: function () {
     let tabbar = this.globalData.tabBar;
     let currentPages = getCurrentPages();
@@ -62,8 +59,6 @@ App({
   globalData: {
     userInfo: {},
     hasUserInfo: false,
-    sessionId: null,
-    major: ["数计院", "管理学院", "岭南学院", "工学院", "微电子学院", "其他"],
     tabBar: {
       "list": [
         {
