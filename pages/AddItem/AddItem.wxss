@@ -239,3 +239,36 @@
   justify-content: center;
   border: 2rpx solid rgba(0,0,0,.3);
 }
+/*用于图片删除的对话框*/
+.deleteDialog {
+  width: 80%;
+  height: 300rpx;
+  position: fixed;
+  top: 32%;
+  left: 0;
+  z-index: 5001;
+  background-color: #fff;
+  margin-left: 10%;
+  border-radius: 36rpx;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  text-align: center;
+}
+
+.delete_dialog_title{
+  margin-top:70rpx;
+  font-size: 36rpx;
+  height: 40rpx;
+}
+.delete_btn{
+  width: 40%;
+  display: flex;
+  height: 90rpx;
+  border-radius: 50rpx;
+  font-size: 34rpx;
+  margin-top: 60rpx;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid rgba(0,0,0,.3);
+}

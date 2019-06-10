@@ -16,11 +16,11 @@
       <!--上传图片-->
       <view id = "image_upload">
         <text id = "firstTag" wx:if = "{{image_count != 0}}" >主图</text>
-        <view style = "display:inline-block;" wx:for="{{addedImages}}" wx:key="item.index">
-            <image class="img_del" bindtap="deleteImage" src="/images/icons/delete.png" data-index = "{{item.index}}" wx:if="{{item.src != ''}}"/>
+        <view style = "display:inline-block;" wx:for="{{addedImages}}" wx:key="item.index" bindtap="deleteImage" data-index = "{{item.index}}">
+            <image class="img_del"  src="/images/icons/delete.png"  wx:if="{{item.src != ''}}"/>
             <image class = "imgs_first" bindtap="previewImage" src="{{item.src}}" wx:if ="{{item.src != ''}}" mode="aspectFill" />
         </view>
-        <image id = "addImage" src = "/images/icons/add_Item.png" bindtap="chooseImage" wx:if = "{{image_count < 3}}" bindtap = 'addImage'/>
+        <image id = "addImage" src = "/images/icons/add_Item.png" bindtap="chooseImage" wx:if = "{{image_count <= 3}}" bindtap = 'addImage'/>
       </view>
     </view>
     <view class = "band2" />
@@ -124,5 +124,14 @@
   <text class = "dialogsubTitle">{{isErr ? errStr : isSubmit? '您已成功发布' : '您已成功保存'}}</text>
   <button bindtap="confirm" class = "ok_btn" >好</button>
 </view>
+
+<!--删除图片-->
+<view class="deleteDialog" wx:if="{{isDelete}}">
+  <text class = "delete_dialog_title">是否删除该图片？</text>
+  <view style = "display:flex; flex-direcion: row">
+    <button bindtap="confirm_delete" class = "delete_btn" style = "background-color: #ff7e67; color:#fff" >确认</button>
+    <button bindtap="cancel_delete" class = "delete_btn" >取消</button>
+  </view>
+</view>
 <!--蒙板-->
-<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{isErr || isSubmit || isSave}}"/>
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{isErr || isSubmit || isSave || isDelete}}"/>
