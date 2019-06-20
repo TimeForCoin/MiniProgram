@@ -50,7 +50,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    server.request('DELETE', 'file/useless')
   },
 
   /**
@@ -423,9 +423,16 @@ Page({
     this.data.delete_id = id;
     this.setData({isDelete: true});
   },
-  confirm_delete: function(e) {
+  confirm_delete: async function(e) {
     var id = this.data.delete_id
     if(id == -1) return
+    const imageId = this.data.addedImages[id].id
+    try {
+      await server.request('DELETE', 'file/' + imageId)
+    }catch (error) {
+      // 删除失败
+      console.log(err)
+    }
     this.data.addedImages.splice(id, 1)
     this.setData({ addedImages: this.data.addedImages })
 

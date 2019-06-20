@@ -1,5 +1,6 @@
 // pages/Detail/Detail.js
 const moment = require('moment');
+const server = require('../../services/server.js')
 
 Page({
 
@@ -26,7 +27,7 @@ Page({
         "top_time": 1244123123,
         "status": "wait",
         "type": "info",
-        "attachment": [
+        "images": [
           {
             "id": "/images/index_sample.jpg",
             "type": "image",
@@ -69,7 +70,7 @@ Page({
       "size": 3,
       "total": 10
     },
-    "data": [
+    data: [
       {
         "id": "5c9ecbbba4a3f52e3195fa68",
         "content_id": "5c9ecbbba4a3f52e3195fa68",
@@ -116,11 +117,12 @@ Page({
     noMoreComment: false,
     // 如果是自己的任务不进行立即加入按钮显示
     isMine: false,
+    taskID: '',
 },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: async  function (options) {
     // 进行个人状态判断
     if(options == undefined){
 
@@ -135,18 +137,27 @@ Page({
         }
       }
     }
-    console.log(options.id);
+    this.data.taskID = options.id
     moment.locale('en', {
       longDateFormat: {
         l: "YYYY-MM-DD",
         L: "YYYY-MM-DD HH:mm"
       }
     });
-    this.setData({ publishDate: moment(this.data.testSample.data.publish_date).format('l')});
-    this.setData({ startDate: moment(this.data.testSample.data.start_date).format('L') });
-    this.setData({ endDate: moment(this.data.testSample.data.end_date).format('L') });
-    this.setData({isLove : this.data.testSample.data.like});
+    this.loadTaskData()
+  },
 
+  loadTaskData: async function() {
+    const res = await server.request('GET', 'tasks/' + this.data.taskID)
+    this.setData({
+      testSample: {
+        data: res.data
+      },
+      publishDate: moment(new Date(res.data.publish_date * 1000)).format('l'),
+      startDate: moment(res.data.start_date * 1000).format('L'),
+      endDate: moment(res.data.end_date * 1000).format('L'),
+      isLove: res.data.liked
+    })
   },
 
   /**
@@ -208,11 +219,20 @@ Page({
 
   // 是否喜欢
   clickLove: function(e) {
-    if (this.data.isLove == true){
-      this.setData({isLove : false});
-    } else{
-      this.setData({isLove : true});
-      // TODO: 在线更新
+    if (this.data.isLove == true) {
+      server.request('DELETE', 'tasks/' + this.data.taskID + '/like')
+      this.data.testSample.data.like_count--
+      this.setData({
+        isLove : false,
+        testSample: this.data.testSample
+      });
+    } else {
+      server.request('POST', 'tasks/' + this.data.taskID + '/like')
+      this.data.testSample.data.like_count++
+      this.setData({
+        isLove: true,
+        testSample: this.data.testSample
+      });
     }
   },
   // 是否收藏

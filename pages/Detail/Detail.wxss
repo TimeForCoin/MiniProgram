@@ -86,7 +86,7 @@
   width: 640rpx;
   height: 480rpx;
   margin: 20rpx auto 20rpx auto;
-  background: gray;
+  background: white;
 }
 .details{
   height: 200rpx;

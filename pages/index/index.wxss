@@ -145,7 +145,6 @@
   justify-content: flex-end;
   margin-bottom: 10rpx;
   margin-left: 15rpx;
-  height: 150rpx;
   margin-right: 15rpx;
 }
 

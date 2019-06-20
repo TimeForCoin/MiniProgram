@@ -19,6 +19,8 @@ App({
       } else {
         // 未登录，立刻登陆
         const res = await util.as(wx.login)
+        // console.log(res.code)
+        // return
         const resLogin = await server.request('POST', 'session/wechat', {
           code: res.code
         })
