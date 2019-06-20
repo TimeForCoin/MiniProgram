@@ -131,11 +131,18 @@
 
 .payType{
   background: #ff7e67;
-  margin: 0rpx 10rpx;
+  margin-right: 10rpx;
   padding: 3rpx 6rpx;
   font-size: 26rpx;
   color: #fff;
   border-radius: 5rpx;
+}
+
+.money_type{
+  display: flex;
+  flex-direction: row;
+  margin-top: 5rpx;
+  margin-bottom: 5rpx;
 }
 
 .info{
@@ -161,11 +168,11 @@
 .money_img{
   width: 28rpx;
   height:28rpx;
-
+  margin-top: 10rpx;
 }
 
 .money_text{
-  font-size: 32rpx;
+  font-size: 28rpx;
   color: #404969;
 }
 

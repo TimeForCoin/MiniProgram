@@ -1,115 +1,122 @@
-<!--pages/Detail/Detail.wxml-->
-<view id="top">
-  <view id="user_info">
-    <image src="{{testSample.data.publisher.avatar}}" id="touxiang" />
-    <view id="user_basic_info">
-      <text id="username" class="title">{{testSample.data.publisher.nickname}}</text>
-      <text class="subtitle">发布于：{{publishDate}}</text>
-    </view>
-  </view>
-  <view class="band1" />
-  <view id="price_like">
-    <view id="like_view">
-      <!--阅读-->
-      <view>
-        <image src="/images/icons/read_top.png" style="width: 32rpx; height:32rpx; margin-top: 10rpx;" />
-        <text class="subtitle" style="margin-left: 10rpx;">{{testSample.data.view_count}}</text>
-      </view>
-      <!--收藏-->
-      <view>
-        <image src="/images/icons/collected_top.png"
-          style="width: 32rpx; height:32rpx; margin-top: 10rpx; margin-left: 15rpx;" />
-        <text class="subtitle" style="margin-left: 10rpx;">{{testSample.data.collect_count}}</text>
-      </view>
-      <!--喜欢-->
-      <view>
-        <image src="/images/icons/liked_top.png"
-          style="width: 32rpx; height:32rpx; margin-top: 10rpx; margin-left: 15rpx;" />
-        <text class="subtitle" style="margin-left: 10rpx;">{{testSample.data.like_count}}</text>
+<view hidden="{{failToGetDetail}}">
+  <!--pages/Detail/Detail.wxml-->
+  <view id="top">
+    <view id="user_info">
+      <image src="{{testSample.data.publisher.avatar}}" id="touxiang" />
+      <view id="user_basic_info">
+        <text id="username" class="title">{{testSample.data.publisher.nickname}}</text>
+        <text class="subtitle">发布于：{{publishDate}}</text>
       </view>
     </view>
+    <view class="band1" />
+    <view id="price_like">
+      <view id="like_view">
+        <!--阅读-->
+        <view>
+          <image src="/images/icons/read_top.png" style="width: 32rpx; height:32rpx; margin-top: 10rpx;" />
+          <text class="subtitle" style="margin-left: 10rpx;">{{testSample.data.view_count}}</text>
+        </view>
+        <!--收藏-->
+        <view>
+          <image src="/images/icons/collected_top.png"
+            style="width: 32rpx; height:32rpx; margin-top: 10rpx; margin-left: 15rpx;" />
+          <text class="subtitle" style="margin-left: 10rpx;">{{testSample.data.collect_count}}</text>
+        </view>
+        <!--喜欢-->
+        <view>
+          <image src="/images/icons/liked_top.png"
+            style="width: 32rpx; height:32rpx; margin-top: 10rpx; margin-left: 15rpx;" />
+          <text class="subtitle" style="margin-left: 10rpx;">{{testSample.data.like_count}}</text>
+        </view>
+      </view>
 
-    <view id="price_view">
-      <image src="/images/icons/price.png" id="money" wx:if="{{testSample.data.reward != 'physical'}}" />
-      <text
-        id="price">{{testSample.data.reward == 'physical' ? testSample.data.reward_object : testSample.data.reward_value}}</text>
-      <text class="payType">{{reward == 'rmb' ? '人民币' : testSample.data.reward == 'physical'? '实物' : '闲币' }}</text>
-      <text
-        class="payType">{{testSample.data.status == 'wait' ? '等待' : testSample.data.status == 'run' ? '执行中' : testSample.data.status == 'close'? '已关闭' : testSample.data.status == 'finish'? '已完成' : testSample.data.status == 'overdue' ? '已过期' : '草稿'}}</text>
-      <text
-        class="payType">{{testSample.data.type == 'run' ? '跑腿任务' : testSample.data.type == 'questionnaire' ? '问卷任务' : '信息任务' }}</text>
-    </view>
-  </view>
-  <!--滚动显示图片-->
-  <swiper class="imgs" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
-    <block wx:for="{{testSample.data.images}}" wx:key="id">
-      <swiper-item>
-        <image src="{{item.url}}" class="slide-image" mode="aspectFill" />
-      </swiper-item>
-    </block>
-  </swiper>
-
-  <!--分类-->
-  <view style="margin-bottom: 10rpx;">
-    <text style="font-size: 34rpx;">标签</text>
-    <view class="taskType">
-      <view wx:for="{{testSample.data.tags}}" wx:key="item">
-        <text class="taskBlock">{{item}}</text>
+      <view id="price_view">
+        <image src="/images/icons/price.png" id="money" wx:if="{{testSample.data.reward != 'physical'}}" />
+        <text
+          id="price">{{testSample.data.reward == 'physical' ? testSample.data.reward_object : testSample.data.reward_value}}</text>
+        <text class="payType">{{reward == 'rmb' ? '人民币' : testSample.data.reward == 'physical'? '实物' : '闲币' }}</text>
+        <text
+          class="payType">{{testSample.data.status == 'wait' ? '等待' : testSample.data.status == 'run' ? '执行中' : testSample.data.status == 'close'? '已关闭' : testSample.data.status == 'finish'? '已完成' : testSample.data.status == 'overdue' ? '已过期' : '草稿'}}</text>
+        <text
+          class="payType">{{testSample.data.type == 'run' ? '跑腿任务' : testSample.data.type == 'questionnaire' ? '问卷任务' : '信息任务' }}</text>
       </view>
     </view>
-  </view>
-  <view class="band1" />
-  <!--地点-->
-  <view>
-    <text style="font-size: 34rpx;">地点</text>
-    <view class="taskType">
-      <view wx:for="{{testSample.data.location}}" wx:key="item">
-        <text class="taskBlock">{{item}}</text>
+    <view class="band1" />
+    <text style="font-weight: bold; font-size: 40rpx;">{{testSample.data.title}}</text>
+    <!--滚动显示图片-->
+    <swiper class="imgs" indicator-dots="{{testSample.data.images.length <= 1 ? false : true}}" autoplay="true"
+      interval="5000" duration="1000" indicator-color="white" indicator-active-color="#ff7e67"
+      hidden="{{testSample.data.images.length === 0 ? true : false}}">
+      <block wx:for="{{testSample.data.images}}" wx:key="id">
+        <swiper-item>
+          <image src="{{item.url}}" class="slide-image" mode="aspectFill" />
+        </swiper-item>
+      </block>
+    </swiper>
+
+    <!--分类-->
+    <view style="margin-bottom: 10rpx; margin-top: 20rpx;">
+      <text style="font-size: 34rpx;">标签</text>
+      <view class="taskType">
+        <view wx:for="{{testSample.data.tags}}" wx:key="item">
+          <text class="taskBlock">{{item}}</text>
+        </view>
       </view>
     </view>
-  </view>
-  <!--主体内容-->
-  <view style="display:flex; flex-direction:column; margin-left:20rpx; margin-right:20rpx; margin-bottom: 20rpx;">
-    <!--开始时间-->
-    <view class="content_list">
-      <text class="title" style="color: #ff7e67;">开始时间：</text>
-      <text class="title">{{startDate}}</text>
+    <view class="band1" />
+    <!--地点-->
+    <view>
+      <text style="font-size: 34rpx;">地点</text>
+      <view class="taskType">
+        <view wx:for="{{testSample.data.location}}" wx:key="item">
+          <text class="taskBlock">{{item}}</text>
+        </view>
+      </view>
     </view>
-    <!--结束时间-->
-    <view class="content_list">
-      <text class="title" style="color: #ff7e67;">结束时间：</text>
-      <text class="title">{{endDate}}</text>
-    </view>
-    <view class="content_list">
-      <text class="title" style="color: #ff7e67;">人数：</text>
-      <text class="title">{{testSample.data.player_count}} / {{testSample.data.max_player}}</text>
-    </view>
-    <view class="content_list">
-      <text class="title" style="color: #ff7e67;">自动接受：</text>
-      <text class="title">{{testSample.data.auto_accept? '是' : '否'}}</text>
-    </view>
-    <view class="content_list">
-      <text class="title" style="color: #ff7e67;">当前人数：</text>
-      <text class="title">{{testSample.data.player_count}}</text>
-    </view>
-    <text class="title content_list">{{testSample.data.content}}</text>
+    <!--主体内容-->
+    <view style="display:flex; flex-direction:column; margin-left:20rpx; margin-right:20rpx; margin-bottom: 20rpx;">
+      <!--开始时间-->
+      <view class="content_list">
+        <text class="title" style="color: #ff7e67;">开始时间：</text>
+        <text class="title">{{startDate}}</text>
+      </view>
+      <!--结束时间-->
+      <view class="content_list">
+        <text class="title" style="color: #ff7e67;">结束时间：</text>
+        <text class="title">{{endDate}}</text>
+      </view>
+      <view class="content_list">
+        <text class="title" style="color: #ff7e67;">人数：</text>
+        <text class="title">{{testSample.data.player_count}} / {{testSample.data.max_player}}</text>
+      </view>
+      <view class="content_list">
+        <text class="title" style="color: #ff7e67;">自动接受：</text>
+        <text class="title">{{testSample.data.auto_accept? '是' : '否'}}</text>
+      </view>
+      <view class="content_list">
+        <text class="title" style="color: #ff7e67;">当前人数：</text>
+        <text class="title">{{testSample.data.player_count}}</text>
+      </view>
+      <text class="title content_list">{{testSample.data.content}}</text>
 
-    <button class = 'joininButton' bindtap = 'joinin' wx:if ="{{testSample.data.status == 'wait' && !isMine}}" >{{testSample.data.auto_accept ? '立即加入' : '申请加入'}}</button>
+      <button class='joininButton' bindtap='joinin'
+        wx:if="{{testSample.data.status == 'wait' && !isMine}}">{{testSample.data.auto_accept ? '立即加入' : '申请加入'}}</button>
+    </view>
   </view>
-</view>
-<view class="band2" />
-<!--他人留言-->
-<view id="liuyan">
-  <view style="display: flex; flex-direction: row; margin-top: 10rpx;">
-    <text class="title" style="font-weight: bold">留言 (</text>
-    <text id="total" style="font-weight: bold" class="title">{{testSample.data.comment_count}}</text>
-    <text class="title" style="font-weight: bold">)</text>
-  </view>
-  <view class="band1" />
-  <!--自己的留言-->
-  <view class="mycomment">
-    <textarea class="comment_input" placeholder='输入你的评论吧~' bindinput='commentInputChange' value='{{comment_content}}' style = "width: 75%;" />
-    <button class="commit_btn" bindtap='submitComment'>发送</button>
+  <view class="band2" />
+  <!--他人留言-->
+  <view id="liuyan">
+    <view style="display: flex; flex-direction: row; margin-top: 10rpx;">
+      <text class="title" style="font-weight: bold">留言 (</text>
+      <text id="total" style="font-weight: bold" class="title">{{testSample.data.comment_count}}</text>
+      <text class="title" style="font-weight: bold">)</text>
+    </view>
+    <view class="band1" />
+    <!--自己的留言-->
+    <view class="mycomment">
+      <textarea class="comment_input" placeholder='输入你的评论吧~' bindinput='commentInputChange' value='{{comment_content}}'
+        style="width: 75%;" />
+      <button class="commit_btn" bindtap='submitComment'>发送</button>
   </view>
   <view class="band1" />
   <!--其他留言-->
@@ -166,3 +173,4 @@
   <button class="commit_btn" bindtap = 'submitRely'>发送</button>
 </view>
 <view class="mask" catchtouchmove="preventTouchMove" bindtap = "cancelReplying" wx:if="{{isReplying}}"/>
+</view>

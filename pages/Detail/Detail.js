@@ -118,6 +118,8 @@ Page({
     // 如果是自己的任务不进行立即加入按钮显示
     isMine: false,
     taskID: '',
+    // 无法获取详情
+    failToGetDetail:false
 },
   /**
    * 生命周期函数--监听页面加载
@@ -158,6 +160,20 @@ Page({
       endDate: moment(res.data.end_date * 1000).format('L'),
       isLove: res.data.liked
     })
+    // 无法正常获取详情
+    if(res.statusCode != 200){
+      this.setData({failToGetDetail : true})
+      wx.showToast({
+        title: '无法获取详情',
+        image: '/images/icons/error.png'
+      })
+      setTimeout(function () {
+        // 返回
+        wx.navigateBack({
+
+        })
+      }, 1000);
+    }
   },
 
   /**
@@ -218,30 +234,71 @@ Page({
   },
 
   // 是否喜欢
-  clickLove: function(e) {
+  clickLove: async function(e) {
     if (this.data.isLove == true) {
-      server.request('DELETE', 'tasks/' + this.data.taskID + '/like')
-      this.data.testSample.data.like_count--
-      this.setData({
-        isLove : false,
-        testSample: this.data.testSample
-      });
+      const result = await server.request('DELETE', 'tasks/' + this.data.taskID + '/like')
+      // 取消点赞失败
+      if (result.statusCode != 200) {
+        wx.showToast({
+          title: '取消点赞失败',
+          image: '/images/icons/error.png'
+        })
+      }else{
+        this.data.testSample.data.like_count--
+        this.setData({
+          isLove: false,
+          testSample: this.data.testSample
+        });
+      }
     } else {
-      server.request('POST', 'tasks/' + this.data.taskID + '/like')
-      this.data.testSample.data.like_count++
-      this.setData({
-        isLove: true,
-        testSample: this.data.testSample
-      });
+      const result = await server.request('POST', 'tasks/' + this.data.taskID + '/like')
+      // 点赞失败
+      if (result.statusCode != 200) {
+        wx.showToast({
+          title: '点赞失败',
+          image: '/images/icons/error.png'
+        })
+      } else {
+        this.data.testSample.data.like_count++
+        this.setData({
+          isLove: false,
+          testSample: this.data.testSample
+        });
+      }
     }
   },
   // 是否收藏
-  clickCollect: function(e) {
-    if (this.data.isCollected == true){
-      this.setData({isCollected : false});
-    } else{
-      this.setData({isCollected : true});
-      // TODO: 在线更新
+  clickCollect: async function(e) {
+    if (this.data.isCollected == true) {
+      const result = await server.request('DELETE', 'tasks/' + this.data.taskID + '/collect')
+      // 取消收藏失败
+      if (result.statusCode != 200) {
+        wx.showToast({
+          title: '取消收藏失败',
+          image: '/images/icons/error.png'
+        })
+      } else {
+        this.data.testSample.data.collect_count--
+        this.setData({
+          isCollected: false,
+          testSample: this.data.testSample
+        });
+      }
+    } else {
+      const result = await server.request('POST', 'tasks/' + this.data.taskID + '/collect')
+      // 收藏失败
+      if (result.statusCode != 200) {
+        wx.showToast({
+          title: '收藏失败',
+          image: '/images/icons/error.png'
+        })
+      } else {
+        this.data.testSample.data.collect_count++
+        this.setData({
+          isCollected: false,
+          testSample: this.data.testSample
+        });
+      }
     }
   },
   // 评论点赞
