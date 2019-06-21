@@ -147,6 +147,18 @@ Page({
       }
     });
     this.loadTaskData()
+    this.loadComments()
+  },
+
+  loadComments: async function() {
+    const res = await server.request('GET', 'comments/' + this.data.taskID)
+    console.log(res)
+    for (let i in res.data.data) {
+      res.data.data[i].time = moment(new Date(res.data.data[i].time * 1000)).startOf('hour').fromNow()
+    }
+    this.setData({
+      testComment: res.data
+    })
   },
 
   loadTaskData: async function() {
@@ -158,7 +170,8 @@ Page({
       publishDate: moment(new Date(res.data.publish_date * 1000)).format('l'),
       startDate: moment(res.data.start_date * 1000).format('L'),
       endDate: moment(res.data.end_date * 1000).format('L'),
-      isLove: res.data.liked
+      isLove: res.data.liked,
+      isCollected: res.data.collected
     })
     // 无法正常获取详情
     if(res.statusCode != 200){
@@ -261,7 +274,7 @@ Page({
       } else {
         this.data.testSample.data.like_count++
         this.setData({
-          isLove: false,
+          isLove: true,
           testSample: this.data.testSample
         });
       }
@@ -295,7 +308,7 @@ Page({
       } else {
         this.data.testSample.data.collect_count++
         this.setData({
-          isCollected: false,
+          isCollected: true,
           testSample: this.data.testSample
         });
       }

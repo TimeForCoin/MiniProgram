@@ -124,9 +124,9 @@
     <view class="comment_user_info" wx:for="{{testComment.data}}" wx:key="item.id">
       <view class = "content_list">
       <!--下面不是很清楚user_id和content_owner哪个是评论者!~!!!!!-->
-      <image src="{{item.user_id.avatar}}" class = "comment_ava" />
+      <image src="{{item.user.avatar}}" class = "comment_ava" />
       <view style="display:flex; flex-direction:row; margin-left: 20rpx;">
-          <text class="subtitle" style="margin-top:10rpx;">{{item.user_id.nickname}}</text>
+          <text class="subtitle" style="margin-top:10rpx;">{{item.user.nickname}}</text>
           <text class="subtitle" style="margin-top:10rpx; margin-left: 20rpx;">{{item.time}}</text>
           <view class = "comment_type_view">
             <!--回复-->

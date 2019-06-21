@@ -7,9 +7,10 @@
 }
 .top_image{
   width:90%;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left:5%;
+  margin-right:5%;
   height:320rpx;
+  margin-top:20rpx;
 }
 /* 搜索部分 */
 #search_view{
@@ -17,6 +18,7 @@
   display: flex;
   margin: 10rpx 40rpx 10rpx 40rpx;
   flex-direction: row;
+  border-radius:20rpx;
 }
 
 #top{
@@ -37,18 +39,21 @@
 }
 /* 滑动图片 */
 .slide-image{
-  height: 100%;
-  width: 100%;
-  margin-top: 20rpx;
+  height:100%;
+  width:100%;
+  margin-top:20rpx;
+  border-radius:10px;
 }
 
 /*标签页切换*/
 .swiper-tab {
-  background-color: rgb(243, 243, 243);
-  width: 100%;
-  margin-top: 20rpx;
-  text-align: center;
-  line-height: 70rpx;
+  background-color:#fff;
+  width:90%;
+  margin-top:20rpx;
+  text-align:center;
+  line-height:70rpx;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .swiper-tab-list {
@@ -114,19 +119,32 @@
   vertical-align: top;
 }
 
+.list_left .list_item {
+  margin-left:18rpx;
+  margin-right:4rpx;
+}
+
+.list_right .list_item {
+  margin-left: 4rpx;
+  margin-right: 18rpx;
+}
 
 .list_item {
-  margin: 15rpx 0 0 0;
+  margin-top:10rpx;
   border-radius: 15rpx;
-  width: 350rpx;
+  width: 305rpx;
   display: flex;
   flex-direction: column;
-  box-shadow: 2px 2px 2px 2px rgba(0,0,0,.3);
+  box-shadow: 0 5px 5px 0 rgba(154,160,185,.05), 0 5px 30px 0 rgba(166,173,201,.22);
+  padding: 12rpx;
 }
+
+
 .item_img{
-  width: 350rpx;
+  width: 305rpx;
   height:220rpx;
-  border-radius: 15rpx;
+  border-top-left-radius:15rpx;
+  border-top-right-radius:15rpx;
 }
 
 .payType{

@@ -1,7 +1,7 @@
 // pages/AddItem/AddItem.js
 const server = require('../../services/server.js')
 const util = require('../../utils/util.js')
-
+const moment = require('moment')
 Page({
 
   /**
@@ -21,7 +21,7 @@ Page({
     tags_input: "",
     start_date: 0,
     end_date: 0,
-    startDate: "2019-06-01",
+    startDate: "2019-06-02",
     endDate: "2019-06-01",
     startTime: "00:00",
     endTime:"00:00",
@@ -50,7 +50,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    server.request('DELETE', 'file/useless')
+    // server.request('DELETE', 'file/useless')
+    this.resetForm()
   },
 
   /**
@@ -197,13 +198,6 @@ Page({
 
   /*修改是否自动同意*/
   auto_inChange: function(e){
-    // var str = null;
-    // for(var value of this.data.auto_in){
-    //   if(value.val == e.detail.val){
-    //     this.data.auto_in_choice = value.val;
-    //     break;
-    //   }
-    // }
     if (e.detail.value == '是') this.data.auto_accept = true;
     else this.data.auto_accept = false;
     console.log("是否同意加入" + this.data.auto_accept);
@@ -332,36 +326,41 @@ Page({
       })
     }
     if (this.data.isSubmit || this.data.isSave) {
-      this.setData({
-        isSubmit: false,
-        isSave: false,
-        title: "",
-        describe: "",
-        type: "run",
-        reward: "money",
-        reward_object: "",
-        reward_value: 0,
-        reward_input: "",
-        location_input: "",
-        location: [],
-        tags_input: "",
-        tags: [],
-        start_date: 0,
-        end_date: 0,
-        max_player: 0,
-        startDate: "2019-06-01",
-        endDate:"2019-06-01",
-        startTime: "00:00",
-        endTime: "00:00",
-        max_player_input: "",
-        addedImages: [],
-        auto_accept: true,
-        auto_in: [
-          { val: '是', checked: 'true' },
-          { val: '否' },
-        ],
-      })
+      this.resetForm()
     }
+  },
+  resetForm: function() {
+    const startTime = moment(new Date().getTime() + 1000 * 60 * 60)
+    const endTime = moment(new Date().getTime() + 1000 * 60 * 60 * 6)
+    this.setData({
+      isSubmit: false,
+      isSave: false,
+      title: "",
+      describe: "",
+      type: "run",
+      reward: "money",
+      reward_object: "",
+      reward_value: 0,
+      reward_input: "",
+      location_input: "",
+      location: [],
+      tags_input: "",
+      tags: [],
+      start_date: 0,
+      end_date: 0,
+      max_player: 0,
+      startDate: startTime.format("YYYY-MM-DD"),
+      endDate: endTime.format("YYYY-MM-DD"),
+      startTime: startTime.format("HH:mm"),
+      endTime: endTime.format("HH:mm"),
+      max_player_input: "",
+      addedImages: [],
+      auto_accept: true,
+      auto_in: [
+        { val: '是', checked: 'true' },
+        { val: '否' },
+      ],
+    })
   },
   save: function(e){
 
