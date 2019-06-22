@@ -132,16 +132,15 @@
 .list_item {
   margin-top:10rpx;
   border-radius: 15rpx;
-  width: 305rpx;
+  width: 330rpx;
   display: flex;
   flex-direction: column;
   box-shadow: 0 5px 5px 0 rgba(154,160,185,.05), 0 5px 30px 0 rgba(166,173,201,.22);
-  padding: 12rpx;
 }
 
 
 .item_img{
-  width: 305rpx;
+  width: 330rpx;
   height:220rpx;
   border-top-left-radius:15rpx;
   border-top-right-radius:15rpx;
@@ -169,16 +168,14 @@
   text-align: left;
   justify-content: flex-end;
   margin-bottom: 10rpx;
-  margin-left: 15rpx;
-  margin-right: 15rpx;
 }
 
 .info_title{
   font-size: 32rpx;
-  margin-left: 15rpx;
+  margin-left: 25rpx;
+  margin-right: 25rpx;
   margin-top: 20rpx;
   text-align: left;
-  width: 320rpx;
   word-break:break-all;
   font-weight: bold;
 }
@@ -200,6 +197,18 @@
   height: 3rpx;
   margin-top: 5rpx;
   background: rgb(243, 243, 243);
+}
+
+.detail_top {
+  padding: 10rpx 25rpx;
+  display:flex; 
+  flex-direction:column;
+}
+
+.detail_bottom {
+  padding: 4rpx 25rpx;
+  display: flex; 
+  flex-direction: row;
 }
 
 .item_touxiang{

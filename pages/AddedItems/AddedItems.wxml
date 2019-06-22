@@ -1,52 +1,11 @@
 <!--pages/AddedItems/AddedItems.wxml-->
 <view id="container">
   <view id="top">
-    <view id="search_view">
-      <image src="/images/icons/search.png" class="search_logo" />
-      <input name="search_input" class="input_title" placeholder="搜索 任务" maxlength='20' bindinput='typing'
-        value="{{typing_content}}" bindconfirm='searchResult' />
-      <image src="/images/icons/empty.png" class="search_logo" wx:if="{{isFocus}}" bindtap='cleaning' />
-    </view>
     <!--任务类型选择器-->
     <view class="picker_field">
-      <picker value="{{chosed_type}}" bindchange="change_type" range="{{task_type}}" class="picker_font">
-        <text>类型：</text><text style="color: #ff7e67;">{{chosed_type}}</text>
-      </picker>
       <picker value="{{chosed_status}}" bindchange="change_status" range="{{task_status}}" class="picker_font">
         <text>状态：</text><text style="color: #ff7e67;">{{chosed_status}}</text>
       </picker>
-      <picker value="{{chosed_reward}}" bindchange="change_reward" range="{{task_reward}}" class="picker_font">
-        <text>酬劳：</text><text style="color: #ff7e67;">{{chosed_reward}}</text>
-      </picker>
-    </view>
-    <view class="band2" />
-    <!-- 排序 -->
-    <view class="sort-wrap">
-      <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0"
-        style="color: {{btn_state1 ? 'gray' : '#ff7e67'}}">
-        <text>热门</text>
-        <!-- <view class = "img_set">
-          <image src="/images/icons/up.png" class = "sort_img img_up" />
-          <image src="/images/icons/down.png" class = "sort_img img_down"/>
-        </view> -->
-      </view>
-
-      <view class='sort-btn' data-index="{{btn_state1}}" bindtap="sort_type1"
-        style="color: {{btn_state0 ? 'gray' : '#ff7e67'}}">
-        <text>最新</text>
-        <!-- <view class = "img_set">
-          <image src="/images/icons/up.png" class = "sort_img img_up" />
-          <image src="/images/icons/down.png" class = "sort_img img_down"/>
-        </view> -->
-      </view>
-
-      <!-- <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0">
-        <text>坤</text>
-        <view class = "img_set">
-          <image src="/images/icons/up.png" class = "sort_img img_up" />
-          <image src="/images/icons/down.png" class = "sort_img img_down"/>
-        </view>
-      </view> -->
     </view>
   </view>
 
@@ -54,7 +13,7 @@
   <view id="list">
     <view style = "display:flex; flex-direction: row; text-align: left;" wx:for="{{testList.data}}" wx:key="item.id" >
       <view class="list_item" bindtap="navigateToDetail" data-id="{{item.id}}">
-       <image class="item_img" src="{{item.attachment[0].id}}" />
+       <image mode="aspectFill" class="item_img" src="{{item.images[0].url}}" />
       <view class="basic_info">
         <text class="title">{{item.title}}</text>
         <!--金额-->

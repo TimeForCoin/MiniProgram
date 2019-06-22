@@ -14,7 +14,7 @@
   </swiper>
   <!--标签页-->
   <view class="swiper-tab">
-    <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">推荐</view>
+    <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">最新</view>
     <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">跑腿</view>
     <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">信息</view>
     <view class="swiper-tab-list {{currentTab==3 ? 'on' : ''}}" data-current="3" bindtap="swichNav">问卷</view>
@@ -30,7 +30,7 @@
             <text class="info_title">{{item.title}}</text>
             <view class="info">
               <!--金额-->
-              <view style="margin-top: 10rpx;" style = "display:flex; flex-direction:column;">
+              <view class="detail_top">
                 <view class = "money_type">
                   <image src="/images/icons/price.png" class="money_img" wx:if="{{item.reward != 'object'}}" />
                   <text classs="money_text">{{item.reward == 'object' ? item.reward_object : item.reward_value}}</text>
@@ -41,7 +41,7 @@
                 </view>
               </view>
               <view class="band1" />
-              <view style="display: flex; flex-direction: row;">
+              <view class="detail_bottom">
                 <image src="{{item.publisher.avatar}}" class="item_touxiang" />
                 <text class="item_owner">{{item.publisher.nickname}}</text>
               </view>
@@ -57,7 +57,7 @@
             <text class="info_title">{{item.title}}</text>
             <view class="info">
                <!--金额-->
-              <view style="margin-top: 10rpx;" style = "display:flex; flex-direction:column;">
+              <view class="detail_top">
                 <view class = "money_type">
                   <image src="/images/icons/price.png" class="money_img" wx:if="{{item.reward != 'object'}}" />
                   <text classs="money_text">{{item.reward == 'object' ? item.reward_object : item.reward_value}}</text>
@@ -68,7 +68,7 @@
                 </view>
               </view>
               <view class="band1" />
-              <view style="display: flex; flex-direction: row;">
+              <view class="detail_bottom">
                 <image src="{{item.publisher.avatar}}" class="item_touxiang" />
                 <text class="item_owner">{{item.publisher.nickname}}</text>
               </view>

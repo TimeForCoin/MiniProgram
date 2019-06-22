@@ -34,22 +34,33 @@ Page({
     this.loadTaskList(1);
   },
   // 加载任务列表
-  loadTaskList: async function (page) {
-    this.setData({ isLoading: true });
+  loadTaskList: async function(page, type = 'all') {
+    this.setData({
+      isLoading: true,
+      noMore: false,
+    });
     if (page !== undefined) {
       this.data.currentPage = page
+      this.setData({
+        show_list_left: [],
+        show_list_right:[]
+      });
     } else {
       this.data.currentPage++
     }
     let res = await server.request('GET', 'tasks', {
       page: this.data.currentPage,
-      size: this.data.pageSize
+      size: this.data.pageSize,
+      type: type
     })
     let isLeft = true
     for (let task of res.data.tasks) {
       // 添加默认图片
       if (task.images.length == 0) {
-        task.images.push({ id: 0, url: '/images/icon.png' })
+        task.images.push({
+          id: 0,
+          url: '/images/icon.png'
+        })
       }
       if (isLeft) {
         this.data.show_list_left.push(task)
@@ -84,6 +95,20 @@ Page({
     if (this.data.currentTab === e.target.dataset.current) {
       return false;
     } else {
+      switch (e.target.dataset.current) {
+        case '0':
+          this.loadTaskList(1);
+          break;
+        case '1':
+          this.loadTaskList(1, 'run');
+          break;
+        case '2':
+          this.loadTaskList(1, 'info');
+          break;
+        case '3':
+          this.loadTaskList(1, 'questionnaire');
+          break;
+      }
       that.setData({
         currentTab: e.target.dataset.current
       })

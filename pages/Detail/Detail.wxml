@@ -123,7 +123,6 @@
   <view style="display:flex; flex-direction:column">
     <view class="comment_user_info" wx:for="{{testComment.data}}" wx:key="item.id">
       <view class = "content_list">
-      <!--下面不是很清楚user_id和content_owner哪个是评论者!~!!!!!-->
       <image src="{{item.user.avatar}}" class = "comment_ava" />
       <view style="display:flex; flex-direction:row; margin-left: 20rpx;">
           <text class="subtitle" style="margin-top:10rpx;">{{item.user.nickname}}</text>
@@ -136,8 +135,8 @@
               <text class="subtitle" style="margin-left: 10rpx; margin-top: 15rpx;">{{item.reply_count}}</text>
             </view>
             <!--喜欢-->
-            <view bindtap = "clickCommentLove" style = "margin-left: 60rpx; display:flex; flex-direction: row;" bindtap='clickCommentLike' data-item = '{{item.id}}' data-like = '{{item.like}}' >
-              <image src="/images/icons/{{item.like ? 'comment_liked' : 'liked_top'}}.png"
+            <view bindtap = "clickCommentLove" style = "margin-left: 60rpx; display:flex; flex-direction: row;" bindtap='clickCommentLike' data-item = '{{item.id}}' data-liked = '{{item.liked}}' >
+              <image src="/images/icons/{{item.liked ? 'comment_liked' : 'liked_top'}}.png"
                 style="width: 45rpx; height:45rpx; margin-top: 10rpx;" />
               <text class="subtitle" style="margin-left: 10rpx; margin-top: 15rpx;">{{item.like_count}}</text>
             </view>

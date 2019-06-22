@@ -27,8 +27,7 @@ Page({
         "top_time": 1244123123,
         "status": "wait",
         "type": "info",
-        "images": [
-          {
+        "images": [{
             "id": "/images/index_sample.jpg",
             "type": "image",
             "name": "秀秀照片",
@@ -64,36 +63,11 @@ Page({
       }
     },
 
-    testComment:{
-    "pagination": {
-      "page": 1,
-      "size": 3,
-      "total": 10
+    testComment: {
+      data: []
     },
-    data: [
-      {
-        "id": "5c9ecbbba4a3f52e3195fa68",
-        "content_id": "5c9ecbbba4a3f52e3195fa68",
-        "content_own": {
-          "id": "5c9ecbbba4a3f52e3195fa68",
-          "nickname": "tp",
-          "avatar": "/images/index_sample.jpg"
-        },
-        "content": "你好骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚骚啊",
-        "user_id": {
-          "id": "5c9ecbbba4a3f52e3195fa68",
-          "nickname": "tp",
-          "avatar": "/images/index_sample.jpg"
-        },
-        "reply_count": 1,
-        "like": false,
-        "like_count": 43,
-        "time": 12414324234
-      }
-    ]
-  },
     // 日期解析结果
-    publishDate:"",
+    publishDate: "",
     startDate: "",
     endDate: "",
     // 决定是否显示按钮
@@ -115,49 +89,74 @@ Page({
     isLoading: false,
     // 没有更多评论内容
     noMoreComment: false,
+    commentPage: 1,
+    commentSize: 10,
     // 如果是自己的任务不进行立即加入按钮显示
     isMine: false,
     taskID: '',
     // 无法获取详情
-    failToGetDetail:false
-},
+    failToGetDetail: false
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async  function (options) {
+  onLoad: async function(options) {
     // 进行个人状态判断
-    if(options == undefined){
+    if (options == undefined) {
 
-    }else{
-      if(options.isMine == undefined){
-        this.setData({isMine: false});
-      } else{
-        if(options.isMine == 'true'){
-          this.setData({isMine: true});
-        } else{
-          this.setData({isMine: false});
+    } else {
+      if (options.isMine == undefined) {
+        this.setData({
+          isMine: false
+        });
+      } else {
+        if (options.isMine == 'true') {
+          this.setData({
+            isMine: true
+          });
+        } else {
+          this.setData({
+            isMine: false
+          });
         }
       }
     }
     this.data.taskID = options.id
-    moment.locale('en', {
+    moment.locale('zh-cn', {
       longDateFormat: {
         l: "YYYY-MM-DD",
         L: "YYYY-MM-DD HH:mm"
       }
-    });
+    })
     this.loadTaskData()
-    this.loadComments()
+    this.loadComments(1)
   },
 
-  loadComments: async function() {
-    const res = await server.request('GET', 'comments/' + this.data.taskID)
+  loadComments: async function(page) {
+    this.setData({
+      loadComments: true
+    })
+    if (page) {
+      this.data.commentPage = page
+      this.data.testComment.data = []
+    } else {
+      this.data.commentPage++
+    }
+    const res = await server.request('GET', 'comments/' + this.data.taskID, {
+      page: this.data.commentPage,
+      size: this.data.commentSize
+    })
     console.log(res)
     for (let i in res.data.data) {
-      res.data.data[i].time = moment(new Date(res.data.data[i].time * 1000)).startOf('hour').fromNow()
+      res.data.data[i].time = moment(new Date(res.data.data[i].time * 1000)).locale('zh-cn').startOf('minute').fromNow()
     }
     this.setData({
-      testComment: res.data
+      commentPage: this.data.commentPage,
+      testComment: {
+        data: [...this.data.testComment.data, ...res.data.data],
+      },
+      loadComments: false,
+      noMoreComment: res.data.pagination.page * res.data.pagination.size >= this.data.testSample.data.comment_count
     })
   },
 
@@ -174,13 +173,15 @@ Page({
       isCollected: res.data.collected
     })
     // 无法正常获取详情
-    if(res.statusCode != 200){
-      this.setData({failToGetDetail : true})
+    if (res.statusCode != 200) {
+      this.setData({
+        failToGetDetail: true
+      })
       wx.showToast({
         title: '无法获取详情',
         image: '/images/icons/error.png'
       })
-      setTimeout(function () {
+      setTimeout(function() {
         // 返回
         wx.navigateBack({
 
@@ -192,57 +193,61 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   // 是否显示其他按钮
-  clickMore: function (e) {
-    if (this.data.showButtons == false){
-      this.setData({showButtons : true});
-    } else{
-      this.setData({showButtons : false});
+  clickMore: function(e) {
+    if (this.data.showButtons == false) {
+      this.setData({
+        showButtons: true
+      });
+    } else {
+      this.setData({
+        showButtons: false
+      });
     }
   },
 
@@ -256,12 +261,12 @@ Page({
           title: '取消点赞失败',
           image: '/images/icons/error.png'
         })
-      }else{
+      } else {
         this.data.testSample.data.like_count--
-        this.setData({
-          isLove: false,
-          testSample: this.data.testSample
-        });
+          this.setData({
+            isLove: false,
+            testSample: this.data.testSample
+          });
       }
     } else {
       const result = await server.request('POST', 'tasks/' + this.data.taskID + '/like')
@@ -273,10 +278,10 @@ Page({
         })
       } else {
         this.data.testSample.data.like_count++
-        this.setData({
-          isLove: true,
-          testSample: this.data.testSample
-        });
+          this.setData({
+            isLove: true,
+            testSample: this.data.testSample
+          });
       }
     }
   },
@@ -292,10 +297,10 @@ Page({
         })
       } else {
         this.data.testSample.data.collect_count--
-        this.setData({
-          isCollected: false,
-          testSample: this.data.testSample
-        });
+          this.setData({
+            isCollected: false,
+            testSample: this.data.testSample
+          });
       }
     } else {
       const result = await server.request('POST', 'tasks/' + this.data.taskID + '/collect')
@@ -307,65 +312,59 @@ Page({
         })
       } else {
         this.data.testSample.data.collect_count++
-        this.setData({
-          isCollected: true,
-          testSample: this.data.testSample
-        });
+          this.setData({
+            isCollected: true,
+            testSample: this.data.testSample
+          });
       }
     }
   },
   // 评论点赞
-  clickCommentLike: function(e) {
+  clickCommentLike: async function(e) {
     // 记录id
-    var id = e.currentTarget.dataset.item;
-    var like = e.currentTarget.dataset.like;
-    // 重写评论
-    var arr = [];
-    for(var value of this.data.testComment.data) {
-      var item = value;  
-      if(item.id == id) {
-          if(item.like == true){
-            item.like = false;
-          } else{
-            item.like = true;
-          }
-        }
-        arr.push(item);
+    const id = e.currentTarget.dataset.item;
+    const liked = e.currentTarget.dataset.liked;
+
+    if (liked) {
+      await server.request('DELETE', 'comments/' + id + '/like')
+    } else {
+      await server.request('POST', 'comments/' + id + '/like')
     }
-    // 重构评论类
-    var total = {
-      "pagination": {
-        "page": this.data.testComment.pagination.page,
-        "size": this.data.testComment.pagination.size,
-        "total": this.data.testComment.pagination.total
-      },
-      "data": arr
-    };
-    this.setData({testComment: total})
-    // TODO: 在线更新
+
+    // 重写评论
+    for (let i in this.data.testComment.data) {
+      if (this.data.testComment.data[i].id == id) {
+        this.data.testComment.data[i].liked = !liked
+        this.data.testComment.data[i].like_count += liked ? -1 : 1
+        break
+      }
+    }
+    this.setData({
+      testComment: this.data.testComment
+    })
   },
-  showToast:function(str, src){
-    if(src == ""){
+  showToast: function(str, src) {
+    if (src == "") {
       wx.showToast({
         title: str,
-        icon: 'success',//图标，支持"success"、"loading" 
+        icon: 'success', //图标，支持"success"、"loading" 
         //image: src,//自定义图标的本地路径，image 的优先级高于 icon
-        duration: 2000,//提示的延迟时间，单位毫秒，默认：1500 
-        mask: false,//是否显示透明蒙层，防止触摸穿透，默认：false 
-        success: function () { },
-        fail: function () { },
-        complete: function () { }
+        duration: 2000, //提示的延迟时间，单位毫秒，默认：1500 
+        mask: false, //是否显示透明蒙层，防止触摸穿透，默认：false 
+        success: function() {},
+        fail: function() {},
+        complete: function() {}
       });
-    }else{
+    } else {
       wx.showToast({
         title: str,
         //icon: 'loading',//图标，支持"success"、"loading" 
-        image: src,//自定义图标的本地路径，image 的优先级高于 icon
-        duration: 2000,//提示的延迟时间，单位毫秒，默认：1500 
-        mask: false,//是否显示透明蒙层，防止触摸穿透，默认：false 
-        success: function () { },
-        fail: function () { },
-        complete: function () { }
+        image: src, //自定义图标的本地路径，image 的优先级高于 icon
+        duration: 2000, //提示的延迟时间，单位毫秒，默认：1500 
+        mask: false, //是否显示透明蒙层，防止触摸穿透，默认：false 
+        success: function() {},
+        fail: function() {},
+        complete: function() {}
       });
     }
   },
@@ -375,62 +374,93 @@ Page({
     this.data.replyCommentOwner = e.currentTarget.dataset.owner;
     console.log(this.data.replyCommentOwner);
     console.log(this.data.replyCommentID);
-    this.setData({isReplying: true});
+    this.setData({
+      isReplying: true
+    });
   },
   // 提交回复
   submitRely: function(e) {
     // 评论为空
     if (!/[^\s]+/.test(this.data.reply_content)) {
-        this.setData({isReplying: false});
-        this.setData({reply_content: ""});
-        this.showToast("回复为空", "/images/icons/error.png");
-        return;
+      this.setData({
+        isReplying: false
+      });
+      this.setData({
+        reply_content: ""
+      });
+      this.showToast("回复为空", "/images/icons/error.png");
+      return;
     }
     var reply = this.data.reply_content;
     reply = "回复@" + this.data.replyCommentOwner + ":" + reply;
     console.log(reply);
-    this.setData({isReplying: false});
+    this.setData({
+      isReplying: false
+    });
     // TODO: 在线更新该回复
     this.showToast("回复提交", "");
-    this.setData({reply_content: ""});
+    this.setData({
+      reply_content: ""
+    });
   },
   // 评论内容刷新
   replyInputChange: function(e) {
-    this.setData({reply_content: e.detail.value});
+    this.setData({
+      reply_content: e.detail.value
+    });
   },
   commentInputChange: function(e) {
-    this.setData({comment_content: e.detail.value});
+    this.setData({
+      comment_content: e.detail.value
+    });
   },
   //提交评论
-  submitComment: function(e){
-    console.log(this.data.comment_content);
+  submitComment: async function(e) {
     if (!/[^\s]+/.test(this.data.comment_content)) {
-      this.setData({comment_content: ""});
+      this.setData({
+        comment_content: ""
+      });
       this.showToast("评论为空", "/images/icons/error.png");
       return;
     }
-    // TODO: 在线更新该评论
-    console.log(this.data.comment_content);
-    this.showToast("评论提交", "");
-    this.setData({comment_content: ""});
+    const res = await server.request('POST', 'comments/' + this.data.taskID, {
+      type: 'task',
+      content: this.data.comment_content
+    })
+    if (res.statusCode == 200) {
+      this.showToast("评论成功", "")
+      this.setData({
+        comment_content: "",
+      })
+      this.loadComments(1)
+    } else {
+      this.showToast("评论失败", "")
+      console.log(res)
+    }
   },
   // 点击空白取消评论
   cancelReplying: function(e) {
-    this.setData({isReplying: false});
-    this.setData({reply_content: ""});
+    this.setData({
+      isReplying: false
+    });
+    this.setData({
+      reply_content: ""
+    });
   },
   // 拉底刷新内容
-  onReachBottom(){
-    this.setData({isLoading: true});
+  onReachBottom() {
+    if (!this.data.loadComments && !this.data.noMoreComment) {
+      this.loadComments()
+    }
   },
-  joinin: function(e){
-    if(this.data.testSample.data.auto_accept){
+  joinin: function(e) {
+    if (this.data.testSample.data.auto_accept) {
       wx.showToast({
         title: '自动加入成功',
       })
       // TODO: 完成加入
 
-    } else{
+    } else {
       wx.navigateTo({
         url: '/pages/Comment/Comment?feedback=' + 'false&id=' + this.data.testSample.data.id,
       })
