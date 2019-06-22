@@ -248,7 +248,6 @@
   flex-direction:row;
   justify-content: flex-end;
   width: 250rpx;
-  margin-left: 60rpx;
 }
 
 .comment_ava{

@@ -453,16 +453,39 @@ Page({
       this.loadComments()
     }
   },
-  joinin: function(e) {
-    if (this.data.testSample.data.auto_accept) {
+  joinin: async function (e) {
+    const res = await server.request('POST', 'tasks/' + this.data.taskID + '/player')
+    if (res.statusCode !== 200) {
+      this.showToast("加入失败")
+    } else if (res.data.result === 'accept') {
       wx.showToast({
-        title: '自动加入成功',
+        title: '加入成功'
       })
-      // TODO: 完成加入
-
-    } else {
+    } else if (res.data.result === 'wait') {
       wx.navigateTo({
         url: '/pages/Comment/Comment?feedback=' + 'false&id=' + this.data.testSample.data.id,
+      })
+    }
+    this.data.testSample.data.played = true
+    this.data.testSample.data.player_count++
+    this.setData({
+      testSample: this.data.testSample
+    })
+  },
+  exitTask: async function () {
+    const res = await server.request('DELETE', 'tasks/' + this.data.taskID + '/player/me')
+    if (res.statusCode === 200) {
+      wx.showToast({
+        title: '退出成功'
+      })
+      this.data.testSample.data.played = false
+      this.data.testSample.data.player_count--
+      this.setData({
+        testSample: this.data.testSample
+      })
+    } else {
+      wx.showToast({
+        title: '退出失败'
       })
     }
   }

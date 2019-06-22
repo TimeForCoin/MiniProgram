@@ -43,7 +43,7 @@ Page({
   onLoad: function(options) {
     // 减少标题内容字数
     this.reduce()
-    this.loadTasks(1)
+    this.loadTasks(1, options.status === 'draft' ? 'draft': '')
   },
 
   /**
@@ -93,20 +93,29 @@ Page({
 
   },
 
-  loadTasks: async function(page) {
+  loadTasks: async function(page, status) {
+    if (status !== 'draft') {
+      status = 'all'
+    }
     this.setData({
       isLoading: true,
-      noMore: true
+      noMore: false
     })
     if (page) {
       this.data.currentPage = page
+      this.setData({
+        testList: {
+          data: []
+        }
+      })
     } else {
       this.data.currentPage++
     }
     const res = await server.request('GET', 'tasks', {
       page: this.data.currentPage,
       size: this.data.pageSize,
-      user: 'me'
+      user: 'me',
+      status: status
     })
     for (let i in res.data.tasks) {
       if (res.data.tasks[i].images.length == 0) {
@@ -118,7 +127,7 @@ Page({
     }
     this.setData({
       testList: {
-        data: res.data.tasks,
+        data: [...this.data.testList.data, ...res.data.tasks],
         currentPage: this.data.currentPage
       },
       noMore: this.data.currentPage * this.data.pageSize >= res.data.pagination.total,

@@ -1,4 +1,5 @@
 // pages/CollectList/CollectList.js
+const server = require('../../services/server.js')
 Page({
 
   /**
@@ -12,15 +13,16 @@ Page({
     isFocus: false,
     // 供给选择器
     task_type:['所有', '跑腿任务', '问卷任务', '信息任务'],
-    task_status: ['所有', '草稿', '执行中', '等待接受', '已关闭','已完成','已过期'],
+    task_status: ['所有', '执行中', '等待接受', '已关闭','已完成','已过期'],
     task_reward: ['所有','闲钱币','人民币','实物'],
     chosed_type: "请选择",
     chosed_status: "请选择",
     chosed_reward: "请选择",
     // 筛选条件
-    type: "",
-    status: "",
-    reward: "",
+    type: "all",
+    status: "all",
+    reward: "all",
+    sort: 'new',
     // 加载动画
     isLoading: false,
     noMore: true,
@@ -29,67 +31,10 @@ Page({
     delete_id: "",
     // 测试列表
     testList: {
-      "pagination": {
-        "page": 1,
-        "size": 3,
-        "total": 10
-      },
-      "data": [
-        {
-          "id": "5c9ecbbba4a3f52e3195fa68",
-          "publisher": {
-            "id": "5c9ecbbba4a3f52e3195fa68",
-            "nickname": "tp",
-            "avatar": "https://xxx.png",
-            "gender": "man",
-            "type": "normal"
-          },
-          "title": "帮我洗澡",
-          "content": "过来至二634洗澡澡",
-          "location": [
-            "中山大学"
-          ],
-          "tags": [
-            "打游戏"
-          ],
-          "top_time": 1244123123,
-          "status": "failure",
-          "type": "run",
-          "images": [
-            {
-              "id": "5c9ecbbba4a3f52e3195fa68",
-              "url": "/images/index_sample.jpg"
-            }
-          ],
-          "attachment": [
-            {
-              "id": "5c9ecbbba4a3f52e3195fa68",
-              "type": "image",
-              "name": "秀秀照片",
-              "description": "洗澡",
-              "size": 147872,
-              "time": 123214124,
-              "public": false
-            }
-          ],
-          "reward": "rmb",
-          "reward_value": 100,
-          "reward_object": "一个吻",
-          "publish_date": 112312341243,
-          "start_date": 121414124,
-          "end_date": 121414124,
-          "player_count": 12,
-          "max_player": 30,
-          "auto_accept": true,
-          "comment_count": 30,
-          "view_count": 30,
-          "collect_count": 30,
-          "like_count": 30,
-          "collected": false,
-          "liked": false
-        }
-      ]
+      data: []
     },
+    currentPage: 1,
+    pageSize: 10,
   },
 
   /**
@@ -97,7 +42,49 @@ Page({
    */
   onLoad: function (options) {
     // 减少标题内容字数
-    this.reduce();
+    this.reduce()
+    this.loadTask(1)
+  },
+
+  loadTask: async function(page) {
+    this.setData({
+      isLoading: true,
+      noMore: false
+    })
+    if (page) {
+      this.data.currentPage = page
+      this.setData({
+        testList: {
+          data: []
+        }
+      })
+    } else {
+      this.data.currentPage++
+    }
+    const res = await server.request('GET', 'users/collect/me', {
+      page: this.data.currentPage,
+      size: this.data.pageSize,
+      sort: this.data.sort,
+      type: this.data.type,
+      status: this.data.status,
+      reward: this.data.reward
+    })
+    for (let i in res.data.tasks) {
+      if (res.data.tasks[i].images.length == 0) {
+        res.data.tasks[i].images = [{
+          id: 0,
+          url: '/images/icon.png'
+        }]
+      }
+    }
+    this.setData({
+      testList: {
+        data: [...this.data.testList.data, ...res.data.tasks],
+        currentPage: this.data.currentPage
+      },
+      noMore: this.data.currentPage * this.data.pageSize >= res.data.pagination.total,
+      isLoading: false,
+    })
   },
 
   /**
@@ -149,18 +136,16 @@ Page({
   },
 
   sort_type0: function (e) {
-    this.setData({ btn_state0: true });
-    this.setData({ btn_state1: false });
-    
-    this.logicalJudge();
-    // TODO: 获取热门任务
+    if (this.data.btn_state1 === true) {
+      this.setData({ btn_state0: true, btn_state1: false });
+      this.logicalJudge();
+    }
   },
   sort_type1: function (e) {
-    this.setData({ btn_state1: true });
-    this.setData({ btn_state0: false });
-    
-    this.logicalJudge();
-    // TODO: 获取最新任务
+    if (this.data.btn_state0 === true) {
+      this.setData({ btn_state0: false, btn_state1: true });
+      this.logicalJudge();
+    }
   },
   // 缩减字数
   reduce: function(){
@@ -195,22 +180,25 @@ Page({
   // 用户点击回车键进行搜索
   searchResult: function(e){
     this.cleaning();
-    
     this.logicalJudge();
-    // TODO: 任务搜索
   },
   cleaning: function(e){
     this.setData({ typing_content: "" });
     this.setData({ isFocus: false });
   },
   change_type: function(e){
-    this.setData({ chosed_type: this.data.task_type[e.detail.value]});
+    if (this.data.chosed_type !== this.data.task_type[e.detail.value]) {
+      this.setData({ chosed_type: this.data.task_type[e.detail.value] });
+      this.logicalJudge();
+    }
   },
   change_status: function (e) {
     this.setData({ chosed_status: this.data.task_status[e.detail.value] });
+    this.logicalJudge();
   },
   change_reward: function (e) {
     this.setData({ chosed_reward: this.data.task_reward[e.detail.value] });
+    this.logicalJudge();
   },
   // 搜索前进行逻辑判断
   logicalJudge: function(){
@@ -256,10 +244,9 @@ Page({
       this.data.reward = 'all';
     }
 
-    console.log(this.data.type);
-    console.log(this.data.status);
-    console.log(this.data.reward);
+    this.data.sort = this.data.btn_state0 === true ? 'new':'hot'
 
+    this.loadTask(1)
   },
   // 删除或者置顶
   delete: function(e){

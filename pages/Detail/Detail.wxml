@@ -93,14 +93,11 @@
         <text class="title" style="color: #ff7e67;">自动接受：</text>
         <text class="title">{{testSample.data.auto_accept? '是' : '否'}}</text>
       </view>
-      <view class="content_list">
-        <text class="title" style="color: #ff7e67;">当前人数：</text>
-        <text class="title">{{testSample.data.player_count}}</text>
-      </view>
       <text class="title content_list">{{testSample.data.content}}</text>
 
       <button class='joininButton' bindtap='joinin'
-        wx:if="{{testSample.data.status == 'wait' && !isMine}}">{{testSample.data.auto_accept ? '立即加入' : '申请加入'}}</button>
+        wx:if="{{testSample.data.status == 'wait' && !testSample.data.played}}">{{testSample.data.auto_accept ? '立即加入' : '申请加入'}}</button>
+      <button class='joininButton' bindtap='exitTask' wx:if="{{testSample.data.played}}">放弃任务</button>
     </view>
   </view>
   <view class="band2" />

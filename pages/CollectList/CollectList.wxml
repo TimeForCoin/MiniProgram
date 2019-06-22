@@ -19,29 +19,13 @@
     <view class="sort-wrap">
       <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0"
         style="color: {{btn_state1 ? 'gray' : '#ff7e67'}}">
-        <text>热门</text>
-        <!-- <view class = "img_set">
-          <image src="/images/icons/up.png" class = "sort_img img_up" />
-          <image src="/images/icons/down.png" class = "sort_img img_down"/>
-        </view> -->
+        <text>最新</text>
       </view>
 
       <view class='sort-btn' data-index="{{btn_state1}}" bindtap="sort_type1"
         style="color: {{btn_state0 ? 'gray' : '#ff7e67'}}">
-        <text>最新</text>
-        <!-- <view class = "img_set">
-          <image src="/images/icons/up.png" class = "sort_img img_up" />
-          <image src="/images/icons/down.png" class = "sort_img img_down"/>
-        </view> -->
+        <text>热门</text>
       </view>
-
-      <!-- <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0">
-        <text>坤</text>
-        <view class = "img_set">
-          <image src="/images/icons/up.png" class = "sort_img img_up" />
-          <image src="/images/icons/down.png" class = "sort_img img_down"/>
-        </view>
-      </view> -->
     </view>
   </view>
 
@@ -64,14 +48,6 @@
         <view class="band1" />
       </view>
       </view>
-      <!--删除或置顶-->
-      <view class="float_button" style="bottom: 400rpx;" bindtap='clickCollect' data-id = "{{item.id}}" catchtap = 'delete'>
-        <image src="/images/icons/rubbish.png" class="btn_img" />
-      </view>
-      <!-- <view class = "item_btn_set">
-          <image src = "/images/icons/user.png" class = "item_btn" />
-          <image src = "/images/icons/user.png" class = "item_btn"/>
-        </view> -->
     </view>
     <!--加载动画-->
     <view class="loading_view" wx:if="{{isLoading}}">
@@ -81,14 +57,3 @@
     <text class="subtext" style="margin-top: 40rpx; margin-bottom: 60rpx;" wx:if="{{noMore}}">没有更多了~</text>
   </view>
 </view>
-
-<!--对话框-->
-<view class="modalDialog" wx:if="{{isDelete}}">
-  <text class = "dialogTitle">是否删除该任务？</text>
-  <view style = "display:flex; flex-direcion: row">
-    <button bindtap="confirm_delete" class = "ok_btn" style = "background-color: #ff7e67; color:#fff" >确认</button>
-    <button bindtap="cancel_delete" class = "ok_btn" >取消</button>
-  </view>
-</view>
-<!--蒙板-->
-<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{isDelete}}"/>

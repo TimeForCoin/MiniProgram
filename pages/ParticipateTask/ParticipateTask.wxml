@@ -24,7 +24,7 @@
           <text classs="money_text">{{item.task.reward == 'physical' ? item.task.reward_object : item.task.reward_value}}</text>
           <text class="payType">{{item.task.reward == 'rmb' ? '人民币' : item.task.reward == 'physical'? '实物' : '闲币' }}</text>
           <text class="payType">{{item.task.type == 'run' ? '跑腿' : item.task.reward == 'questionnaire'? '问卷' : '信息' }}</text>
-          <text class = "payType">{{item.status.player.status == 'wait' ? '等待' : item.status.player.status == 'refuse' ? '拒绝' : item.status.player.status == 'close' ? '关闭' : item.status.player.status == 'running' ? '进行中' : item.status.player.status == 'finish' ? '完成' : item.status.player.status == 'give_up'? '放弃' : '失败'}}</text>
+          <text class = "payType">{{item.status.status == 'wait' ? '等待' : item.status.status == 'refuse' ? '拒绝' : item.status.status == 'close' ? '关闭' : item.status.status == 'running' ? '进行中' : item.status.status == 'finish' ? '完成' : item.status.status == 'give_up'? '放弃' : '失败'}}</text>
         </view>
         <text class="subtitle">{{item.task.content}}</text>
         <view class="band1" />

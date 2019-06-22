@@ -20,13 +20,9 @@
       </view>
       </view>
       <!--删除或置顶-->
-      <view class="float_button" style="bottom: 400rpx;" bindtap='clickCollect' data-status = "{{item.status}}" data-id = "{{item.id}}" catchtap = 'top_delete'>
-        <image src="/images/icons/{{item.status == 'draft' ? 'rubbish' : 'toTop'}}.png" class="btn_img" />
+      <view wx:if="{{item.status == 'draft'}}" class="float_button" style="bottom: 400rpx;" bindtap='clickCollect' data-status = "{{item.status}}" data-id = "{{item.id}}" catchtap = 'top_delete'>
+        <image src="/images/icons/rubbish.png" class="btn_img" />
       </view>
-      <!-- <view class = "item_btn_set">
-          <image src = "/images/icons/user.png" class = "item_btn" />
-          <image src = "/images/icons/user.png" class = "item_btn"/>
-        </view> -->
     </view>
     <!--加载动画-->
     <view class="loading_view" wx:if="{{isLoading}}">
