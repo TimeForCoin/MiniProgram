@@ -1,14 +1,5 @@
 <!--pages/AddedItems/AddedItems.wxml-->
 <view id="container">
-  <view id="top">
-    <!--任务类型选择器-->
-    <view class="picker_field">
-      <picker value="{{chosed_status}}" bindchange="change_status" range="{{task_status}}" class="picker_font">
-        <text>状态：</text><text style="color: #ff7e67;">{{chosed_status}}</text>
-      </picker>
-    </view>
-  </view>
-
   <!--下面内容-->
   <view id="list">
     <view style = "display:flex; flex-direction: row; text-align: left;" wx:for="{{testList.data}}" wx:key="item.id" >
