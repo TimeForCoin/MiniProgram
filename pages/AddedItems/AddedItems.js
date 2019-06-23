@@ -36,7 +36,8 @@ Page({
       data: []
     },
     // draft
-    draft: false
+    draft: false,
+    deleteType: 'draft',
   },
 
   /**
@@ -106,11 +107,7 @@ Page({
     })
     if (page) {
       this.data.currentPage = page
-      this.setData({
-        testList: {
-          data: []
-        }
-      })
+      this.data.testList.data = []
     } else {
       this.data.currentPage++
     }
@@ -311,27 +308,47 @@ Page({
   },
   // 删除或者置顶
   top_delete: function(e) {
-    var id = e.currentTarget.dataset.id;
-    console.log(id);
-    console.log(e.currentTarget.dataset.status)
-    if (e.currentTarget.dataset.status == 'draft') {
-      this.setData({
-        isDelete: true
-      });
-      this.data.delete_id = id;
-    } else {
-      // TODO: 置顶对影项
-    }
-  },
-  confirm_delete: function(e) {
-    console.log(this.data.delete_id);
+    const id = e.currentTarget.dataset.id
+    const status = e.currentTarget.dataset.status
     this.setData({
-      isDelete: false
+      isDelete: true,
+      deleteType: status,
+      delete_id: id,
     });
-    wx.showToast({
-      title: '删除成功',
-    })
-    // TODO: 删除对应项
+  },
+  confirm_delete: async function(e) {
+    if (this.data.deleteType === 'draft') {
+      const res = await server.request('DELETE', 'tasks/' + this.data.delete_id)
+      if (res.statusCode == 200) {
+        this.setData({
+          isDelete: false
+        });
+        wx.showToast({
+          title: '删除成功',
+        })
+      } else {
+        wx.showToast({
+          title: '删除失败'
+        })
+      }
+    } else if (this.data.deleteType === 'wait') {
+      const res = await server.request('PUT', 'tasks/' + this.data.delete_id, {
+        status: 'close'
+      })
+      if (res.statusCode == 200) {
+        this.setData({
+          isDelete: false
+        });
+        wx.showToast({
+          title: '关闭成功',
+        })
+      } else {
+        wx.showToast({
+          title: '关闭失败'
+        })
+      }
+    }
+    this.loadTasks(1)
   },
   cancel_delete: function(e) {
     this.setData({

@@ -441,7 +441,9 @@ Page({
     })
   },
   exitTask: async function () {
-    const res = await server.request('DELETE', 'tasks/' + this.data.taskID + '/player/me')
+    const res = await server.request('PUT', 'tasks/' + this.data.taskID + '/player/me', {
+      status: 'give_up'
+    })
     if (res.statusCode === 200) {
       wx.showToast({
         title: '退出成功'
