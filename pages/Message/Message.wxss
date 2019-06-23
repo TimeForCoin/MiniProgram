@@ -87,6 +87,7 @@
   margin-top: 20rpx;
   font-size: 32rpx;
 }
+
 .payType{
   background: #ff7e67;
   margin: 20rpx 20rpx 0rpx 0rpx;
@@ -106,7 +107,6 @@
   font-size: 28rpx;
   color: gray;
   margin-top: 20rpx;
-  margin-left: 100rpx;
 }
 
 /*加载部分*/

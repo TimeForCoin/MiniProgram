@@ -17,16 +17,16 @@
   <!--下面内容-->
     <view id = "list">
       <view class = "list_item" wx:for = "{{testMessage.data}}" wx:key = "item.id" bindtap = 'navigateToMessageDetail' data-id = "{{item.id}}">
-        <image class = "item_img" src = "{{item.user.avatar}}" />
+        <image class = "item_img" src = "{{item.target_user.avatar}}" />
         <view class = "basic_info">
           <view class = "row_view">
-            <text class = "title" style = "margin-right:20rpx;">{{item.user.nickname}}</text>
-            <text class="payType">{{item.user.gender == 'man' ? '男' : '女'}}</text>
-            <text class="payType">{{item.unread == 0 ? '已读':'未读'}}</text>
+            <text class = "title" style = "margin-right:20rpx;">{{item.target_user.nickname}}</text>
+            <text class="payType">{{item.target_user.gender == 'man' ? '男' : '女'}}</text>
+            <text class="payType">{{item.unread_count == 0 ? '已读':'未读'}}</text>
             <text class = "item_time">{{item.string_last_time}}</text>
           </view>
           <!--新增最后一条消息-->
-          <text class = "subtitle">{{item.last_message}}</text>
+          <text class = "subtitle">{{item.last_message.content}}</text>
         </view>
       </view>
       <view class = "band1" />
