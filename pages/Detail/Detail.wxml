@@ -97,15 +97,15 @@
         <text class="title" style="color: #ff7e67;">人员名单：</text>
         <view class="taskType">
           <view wx:for="{{player_list}}" wx:key="item">
-            <text class="taskBlock">{{item}}</text>
+            <text class="taskBlock">{{item.player.nickname}}</text>
           </view>
         </view>
       </view>
       <text class="title content_list">{{testSample.data.content}}</text>
 
       <button class='joininButton' bindtap='joinin'
-        wx:if="{{testSample.data.status == 'wait' && !testSample.data.played}}">{{testSample.data.auto_accept ? '立即加入' : '申请加入'}}</button>
-      <button class='joininButton' bindtap='exitTask' wx:if="{{testSample.data.played}}">放弃任务</button>
+        wx:if="{{testSample.data.status == 'wait' && !testSample.data.played && !isMine}}">{{testSample.data.auto_accept ? '立即加入' : '申请加入'}}</button>
+      <button class='joininButton' bindtap='exitTask' wx:if="{{testSample.data.played  && !isMine}}">放弃任务</button>
     </view>
   </view>
   <view class="band2" />
@@ -149,8 +149,8 @@
         </view>
       </view>
       <text class="comment_text title" style="margin-top:10rpx; margin-left:20rpx;">{{item.content}}</text>
+      <view class="band1" />
     </view>
-    <view class="band1" />
   </view>
   <view class="loading_view" wx:if="{{isLoading}}">
       <image class="loading" src="/images/icons/loading.png"></image>
