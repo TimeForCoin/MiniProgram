@@ -1,4 +1,5 @@
 // pages/Detail/Detail.js
+const app = getApp()
 const moment = require('moment');
 const server = require('../../services/server.js')
 
@@ -283,9 +284,17 @@ Page({
     const liked = e.currentTarget.dataset.liked;
 
     if (liked) {
-      await server.request('DELETE', 'comments/' + id + '/like')
+      const result = await server.request('DELETE', 'comments/' + id + '/like')
+      if(result.statusCode != 200){
+        this.showToast('点赞失败','/images/icons/error.png')
+        return
+      }
     } else {
-      await server.request('POST', 'comments/' + id + '/like')
+      const result = await server.request('POST', 'comments/' + id + '/like')
+      if(result.statusCode != 200){
+        this.showToast('取消点赞失败', '/images/icons/error.png')
+        return
+      }
     }
 
     // 重写评论
@@ -391,8 +400,9 @@ Page({
       })
       this.loadComments(1)
     } else {
-      this.showToast("评论失败", "")
+      this.showToast("评论失败", "/images/icons/error.png")
       console.log(res)
+      return
     }
   },
   // 点击空白取消评论
@@ -413,7 +423,8 @@ Page({
   joinin: async function (e) {
     const res = await server.request('POST', 'tasks/' + this.data.taskID + '/player')
     if (res.statusCode !== 200) {
-      this.showToast("加入失败")
+      this.showToast("加入失败",'/images/icons/error.png')
+      return
     } else if (res.data.result === 'accept') {
       wx.showToast({
         title: '加入成功'
@@ -442,8 +453,10 @@ Page({
       })
     } else {
       wx.showToast({
-        title: '退出失败'
+        title: '退出失败',
+        image: '/images/icons/error.png'
       })
+      return
     }
-  }
+  },
 })

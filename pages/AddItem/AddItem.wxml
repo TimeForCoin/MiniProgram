@@ -135,4 +135,4 @@
   </view>
 </view>
 <!--蒙板-->
-<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{isErr || isSubmit || isSave || isDelete}}"/>
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{isErr || isSubmit || isSave || isDelete || !hasUserInfo}}"/>

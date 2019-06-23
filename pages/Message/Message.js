@@ -1,4 +1,5 @@
 // pages/Message/Message.js
+const app = getApp()
 const moment = require('moment');
 Page({
 
@@ -27,13 +28,22 @@ Page({
       ]
     },
     isLoading: false,
-    noMore: false
+    noMore: false,
+    //判断是否登录
+    hasUserInfo:false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({ hasUserInfo: app.globalData.hasUserInfo })
+    if (!this.data.hasUserInfo) {
+      wx.showToast({
+        title: '您未登录~',
+        image: '/images/icons/error.png'
+      })
+    }
     moment.locale('en', {
       longDateFormat: {
         l: "YYYY-MM-DD",

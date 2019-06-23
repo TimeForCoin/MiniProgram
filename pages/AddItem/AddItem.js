@@ -1,4 +1,5 @@
 // pages/AddItem/AddItem.js
+const app = getApp()
 const server = require('../../services/server.js')
 const util = require('../../utils/util.js')
 const moment = require('moment')
@@ -44,13 +45,22 @@ Page({
     isDelete: false,
     // 删除图像的id
     delete_id: -1,
+    hasUserInfo: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({hasUserInfo: app.globalData.hasUserInfo})
+    if (!this.data.hasUserInfo) {
+      wx.showToast({
+        title: '您未登录~',
+        image: '/images/icons/error.png'
+      })
+    }
     // server.request('DELETE', 'file/useless')
+    
     this.resetForm()
   },
 

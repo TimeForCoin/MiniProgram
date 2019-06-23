@@ -88,4 +88,4 @@
   </scroll-view>
 </view>
 <!--蒙板-->
-<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{isEditInfo}}"/>
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{hasUserInfo && isEditInfo}}"/>

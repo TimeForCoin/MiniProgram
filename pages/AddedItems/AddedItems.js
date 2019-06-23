@@ -41,6 +41,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    
     // 减少标题内容字数
     this.reduce()
     this.loadTasks(1, options.status === 'draft' ? 'draft': '')
@@ -117,6 +118,30 @@ Page({
       user: 'me',
       status: status
     })
+    // 无法正常获取
+    errTitle = ""
+    if (res.statusCode === 401) {
+      errTitle = "您未登录~"
+    }else if (res.statusCode != 200){
+      errTitle = "网络链接失败~"
+    }
+    if(errTitle === ""){
+
+    }else{
+      this.setData({
+        failToGetDetail: true
+      })
+      wx.showToast({
+        title: errTitle,
+        image: '/images/icons/error.png'
+      })
+      setTimeout(function () {
+        // 返回
+        wx.navigateBack({
+
+        })
+      }, 1000);
+    }
     for (let i in res.data.tasks) {
       if (res.data.tasks[i].images.length == 0) {
         res.data.tasks[i].images = [{
