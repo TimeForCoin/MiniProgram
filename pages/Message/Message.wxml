@@ -37,3 +37,7 @@
     </view>
     <text class="subtext" style="margin-top: 40rpx; margin-bottom: 60rpx;" wx:if="{{noMore}}">没有更多了~</text>
 </view>
+
+
+<!--蒙板-->
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{!hasUserInfo}}"/>

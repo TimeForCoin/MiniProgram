@@ -303,6 +303,13 @@ Page({
   navigate: function(e) {
     console.log(e);
     if (e.currentTarget.dataset.item == "5") {
+      if(!this.data.hasUserInfo){
+        wx.showToast({
+          title: "您未登录~",
+          image: '/images/icons/error.png'
+        })
+        return;
+      }
       this.setData({
         isEditInfo: true
       });

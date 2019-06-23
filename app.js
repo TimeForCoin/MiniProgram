@@ -86,5 +86,8 @@ App({
       "color": "#404969",
       "selectedColor": "#ff7e67"
     },
+    // 用于跳转草稿
+    status:'none',
+    taskID:''
   }
 })

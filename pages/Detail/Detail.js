@@ -1,4 +1,5 @@
 // pages/Detail/Detail.js
+const app = getApp()
 const moment = require('moment');
 const server = require('../../services/server.js')
 
@@ -8,64 +9,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    testSample: {
-      "data": {
-        "id": "5c9ecbbba4a3f52e3195fa68",
-        "publisher": {
-          "id": "5c9ecbbba4a3f52e3195fa68",
-          "nickname": "tp",
-          "avatar": "/images/index_sample.jpg",
-        },
-        "title": "帮我洗澡",
-        "content": "过来至二634洗澡澡",
-        "location": [
-          "中山大学", "中山大学", "中山大学"
-        ],
-        "tags": [
-          "打游戏", "打游戏", "打游戏"
-        ],
-        "top_time": 1244123123,
-        "status": "wait",
-        "type": "info",
-        "images": [{
-            "id": "/images/index_sample.jpg",
-            "type": "image",
-            "name": "秀秀照片",
-            "description": "洗澡",
-            "size": 147872,
-            "time": 123214124,
-            "public": false
-          },
-          {
-            "id": "/images/touxiang.jpg",
-            "type": "image",
-            "name": "秀秀照片",
-            "description": "洗澡",
-            "size": 147872,
-            "time": 123214124,
-            "public": false
-          }
-        ],
-        "reward": "rmb",
-        "reward_value": 100,
-        "reward_object": "一个吻",
-        "publish_date": 112312341243,
-        "start_date": 121414124,
-        "end_date": 121414124,
-        "player_count": 12,
-        "max_player": 30,
-        "auto_accept": false,
-        "comment_count": 30,
-        "view_count": 30,
-        "collect_count": 30,
-        "like_count": 30,
-        "like": false
-      }
-    },
+    testSample: {},
 
     testComment: {
       data: []
     },
+    player_list:[],
     // 日期解析结果
     publishDate: "",
     startDate: "",
@@ -95,7 +44,7 @@ Page({
     isMine: false,
     taskID: '',
     // 无法获取详情
-    failToGetDetail: false
+    failToGetDetail: false,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -128,8 +77,8 @@ Page({
         L: "YYYY-MM-DD HH:mm"
       }
     })
-    this.loadTaskData()
-    this.loadComments(1)
+    await this.loadTaskData()
+    await this.loadComments(1)
   },
 
   loadComments: async function(page) {
@@ -170,7 +119,7 @@ Page({
       startDate: moment(res.data.start_date * 1000).format('L'),
       endDate: moment(res.data.end_date * 1000).format('L'),
       isLove: res.data.liked,
-      isCollected: res.data.collected
+      isCollected: res.data.collected,
     })
     // 无法正常获取详情
     if (res.statusCode != 200) {
@@ -188,6 +137,15 @@ Page({
         })
       }, 1000);
     }
+    const res_task = await server.request('GET', 'tasks/' + this.data.taskID + '/player', {
+      page: 1,
+      size: 10
+    })
+    console.log(res_task.data)
+    this.setData({
+      player_list: res_task.data.data
+    })
+    // console.log(this.data.player_list)
   },
 
   /**
@@ -326,9 +284,17 @@ Page({
     const liked = e.currentTarget.dataset.liked;
 
     if (liked) {
-      await server.request('DELETE', 'comments/' + id + '/like')
+      const result = await server.request('DELETE', 'comments/' + id + '/like')
+      if(result.statusCode != 200){
+        this.showToast('点赞失败','/images/icons/error.png')
+        return
+      }
     } else {
-      await server.request('POST', 'comments/' + id + '/like')
+      const result = await server.request('POST', 'comments/' + id + '/like')
+      if(result.statusCode != 200){
+        this.showToast('取消点赞失败', '/images/icons/error.png')
+        return
+      }
     }
 
     // 重写评论
@@ -434,8 +400,9 @@ Page({
       })
       this.loadComments(1)
     } else {
-      this.showToast("评论失败", "")
+      this.showToast("评论失败", "/images/icons/error.png")
       console.log(res)
+      return
     }
   },
   // 点击空白取消评论
@@ -456,7 +423,8 @@ Page({
   joinin: async function (e) {
     const res = await server.request('POST', 'tasks/' + this.data.taskID + '/player')
     if (res.statusCode !== 200) {
-      this.showToast("加入失败")
+      this.showToast("加入失败",'/images/icons/error.png')
+      return
     } else if (res.data.result === 'accept') {
       wx.showToast({
         title: '加入成功'
@@ -485,8 +453,10 @@ Page({
       })
     } else {
       wx.showToast({
-        title: '退出失败'
+        title: '退出失败',
+        image: '/images/icons/error.png'
       })
+      return
     }
-  }
+  },
 })

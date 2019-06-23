@@ -1,6 +1,6 @@
 // pages/AddedItems/AddedItems.js
 const server = require('../../services/server.js')
-
+const app = getApp()
 Page({
 
   /**
@@ -35,6 +35,8 @@ Page({
     testList: {
       data: []
     },
+    // draft
+    draft: false
   },
 
   /**
@@ -43,6 +45,7 @@ Page({
   onLoad: function(options) {
     // 减少标题内容字数
     this.reduce()
+    this.data.draft = options.status === 'draft' ? true : false
     this.loadTasks(1, options.status === 'draft' ? 'draft': '')
   },
 
@@ -117,6 +120,30 @@ Page({
       user: 'me',
       status: status
     })
+    // 无法正常获取
+    errTitle = ""
+    if (res.statusCode === 401) {
+      errTitle = "您未登录~"
+    }else if (res.statusCode != 200){
+      errTitle = "网络链接失败~"
+    }
+    if(errTitle === ""){
+
+    }else{
+      this.setData({
+        failToGetDetail: true
+      })
+      wx.showToast({
+        title: errTitle,
+        image: '/images/icons/error.png'
+      })
+      setTimeout(function () {
+        // 返回
+        wx.navigateBack({
+
+        })
+      }, 1000);
+    }
     for (let i in res.data.tasks) {
       if (res.data.tasks[i].images.length == 0) {
         res.data.tasks[i].images = [{
@@ -180,9 +207,19 @@ Page({
   // 跳转
   navigateToDetail: function(e) {
     this.cleaning();
-    wx.navigateTo({
-      url: '/pages/Detail/Detail?id=' + e.currentTarget.dataset.id + '&isMine=' + 'true',
-    })
+    if (this.data.draft){
+      console.log('jump to edit')
+      app.globalData.status = 'draft'
+      app.globalData.taskID = e.currentTarget.dataset.id
+      wx.switchTab({
+        url: '/pages/AddItem/AddItem'
+      })
+      wx.switchTab({ url: '/pages/AddItem/AddItem' })
+    }else{
+      wx.navigateTo({
+        url: '/pages/Detail/Detail?id=' + e.currentTarget.dataset.id + '&isMine=' + 'true',
+      })
+    }
   },
   // 检测用户输入
   typing: function(e) {

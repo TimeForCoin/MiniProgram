@@ -16,10 +16,10 @@
       <!--上传图片-->
       <view id = "image_upload">
         <text id = "firstTag" wx:if = "{{addedImages.length != 0}}" >主图</text>
-        <view style = "display:inline-block;" wx:for="{{addedImages}}" wx:key="{{index}}" bindtap="deleteImage" 
+        <view style = "display:inline-block;" wx:for="{{addedImages}}" wx:key="{{index}}"
          data-index = "{{index}}">
-            <image class="img_del" src="/images/icons/delete.png"/>
-            <image class="imgs_first" bindtap="previewImage" src="{{item.src}}" mode="aspectFill" />
+            <image class="img_del" src="/images/icons/delete.png"  bindtap="deleteImage"/>
+            <image class="imgs_first" bindtap="previewImage" src="{{item.url}}" mode="aspectFill" />
         </view>
         <image id="addImage" src="/images/icons/add_Item.png" wx:if="{{addedImages.length < 4}}" bindtap='addImage'/>
       </view>
@@ -135,4 +135,4 @@
   </view>
 </view>
 <!--蒙板-->
-<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{isErr || isSubmit || isSave || isDelete}}"/>
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{isErr || isSubmit || isSave || isDelete || !hasUserInfo}}"/>

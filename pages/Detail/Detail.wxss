@@ -99,6 +99,13 @@
   flex-direction:row;
   margin-top:10rpx;
 }
+
+.column_list{
+  display:fledx;
+  flex-direction: column;
+  margin-top: 10rpx;
+}
+
 /* 加入按钮 */
 .joininButton{
   margin-top: 30rpx;

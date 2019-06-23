@@ -69,6 +69,28 @@ Page({
       status: this.data.status,
       reward: this.data.reward
     })
+    if (res.statusCode === 401) {
+      errTitle = "您未登录~"
+    } else if (res.statusCode != 200) {
+      errTitle = "网络链接失败~"
+    }
+    if (errTitle === "") {
+
+    } else {
+      this.setData({
+        failToGetDetail: true
+      })
+      wx.showToast({
+        title: errTitle,
+        image: '/images/icons/error.png'
+      })
+      setTimeout(function () {
+        // 返回
+        wx.navigateBack({
+
+        })
+      }, 1000);
+    }
     for (let i in res.data.tasks) {
       if (res.data.tasks[i].images.length == 0) {
         res.data.tasks[i].images = [{
