@@ -27,7 +27,7 @@ Page({
     isLoading: false,
     noMore: false,
     currentPage: 1,
-    pageSize: 10,
+    pageSize: 8,
   },
   onLoad: async function() {
     app.editTabbar();

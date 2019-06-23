@@ -68,7 +68,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: async function () {
-    this.resetForm()
+    // this.resetForm()
     this.setData({ hasUserInfo: app.globalData.hasUserInfo })
     //登录判断
     if (!this.data.hasUserInfo) {
