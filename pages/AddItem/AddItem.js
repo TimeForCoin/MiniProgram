@@ -46,22 +46,15 @@ Page({
     // 删除图像的id
     delete_id: -1,
     hasUserInfo: false,
+    // 判断是否是修改的
+    draft:false,
+    taskID: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({hasUserInfo: app.globalData.hasUserInfo})
-    if (!this.data.hasUserInfo) {
-      wx.showToast({
-        title: '您未登录~',
-        image: '/images/icons/error.png'
-      })
-    }
-    // server.request('DELETE', 'file/useless')
-    
-    this.resetForm()
   },
 
   /**
@@ -74,10 +67,127 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: async function () {
+    this.resetForm()
+    this.setData({ hasUserInfo: app.globalData.hasUserInfo })
+    //登录判断
+    if (!this.data.hasUserInfo) {
+      wx.showToast({
+        title: '您未登录~',
+        image: '/images/icons/error.png'
+      })
+      setTimeout(function () {
+        // 返回
+        wx.switchTab({
+          url: '/pages/index/index',
+          success: function (res) { },
+          fail: function (res) { },
+          complete: function (res) { },
+        })
+      }, 1000);
+    }
 
+    // 草稿修改数据
+    if (app.globalData.status === 'draft') {
+      app.globalData.status = 'none'
+      this.data.draft = true
+      this.data.taskID = app.globalData.taskID
+      await this.loadTaskData()
+    }
   },
+  loadTaskData: async function () {
+    const res = await server.request('GET', 'tasks/' + this.data.taskID)
+    this.setData({
+      isSubmit: false,
+      isSave: false,
+      title: res.data.title,
+      describe: res.data.content,
+      type: res.data.type,
+      reward: res.data.reward,
+      reward_object: res.data.reward_object,
+      reward_value: res.data.reward_value,
+      reward_input: "",
+      location_input: "",
+      location: res.data.location,
+      tags_input: "",
+      tags: res.data.tags,
+      start_date: res.data.start_date,
+      end_date: res.data.end_date,
+      max_player: res.data.max_player,
+      // startDate: startTime.format("YYYY-MM-DD"),
+      // endDate: endTime.format("YYYY-MM-DD"),
+      // startTime: startTime.format("HH:mm"),
+      // endTime: endTime.format("HH:mm"),
+      max_player_input: "",
+      addedImages: res.data.images,
+      auto_accept: res.data.auto_accept,
+    })
 
+    console.log(this.data.addedImages)
+    if(this.data.auto_accept === true){
+      this.setData({
+        auto_in: [
+          { val: '是', checked: 'true' },
+          { val: '否' },
+        ],
+      })
+    } else{
+      this.setData({
+        auto_in: [
+          { val: '是' },
+          { val: '否', checked: 'true'},
+        ],
+      })
+    }
+
+    for(var val of this.data.location){
+      this.data.location_input = this.data.location_input + val + ','      
+    }
+
+    for (var val of this.data.tags) {
+      this.data.tags_input = this.data.tags_input + val + ','
+    }
+
+    if(this.reward === 'object'){
+      this.data.reward_input = this.data.reward_object
+    } else{
+      this.data.reward_input = this.data.reward_value
+    }
+
+
+    this.setData({
+      location_input: this.data.location_input,
+      tags_input: this.data.tags_input,
+      reward_input: this.data.reward_input
+    })
+    
+    // this.setData({
+      
+    //   publishDate: moment(new Date(res.data.publish_date * 1000)).format('l'),
+    //   startDate: moment(res.data.start_date * 1000).format('L'),
+    //   endDate: moment(res.data.end_date * 1000).format('L'),
+    //   isLove: res.data.liked,
+    //   isCollected: res.data.collected,
+    // })
+    // 无法正常获取详情
+    if (res.statusCode != 200) {
+      this.setData({
+        failToGetDetail: true
+      })
+      wx.showToast({
+        title: '无法获取详情',
+        image: '/images/icons/error.png'
+      })
+      setTimeout(function () {
+        wx.switchTab({
+          url: '/pages/index/index',
+          success: function(res) {},
+          fail: function(res) {},
+          complete: function(res) {},
+        })
+      }, 1000);
+    }
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -405,8 +515,8 @@ Page({
             const resData = JSON.parse(resImage.data)
             console.log(resData)
             this.data.addedImages.push({
-              src: value,
-              id: resData.id
+              id: resData.id,
+              url: value
             })
           } catch (err) {
             wx.showToast({

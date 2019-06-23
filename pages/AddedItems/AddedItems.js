@@ -1,6 +1,6 @@
 // pages/AddedItems/AddedItems.js
 const server = require('../../services/server.js')
-
+const app = getApp()
 Page({
 
   /**
@@ -35,15 +35,17 @@ Page({
     testList: {
       data: []
     },
+    // draft
+    draft: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    
     // 减少标题内容字数
     this.reduce()
+    this.data.draft = options.status === 'draft' ? true : false
     this.loadTasks(1, options.status === 'draft' ? 'draft': '')
   },
 
@@ -205,9 +207,19 @@ Page({
   // 跳转
   navigateToDetail: function(e) {
     this.cleaning();
-    wx.navigateTo({
-      url: '/pages/Detail/Detail?id=' + e.currentTarget.dataset.id + '&isMine=' + 'true',
-    })
+    if (this.data.draft){
+      console.log('jump to edit')
+      app.globalData.status = 'draft'
+      app.globalData.taskID = e.currentTarget.dataset.id
+      wx.switchTab({
+        url: '/pages/AddItem/AddItem'
+      })
+      wx.switchTab({ url: '/pages/AddItem/AddItem' })
+    }else{
+      wx.navigateTo({
+        url: '/pages/Detail/Detail?id=' + e.currentTarget.dataset.id + '&isMine=' + 'true',
+      })
+    }
   },
   // 检测用户输入
   typing: function(e) {

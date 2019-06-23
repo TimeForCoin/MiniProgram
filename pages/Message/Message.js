@@ -37,13 +37,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({ hasUserInfo: app.globalData.hasUserInfo })
-    if (!this.data.hasUserInfo) {
-      wx.showToast({
-        title: '您未登录~',
-        image: '/images/icons/error.png'
-      })
-    }
     moment.locale('en', {
       longDateFormat: {
         l: "YYYY-MM-DD",
@@ -71,7 +64,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.setData({ hasUserInfo: app.globalData.hasUserInfo })
+    //登录判断
+    if (!this.data.hasUserInfo) {
+      wx.showToast({
+        title: '您未登录~',
+        image: '/images/icons/error.png'
+      })
+      setTimeout(function () {
+        // 返回
+        wx.switchTab({
+          url: '/pages/index/index',
+          success: function (res) { },
+          fail: function (res) { },
+          complete: function (res) { },
+        })
+      }, 1000);
 
+    }
   },
 
   /**
