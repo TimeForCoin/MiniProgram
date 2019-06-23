@@ -19,7 +19,7 @@ Page({
       id: 2,
       name: "我的草稿",
       url: "/pages/AddedItems/AddedItems?status=draft",
-      src: "added_item"
+      src: "text"
     }, {
       id: 3,
       name: "我参与过的任务",

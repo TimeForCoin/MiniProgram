@@ -68,7 +68,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: async function () {
-    // this.resetForm()
     this.setData({ hasUserInfo: app.globalData.hasUserInfo })
     //登录判断
     if (!this.data.hasUserInfo) {
@@ -90,6 +89,7 @@ Page({
     // 草稿修改数据
     if (app.globalData.status === 'draft') {
       app.globalData.status = 'none'
+      this.resetForm()
       this.data.draft = true
       this.data.taskID = app.globalData.taskID
       await this.loadTaskData()
@@ -97,6 +97,12 @@ Page({
   },
   loadTaskData: async function () {
     const res = await server.request('GET', 'tasks/' + this.data.taskID)
+    moment.locale('zh-cn', {
+      longDateFormat: {
+        l: "YYYY-MM-DD",
+        L: "HH:mm"
+      }
+    })
     this.setData({
       isSubmit: false,
       isSave: false,
@@ -114,10 +120,10 @@ Page({
       start_date: res.data.start_date,
       end_date: res.data.end_date,
       max_player: res.data.max_player,
-      // startDate: startTime.format("YYYY-MM-DD"),
-      // endDate: endTime.format("YYYY-MM-DD"),
-      // startTime: startTime.format("HH:mm"),
-      // endTime: endTime.format("HH:mm"),
+      startDate: moment(res.data.start_date *1000).format('l'),
+      endDate: moment(res.data.end_date * 1000).format('l'),
+      startTime: moment(res.data.start_date * 1000).format('L'),
+      endTime: moment(res.data.end_date * 1000).format('L'),
       max_player_input: "",
       addedImages: res.data.images,
       auto_accept: res.data.auto_accept,
@@ -141,7 +147,7 @@ Page({
     }
 
     for(var val of this.data.location){
-      this.data.location_input = this.data.location_input + val + ','      
+      this.data.location_input = this.data.location_input + val + ','
     }
 
     for (var val of this.data.tags) {
@@ -160,9 +166,9 @@ Page({
       tags_input: this.data.tags_input,
       reward_input: this.data.reward_input
     })
-    
+
     // this.setData({
-      
+
     //   publishDate: moment(new Date(res.data.publish_date * 1000)).format('l'),
     //   startDate: moment(res.data.start_date * 1000).format('L'),
     //   endDate: moment(res.data.end_date * 1000).format('L'),
@@ -291,14 +297,14 @@ Page({
     this.data.max_player = parseInt(this.data.max_player_input);
     console.log("max_player:" + this.data.max_player);
   },
-  
+
   tagsChange: function(e){
     this.data.tags = this.splitData(e.detail.value);
     console.log("number of logs:" + this.data.tags.length);
     this.setData({ tags_input: e.detail.value});
     console.log("tags:" + this.data.tags);
   },
-  
+
   changeBeginDate(e) {
     this.setData({ startDate: e.detail.value });
   },
@@ -417,7 +423,7 @@ Page({
     this.data.end_date = et.getTime() / 1000;
     this.makeFile(isPublish);
     try {
-      const res = await server.request('POST', 'tasks', this.data.file)
+      const res = await server.request(this.data.draft ? 'PUT' : 'POST', 'tasks' + (this.data.draft ? ('/' + this.data.taskID) : ''), this.data.file)
       console.log(res)
       if (res.statusCode === 200) {
         if (!isPublish) {
@@ -427,7 +433,8 @@ Page({
         }
       } else {
         wx.showToast({
-          title: '发布失败：' + res.data.message,
+          title: (isPublish? '发布' : '保存') + '失败',
+          image: '/images/icons/error.png'
         })
       }
     } catch (err) {
