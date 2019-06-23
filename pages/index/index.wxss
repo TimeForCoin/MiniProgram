@@ -141,9 +141,19 @@
 
 .item_img{
   width: 330rpx;
-  height:220rpx;
+  height:280rpx;
   border-top-left-radius:15rpx;
   border-top-right-radius:15rpx;
+}
+
+.item_img_front {
+  width: 330rpx;
+  height:80rpx;
+  border-top-left-radius:15rpx;
+  border-top-right-radius:15rpx;
+  position: absolute;
+  background: linear-gradient(rgba(231, 231, 231, 0), rgba(255,255,255,1));
+  margin-top:200rpx;
 }
 
 .payType{
@@ -174,7 +184,6 @@
   font-size: 32rpx;
   margin-left: 25rpx;
   margin-right: 25rpx;
-  margin-top: 20rpx;
   text-align: left;
   word-break:break-all;
   font-weight: bold;
@@ -187,8 +196,10 @@
 }
 
 .money_text{
-  font-size: 28rpx;
-  color: #404969;
+  font-size: 32rpx;
+  margin-bottom: 12rpx; 
+  font-weight: bold;
+  color: #e7a61a;
 }
 
 /*分割线*/
@@ -215,6 +226,7 @@
   margin-top: 20rpx;
   width: 60rpx;
   height:60rpx;
+  border-radius:50%;
 }
 
 .item_owner{
