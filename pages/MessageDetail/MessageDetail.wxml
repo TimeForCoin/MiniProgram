@@ -21,6 +21,11 @@
   <!-- 消息列表 -->
   <view id="dialog_list">
     <!--单独一个对话-->
+    <view class="loading_view" wx:if="{{isLoading}}">
+      <image class="loading" src="/images/icons/loading.png"></image>
+      <text class="subtext">正在载入更多...</text>
+    </view>
+    <text class="subtext" style="margin-top: 40rpx; margin-bottom: 60rpx;" wx:if="{{noMore}}">没有更多了~</text>
     <view class="singleDialog" wx:for="{{testMessageDetail.data}}" wx:key="item.content">
       <!--显示时间-->
       <text class="showTime" wx:if="{{item.showTime || sessionData.type === 'system' || sessionData.type === 'task'}}">{{item.string_time}}</text>
@@ -49,11 +54,6 @@
         </view>
       </view>
     </view>
-    <view class="loading_view" wx:if="{{isLoading}}">
-      <image class="loading" src="/images/icons/loading.png"></image>
-      <text class="subtext">正在载入更多...</text>
-    </view>
-    <text class="subtext" style="margin-top: 40rpx; margin-bottom: 60rpx;" wx:if="{{noMore}}">没有更多了~</text>
   </view>
 </view>
 <!--发送信息-->
