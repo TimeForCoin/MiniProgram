@@ -28,9 +28,9 @@
       <!--显示时间-->
       <text class="showTime" wx:if="{{item.showTime}}">{{item.string_time}}</text>
       <view style="display:flex; flex-direction: row; padding: 20rpx 30rpx; margin-top: 20rpx;">
-        <image class="ava" src="/images/index_sample.jpg" />
+        <image class="ava" src="{{item.target_user.avatar}}" />
         <view class="details">
-          <text class="username">chensh236</text>
+          <text class="username">{{item.target_user.nickname}}</text>
           <text class="content">{{item.content}}</text>
         </view>
       </view>

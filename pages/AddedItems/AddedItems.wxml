@@ -13,7 +13,7 @@
           <text classs="money_text">{{item.reward == 'physical' ? item.reward_object : item.reward_value}}</text>
           <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'physical'? '实物' : '闲币' }}</text>
           <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
-          <text class="payType">{{item.status == 'wait' ? '等待' : item.status == 'refuse'? '被拒绝' : item.status == 'close' ? '关闭' : item.status == 'running' ? '进行中' : item.status == 'finish' ? '完成' : item.status == 'give_up' ? '放弃' : '失败' }}</text>
+          <text class="payType">{{item.status == 'wait' ? '等待' : item.status == 'refuse'? '被拒绝': item.status == 'close' ? '关闭': item.status == 'running' ? '进行中':  item.status == 'finish' ? '完成' : item.status == 'give_up' ? '放弃' : item.status == 'draft' ? '草稿' :'失败' }}</text>
         </view>
         <text class="subtitle">{{item.content}}</text>
         <view class="band1" />

@@ -1,4 +1,5 @@
 // pages/Comment/Comment.js
+const server = require('../../services/server.js')
 Page({
 
   /**
@@ -79,7 +80,7 @@ Page({
   inputProcess: function(e){
     this.setData({inputValue: e.detail.value});
   },
-  submit: function(e){
+  submit: async function(e){
     // 评论为空
     if (!/[^\s]+/.test(this.data.inputValue)) {
       wx.showToast({
@@ -94,28 +95,29 @@ Page({
         success: function () {
           setTimeout(function () {
             // 返回
-            wx.navigateBack({
-
-            })
+            wx.navigateBack({})
           }, 1000);
         }
       })
       // TODO: 提交反馈信息
     } else{
-      wx.showToast({
-        title: '申请成功',
-        success: function(){
-          setTimeout(function(){
-            // 返回
-            wx.navigateBack({
-
-            })
-          }, 1000);
-        }
+      const res = await server.request('POST', 'tasks/' + this.data.id + '/player', {
+        note: this.data.inputValue
       })
-      // TODO: 提交申请信息
+      if (res.statusCode !== 200) {
+        this.showToast("加入失败", '/images/icons/error.png')
+        return
+      } else {
+        wx.showToast({
+          title: '申请成功',
+          success: function () {
+            setTimeout(function () {
+              wx.navigateBack({})
+            }, 1000);
+          }
+        })
+      }
     }
-
     
   }
 })

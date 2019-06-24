@@ -1,43 +1,43 @@
 <!--pages/Message/Message.wxml-->
-<view id = "container">
-  <view id = "top">
+<view id="container">
+  <view id="top">
     <!-- 类型选择 -->
-    <view class = "sort-wrap">
+    <view class="sort-wrap">
       <view class='sort-btn' bindtap='choocePersonalInfo'>
-        <text style = "color: {{showSystemInfo ? 'gray' : '#ff7e67'}}">个人消息</text>
+        <text style="color: {{showSystemInfo ? 'gray' : '#ff7e67'}}">个人消息</text>
       </view>
 
-      <view class='sort-btn' bindtap = 'chooceSystemInfo'>
-        <text style = "color: {{!showSystemInfo ? 'gray' : '#ff7e67'}}">系统消息</text>
+      <view class='sort-btn' bindtap='chooceSystemInfo'>
+        <text style="color: {{!showSystemInfo ? 'gray' : '#ff7e67'}}">系统消息</text>
       </view>
     </view>
   </view>
-  <view class = "band2" />
+  <view class="band2" />
 
   <!--下面内容-->
-    <view id = "list">
-      <view class = "list_item" wx:for = "{{testMessage.data}}" wx:key = "item.id" bindtap = 'navigateToMessageDetail' data-id = "{{item.id}}">
-        <image class = "item_img" src = "{{item.target_user.avatar}}" />
-        <view class = "basic_info">
-          <view class = "row_view">
-            <text class = "title" style = "margin-right:20rpx;">{{item.target_user.nickname}}</text>
-            <text class="payType">{{item.target_user.gender == 'man' ? '男' : '女'}}</text>
-            <text class="payType">{{item.unread_count == 0 ? '已读':'未读'}}</text>
-            <text class = "item_time">{{item.string_last_time}}</text>
-          </view>
-          <!--新增最后一条消息-->
-          <text class = "subtitle">{{item.last_message.content}}</text>
+  <view id="list">
+    <view class="list_item" wx:for="{{testMessage.data}}" wx:key="item.id" bindtap='navigateToMessageDetail' data-id="{{item.id}}">
+      <image mode="aspectFill" class="item_img" src="{{item.target_user.avatar}}" />
+      <view class="basic_info">
+        <view class="row_view">
+          <text class="title" style="margin-right:20rpx;">{{item.target_user.nickname}}</text>
+          <text class="payType">{{item.target_user.gender == 'man' ? '男' : '女'}}</text>
+          <text class="payType">{{item.unread_count == 0 ? '已读':'未读'}}</text>
+          <text class="item_time">{{item.string_last_time}}</text>
         </view>
+        <!--新增最后一条消息-->
+        <text class="subtitle">{{item.last_message.content}}</text>
       </view>
-      <view class = "band1" />
     </view>
-    <view class="loading_view" wx:if="{{isLoading}}">
-      <image class="loading" src="/images/icons/loading.png"></image>
-      <text class="subtext">正在载入更多...</text>
-    </view>
-    <text class="subtext" style="margin-top: 40rpx; margin-bottom: 60rpx;" wx:if="{{noMore}}">没有更多了~</text>
+    <view class="band1" />
+  </view>
+  <view class="loading_view" wx:if="{{isLoading}}">
+    <image class="loading" src="/images/icons/loading.png"></image>
+    <text class="subtext">正在载入更多...</text>
+  </view>
+  <text class="subtext" style="margin-top: 40rpx; margin-bottom: 60rpx;" wx:if="{{noMore}}">没有更多了~</text>
 </view>
 
 
 <!--蒙板-->
-<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{!hasUserInfo}}"/>
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{!hasUserInfo}}" />

@@ -25,12 +25,16 @@ Page({
     startDate: "2019-06-02",
     endDate: "2019-06-01",
     startTime: "00:00",
-    endTime:"00:00",
+    endTime: "00:00",
     max_player_input: "",
     max_player: 0,
-    auto_in:[
-      { val:'是', checked:'true'},
-      { val:'否'},
+    auto_in: [{
+        val: '是',
+        checked: 'true'
+      },
+      {
+        val: '否'
+      },
     ],
     auto_accept: true,
     publish: true,
@@ -39,49 +43,52 @@ Page({
     isErr: false,
     isSubmit: false,
     isSave: false,
-    file : {},
+    file: {},
     // 图像src
-    addedImages:[],
+    addedImages: [],
     isDelete: false,
     // 删除图像的id
     delete_id: -1,
     hasUserInfo: false,
     // 判断是否是修改的
-    draft:false,
+    draft: false,
     taskID: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
+    this.resetForm()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: async function () {
-    this.setData({ hasUserInfo: app.globalData.hasUserInfo })
+  onShow: async function() {
+    this.setData({
+      hasUserInfo: app.globalData.hasUserInfo
+    })
     //登录判断
     if (!this.data.hasUserInfo) {
       wx.showToast({
         title: '您未登录~',
         image: '/images/icons/error.png'
       })
-      setTimeout(function () {
+      setTimeout(function() {
         // 返回
         wx.switchTab({
           url: '/pages/index/index',
-          success: function (res) { },
-          fail: function (res) { },
-          complete: function (res) { },
+          success: function(res) {},
+          fail: function(res) {},
+          complete: function(res) {},
         })
       }, 1000);
     }
@@ -95,7 +102,7 @@ Page({
       await this.loadTaskData()
     }
   },
-  loadTaskData: async function () {
+  loadTaskData: async function() {
     const res = await server.request('GET', 'tasks/' + this.data.taskID)
     moment.locale('zh-cn', {
       longDateFormat: {
@@ -120,33 +127,41 @@ Page({
       start_date: res.data.start_date,
       end_date: res.data.end_date,
       max_player: res.data.max_player,
-      startDate: moment(res.data.start_date *1000).format('l'),
+      startDate: moment(res.data.start_date * 1000).format('l'),
       endDate: moment(res.data.end_date * 1000).format('l'),
       startTime: moment(res.data.start_date * 1000).format('L'),
       endTime: moment(res.data.end_date * 1000).format('L'),
-      max_player_input: "",
+      max_player_input: res.data.max_player,
       addedImages: res.data.images,
       auto_accept: res.data.auto_accept,
     })
 
     console.log(this.data.addedImages)
-    if(this.data.auto_accept === true){
+    if (this.data.auto_accept === true) {
       this.setData({
-        auto_in: [
-          { val: '是', checked: 'true' },
-          { val: '否' },
+        auto_in: [{
+            val: '是',
+            checked: 'true'
+          },
+          {
+            val: '否'
+          },
         ],
       })
-    } else{
+    } else {
       this.setData({
-        auto_in: [
-          { val: '是' },
-          { val: '否', checked: 'true'},
+        auto_in: [{
+            val: '是'
+          },
+          {
+            val: '否',
+            checked: 'true'
+          },
         ],
       })
     }
 
-    for(var val of this.data.location){
+    for (var val of this.data.location) {
       this.data.location_input = this.data.location_input + val + ','
     }
 
@@ -154,9 +169,9 @@ Page({
       this.data.tags_input = this.data.tags_input + val + ','
     }
 
-    if(this.reward === 'object'){
+    if (this.reward === 'object') {
       this.data.reward_input = this.data.reward_object
-    } else{
+    } else {
       this.data.reward_input = this.data.reward_value
     }
 
@@ -184,7 +199,7 @@ Page({
         title: '无法获取详情',
         image: '/images/icons/error.png'
       })
-      setTimeout(function () {
+      setTimeout(function() {
         wx.switchTab({
           url: '/pages/index/index',
           success: function(res) {},
@@ -197,85 +212,97 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 
   /*修改标题*/
-  titleChange: function (e) {
+  titleChange: function(e) {
     this.data.title = e.detail.value;
     console.log("title:" + this.data.title);
   },
 
-  describeChange: function (e) {
+  describeChange: function(e) {
     this.data.describe = e.detail.value;
     console.log("describe:" + this.data.describe);
   },
 
   /*修改任务分类*/
-  chooseRun: function (e) {
-    this.setData({ type: "run" });
+  chooseRun: function(e) {
+    this.setData({
+      type: "run"
+    });
     console.log("选择跑腿");
   },
 
-  chooseInfo: function (e) {
-    this.setData({ type: "info" });
+  chooseInfo: function(e) {
+    this.setData({
+      type: "info"
+    });
     console.log("选择信息");
   },
 
   /*修改酬劳分类*/
-  chooseMoney: function (e) {
-    this.setData({ reward: "money" });
+  chooseMoney: function(e) {
+    this.setData({
+      reward: "money"
+    });
     console.log("选择money");
   },
 
-  chooseRmb: function (e) {
-    this.setData({ reward: "rmb" });
+  chooseRmb: function(e) {
+    this.setData({
+      reward: "rmb"
+    });
     console.log("选择rmb");
   },
 
-  chooseObject: function (e) {
-    this.setData({ reward: "object" });
+  chooseObject: function(e) {
+    this.setData({
+      reward: "object"
+    });
     console.log("选择object");
   },
 
-  priceChange: function(e){
-    this.setData({reward_input: e.detail.value});
+  priceChange: function(e) {
+    this.setData({
+      reward_input: e.detail.value
+    });
     if (this.data.reward == "object") this.data.reward_object = this.data.reward_input;
-    else this.data.reward_value = parseInt (this.data.reward_input);
+    else this.data.reward_value = parseInt(this.data.reward_input);
     console.log("reward_value:" + this.data.reward_value);
     console.log("reward_object:" + this.data.reward_object);
   },
 
-  splitData: function(str){
+  splitData: function(str) {
     var origin = str.split(/[,|，| ]/);
     var arr = [];
     for (var val of origin) {
@@ -285,85 +312,125 @@ Page({
     }
     return arr;
   },
-  locationChange: function(e){
+  locationChange: function(e) {
     this.data.location = this.splitData(e.detail.value);
-    this.setData({location_input: e.detail.value});
+    this.setData({
+      location_input: e.detail.value
+    });
     console.log("number of logs:" + this.data.location.length);
     console.log("location: " + this.data.location);
   },
 
-  max_playerChange: function(e){
-    this.setData({max_player_input: e.detail.value});
+  max_playerChange: function(e) {
+    this.setData({
+      max_player_input: e.detail.value
+    });
     this.data.max_player = parseInt(this.data.max_player_input);
     console.log("max_player:" + this.data.max_player);
   },
 
-  tagsChange: function(e){
+  tagsChange: function(e) {
     this.data.tags = this.splitData(e.detail.value);
     console.log("number of logs:" + this.data.tags.length);
-    this.setData({ tags_input: e.detail.value});
+    this.setData({
+      tags_input: e.detail.value
+    });
     console.log("tags:" + this.data.tags);
   },
 
   changeBeginDate(e) {
-    this.setData({ startDate: e.detail.value });
+    this.setData({
+      startDate: e.detail.value
+    });
   },
   changeEndDate(e) {
-    this.setData({ endDate: e.detail.value });
+    this.setData({
+      endDate: e.detail.value
+    });
   },
 
   changeBeginTime(e) {
-    this.setData({ startTime: e.detail.value });
+    this.setData({
+      startTime: e.detail.value
+    });
   },
   changeEndTime(e) {
-    this.setData({ endTime: e.detail.value });
+    this.setData({
+      endTime: e.detail.value
+    });
   },
-  changePlayerNum(e){
-    this.setData({ max_player: e.detail.value});
+  changePlayerNum(e) {
+    this.setData({
+      max_player: e.detail.value
+    });
   },
 
   /*修改是否自动同意*/
-  auto_inChange: function(e){
+  auto_inChange: function(e) {
     if (e.detail.value == '是') this.data.auto_accept = true;
     else this.data.auto_accept = false;
     console.log("是否同意加入" + this.data.auto_accept);
   },
-  judgeValid:function(e){
+  judgeValid: function(e) {
     // 空判断
     if (!/[^\s]+/.test(this.data.title)) {
-      this.setData({ isErr: true });
-      this.setData({ errStr: "标题为空" });
+      this.setData({
+        isErr: true
+      });
+      this.setData({
+        errStr: "标题为空"
+      });
       return false;
     }
 
     if (!/[^\s]+/.test(this.data.describe)) {
-      this.setData({ isErr: true });
-      this.setData({ errStr: "内容为空" });
+      this.setData({
+        isErr: true
+      });
+      this.setData({
+        errStr: "内容为空"
+      });
       return false;
     }
 
     if (this.data.max_player <= 0) {
       console.log("renshu" + this.data.max_player);
-      this.setData({ isErr: true });
-      this.setData({ errStr: "人数上限输入错误" });
+      this.setData({
+        isErr: true
+      });
+      this.setData({
+        errStr: "人数上限输入错误"
+      });
       return false;
     }
 
     if (this.data.reward_value <= 0 && (this.data.reward == "money" || this.data.reward == "rmb")) {
-      this.setData({ isErr: true });
-      this.setData({ errStr: "交易金额输入错误" });
+      this.setData({
+        isErr: true
+      });
+      this.setData({
+        errStr: "交易金额输入错误"
+      });
       return false;
     }
 
     if (!/[^\s]+/.test(this.data.reward_object) && this.data.reward == "object") {
-      this.setData({ isErr: true });
-      this.setData({ errStr: "交易物品输入错误" });
+      this.setData({
+        isErr: true
+      });
+      this.setData({
+        errStr: "交易物品输入错误"
+      });
       return false;
     }
 
     if (!/[^\s]+/.test(this.data.location)) {
-      this.setData({ isErr: true });
-      this.setData({ errStr: "地点为空" });
+      this.setData({
+        isErr: true
+      });
+      this.setData({
+        errStr: "地点为空"
+      });
       return false;
     }
 
@@ -371,13 +438,17 @@ Page({
     var et = new Date(this.data.endDate + 'T' + this.data.endTime + ":00");
     // 时间错误
     if (et.getTime() / 1000 <= st.getTime() / 1000) {
-      this.setData({ isErr: true });
-      this.setData({ errStr: "时间输入错误" });
+      this.setData({
+        isErr: true
+      });
+      this.setData({
+        errStr: "时间输入错误"
+      });
       return false;
     }
     return true;
   },
-  makeFile:function(flag){
+  makeFile: function(flag) {
 
     const imagesId = []
     for (let image of this.data.addedImages) {
@@ -406,34 +477,41 @@ Page({
     console.log(this.data.file);
   },
   /*提交*/
-  formSubmit: function (e) {
+  formSubmit: function(e) {
     this.publishTask(e, true)
 
   },
   /*保存为草稿*/
-  formReset: function (e) {
+  formReset: function(e) {
     this.publishTask(e, false)
   },
 
-  publishTask: async function (e, isPublish) {
+  publishTask: async function(e, isPublish) {
     if (!this.judgeValid(e)) return;
     var st = new Date(this.data.startDate + 'T' + this.data.startTime + ":00");
     var et = new Date(this.data.endDate + 'T' + this.data.endTime + ":00");
     this.data.start_date = st.getTime() / 1000;
     this.data.end_date = et.getTime() / 1000;
     this.makeFile(isPublish);
+    if (this.data.draft) {
+      this.data.file.status = 'wait'
+    }
     try {
       const res = await server.request(this.data.draft ? 'PUT' : 'POST', 'tasks' + (this.data.draft ? ('/' + this.data.taskID) : ''), this.data.file)
       console.log(res)
       if (res.statusCode === 200) {
         if (!isPublish) {
-          this.setData({ isSave: true });
+          this.setData({
+            isSave: true
+          });
         } else {
-          this.setData({ isSubmit: true });
+          this.setData({
+            isSubmit: true
+          });
         }
       } else {
         wx.showToast({
-          title: (isPublish? '发布' : '保存') + '失败',
+          title: (isPublish ? '发布' : '保存') + '失败',
           image: '/images/icons/error.png'
         })
       }
@@ -445,8 +523,8 @@ Page({
   },
 
   /*确认*/
-  confirm: function(e){
-    if (this.data.isErr){
+  confirm: function(e) {
+    if (this.data.isErr) {
       this.setData({
         isErr: false,
         errStr: ""
@@ -483,17 +561,21 @@ Page({
       max_player_input: "",
       addedImages: [],
       auto_accept: true,
-      auto_in: [
-        { val: '是', checked: 'true' },
-        { val: '否' },
+      auto_in: [{
+          val: '是',
+          checked: 'true'
+        },
+        {
+          val: '否'
+        },
       ],
     })
   },
-  save: function(e){
+  save: function(e) {
 
   },
   // 添加图片
-  addImage: async function(e){
+  addImage: async function(e) {
     try {
       const res = await util.as(wx.chooseImage, {
         count: 4 - this.data.addedImages.length,
@@ -535,7 +617,9 @@ Page({
           wx.hideLoading()
         }
       }
-      this.setData({ addedImages: this.data.addedImages })
+      this.setData({
+        addedImages: this.data.addedImages
+      })
       console.log(this.data.addedImages)
     } catch (err) {
       console.log(err)
@@ -544,28 +628,35 @@ Page({
   },
 
   // 删除图片
-  deleteImage: function(e){
+  deleteImage: function(e) {
     var id = e.currentTarget.dataset.index;
-    this.data.delete_id = id;
-    this.setData({isDelete: true});
+    this.setData({
+      isDelete: true,
+      delete_id: id
+    });
   },
   confirm_delete: async function(e) {
-    var id = this.data.delete_id
-    if(id == -1) return
+    const id = this.data.delete_id
+    if (id == -1) return
+    console.log(id)
     const imageId = this.data.addedImages[id].id
     try {
       await server.request('DELETE', 'file/' + imageId)
-    }catch (error) {
+    } catch (error) {
       // 删除失败
       console.log(err)
     }
     this.data.addedImages.splice(id, 1)
-    this.setData({ addedImages: this.data.addedImages })
+    this.setData({
+      addedImages: this.data.addedImages
+    })
 
     this.cancel_delete(e);
   },
-  cancel_delete: function(e){
-    this.setData({isDelete: false});
+  cancel_delete: function(e) {
+    this.setData({
+      isDelete: false
+    });
   }
 
 

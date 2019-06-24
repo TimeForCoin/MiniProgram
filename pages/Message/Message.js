@@ -129,7 +129,6 @@ Page({
       },
       showSystemInfo: true
     })
-    
   },
   choocePersonalInfo: function(e) {
     this.setData({

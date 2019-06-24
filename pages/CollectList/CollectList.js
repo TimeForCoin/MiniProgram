@@ -69,6 +69,7 @@ Page({
       status: this.data.status,
       reward: this.data.reward
     })
+    let errTitle = ''
     if (res.statusCode === 401) {
       errTitle = "您未登录~"
     } else if (res.statusCode != 200) {

@@ -1,6 +1,7 @@
 // pages/MessageDetail/MessageDetail.js
-const moment = require('moment');
-
+const app = getApp()
+const moment = require('moment')
+const server = require('../../services/server.js')
 Page({
 
   /**
@@ -8,15 +9,7 @@ Page({
    */
   data: {
     testMessageDetail: {
-      "count": 123,
-      "data": [
-        {
-          "time": 12344512,
-          "title": "系统通知",
-          "content": "你好强啊",
-          "about": "5c9ecbbba4a3f52e3195fa68"
-        }
-      ]
+      data: []
     },
     // 对应物品详情
     testSample: {
@@ -82,33 +75,51 @@ Page({
     reply_content: "",
   },
 
+  loadMessage: async function(id) {
+    const res = await server.request('GET', 'messages/'+id)
+    if (res.statusCode == 200) {
+      return res.data
+    } else {
+      this.showToast("获取信息失败", "")
+      return {
+        data: []
+      }
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    console.log(options);
+  onLoad: async function (options) {
     moment.locale('en', {
       longDateFormat: {
         l: "YYYY-MM-DD HH:mm",
         L: "YYYY-MM-DD HH:mm:ss"
       }
     });
-    var arr = [];
-    for(var value of this.data.testMessageDetail.data){
+    const res = await this.loadMessage(options.id)
+    for (let i in res.data.messages){
       // 整数时间才进行显示
-      var time = moment(value.time).format('L');
-      console.log(time);
+      var time = moment(res.data.messages[i].time * 1000).format('L');
       // 整点判断
       if(time[time.length - 1] == 0 && time[time.length - 2] == 0){
-        
-        value.string_time = moment(value.time).format('l');
-        console.log(value.string_time);
-        value.showTime = true;
+        res.data.messages[i].string_time = moment(res.data.messages[i].time * 1000).format('l');
+        res.data.messages[i].showTime = true;
       }
-      arr.push(value);
+      if (res.data.messages[i].user_id === res.data.target_user.id) {
+        res.data.messages[i].target_user = res.data.target_user
+      } else {
+        res.data.messages[i].target_user = {
+          nickname: app.globalData.userInfo.info.nickname,
+          avatar: app.globalData.userInfo.info.avatar
+        }
+      }
     }
-    this.data.testMessageDetail.data = arr;
-    this.setData({testMessageDetail: this.data.testMessageDetail});
+    this.setData({
+      testMessageDetail: {
+      data: res.data.messages.reverse()
+      }
+    });
 
     // TODO: 会话对应任务的获取，保存为testSample
 

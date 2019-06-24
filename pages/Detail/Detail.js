@@ -14,7 +14,7 @@ Page({
     testComment: {
       data: []
     },
-    player_list:[],
+    player_list: [],
     // 日期解析结果
     publishDate: "",
     startDate: "",
@@ -77,8 +77,6 @@ Page({
         L: "YYYY-MM-DD HH:mm"
       }
     })
-    await this.loadTaskData()
-    await this.loadComments(1)
   },
 
   loadComments: async function(page) {
@@ -111,16 +109,6 @@ Page({
 
   loadTaskData: async function() {
     const res = await server.request('GET', 'tasks/' + this.data.taskID)
-    this.setData({
-      testSample: {
-        data: res.data
-      },
-      publishDate: moment(new Date(res.data.publish_date * 1000)).format('l'),
-      startDate: moment(res.data.start_date * 1000).format('L'),
-      endDate: moment(res.data.end_date * 1000).format('L'),
-      isLove: res.data.liked,
-      isCollected: res.data.collected,
-    })
     // 无法正常获取详情
     if (res.statusCode != 200) {
       this.setData({
@@ -136,6 +124,17 @@ Page({
 
         })
       }, 1000);
+    } else {
+      this.setData({
+        testSample: {
+          data: res.data
+        },
+        publishDate: moment(new Date(res.data.publish_date * 1000)).format('l'),
+        startDate: moment(res.data.start_date * 1000).format('L'),
+        endDate: moment(res.data.end_date * 1000).format('L'),
+        isLove: res.data.liked,
+        isCollected: res.data.collected,
+      })
     }
     const res_task = await server.request('GET', 'tasks/' + this.data.taskID + '/player', {
       page: 1,
@@ -158,8 +157,9 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-
+  onShow: async function () {
+    await this.loadTaskData()
+    await this.loadComments(1)
   },
 
   /**
@@ -285,13 +285,13 @@ Page({
 
     if (liked) {
       const result = await server.request('DELETE', 'comments/' + id + '/like')
-      if(result.statusCode != 200){
-        this.showToast('点赞失败','/images/icons/error.png')
+      if (result.statusCode != 200) {
+        this.showToast('点赞失败', '/images/icons/error.png')
         return
       }
     } else {
       const result = await server.request('POST', 'comments/' + id + '/like')
-      if(result.statusCode != 200){
+      if (result.statusCode != 200) {
         this.showToast('取消点赞失败', '/images/icons/error.png')
         return
       }
@@ -420,27 +420,31 @@ Page({
       this.loadComments()
     }
   },
-  joinin: async function (e) {
-    const res = await server.request('POST', 'tasks/' + this.data.taskID + '/player')
-    if (res.statusCode !== 200) {
-      this.showToast("加入失败",'/images/icons/error.png')
-      return
-    } else if (res.data.result === 'accept') {
-      wx.showToast({
-        title: '加入成功'
+  joinin: async function(e) {
+    if (this.data.testSample.data.auto_accept) {
+      const res = await server.request('POST', 'tasks/' + this.data.taskID + '/player', {
+        note: ''
       })
-    } else if (res.data.result === 'wait') {
+      if (res.statusCode !== 200) {
+        this.showToast("加入失败", '/images/icons/error.png')
+        return
+      } else {
+        wx.showToast({
+          title: '加入成功'
+        })
+        this.data.testSample.data.played = true
+        this.data.testSample.data.player_count++
+        this.setData({
+          testSample: this.data.testSample
+        })
+      }
+    } else {
       wx.navigateTo({
         url: '/pages/Comment/Comment?feedback=' + 'false&id=' + this.data.testSample.data.id,
       })
     }
-    this.data.testSample.data.played = true
-    this.data.testSample.data.player_count++
-    this.setData({
-      testSample: this.data.testSample
-    })
   },
-  exitTask: async function () {
+  exitTask: async function() {
     const res = await server.request('PUT', 'tasks/' + this.data.taskID + '/player/me', {
       status: 'give_up'
     })
@@ -450,9 +454,9 @@ Page({
       })
       this.data.testSample.data.played = false
       this.data.testSample.data.player_count--
-      this.setData({
-        testSample: this.data.testSample
-      })
+        this.setData({
+          testSample: this.data.testSample
+        })
     } else {
       wx.showToast({
         title: '退出失败',
