@@ -136,7 +136,7 @@
   margin: 10rpx 10rpx;
   text-align: center;
   border-radius: 25rpx;
-  padding: 3rpx 0;
+  padding: 6rpx 0;
   border: 2rpx solid rgba(0,0,0,.3);
 }
 
@@ -182,6 +182,7 @@
 #confirm_btn{
   background: #ff7e67;
   margin-right: 20rpx;
+  color: #ffffff;
 }
 #save_btn{
   background: #fafafa;

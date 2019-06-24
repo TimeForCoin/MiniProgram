@@ -14,61 +14,9 @@ Page({
     },
     // 对应物品详情
     testSample: {
-      "data": {
-        "id": "5c9ecbbba4a3f52e3195fa68",
-        "publisher": {
-          "id": "5c9ecbbba4a3f52e3195fa68",
-          "nickname": "tp",
-          "avatar": "/images/index_sample.jpg",
-        },
-        "title": "帮我洗澡",
-        "content": "过来至二634洗澡澡",
-        "location": [
-          "中山大学", "中山大学", "中山大学"
-        ],
-        "tags": [
-          "打游戏", "打游戏", "打游戏"
-        ],
-        "top_time": 1244123123,
-        "status": "overdue",
-        "type": "info",
-        "attachment": [{
-            "id": "/images/index_sample.jpg",
-            "type": "image",
-            "name": "秀秀照片",
-            "description": "洗澡",
-            "size": 147872,
-            "time": 123214124,
-            "public": false
-          },
-          {
-            "id": "/images/touxiang.jpg",
-            "type": "image",
-            "name": "秀秀照片",
-            "description": "洗澡",
-            "size": 147872,
-            "time": 123214124,
-            "public": false
-          }
-        ],
-        "reward": "rmb",
-        "reward_value": 100,
-        "reward_object": "一个吻",
-        "publish_date": 112312341243,
-        "start_date": 121414124,
-        "end_date": 121414124,
-        "player_count": 12,
-        "max_player": 30,
-        "auto_accept": true,
-        "comment_count": 30,
-        "view_count": 30,
-        "collect_count": 30,
-        "like_count": 30,
-        "like": false
-      }
+      data: {}
     },
     //物品详情图片
-    detailImage: '/images/index_sample.jpg',
     isLoading: false,
     noMore: false,
     // 评论和回复内容
@@ -238,6 +186,6 @@ Page({
   replyInputChange: function(e) {
     this.setData({
       reply_content: e.detail.value
-    });
+    })
   },
 })
