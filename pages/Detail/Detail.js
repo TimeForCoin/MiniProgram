@@ -31,6 +31,7 @@ Page({
     replyCommentID: "",
     // 正在回复的评论所有者
     replyCommentOwner: "",
+    give_up: false,
     // 评论和回复内容
     comment_content: "",
     reply_content: "",
@@ -45,6 +46,8 @@ Page({
     taskID: '',
     // 无法获取详情
     failToGetDetail: false,
+    selectUser: {},
+    editPlayer: false
   },
   /**
    * 生命周期函数--监听页面加载
@@ -141,18 +144,49 @@ Page({
       page: 1,
       size: 10
     })
-    console.log(res_task.data)
+    for (let i in res_task.data.data) {
+      if (res_task.data.data[i].player.id === app.globalData.userInfo.id) {
+        this.data.give_up = res_task.data.data[i].status === 'wait' || res_task.data.data[i].status === 'running'
+      }
+    }
     this.setData({
-      player_list: res_task.data.data
+      player_list: res_task.data.data,
+      give_up: this.data.give_up
     })
     // console.log(this.data.player_list)
   },
 
-  onClickPlayer: async function (e) {
+  onClickPlayer: async function(e) {
     if (this.data.isMine) {
       const index = e.currentTarget.dataset.index
-      console.log(index)
+      this.setData({
+        selectUser: this.data.player_list[index],
+        editPlayer: true
+      })
     }
+  },
+
+  confirm_status: async function (e) {
+    const selectUser = this.data.selectUser
+    const status = e.currentTarget.dataset.status
+    
+    console.log(selectUser, status)
+    const res = await server.request('PUT', 'tasks/'+this.data.taskID + '/player/'+selectUser.player.id,{
+      status: status
+    })
+    if (res.statusCode === 200) {
+      this.showToast('修改成功')
+    } else {
+      this.showToast('修改失败', '/images/icons/error.png')
+    }
+    this.loadTaskData()
+
+    this.cancel_delete(e);
+  },
+  cancel_delete: function (e) {
+    this.setData({
+      editPlayer: false
+    });
   },
 
   /**
@@ -165,7 +199,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: async function () {
+  onShow: async function() {
     await this.loadTaskData()
     await this.loadComments(1)
   },
@@ -440,11 +474,7 @@ Page({
         wx.showToast({
           title: '加入成功'
         })
-        this.data.taskDetail.data.played = true
-        this.data.taskDetail.data.player_count++
-        this.setData({
-          taskDetail: this.data.taskDetail
-        })
+        this.loadTaskData()
       }
     } else {
       wx.navigateTo({
@@ -460,11 +490,7 @@ Page({
       wx.showToast({
         title: '退出成功'
       })
-      this.data.taskDetail.data.played = false
-      this.data.taskDetail.data.player_count--
-        this.setData({
-          taskDetail: this.data.taskDetail
-        })
+      this.loadTaskData()
     } else {
       wx.showToast({
         title: '退出失败',

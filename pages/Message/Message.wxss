@@ -92,7 +92,7 @@
 
 .title {
   margin-top: 10rpx;
-  font-size: 32rpx;
+  font-size: 30rpx;
 }
 
 .payType {

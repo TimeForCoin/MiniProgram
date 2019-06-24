@@ -91,7 +91,7 @@
         <view class="taskType">
           <view wx:for="{{player_list}}" wx:key="item.player.id">
             <view class="task_player" bindtap='onClickPlayer' data-index="{{index}}">
-              <image class="player_avatar" mode="aspectFill" src="{{item.player.avatar}}"/>
+              <image class="player_avatar" mode="aspectFill" src="{{item.player.avatar}}" />
               <text class="player_name">{{item.player.nickname}}</text>
               <text wx:if="{{item.status === 'running'}}" style='color:green;' class="taskBlock">进行中</text>
               <text wx:if="{{item.status === 'wait'}}" style='color:yellow;' class="taskBlock">等待审核</text>
@@ -106,7 +106,7 @@
       <text class="title content_list">{{taskDetail.data.content}}</text>
 
       <button class='joininButton' bindtap='joinin' wx:if="{{taskDetail.data.status == 'wait' && !taskDetail.data.played}}">{{taskDetail.data.auto_accept ? '立即加入' : '申请加入'}}</button>
-      <button class='joininButton' bindtap='exitTask' wx:if="{{taskDetail.data.played}}">放弃任务</button>
+      <button class='joininButton' bindtap='exitTask' wx:if="{{taskDetail.data.status == 'wait' && taskDetail.data.played && give_up}}">放弃任务</button>
     </view>
   </view>
   <view class="band2" />
@@ -176,3 +176,17 @@
   </view>
   <view class="mask" catchtouchmove="preventTouchMove" bindtap="cancelReplying" wx:if="{{isReplying}}" />
 </view>
+
+
+<view class="deleteDialog" wx:if="{{editPlayer}}">
+  <text class="delete_dialog_title">更改{{selectUser.player.nickname}}的状态</text>
+  <view style="display:flex; flex-direcion: row">
+    <button wx:if="{{selectUser.status === 'running'}}" data-status="finish" bindtap="confirm_status" class="delete_btn" style="background-color: #ff7e67; color:#fff">完成</button>
+    <button wx:if="{{selectUser.status === 'running'}}" data-status="failure" bindtap="confirm_status" class="delete_btn" style="background-color: #ff7e67; color:#fff">失败</button>
+    <button wx:if="{{selectUser.status === 'wait'}}" data-status="running" bindtap="confirm_status" class="delete_btn" style="background-color: #ff7e67; color:#fff">同意</button>
+    <button wx:if="{{selectUser.status === 'wait'}}" data-status="refuse" bindtap="confirm_status" class="delete_btn" style="background-color: #ff7e67; color:#fff">拒绝</button>
+    <button bindtap="cancel_delete" class="delete_btn">取消</button>
+  </view>
+</view>
+<!--蒙板-->
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{editPlayer}}" />

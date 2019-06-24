@@ -25,8 +25,8 @@ Page({
     for (let i in res.data.data) {
       res.data.data[i].string_last_time =
         moment(res.data.data[i].last_message.time * 1000).format('L');
-      if (res.data.data[i].target_user.nickname.length > 12) {
-        res.data.data[i].target_user.nickname = res.data.data[i].target_user.nickname.substr(0, 12) + '...'
+      if (res.data.data[i].target_user.nickname.length > 10) {
+        res.data.data[i].target_user.nickname = res.data.data[i].target_user.nickname.substr(0, 10) + '...'
       }
       if (res.data.data[i].type === 'chat') {
         this.data.chatMessage.push(res.data.data[i])
