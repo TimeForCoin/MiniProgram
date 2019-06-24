@@ -38,9 +38,10 @@
           </view>
         </view>
         <view wx:if="{{item.self}}" style="display:flex; flex-direction: row; padding: 20rpx 30rpx; margin-top: 20rpx;justify-content:flex-end;">
-          <view class="details">
+          <view class="details" >
             <text class="username" style="text-align:right;">{{item.target_user.nickname}}</text>
-            <text class="content">{{item.content}}</text>
+            <text class="content" wx:if="{{item.content.length < 15}}"style = "background-color:#ff7e67; color:white; opacity: 0.8">{{item.content}}</text>
+            <textarea auto-height class="content area" wx:if="{{item.content.length >= 15 }}" style = "background-color:#ff7e67; color:white; opacity: 0.8" value="{{item.content}}"/>
           </view>
           <image class="ava" src="{{item.target_user.avatar}}" />
         </view>

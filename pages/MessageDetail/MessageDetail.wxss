@@ -65,8 +65,9 @@
 #dialog_list {
   margin-top: 20rpx;
   display: flex;
+  margin-bottom: 160rpx;
   flex-direction: column;
-  overflow:auto
+  overflow: auto;
 }
 
 /*隐藏滚动条*/
@@ -108,12 +109,15 @@
   background-color: #fff;
   margin: 10rpx 20rpx;
 }
+.area{
+  width: 60%;
+}
 
 .showTime {
   font-size: 28rpx;
   margin: 20rpx auto;
   padding: 5rpx 40rpx;
-  background: rgb(206, 206, 206);
+  background: rgba(189, 189, 189, 0.3);
   border-radius: 20rpx;
   text-align: center;
 }
