@@ -25,7 +25,8 @@ Page({
     taskID:"",
     status: "",
     page:1,
-    session_id:""
+    session_id:"",
+    top_value: 0,
   },
 
   // isMore true 用于上拉刷新
@@ -109,11 +110,19 @@ Page({
         for(var val of this.data.testMessageDetail.data){
           arr.push(val)
         }
-        // 整点判断
-       for(var i = 0; i < arr.length - 1; i = i + 1){
-         if ((arr[i + 1].time - arr[i].time) > 60 || i === 0) {
+       if(res.data.type !== 'chat'){
+         // 系统消息不进行整点判断
+         for (var i = 0; i < arr.length; i = i + 1) {
            arr[i].string_time = moment(arr[i].time * 1000).format('L');
            arr[i].showTime = true;
+         }
+       } else{
+         // 整点判断
+         for (var i = 0; i < arr.length - 1; i = i + 1) {
+           if ((arr[i + 1].time - arr[i].time) > 60 || i === 0) {
+             arr[i].string_time = moment(arr[i].time * 1000).format('L');
+             arr[i].showTime = true;
+           }
          }
        }
         
@@ -125,12 +134,22 @@ Page({
       }else{
         // 整点判断
         var arr = res.data.messages.reverse()
-        for (var i = 0; i < arr.length - 1; i = i + 1) {
-          if ((arr[i + 1].time - arr[i].time) > 60 || i === 0) {
+        if (res.data.type !== 'chat') {
+          // 系统消息不进行整点判断
+          for (var i = 0; i < arr.length; i = i + 1) {
             arr[i].string_time = moment(arr[i].time * 1000).format('L');
             arr[i].showTime = true;
           }
+        } else {
+          // 整点判断
+          for (var i = 0; i < arr.length - 1; i = i + 1) {
+            if ((arr[i + 1].time - arr[i].time) > 60 || i === 0) {
+              arr[i].string_time = moment(arr[i].time * 1000).format('L');
+              arr[i].showTime = true;
+            }
+          }
         }
+        console.log(this.data.top_value)
         this.setData({
           sessionData: res.data,
           testMessageDetail: {
@@ -138,7 +157,11 @@ Page({
           },
           testSample: this.data.testSample,
         });
+        this.setData({
+          top_value: ((this.data.testMessageDetail.data.length * 1000).toString() + 'rpx')
+          })
       }
+      console.log(this.data.top_value)
     } else if(str === 'detail'){
       console.log('没有消息')
     }else {

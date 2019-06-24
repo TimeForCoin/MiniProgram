@@ -19,7 +19,7 @@
     </view>
   </view>
   <!-- 消息列表 -->
-  <view id="dialog_list">
+  <scroll-view id="dialog_list" scroll-y='true' scroll-top='{{top_value}}'>
     <!--单独一个对话-->
     <view class="loading_view" wx:if="{{isLoading}}">
       <image class="loading" src="/images/icons/loading.png"></image>
@@ -55,11 +55,11 @@
         </view>
       </view>
     </view>
-  </view>
+  </scroll-view>
 </view>
 <!--发送信息-->
-<view wx:if="{{sessionData.type === 'chat' || status === 'detail'}}" class="mycomment comment_bottom">
-  <textarea class="comment_input" bindinput='replyInputChange' value='{{reply_content}}' style="width: 70%;" />
-  <button class="commit_btn" bindtap='submitRely'>发送</button>
+<view wx:if="{{sessionData.type === 'chat' || status === 'detail'}}" class="mycomment comment_bottom" >
+  <textarea class="comment_input" bindinput='replyInputChange' value='{{reply_content}}' style="width: 70%;" cursor-spacing="40rpx"/>
+  <button class="commit_btn" bindtap='submitRely' cursor-spacing="40rpx">发送</button>
 </view>
 <view class="mask" catchtouchmove="preventTouchMove" bindtap="cancelReplying" wx:if="{{isReplying}}" />

@@ -176,8 +176,8 @@
 
   <!--自己的留言-->
   <view class="mycomment comment_bottom" wx:if="{{isReplying}}">
-    <textarea class="comment_input" placeholder='输入你的回复吧~' bindinput='replyInputChange' value='{{reply_content}}' style="width: 70%;" />
-    <button class="commit_btn" bindtap='submitRely'>发送</button>
+    <textarea class="comment_input" placeholder='输入你的回复吧~' bindinput='replyInputChange' value='{{reply_content}}' style="width: 70%;" cursor-spacing="40rpx"/>
+    <button class="commit_btn" bindtap='submitRely' cursor-spacing="40rpx">发送</button>
   </view>
   <view class="mask" catchtouchmove="preventTouchMove" bindtap="cancelReplying" wx:if="{{isReplying}}" />
 </view>
