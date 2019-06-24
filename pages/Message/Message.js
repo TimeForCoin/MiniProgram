@@ -25,11 +25,13 @@ Page({
     for (let i in res.data.data) {
       res.data.data[i].string_last_time =
         moment(res.data.data[i].last_message.time * 1000).format('L');
+      if (res.data.data[i].target_user.nickname.length > 12) {
+        res.data.data[i].target_user.nickname = res.data.data[i].target_user.nickname.substr(0, 12) + '...'
+      }
       if (res.data.data[i].type === 'chat') {
         this.data.chatMessage.push(res.data.data[i])
       } else {
         res.data.data[i].target_user.avatar = '/images/icon.png'
-        res.data.data[i].target_user.nickname = '系统'
         this.data.systemMessage.push(res.data.data[i])
       }
 

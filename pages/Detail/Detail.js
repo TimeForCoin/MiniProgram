@@ -9,9 +9,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    testSample: {},
-
-    testComment: {
+    taskDetail: {},
+    playerStatus: {},
+    commentData: {
       data: []
     },
     player_list: [],
@@ -85,7 +85,7 @@ Page({
     })
     if (page) {
       this.data.commentPage = page
-      this.data.testComment.data = []
+      this.data.commentData.data = []
     } else {
       this.data.commentPage++
     }
@@ -99,11 +99,11 @@ Page({
     }
     this.setData({
       commentPage: this.data.commentPage,
-      testComment: {
-        data: [...this.data.testComment.data, ...res.data.data],
+      commentData: {
+        data: [...this.data.commentData.data, ...res.data.data],
       },
       loadComments: false,
-      noMoreComment: res.data.pagination.page * res.data.pagination.size >= this.data.testSample.data.comment_count
+      noMoreComment: res.data.pagination.page * res.data.pagination.size >= this.data.taskDetail.data.comment_count
     })
   },
 
@@ -126,7 +126,7 @@ Page({
       }, 1000);
     } else {
       this.setData({
-        testSample: {
+        taskDetail: {
           data: res.data
         },
         isMine: res.data.publisher.id === app.globalData.userInfo.id,
@@ -146,6 +146,13 @@ Page({
       player_list: res_task.data.data
     })
     // console.log(this.data.player_list)
+  },
+
+  onClickPlayer: async function (e) {
+    if (this.data.isMine) {
+      const index = e.currentTarget.dataset.index
+      console.log(index)
+    }
   },
 
   /**
@@ -221,10 +228,10 @@ Page({
           image: '/images/icons/error.png'
         })
       } else {
-        this.data.testSample.data.like_count--
+        this.data.taskDetail.data.like_count--
           this.setData({
             isLove: false,
-            testSample: this.data.testSample
+            taskDetail: this.data.taskDetail
           });
       }
     } else {
@@ -236,10 +243,10 @@ Page({
           image: '/images/icons/error.png'
         })
       } else {
-        this.data.testSample.data.like_count++
+        this.data.taskDetail.data.like_count++
           this.setData({
             isLove: true,
-            testSample: this.data.testSample
+            taskDetail: this.data.taskDetail
           });
       }
     }
@@ -255,10 +262,10 @@ Page({
           image: '/images/icons/error.png'
         })
       } else {
-        this.data.testSample.data.collect_count--
+        this.data.taskDetail.data.collect_count--
           this.setData({
             isCollected: false,
-            testSample: this.data.testSample
+            taskDetail: this.data.taskDetail
           });
       }
     } else {
@@ -270,10 +277,10 @@ Page({
           image: '/images/icons/error.png'
         })
       } else {
-        this.data.testSample.data.collect_count++
+        this.data.taskDetail.data.collect_count++
           this.setData({
             isCollected: true,
-            testSample: this.data.testSample
+            taskDetail: this.data.taskDetail
           });
       }
     }
@@ -299,15 +306,15 @@ Page({
     }
 
     // 重写评论
-    for (let i in this.data.testComment.data) {
-      if (this.data.testComment.data[i].id == id) {
-        this.data.testComment.data[i].liked = !liked
-        this.data.testComment.data[i].like_count += liked ? -1 : 1
+    for (let i in this.data.commentData.data) {
+      if (this.data.commentData.data[i].id == id) {
+        this.data.commentData.data[i].liked = !liked
+        this.data.commentData.data[i].like_count += liked ? -1 : 1
         break
       }
     }
     this.setData({
-      testComment: this.data.testComment
+      commentData: this.data.commentData
     })
   },
   showToast: function(str, src) {
@@ -422,7 +429,7 @@ Page({
     }
   },
   joinin: async function(e) {
-    if (this.data.testSample.data.auto_accept) {
+    if (this.data.taskDetail.data.auto_accept) {
       const res = await server.request('POST', 'tasks/' + this.data.taskID + '/player', {
         note: ''
       })
@@ -433,15 +440,15 @@ Page({
         wx.showToast({
           title: '加入成功'
         })
-        this.data.testSample.data.played = true
-        this.data.testSample.data.player_count++
+        this.data.taskDetail.data.played = true
+        this.data.taskDetail.data.player_count++
         this.setData({
-          testSample: this.data.testSample
+          taskDetail: this.data.taskDetail
         })
       }
     } else {
       wx.navigateTo({
-        url: '/pages/Comment/Comment?feedback=' + 'false&id=' + this.data.testSample.data.id,
+        url: '/pages/Comment/Comment?feedback=' + 'false&id=' + this.data.taskDetail.data.id,
       })
     }
   },
@@ -453,10 +460,10 @@ Page({
       wx.showToast({
         title: '退出成功'
       })
-      this.data.testSample.data.played = false
-      this.data.testSample.data.player_count--
+      this.data.taskDetail.data.played = false
+      this.data.taskDetail.data.player_count--
         this.setData({
-          testSample: this.data.testSample
+          taskDetail: this.data.taskDetail
         })
     } else {
       wx.showToast({

@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    sessionData: {},
     testMessageDetail: {
       data: []
     },
@@ -102,27 +103,47 @@ Page({
       // 整数时间才进行显示
       var time = moment(res.data.messages[i].time * 1000).format('L');
       // 整点判断
+      res.data.messages[i].string_time = moment(res.data.messages[i].time * 1000).format('l');
       if(time[time.length - 1] == 0 && time[time.length - 2] == 0){
-        res.data.messages[i].string_time = moment(res.data.messages[i].time * 1000).format('l');
         res.data.messages[i].showTime = true;
       }
       if (res.data.messages[i].user_id === res.data.target_user.id) {
         res.data.messages[i].target_user = res.data.target_user
+        res.data.messages[i].self = false
       } else {
         res.data.messages[i].target_user = {
           nickname: app.globalData.userInfo.info.nickname,
           avatar: app.globalData.userInfo.info.avatar
         }
+        res.data.messages[i].self = true
       }
     }
-    this.setData({
-      testMessageDetail: {
-      data: res.data.messages.reverse()
+    if (res.data.type === 'task') {
+      const taskRes = await server.request('GET', 'tasks/'+ res.data.target_user.id, {
+        brief: true
+      })
+      if (taskRes.data.images.length == 0) {
+        taskRes.data.images = [{
+          id: 0,
+          url: '/images/icon.png'
+        }]
       }
+      this.data.testSample.data = taskRes.data
+    }
+    this.setData({
+      sessionData: res.data,
+      testMessageDetail: {
+        data: res.data.messages.reverse()
+      },
+      testSample: this.data.testSample,
     });
 
-    // TODO: 会话对应任务的获取，保存为testSample
+  },
 
+  onclickTask: function () {
+    wx.navigateTo({
+      url: '/pages/Detail/Detail?id=' + this.data.sessionData.target_user.id,
+    })
   },
 
   /**

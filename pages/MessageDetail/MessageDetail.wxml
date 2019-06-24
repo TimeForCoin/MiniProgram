@@ -1,9 +1,9 @@
 <!--pages/MessageDetail/MessageDetail.wxml-->
 <view class="messageDetail">
   <!-- 相关物品详情 -->
-  <view class="objectDetail">
+  <view class="objectDetail" wx:if="{{sessionData.type === 'task'}}"  bindtap='onclickTask'>
     <view style="display:flex; margin-bottom:20rpx;">
-      <image src="{{detailImage}}" style="width: 120rpx; height: 120rpx;" />
+      <image mode="aspectFill" src="{{testSample.data.images[0].url}}" style="width: 120rpx; height: 120rpx;" />
       <view class="title_content">
         <text style="font-size:36rpx; text-align: left; margin-top :10rpx;">{{testSample.data.title}}</text>
         <text class="subtext" style="margin-top: 10rpx; text-align: left;">{{testSample.data.content}}</text>
@@ -12,13 +12,10 @@
     <!--顶部下方价格部分-->
     <view id="price_view">
       <image src="/images/icons/price.png" id="money" wx:if="{{testSample.data.reward != 'physical'}}" />
-      <text
-        id="price">{{testSample.data.reward == 'physical' ? testSample.data.reward_object : testSample.data.reward_value}}</text>
+      <text id="price">{{testSample.data.reward == 'physical' ? testSample.data.reward_object : testSample.data.reward_value}}</text>
       <text class="payType">{{reward == 'rmb' ? '人民币' : testSample.data.reward == 'physical'? '实物' : '闲币' }}</text>
-      <text
-        class="payType">{{testSample.data.status == 'wait' ? '等待' : testSample.data.status == 'run' ? '执行中' : testSample.data.status == 'close'? '已关闭' : testSample.data.status == 'finish'? '已完成' : testSample.data.status == 'overdue' ? '已过期' : '草稿'}}</text>
-      <text
-        class="payType">{{testSample.data.type == 'run' ? '跑腿任务' : testSample.data.type == 'questionnaire' ? '问卷任务' : '信息任务' }}</text>
+      <text class="payType">{{testSample.data.status == 'wait' ? '等待' : testSample.data.status == 'run' ? '执行中' : testSample.data.status == 'close'? '已关闭' : testSample.data.status == 'finish'? '已完成' : testSample.data.status == 'overdue' ? '已过期' : '草稿'}}</text>
+      <text class="payType">{{testSample.data.type == 'run' ? '跑腿任务' : testSample.data.type == 'questionnaire' ? '问卷任务' : '信息任务' }}</text>
     </view>
   </view>
   <!-- 消息列表 -->
@@ -26,12 +23,29 @@
     <!--单独一个对话-->
     <view class="singleDialog" wx:for="{{testMessageDetail.data}}" wx:key="item.content">
       <!--显示时间-->
-      <text class="showTime" wx:if="{{item.showTime}}">{{item.string_time}}</text>
-      <view style="display:flex; flex-direction: row; padding: 20rpx 30rpx; margin-top: 20rpx;">
-        <image class="ava" src="{{item.target_user.avatar}}" />
-        <view class="details">
-          <text class="username">{{item.target_user.nickname}}</text>
-          <text class="content">{{item.content}}</text>
+      <text class="showTime" wx:if="{{item.showTime || sessionData.type === 'system' || sessionData.type === 'task'}}">{{item.string_time}}</text>
+      <view wx:if="{{sessionData.type === 'chat'}}">
+        <view wx:if="{{!item.self}}" style="display:flex; flex-direction: row; padding: 20rpx 30rpx; margin-top: 20rpx;">
+          <image class="ava" src="{{item.target_user.avatar}}" />
+          <view class="details">
+            <text class="username" style="text-align:left;">{{item.target_user.nickname}}</text>
+            <text class="content">{{item.content}}</text>
+          </view>
+        </view>
+        <view wx:if="{{item.self}}" style="display:flex; flex-direction: row; padding: 20rpx 30rpx; margin-top: 20rpx;justify-content:flex-end;">
+          <view class="details">
+            <text class="username" style="text-align:right;">{{item.target_user.nickname}}</text>
+            <text class="content">{{item.content}}</text>
+          </view>
+          <image class="ava" src="{{item.target_user.avatar}}" />
+        </view>
+      </view>
+      <view wx:if="{{sessionData.type === 'system' || sessionData.type === 'task'}}" class='system-msg'>
+        <view>
+          <text class='system-title'>{{item.title}}</text>
+        </view>
+        <view>
+          <text class='system-content'>{{item.content}}</text>
         </view>
       </view>
     </view>
@@ -43,8 +57,8 @@
   </view>
 </view>
 <!--发送信息-->
-<view class="mycomment comment_bottom">
+<view wx:if="{{sessionData.type === 'chat'}}" class="mycomment comment_bottom">
   <textarea class="comment_input" bindinput='replyInputChange' value='{{reply_content}}' style="width: 70%;" />
-  <button class="commit_btn" bindtap = 'submitRely'>发送</button>
+  <button class="commit_btn" bindtap='submitRely'>发送</button>
 </view>
-<view class="mask" catchtouchmove="preventTouchMove" bindtap = "cancelReplying" wx:if="{{isReplying}}"/>
+<view class="mask" catchtouchmove="preventTouchMove" bindtap="cancelReplying" wx:if="{{isReplying}}" />

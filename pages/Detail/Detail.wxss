@@ -1,72 +1,76 @@
 /* pages/Detail/Detail.wxss */
-#top{
+
+#top {
   margin-top: 10rpx;
   padding-left: 30rpx;
-  padding-right:30rpx;
+  padding-right: 30rpx;
   margin-bottom: 20rpx;
 }
-#user_info{
+
+#user_info {
   display: flex;
-  width:100%;
+  width: 100%;
   flex-direction: row;
 }
 
-#touxiang{
+#touxiang {
   width: 90rpx;
   height: 85rpx;
   object-fit: fill;
   margin-top: 5rpx;
   border-radius: 10rpx;
 }
-#user_basic_info{
-  display: flex;
-  width:100%;
-  margin-left: 20rpx;
 
-  
+#user_basic_info {
+  display: flex;
+  width: 100%;
+  margin-left: 20rpx;
   flex-direction: column;
 }
 
-.title{
+.title {
   font-size: 32rpx;
 }
-.subtitle{
+
+.subtitle {
   font-size: 28rpx;
   color: gray;
-
 }
 
 /*分割线*/
-.band1{
-  width:100%;
+
+.band1 {
+  width: 100%;
   margin: 10rpx 0rpx;
   height: 3rpx;
   background: rgb(243, 243, 243);
 }
 
 /*价钱和点赞*/
-#price_like{
+
+#price_like {
   display: inline-block;
   margin-top: 10rpx;
   width: 100%;
 }
-#price_view{
+
+#price_view {
   display: flex;
   flex-direction: row;
 }
 
-#money{
+#money {
   width: 26rpx;
   height: 26rpx;
   margin-top: 15rpx;
 }
 
-#price{
+#price {
   font-size: 36rpx;
   color: #404969;
 }
 
-.payType{
+.payType {
   background: #ff7e67;
   margin: 6rpx 10rpx;
   padding: 3rpx 5rpx;
@@ -75,54 +79,59 @@
   border-radius: 5rpx;
 }
 
-#like_view{
-  float:right;
+#like_view {
+  float: right;
   display: flex;
   flex-direction: row;
 }
 
 /*收藏量 阅读量*/
-.imgs{
+
+.imgs {
   width: 640rpx;
   height: 480rpx;
   margin: 20rpx auto 20rpx auto;
   background: white;
 }
-.details{
+
+.details {
   height: 200rpx;
   width: 100%;
   margin-bottom: 20rpx;
 }
 
-.content_list{
-  display:flex;
-  flex-direction:row;
-  margin-top:10rpx;
+.content_list {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10rpx;
 }
 
-.column_list{
-  display:fledx;
+.column_list {
+  display: fledx;
   flex-direction: column;
   margin-top: 10rpx;
 }
 
 /* 加入按钮 */
-.joininButton{
+
+.joininButton {
   margin-top: 30rpx;
   width: 80%;
   background-color: #ff7e67;
   color: #fff;
   margin-bottom: 30rpx;
 }
+
 /*分割线*/
-.band2{
-  width:100%;
+
+.band2 {
+  width: 100%;
   margin: 10rpx 0rpx;
   height: 30rpx;
   background: rgb(243, 243, 243);
 }
 
-#liuyan{
+#liuyan {
   padding-left: 30rpx;
   padding-right: 30rpx;
   display: flex;
@@ -130,13 +139,14 @@
 }
 
 /*他人评论部分*/
-.comment_user_info{
+
+.comment_user_info {
   margin-top: 10rpx;
   display: flex;
   flex-direction: column;
 }
 
-#bottom{
+#bottom {
   text-align: center;
   color: gray;
   font-size: 28rpx;
@@ -144,24 +154,25 @@
   margin-bottom: 60rpx;
 }
 
-.float_button{
-   position: fixed;
-   right: 25rpx;
-   width: 90rpx;
-   height: 90rpx;
-   overflow: hidden;
-   z-index: 233; 
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   background-color: #ff7e67;
-   border-radius: 50rpx;
+.float_button {
+  position: fixed;
+  right: 25rpx;
+  width: 90rpx;
+  height: 90rpx;
+  overflow: hidden;
+  z-index: 233;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff7e67;
+  border-radius: 50rpx;
 }
 
 /*自己的评论*/
-#mycomment_bottom{
+
+#mycomment_bottom {
   background: #fff;
-  position:fixed;
+  position: fixed;
   bottom: 0rpx;
   padding-bottom: 50rpx;
   padding-top: 20rpx;
@@ -173,7 +184,8 @@
   justify-content: flex-end;
   z-index: 9999;
 }
-#comment_input_bottom{
+
+#comment_input_bottom {
   font-size: 32rpx;
   margin-top: 15rpx;
   height: 56rpx;
@@ -182,65 +194,70 @@
   background: rgba(231, 231, 231, 0.3);
 }
 
-#commit_btn_bottom{
-  border: 2rpx solid rgba(0,0,0,.3);
+#commit_btn_bottom {
+  border: 2rpx solid rgba(0, 0, 0, 0.3);
   font-size: 32rpx;
   padding: 0rpx 15rpx;
   border-radius: 20rpx;
   background-color: #e0fcff;
 }
 
-.btn_img{
+.btn_img {
   width: 50rpx;
   height: 50rpx;
 }
 
 /*任务类型*/
-.taskType{
-  margin: 10rpx 0rpx;
+
+.taskType {
+  margin: 20rpx 0rpx;
   display: flex;
   direction: row;
   align-items: flex-start;
   flex-wrap: wrap;
 }
-.taskBlock{
+
+.taskBlock {
   background: #fff;
   margin-left: 10rpx;
   margin-top: 10rpx;
   text-align: center;
   border-radius: 25rpx;
-  padding: 3rpx 10rpx;
-  font-size: 32rpx;
-  border: 2rpx solid rgba(0,0,0,.3);
+  font-size: 28rpx;
+  border: 2rpx solid rgba(0, 0, 0, 0.3);
+  padding: 6rpx 20rpx;
 }
 
 /*自己的评论*/
-.mycomment{
-  display:flex;
+
+.mycomment {
+  display: flex;
   flex-direction: row;
-  align-items:center;
+  align-items: center;
   justify-content: center;
 }
-.comment_input{
+
+.comment_input {
   font-size: 32rpx;
-  height:80rpx;
+  height: 80rpx;
   padding-left: 20rpx;
   padding-top: 10rpx;
   background: rgba(231, 231, 231, 0.3);
 }
 
-.commit_btn{
-  border: 2rpx solid rgba(0,0,0,.3);
+.commit_btn {
+  border: 2rpx solid rgba(0, 0, 0, 0.3);
   font-size: 32rpx;
   height: 80rpx;
   text-align: center;
-  align-items:center;
+  align-items: center;
   border-radius: 20rpx;
   background-color: #e0fcff;
 }
-.comment_bottom{
+
+.comment_bottom {
   background: #fff;
-  position:fixed;
+  position: fixed;
   bottom: 0rpx;
   width: 100%;
   z-index: 9999;
@@ -249,20 +266,24 @@
   padding-top: 40rpx;
   padding-bottom: 40rpx;
 }
+
 /*他人评论相关参数*/
-.comment_type_view{
-  display:flex;
-  flex-direction:row;
+
+.comment_type_view {
+  display: flex;
+  flex-direction: row;
   justify-content: flex-end;
   width: 250rpx;
 }
 
-.comment_ava{
-  width:85rpx;
+.comment_ava {
+  width: 85rpx;
   height: 85rpx;
   margin-left: 20rpx;
 }
+
 /*弹窗*/
+
 .mask {
   width: 100%;
   height: 100%;
@@ -275,12 +296,13 @@
 }
 
 /*加载更多*/
-.loading_view{
+
+.loading_view {
   margin-top: 20rpx;
   display: flex;
   justify-content: center;
   align-items: center;
-  color:gray;
+  color: gray;
   font-size: 28rpx;
   margin-bottom: 60rpx;
 }
@@ -300,4 +322,20 @@
   to {
     transform: rotate(1turn);
   }
+}
+
+.task_player {
+  display: block;
+  margin: 10rpx 16rpx;
+}
+
+.player_name {
+  font-size: 32rpx;
+  margin: auto 30rpx;
+}
+
+.player_avatar {
+  width: 48rpx;
+  height: 48rpx;
+  vertical-align: top;
 }

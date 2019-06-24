@@ -20,13 +20,13 @@
       <image mode="aspectFill" class="item_img" src="{{item.target_user.avatar}}" />
       <view class="basic_info">
         <view class="row_view">
-          <text class="title" style="margin-right:20rpx;">{{item.target_user.nickname}}</text>
-          <text class="payType">{{item.target_user.gender == 'man' ? '男' : '女'}}</text>
+          <text class="title" style="margin-right:10rpx;">{{item.target_user.nickname}}</text>
+          <text class="payType" wx:if="{{item.type === 'chat'}}">{{item.target_user.gender == 'man' ? '男' : '女'}}</text>
           <text class="payType">{{item.unread_count == 0 ? '已读':'未读'}}</text>
           <text class="item_time">{{item.string_last_time}}</text>
         </view>
         <!--新增最后一条消息-->
-        <text class="subtitle">{{item.last_message.content}}</text>
+        <text class="subtitle">{{item.type === 'chat' ? item.last_message.content:item.last_message.title}}</text>
       </view>
     </view>
     <view class="band1" />
