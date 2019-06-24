@@ -5,7 +5,8 @@
     <!--任务类型选择器-->
     <view class="picker_field">
       <picker value="{{chosed_status}}" bindchange="change_status" range="{{task_status}}" class="picker_font">
-        <text>状态：</text><text style="color: #ff7e67;">{{chosed_status}}</text>
+        <text>状态：</text>
+        <text style="color: #ff7e67;">{{chosed_status}}</text>
       </picker>
     </view>
     <view class="band2" />
@@ -13,25 +14,25 @@
 
   <!--下面内容-->
   <view id="list">
-    <view style = "display:flex; flex-direction: row; text-align: left;" wx:for="{{testList.data}}" wx:key="item.task.id" >
+    <view style="display:flex; flex-direction: row; text-align: left;" wx:for="{{testList.data}}" wx:key="item.task.id">
       <view class="list_item" bindtap="navigateToDetail" data-id="{{item.task.id}}">
-       <image class="item_img" src="{{item.task.images[0].url}}" />
-      <view class="basic_info">
-        <text class="title">{{item.task.title}}</text>
-        <!--金额-->
-        <view style="margin-top: 10rpx;">
-          <image src="/images/icons/price.png" class="money_img" wx:if="{{item.task.reward != 'physical'}}" />
-          <text classs="money_text">{{item.task.reward == 'physical' ? item.task.reward_object : item.task.reward_value}}</text>
-          <text class="payType">{{item.task.reward == 'rmb' ? '人民币' : item.task.reward == 'physical'? '实物' : '闲币' }}</text>
-          <text class="payType">{{item.task.type == 'run' ? '跑腿' : item.task.reward == 'questionnaire'? '问卷' : '信息' }}</text>
-          <text class = "payType">{{item.status.status == 'wait' ? '等待' : item.status.status == 'refuse' ? '拒绝' : item.status.status == 'close' ? '关闭' : item.status.status == 'running' ? '进行中' : item.status.status == 'finish' ? '完成' : item.status.status == 'give_up'? '放弃' : '失败'}}</text>
+        <image class="item_img" src="{{item.task.images[0].url}}" />
+        <view class="basic_info">
+          <text class="title">{{item.task.title}}</text>
+          <!--金额-->
+          <view style="margin-top: 10rpx;">
+            <image src="/images/icons/price.png" class="money_img" wx:if="{{item.task.reward != 'physical'}}" />
+            <text classs="money_text">{{item.task.reward == 'physical' ? item.task.reward_object : item.task.reward_value}}</text>
+            <text class="payType">{{item.task.reward == 'rmb' ? '人民币' : item.task.reward == 'physical'? '实物' : '闲币' }}</text>
+            <text class="payType">{{item.task.type == 'run' ? '跑腿' : item.task.reward == 'questionnaire'? '问卷' : '信息' }}</text>
+            <text class="payType">{{item.status.status == 'wait' ? '等待' : item.status.status == 'refuse' ? '拒绝' : item.status.status == 'close' ? '关闭' : item.status.status == 'running' ? '进行中' : item.status.status == 'finish' ? '完成' : item.status.status == 'give_up'? '放弃' : '失败'}}</text>
+          </view>
+          <text class="subtitle">{{item.task.content}}</text>
+          <view class="band1" />
         </view>
-        <text class="subtitle">{{item.task.content}}</text>
-        <view class="band1" />
-      </view>
       </view>
       <!--评论-->
-      <view class="float_button" style="bottom: 400rpx;" bindtap='clickCollect' data-id = "{{item.task.id}}" catchtap = 'commentTask' style = "opacity: {{item.status.player.status == 'finish' ? '1.0' : '0.0'}}">
+      <view class="float_button" style="bottom: 400rpx;" bindtap='clickCollect' data-id="{{item.task.id}}" catchtap='commentTask' style="opacity: {{item.status.player.status == 'finish' ? '1.0' : '0.0'}}">
         <image src="/images/icons/task_comment.png" class="btn_img" />
       </view>
       <!-- <view class = "item_btn_set">

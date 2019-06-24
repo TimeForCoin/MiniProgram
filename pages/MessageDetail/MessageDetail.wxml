@@ -1,7 +1,7 @@
 <!--pages/MessageDetail/MessageDetail.wxml-->
 <view class="messageDetail">
   <!-- 相关物品详情 -->
-  <view class="objectDetail" wx:if="{{sessionData.type === 'task'}}"  bindtap='onclickTask'>
+  <view class="objectDetail" wx:if="{{sessionData.type === 'task'}}" bindtap='onclickTask'>
     <view style="display:flex; margin-bottom:20rpx;">
       <image mode="aspectFill" src="{{testSample.data.images[0].url}}" style="width: 120rpx; height: 120rpx;" />
       <view class="title_content">

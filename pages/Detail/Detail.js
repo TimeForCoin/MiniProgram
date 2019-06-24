@@ -153,25 +153,27 @@ Page({
       player_list: res_task.data.data,
       give_up: this.data.give_up
     })
-    // console.log(this.data.player_list)
   },
 
   onClickPlayer: async function(e) {
     if (this.data.isMine) {
       const index = e.currentTarget.dataset.index
-      this.setData({
-        selectUser: this.data.player_list[index],
-        editPlayer: true
-      })
+      if (this.data.player_list[index].status === 'running' ||
+        this.data.player_list[index].status === 'wait') {
+        this.setData({
+          selectUser: this.data.player_list[index],
+          editPlayer: true
+        })
+      }
     }
   },
 
-  confirm_status: async function (e) {
+  confirm_status: async function(e) {
     const selectUser = this.data.selectUser
     const status = e.currentTarget.dataset.status
-    
+
     console.log(selectUser, status)
-    const res = await server.request('PUT', 'tasks/'+this.data.taskID + '/player/'+selectUser.player.id,{
+    const res = await server.request('PUT', 'tasks/' + this.data.taskID + '/player/' + selectUser.player.id, {
       status: status
     })
     if (res.statusCode === 200) {
@@ -183,7 +185,7 @@ Page({
 
     this.cancel_delete(e);
   },
-  cancel_delete: function (e) {
+  cancel_delete: function(e) {
     this.setData({
       editPlayer: false
     });

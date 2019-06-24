@@ -53,7 +53,7 @@
   height: 96rpx;
   border-radius: 20rpx;
   flex-shrink: 0;
-  margin-right:10rpx;
+  margin-right: 10rpx;
 }
 
 /*分割线*/

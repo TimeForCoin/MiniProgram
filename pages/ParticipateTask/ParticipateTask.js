@@ -67,7 +67,7 @@ Page({
         title: errTitle,
         image: '/images/icons/error.png'
       })
-      setTimeout(function () {
+      setTimeout(function() {
         // 返回
         wx.navigateBack({
 

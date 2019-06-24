@@ -1,14 +1,13 @@
 <!--index.wxml-->
 <view id="container">
-  <view id = "search_view" bindtap = "navigateToResult">
-      <image src = "/images/icons/search.png" class = "search_logo" />
-      <input name="search_input" class="input_title" placeholder="搜索 任务" maxlength='20'/>
-    </view>
-  <swiper class="top_image" indicator-dots="true" autoplay="true" interval="5000" duration="1000"  indicator-color="white" indicator-active-color="#ff7e67" hidden = "{{top_images.length === 0 ? true : false}}">
+  <view id="search_view" bindtap="navigateToResult">
+    <image src="/images/icons/search.png" class="search_logo" />
+    <input name="search_input" class="input_title" placeholder="搜索 任务" maxlength='20' />
+  </view>
+  <swiper class="top_image" indicator-dots="true" autoplay="true" interval="5000" duration="1000" indicator-color="white" indicator-active-color="#ff7e67" hidden="{{top_images.length === 0 ? true : false}}">
     <block wx:for="{{top_images}}" wx:key="index">
       <swiper-item>
-        <image src="{{item.url}}" class="slide-image" mode="aspectFill" data-previewurl='{{top_images.url}}'
-          data-currenturl='{{item}}' />
+        <image src="{{item.url}}" class="slide-image" mode="aspectFill" data-previewurl='{{top_images.url}}' data-currenturl='{{item}}' />
       </swiper-item>
     </block>
   </swiper>
@@ -25,17 +24,17 @@
       <view style="display:flex; flex-direction: column;">
         <!--left-->
         <view class="list_left" wx:for="{{show_list_left}}" wx:key="id">
-          <view class="list_item" bindtap = "navigateToDetail" data-item = "{{item.id}}">
+          <view class="list_item" bindtap="navigateToDetail" data-item="{{item.id}}">
             <image src="{{item.images[0].url}}" class="item_img" mode="aspectFill" />
-            <view class="item_img_front"/>
+            <view class="item_img_front" />
             <text class="info_title">{{item.title}}</text>
             <view class="info">
               <!--金额-->
               <view class="detail_top">
-                <view class = "money_type">
+                <view class="money_type">
                   <text class="money_text">{{item.reward == 'object' ? item.reward_object : '💰 ' + item.reward_value}}</text>
                 </view>
-                <view class = "money_type">
+                <view class="money_type">
                   <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'object'? '实物' : '闲币' }}</text>
                   <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
                 </view>
@@ -52,17 +51,17 @@
       <!--right-->
       <view style="display:flex; flex-direction: column; ">
         <view class="list_right" wx:for="{{show_list_right}}" wx:key="id">
-          <view class="list_item" bindtap = "navigateToDetail" data-item = "{{item.id}}">
+          <view class="list_item" bindtap="navigateToDetail" data-item="{{item.id}}">
             <image src="{{item.images[0].url}}" class="item_img" mode="aspectFill" />
-            <view class="item_img_front"/>
+            <view class="item_img_front" />
             <text class="info_title">{{item.title}}</text>
             <view class="info">
-               <!--金额-->
+              <!--金额-->
               <view class="detail_top">
-                <view class = "money_type">
+                <view class="money_type">
                   <text class="money_text">{{item.reward == 'object' ? item.reward_object : '💰 ' + item.reward_value}}</text>
                 </view>
-                <view class = "money_type">
+                <view class="money_type">
                   <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'object'? '实物' : '闲币' }}</text>
                   <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
                 </view>

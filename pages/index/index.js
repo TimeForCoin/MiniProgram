@@ -43,7 +43,7 @@ Page({
       this.data.currentPage = page
       this.setData({
         show_list_left: [],
-        show_list_right:[]
+        show_list_right: []
       });
     } else {
       this.data.currentPage++

@@ -22,7 +22,7 @@
     <!-- 排序 -->
     <view class = "sort-wrap">
       <view class='sort-btn' data-index="{{btn_state0}}" bindtap="sort_type0"  style = "color: {{btn_state1 ? 'gray' : '#ff7e67'}}">
-        <text>热门</text>
+        <text>最新</text>
         <!-- <view class = "img_set">
           <image src="/images/icons/up.png" class = "sort_img img_up" />
           <image src="/images/icons/down.png" class = "sort_img img_down"/>
@@ -30,7 +30,7 @@
       </view>
 
       <view class='sort-btn' data-index="{{btn_state1}}" bindtap="sort_type1" style = "color: {{btn_state0 ? 'gray' : '#ff7e67'}}">
-        <text>最新</text>
+        <text>热门</text>
         <!-- <view class = "img_set">
           <image src="/images/icons/up.png" class = "sort_img img_up" />
           <image src="/images/icons/down.png" class = "sort_img img_down"/>
@@ -50,7 +50,7 @@
   <!--下面内容-->
     <view id = "list">
       <view class = "list_item" wx:for = "{{testList.data}}" wx:key="item.id" bindtap = "navigateToDetail" data-id = "{{item.id}}" style = "text-align: left;">
-        <image class = "item_img" src = "{{item.attachment[0].id}}" />
+        <image class = "item_img" mode='aspectFill' src = "{{item.images[0].url}}" />
         <view class = "basic_info">
           <text class = "title">{{item.title}}</text>
            <!--金额-->

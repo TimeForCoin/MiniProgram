@@ -356,12 +356,13 @@
   text-align: center;
 }
 
-.delete_dialog_title{
-  margin-top:70rpx;
+.delete_dialog_title {
+  margin-top: 70rpx;
   font-size: 36rpx;
   height: 40rpx;
 }
-.delete_btn{
+
+.delete_btn {
   width: 140rpx;
   display: flex;
   height: 90rpx;
@@ -370,5 +371,5 @@
   margin-top: 60rpx;
   align-items: center;
   justify-content: center;
-  border: 2rpx solid rgba(0,0,0,.3);
+  border: 2rpx solid rgba(0, 0, 0, 0.3);
 }
