@@ -25,14 +25,15 @@ Page({
     status: "",
     reward: "",
     // 加载动画
-    isLoading: true,
+    isLoading: false,
     noMore: false,
     // 测试列表
     testList: {
       data: []
     },
     currentPage: 1,
-    pageSize: 10
+    pageSize: 10,
+    pullingGet: false
   },
 
   /**
@@ -79,8 +80,10 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
-
+  onReachBottom: async function() {
+    this.data.currentPage = this.data.currentPage + 1
+    this.pullingGet = true
+    this.loadingTasks()
   },
 
   /**
@@ -210,10 +213,16 @@ Page({
       this.data.reward = ''
     }
 
+    this.loadingTasks()
+
+  },
+  loadingTasks: async function(){
     this.setData({
       isLoading: true
     })
     const res = await server.request('GET', 'tasks', {
+      page: this.data.currentPage,
+      size: this.data.pageSize,
       sort: this.data.sort,
       keyword: this.data.key,
       type: this.data.type,
@@ -221,7 +230,7 @@ Page({
       reward: this.data.reward
     })
     if (res.statusCode == 200) {
-
+      // 添加缺省图片
       for (let i in res.data.tasks) {
         if (res.data.tasks[i].images.length === 0) {
           res.data.tasks[i].images = [{
@@ -230,19 +239,33 @@ Page({
           }]
         }
       }
-
-      this.setData({
-        testList: {
-          data: res.data.tasks
-        },
-        noMore: res.data.pagination.size * res.data.pagination.page >= res.data.pagination.total,
-        isLoading: false
-      })
+      if(pullingGet){
+        this.setData({
+          testList: {
+            data: (this.data.testList.data + res.data.tasks)
+          },
+          noMore: res.data.pagination.size * res.data.pagination.page >= res.data.pagination.total,
+          isLoading: false
+        })
+      } else{
+        this.setData({
+          testList: {
+            data: res.data.tasks
+          },
+          noMore: res.data.pagination.size * res.data.pagination.page >= res.data.pagination.total,
+          isLoading: false
+        })
+      }
+      
     } else {
       wx.showToast({
         title: '搜索失败',
+        image: '/images/icons/error.png'
+      })
+      this.setData({
+        noMore: true,
+        isLoading: false
       })
     }
-
   }
 })
