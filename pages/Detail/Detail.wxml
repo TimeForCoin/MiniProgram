@@ -157,6 +157,10 @@
     <text id="bottom" wx:if="{{noMoreComment}}">没有更多评论了~</text>
   </view>
 
+  <!--发消息-->
+  <view class="float_button" style='bottom: {{showButtons ? 300 : 500}}rpx;' wx:if="{{taskDetail.data.played}}" bindtap='clickConversation'>
+    <image src="/images/icons/conversation.png" class="btn_img" />
+  </view>
   <!--收藏-->
   <view class="float_button" style="bottom: 400rpx;" wx:if="{{showButtons}}" bindtap='clickCollect'>
     <image src="/images/icons/{{isCollected ? 'collected' : 'collect'}}.png" class="btn_img" />
@@ -168,6 +172,7 @@
   <view class="float_button" style="bottom: 600rpx;" bindtap='clickMore'>
     <image src="/images/icons/more.png" class="btn_img" />
   </view>
+  
 
   <!--自己的留言-->
   <view class="mycomment comment_bottom" wx:if="{{isReplying}}">

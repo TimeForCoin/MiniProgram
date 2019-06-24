@@ -145,7 +145,7 @@ Page({
     console.log(e);
     var id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/MessageDetail/MessageDetail?id=' + id,
+      url: '/pages/MessageDetail/MessageDetail?session_id=' + id + '&status=message',
     })
   },
   // 到达底部刷新

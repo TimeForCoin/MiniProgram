@@ -501,4 +501,9 @@ Page({
       return
     }
   },
+  clickConversation: function(){
+    wx.navigateTo({
+      url: '/pages/MessageDetail/MessageDetail?status=detail&user_id=' + this.data.taskDetail.data.publisher.id + '&taskID=' + this.data.taskID,
+    })
+  },
 })

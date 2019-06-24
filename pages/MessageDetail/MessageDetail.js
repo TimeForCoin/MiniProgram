@@ -73,14 +73,65 @@ Page({
     noMore: false,
     // 评论和回复内容
     reply_content: "",
+    target_id: "",
+    taskID:"",
+    status: ""
   },
 
-  loadMessage: async function(id) {
-    const res = await server.request('GET', 'messages/' + id)
+  loadMessage: async function(id, str) {
+    var res = {}
+    if(str === 'detail'){
+      console.log('detail')
+      res = await server.request('GET', 'messages/user/' + id)
+      console.log(res.data)
+    } else if(str === 'message'){
+      res = await server.request('GET', 'messages/' + id)
+    }
     if (res.statusCode == 200) {
-      return res.data
-    } else {
-      this.showToast("获取信息失败", "")
+      res.data = res.data.data
+      for (let i in res.data.messages) {
+        // 整数时间才进行显示
+        var time = moment(res.data.messages[i].time * 1000).format('L');
+        // 整点判断
+        res.data.messages[i].string_time = moment(res.data.messages[i].time * 1000).format('l');
+        if (time[time.length - 1] == 0 && time[time.length - 2] == 0) {
+          res.data.messages[i].showTime = true;
+        }
+        if (res.data.messages[i].user_id === res.data.target_user.id) {
+          res.data.messages[i].target_user = res.data.target_user
+          res.data.messages[i].self = false
+        } else {
+          res.data.messages[i].target_user = {
+            nickname: app.globalData.userInfo.info.nickname,
+            avatar: app.globalData.userInfo.info.avatar
+          }
+          res.data.messages[i].self = true
+        }
+      }
+      if (res.data.type === 'task') {
+        const taskRes = await server.request('GET', 'tasks/' + res.data.target_user.id, {
+          brief: true
+        })
+        if (taskRes.data.images.length == 0) {
+          taskRes.data.images = [{
+            id: 0,
+            url: '/images/icon.png'
+          }]
+        }
+        this.data.testSample.data = taskRes.data
+      }
+      console.log(res.data.messages)
+      this.setData({
+        sessionData: res.data,
+        testMessageDetail: {
+          data: res.data.messages.reverse()
+        },
+        testSample: this.data.testSample,
+      });
+    } else if(str === 'detail'){
+      console.log('没有消息')
+    }else {
+      this.showToast("获取信息失败", "/images/icons/error.png")
       return {
         data: []
       }
@@ -97,45 +148,19 @@ Page({
         L: "YYYY-MM-DD HH:mm:ss"
       }
     });
-    const res = await this.loadMessage(options.id)
-    for (let i in res.data.messages) {
-      // 整数时间才进行显示
-      var time = moment(res.data.messages[i].time * 1000).format('L');
-      // 整点判断
-      res.data.messages[i].string_time = moment(res.data.messages[i].time * 1000).format('l');
-      if (time[time.length - 1] == 0 && time[time.length - 2] == 0) {
-        res.data.messages[i].showTime = true;
-      }
-      if (res.data.messages[i].user_id === res.data.target_user.id) {
-        res.data.messages[i].target_user = res.data.target_user
-        res.data.messages[i].self = false
-      } else {
-        res.data.messages[i].target_user = {
-          nickname: app.globalData.userInfo.info.nickname,
-          avatar: app.globalData.userInfo.info.avatar
-        }
-        res.data.messages[i].self = true
-      }
+    // 不存在会话id
+    if(options.status == 'detail'){
+      this.data.status = 'detail'
+      this.data.target_id = options.user_id
+      this.data.taskID = options.taskID
+      const res = await this.loadMessage(this.data.target_id, options.status)
+    } else if(options.status == 'message'){
+      this.data.status = 'message'
+      console.log('is message')
+      console.log(options.session_id)
+      const res = await this.loadMessage(options.session_id, options.status)
     }
-    if (res.data.type === 'task') {
-      const taskRes = await server.request('GET', 'tasks/' + res.data.target_user.id, {
-        brief: true
-      })
-      if (taskRes.data.images.length == 0) {
-        taskRes.data.images = [{
-          id: 0,
-          url: '/images/icon.png'
-        }]
-      }
-      this.data.testSample.data = taskRes.data
-    }
-    this.setData({
-      sessionData: res.data,
-      testMessageDetail: {
-        data: res.data.messages.reverse()
-      },
-      testSample: this.data.testSample,
-    });
+    
 
   },
 
@@ -219,7 +244,7 @@ Page({
     }
   },
   // 提交回复
-  submitRely: function(e) {
+  submitRely: async function(e) {
     // 消息为空
     if (!/[^\s]+/.test(this.data.reply_content)) {
       this.setData({
@@ -229,10 +254,20 @@ Page({
       return;
     }
     // TODO: 在线更新该回复
-    this.showToast("消息提交", "");
+    const res = await server.request('POST', 'messages/' + this.data.target_id, {
+      content: this.data.reply_content,
+      about: this.data.status === 'detail' ? this.data.taskID : ""
+    })
+    if(res.statusCode != 200){
+      this.showToast("提交失败", "/images/icons/error.png")
+      return
+    }
+    this.data.status = 'message'
+    this.loadMessage(res.data.id, this.data.status)
+    this.showToast("消息提交", "")
     this.setData({
       reply_content: ""
-    });
+    })
   },
   // 评论内容刷新
   replyInputChange: function(e) {
