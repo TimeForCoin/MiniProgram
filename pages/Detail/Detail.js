@@ -129,6 +129,7 @@ Page({
         testSample: {
           data: res.data
         },
+        isMine: res.data.publisher.id === app.globalData.userInfo.id,
         publishDate: moment(new Date(res.data.publish_date * 1000)).format('l'),
         startDate: moment(res.data.start_date * 1000).format('L'),
         endDate: moment(res.data.end_date * 1000).format('L'),
