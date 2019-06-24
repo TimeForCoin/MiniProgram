@@ -83,6 +83,37 @@ Page({
   onReady: function() {
 
   },
+  // 签到
+  onClickAttend: async function() {
+    if (this.data.userInfo.data.attendance) {
+      wx.showToast({ title: '明天再来签到吧' })
+      return
+    } 
+    const res = await server.request('POST', 'users/attend')
+    if (res.statusCode === 200) {
+      wx.showToast({ title: '签到成功' })
+      await app.getUserInfo()
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: app.globalData.hasUserInfo,
+        isEditInfo: false
+      })
+    }
+  },
+
+  // 充值
+  onClickMoney: async function () {
+    const res = await server.request('POST', 'users/pay')
+    if (res.statusCode === 200) {
+      wx.showToast({ title: '充八万！' })
+      await app.getUserInfo()
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: app.globalData.hasUserInfo,
+        isEditInfo: false
+      })
+    }
+  },
 
   /**
    * 生命周期函数--监听页面显示

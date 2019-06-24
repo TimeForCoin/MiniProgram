@@ -1,15 +1,18 @@
 /* pages/userInfo/userInfo.wxss */
-#container{
+
+#container {
   height: 100%;
   width: 100%;
   margin: 0;
-  padding:0;
+  padding: 0;
   position: fixed;
   background: rgb(243, 243, 243);
 }
+
 /*上方基础信息部分*/
+
 #basic_info {
-  display:flex;
+  display: flex;
   width: 100%;
   height: 380rpx;
   justify-content: center;
@@ -19,90 +22,94 @@
   background: -ms-radial-gradient(circle, #fff, #e0fcff);
   background: -webkit-linear-gradient(circle, #fff, #e0fcff);
   background: -moz-linear-gradient(circle, #fff, #e0fcff);
-  flex-direction:column;/*垂直方向布置*/
+  flex-direction: column; /*垂直方向布置*/
 }
 
-
 /*头像部分*/
-#head_basic{
+
+#head_basic {
   display: flex;
   margin: 0% auto 8% auto;
   justify-content: center;
   align-items: center;
-  width:180rpx;
-  height:180rpx;
+  width: 180rpx;
+  height: 180rpx;
   background: #bde4f4;
   border-radius: 50%;
 }
 
-.head{
-  margin:auto;
-  width:160rpx;
-  height:160rpx;
+.head {
+  margin: auto;
+  width: 160rpx;
+  height: 160rpx;
   border-radius: 50%;
   display: flex;
-  align-items:center;
-  justify-content:center;
-}
-/*基本信息*/
-#name_info{
-  display:flex;
-  margin: 0%;
-  color:#404969;
-  font-size:32rpx;
-  align-items:center;
-  justify-content:center;
+  align-items: center;
+  justify-content: center;
 }
 
-.info_view{
-  display:flex;
+/*基本信息*/
+
+#name_info {
+  display: flex;
+  margin: 0%;
+  color: #404969;
+  font-size: 32rpx;
+  align-items: center;
+  justify-content: center;
+}
+
+.info_view {
+  display: flex;
   align-content: center;
   justify-content: center;
 }
 
-.info_text{
+.info_text {
   font-size: 32rpx;
 }
 
 #login {
-    display: flex;
-    padding: 8rpx 10rpx 8rpx 10rpx;
-    background-image: linear-gradient(#bde4f4, #bde4f4);
-    border: 2rpx solid rgba(0,0,0,.3);
-    border-radius: 15rpx;
-    box-shadow: 0 1rpx white inset;
-    text-align: center;
-    text-shadow: 0 1rpx 1rpx black;
-    color:white;
-    font-size: 36rpx;
-    font-weight: bold;
+  display: flex;
+  padding: 8rpx 10rpx 8rpx 10rpx;
+  background-image: linear-gradient(#bde4f4, #bde4f4);
+  border: 2rpx solid rgba(0, 0, 0, 0.3);
+  border-radius: 15rpx;
+  box-shadow: 0 1rpx white inset;
+  text-align: center;
+  text-shadow: 0 1rpx 1rpx black;
+  color: white;
+  font-size: 36rpx;
+  font-weight: bold;
 }
 
 /*下方导航部分*/
-#downRegion{
+
+#downRegion {
   display: flex;
 }
 
 .navi_cells {
   background-color: #fff;
 }
+
 /*分割线*/
-.band{
-  width:100%;
+
+.band {
+  width: 100%;
   height: 50rpx;
   background: rgb(243, 243, 243);
 }
 
-.cell{
+.cell {
   display: flex;
-  flex-direction:column;
-  width:100%;
-
+  flex-direction: column;
+  width: 100%;
   border-bottom: 1rpx solid rgb(243, 243, 243);
 }
 
-.item_view{
-  display:flex;
+.item_view {
+  display: flex;
   flex-direction: row;
   padding-top: 25rpx;
   padding-bottom: 25rpx;
@@ -113,28 +120,29 @@
 .navi_icon {
   width: 50rpx;
   height: 50rpx;
-  flex:1.5;
+  flex: 1.5;
 }
 
-.navi_text{
+.navi_text {
   margin-left: 40rpx;
-  display:flex;
-  color:#404969;
-  flex:16;
-  font-size:32rpx;
+  display: flex;
+  color: #404969;
+  flex: 16;
+  font-size: 32rpx;
   margin-top: 5rpx;
 }
 
 /*右边箭头*/
+
 .right_narrow {
   margin-top: 10rpx;
   width: 32rpx;
-  flex:1;
+  flex: 1;
   height: 32rpx;
 }
 
-
 /*弹窗*/
+
 .mask {
   width: 100%;
   height: 100%;
@@ -145,7 +153,7 @@
   z-index: 500;
   opacity: 0.7;
 }
- 
+
 .modalDialog {
   width: 100%;
   height: 1200rpx;
@@ -159,15 +167,15 @@
   flex-direction: column;
 }
 
-.close{
+.close {
   width: 40rpx;
-  height:40rpx;
+  height: 40rpx;
   margin-left: 30rpx;
   margin-top: 20rpx;
   margin-bottom: 20rpx;
 }
 
-.title{
+.title {
   font-size: 36rpx;
   margin-left: 60rpx;
   margin-top: 40rpx;
@@ -175,53 +183,75 @@
 }
 
 /*分割线*/
-.band1{
-  width:80%;
+
+.band1 {
+  width: 80%;
   height: 3rpx;
   margin-left: 60rpx;
   margin-top: 5rpx;
   background: rgb(243, 243, 243);
 }
 
-.radio_setting{
+.radio_setting {
   width: 80rpx;
 }
 
-.ava{
+.ava {
   width: 150rpx;
   height: 150rpx;
   border-radius: 20rpx;
-  margin:20rpx auto 40rpx auto;
+  margin: 20rpx auto 40rpx auto;
 }
 
-.input_setting{
+.input_setting {
   margin-left: 60rpx;
   font-size: 32rpx;
 }
 
-.submit_btn{
-  margin:40rpx auto 40rpx auto;
+.submit_btn {
+  margin: 40rpx auto 40rpx auto;
   width: 60%;
 }
 
-#insideContainer{
+#insideContainer {
   display: flex;
   flex-direction: column;
 }
 
-::-webkit-scrollbar{
-width: 0;
-height: 0;
-color: grba(128, 128, 128, 0.5);
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: grba(128, 128, 128, 0.5);
 }
 
 /*提示向下*/
-.downImg{
-  
+
+.downImg {
   width: 25rpx;
   height: 15rpx;
 }
 
-.item_view:active{
+.item_view:active {
   background-color: rgb(243, 243, 243);
+}
+
+.left-view {
+  text-align: center;
+  width: 355rpx;
+  display: inline-block;
+  padding: 25rpx 10rpx;
+}
+
+.right-view {
+  text-align: center;
+  width: 355rpx;
+  display: inline-block;
+  padding: 25rpx 10rpx;
+}
+
+.user-value {
+  margin: 20rpx;
+  font-size: 36rpx;
+  color: orange;
+  font-weight: bold;
 }

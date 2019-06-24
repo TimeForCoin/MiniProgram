@@ -1,91 +1,103 @@
 <!--pages/userInfo/userInfo-->
-<view id = "container">
-  <view id = "basic_info">
+<view id="container">
+  <view id="basic_info">
     <!--用户名以及基本信息-->
-    <view id = "name_info">
+    <view id="name_info">
       <view wx:if="{{hasUserInfo}}">
-       <!--头像部分-->
-          <view id = "head_basic">
-            <image wx:if="{{hasUserInfo}}" class="head" src="{{userInfo.info.avatar}}" />
-            <image wx:else class="head" src="/images/touxiang.jpg" bindtap='bindLogin' />
-          </view>
-        <view class = "info_view">
-          <text class = "info_text" style = "font-weight:bold">{{userInfo.info.nickname}}</text>
+        <!--头像部分-->
+        <view id="head_basic">
+          <image wx:if="{{hasUserInfo}}" class="head" src="{{userInfo.info.avatar}}" />
+          <image wx:else class="head" src="/images/touxiang.jpg" bindtap='bindLogin' />
+        </view>
+        <view class="info_view">
+          <text class="info_text" style="font-weight:bold">{{userInfo.info.nickname}}</text>
         </view>
       </view>
-      <button wx:else id="login" open-type="getUserInfo"  bindgetuserinfo="setUserInfo">点击此处登录</button>
+      <button wx:else id="login" open-type="getUserInfo" bindgetuserinfo="setUserInfo">点击此处登录</button>
     </view>
   </view>
   <!--下半部分-->
-    <view class = "downRegion">
-      <!--第一组导航-->
-      <view class='navi_cells'>
-        <view class = "band"></view>
-        <view wx:for = "{{nav_a}}" wx:key = "item.id" class = "cell">
-          <!-- <image class="navi_icon" src="/images/userInfo/navi_1_{{item.id}}.png" /> -->
-          <view class = "item_view" data-item = "{{item.id}}" bindtap='navigate'>
-            <image class="navi_icon" src="/images/icons/{{item.src}}.png" />
-            <text class="navi_text">{{item.name}}</text>
-            <image class = "right_narrow" src="/images/icons/narrow.png" />
-          </view>
-        </view>
+  <view class="downRegion">
+    <view class='navi_cells'>
+      <view class="band"></view>
+      <view class="left-view" bindtap='onClickMoney'>
+        <view class='user-value'>💰 {{userInfo.data.money}}</view>
+        <view>闲币</view>
+      </view>
+      <view class='right-view' bindtap='onClickAttend' >
+        <view class='user-value'>💳 {{userInfo.data.value}}</view>
+        <view>积分</view>
       </view>
 
-      <!--第二组导航-->
-      <view class='navi_cells'>
-      <view class = "band"></view>
-        <view wx:for = "{{nav_b}}" wx:key = "item.id" class = "cell" >
-          <!-- <image class="navi_icon" src="/images/userInfo/navi_1_{{item.id}}.png" /> -->
-          <view class = "item_view" data-item = "{{item.id}}" bindtap='navigate'>
-            <image class="navi_icon" src="/images/icons/{{item.src}}.png" />
-            <text class="navi_text">{{item.name}}</text>
-            <image class = "right_narrow" src="/images/icons/narrow.png" />
-          </view>
+    </view>
+    <!--第一组导航-->
+    <view class='navi_cells'>
+      <view class="band"></view>
+      <view wx:for="{{nav_a}}" wx:key="item.id" class="cell">
+        <!-- <image class="navi_icon" src="/images/userInfo/navi_1_{{item.id}}.png" /> -->
+        <view class="item_view" data-item="{{item.id}}" bindtap='navigate'>
+          <image class="navi_icon" src="/images/icons/{{item.src}}.png" />
+          <text class="navi_text">{{item.name}}</text>
+          <image class="right_narrow" src="/images/icons/narrow.png" />
         </view>
-        <view class = "band"></view>
       </view>
     </view>
+
+    <!--第二组导航-->
+    <view class='navi_cells'>
+      <view class="band"></view>
+      <view wx:for="{{nav_b}}" wx:key="item.id" class="cell">
+        <!-- <image class="navi_icon" src="/images/userInfo/navi_1_{{item.id}}.png" /> -->
+        <view class="item_view" data-item="{{item.id}}" bindtap='navigate'>
+          <image class="navi_icon" src="/images/icons/{{item.src}}.png" />
+          <text class="navi_text">{{item.name}}</text>
+          <image class="right_narrow" src="/images/icons/narrow.png" />
+        </view>
+      </view>
+      <view class="band"></view>
+    </view>
+  </view>
 </view>
 
 
 
 <!--对话框-->
 <view class="modalDialog" wx:if="{{hasUserInfo && isEditInfo}}">
-  <image src = "/images/icons/close.png" class = "close" bindtap = "closeEditPage"/>
-  <scroll-view scroll-y style = "height:800rpx;" >
-    <view id = "insideContainer">
-      <view style = "margin: 10rpx auto 0rpx auto;">
-        <image src = "/images/icons/up.png" class = "downImg"></image>
-        <text style = "font-size: 20rpx;color: gray; margin-left : 10rpx;">上滑</text>
+  <image src="/images/icons/close.png" class="close" bindtap="closeEditPage" />
+  <scroll-view scroll-y style="height:800rpx;">
+    <view id="insideContainer">
+      <view style="margin: 10rpx auto 0rpx auto;">
+        <image src="/images/icons/up.png" class="downImg"></image>
+        <text style="font-size: 20rpx;color: gray; margin-left : 10rpx;">上滑</text>
       </view>
-      <image src="{{userInfo.info.avatar}}" class = "ava" />
-      <text class = "title">昵称</text>
-      <input name="username" class="input_setting" placeholder="请输入昵称" maxlength='25' value = "{{nickname}}" bindinput = "changeNickname"/>
-      <view class = "band1"/>
-      <text class = "title">性别</text>
-      <radio-group name="radio-group" class = "info_text" style = "margin-left: 60rpx; display:flex; flex-direction:row;" bindchange = "changeGender">
-        <view class="radio" wx:for="{{gender_items}}" wx:key="val" >
-          <radio color="#ff7e67" value="{{item.val}}" checked="{{gender == item.val}}" style = "margin-left:50rpx;"/>{{item.name}}
+      <image src="{{userInfo.info.avatar}}" class="ava" />
+      <text class="title">昵称</text>
+      <input name="username" class="input_setting" placeholder="请输入昵称" maxlength='25' value="{{nickname}}" bindinput="changeNickname" />
+      <view class="band1" />
+      <text class="title">性别</text>
+      <radio-group name="radio-group" class="info_text" style="margin-left: 60rpx; display:flex; flex-direction:row;" bindchange="changeGender">
+        <view class="radio" wx:for="{{gender_items}}" wx:key="val">
+          <radio color="#ff7e67" value="{{item.val}}" checked="{{gender == item.val}}" style="margin-left:50rpx;" />{{item.name}}
         </view>
       </radio-group>
-      <text class = "title">个人简介</text>
-      <textarea name="bio" class="input_setting" placeholder="请输入个人简介" maxlength='128' value = "{{bio}}" bindinput = "changeBio" style = "height: 150rpx; width:80%; word-wrap:break-word"/>
-      <view class = "band1"/>
-      <text class = "title">邮箱</text>
-      <input name="email" class="input_setting" placeholder="请输入邮箱" maxlength='25' value = "{{email}}" bindinput = "changeEmail"/>
-      <view class = "band1"/>
-      <text class = "title">手机号码</text>
-      <input name="phone" class="input_setting" type='digit' placeholder="手机号码" maxlength='15' value = "{{phone}}" bindinput = "changePhone"/>
-      <view class = "band1"/>
-      <text class = "title">学校</text>
-      <input name="school" class="input_setting" placeholder="请输入您的学校" maxlength='25' value = "{{school}}" bindinput = "changeSchool"/>
-      <view class = "band1"/>
-      <text class = "title">地址</text>
-      <textarea name="address" class="input_setting" placeholder="请输入您的地址" maxlength='32' value = "{{location}}" bindinput = "changeLocation" style = "height: 80rpx; width:80%; word-wrap:break-word"/>
-      <view class = "band1"/>
+      <text class="title">个人简介</text>
+      <textarea name="bio" class="input_setting" placeholder="请输入个人简介" maxlength='128' value="{{bio}}" bindinput="changeBio" style="height: 150rpx; width:80%; word-wrap:break-word" />
+      <view class="band1" />
+      <text class="title">邮箱</text>
+      <input name="email" class="input_setting" placeholder="请输入邮箱" maxlength='25' value="{{email}}" bindinput="changeEmail" />
+      <view class="band1" />
+      <text class="title">手机号码</text>
+      <input name="phone" class="input_setting" type='digit' placeholder="手机号码" maxlength='15' value="{{phone}}" bindinput="changePhone" />
+      <view class="band1" />
+      <text class="title">学校</text>
+      <input name="school" class="input_setting" placeholder="请输入您的学校" maxlength='25' value="{{school}}" bindinput="changeSchool" />
+      <view class="band1" />
+      <text class="title">地址</text>
+      <textarea name="address" class="input_setting" placeholder="请输入您的地址" maxlength='32' value="{{location}}" bindinput="changeLocation" style="height: 80rpx; width:80%; word-wrap:break-word" />
+      <view class="band1" />
       <button class='submit_btn' bindtap="submit">提交</button>
     </view>
   </scroll-view>
 </view>
 <!--蒙板-->
-<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{hasUserInfo && isEditInfo}}"/>
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{hasUserInfo && isEditInfo}}" />
