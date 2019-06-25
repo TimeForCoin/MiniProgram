@@ -154,6 +154,7 @@ Page({
           testSample: this.data.testSample,
           top_value: 100 * arr.length,
         });
+        this.autoLoadMessage()
       }
     } else if(str === 'detail'){
     }else {
@@ -306,4 +307,53 @@ Page({
       reply_content: e.detail.value
     })
   },
+  autoLoadMessage: async function(){
+    var res = await server.request('GET', 'messages/' + this.data.session_id, {
+      page: 1,
+      size: 1
+    })
+    if(res.data.length === 0) {}
+    else{
+      
+      var last = this.data.testMessageDetail.data[this.data.testMessageDetail.data.length - 1]
+      var getLast = res.data.data.messages[0]
+      if (getLast.content === last.content && getLast.time === last.time){
+
+      }else{
+        if (getLast.user_id === res.data.data.target_user.id) {
+          getLast.target_user = res.data.data.target_user
+          getLast.self = false
+        } else {
+          getLast.target_user = {
+            nickname: app.globalData.userInfo.info.nickname,
+            avatar: app.globalData.userInfo.info.avatar
+          }
+          getLast.self = true
+        }
+        moment.locale('en', {
+          longDateFormat: {
+            l: "YYYY-MM-DD HH:mm",
+            L: "YYYY-MM-DD HH:mm:ss"
+          }
+        })
+        getLast.string_time = moment(getLast.time * 1000).format('L')
+        getLast.showTime = false
+        this.data.testMessageDetail.data.push(getLast)
+        this.setData({
+          testMessageDetail:{
+            data: this.data.testMessageDetail.data
+          }
+        })
+        this.setData({
+          top_value: 100 * this.data.testMessageDetail.data.length,
+        })
+      }
+      // if (getLast.content === (this.data.testMessageDetail.data.reserve()[0]).content){
+
+      // }else{
+      //   // this.data.testMessageDetail.data.push(res.data.data.)
+      // }
+    }
+    setTimeout(this.autoLoadMessage, 1000)
+  }
 })

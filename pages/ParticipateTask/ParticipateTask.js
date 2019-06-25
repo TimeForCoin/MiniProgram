@@ -183,7 +183,9 @@ Page({
       this.data.status = 'close';
     } else if (this.data.chosed_status == '进行中') {
       this.data.status = 'running';
-    } else if (this.data.chosed_status == '已放弃') {
+    } else if (this.data.chosed_status == '已完成'){
+      this.data.status = 'finish'
+    }else if (this.data.chosed_status == '已放弃') {
       this.data.status = 'give_up';
     } else if (this.data.chosed_status == '已失败') {
       this.data.status = 'failure';
