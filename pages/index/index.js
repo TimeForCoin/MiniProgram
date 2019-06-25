@@ -8,19 +8,7 @@ Page({
   data: {
     tabbar: {},
     currentTab: 0,
-    top_images: [{
-        index: 0,
-        url: "/images/touxiang.jpg"
-      },
-      {
-        index: 1,
-        url: '/images/index_sample.jpg'
-      },
-      {
-        index: 2,
-        url: '/images/index_sample.jpg'
-      },
-    ],
+    top_images: [],
     top_iamges_size: 3,
     show_list_left: [],
     show_list_right: [],
@@ -28,12 +16,40 @@ Page({
     noMore: false,
     currentPage: 1,
     pageSize: 8,
+    // 是否显示公告图片
+    showImg: false
   },
   onLoad: async function() {
     app.editTabbar();
     this.loadTaskList(1);
+    const res = await server.request('GET', 'article',{
+      page: 1,
+      size: 3
+    })
+    if(res.statusCode === 200){
+      if(res.data.data.length === 0){
+        this.setData({ showImg: false })  
+      } else{
+        var index = 0
+        for(var val of res.data.data){
+          var tmp = {
+            index: index,
+            url:val.images[0].url
+          }
+          index = index + 1
+          top_images.push(tmp)
+        }
+        this.setData({
+          top_images: this.data.top_images,
+          showImg: true
+        })
+      }
+
+    }else{
+      this.setData({showImg: false})
+    }
   },
-  // 加载任务列表
+  // 加载任务列表 
   loadTaskList: async function(page, type = 'all') {
     this.setData({
       isLoading: true,

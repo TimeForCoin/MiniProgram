@@ -298,6 +298,9 @@ Page({
     });
     if (this.data.reward == "object") this.data.reward_object = this.data.reward_input;
     else this.data.reward_value = parseInt(this.data.reward_input);
+    if (isNaN(this.data.reward_value)){
+      this.data.reward_value = -1
+    }
     console.log("reward_value:" + this.data.reward_value);
     console.log("reward_object:" + this.data.reward_object);
   },
@@ -326,6 +329,9 @@ Page({
       max_player_input: e.detail.value
     });
     this.data.max_player = parseInt(this.data.max_player_input);
+    if (isNaN(this.data.max_player)) {
+      this.data.max_player = -1
+    }
     console.log("max_player:" + this.data.max_player);
   },
 
@@ -508,12 +514,50 @@ Page({
           this.setData({
             isSubmit: true
           });
+          setTimeout(function(){
+            wx.navigateTo({
+              url: '/pages/Detail/Detail?id=' + res.data.id + '&isMine=' + 'true',
+            })
+          }, 1000)
         }
       } else {
-        wx.showToast({
-          title: (isPublish ? '发布' : '保存') + '失败',
-          image: '/images/icons/error.png'
-        })
+        // faked_file - 图片 / 文件不存在
+        // permission_deny - 不允许添加他人的附件
+        // error_file_type - 文件类型(图片 / 附件)错误
+        // not_allow_date - 不允许结束日期小于开始日期
+        // title_too_long - 任务标题不能超过32个字符
+        // content_too_long - 任务内容不能超过256个字符
+        // reward_object_too_long - 任务酬劳不能超过32个字符
+        // location_too_long - 任务地点不能超过64个字符
+        // tag_too_long - 任务标签不能超过16个字符
+        var result = "未知错误"
+        if (res.data.message === 'faked_file'){
+          result = "图片 / 文件不存在"
+        } else if (res.data.message === 'permission_deny'){
+          result = "不允许添加他人的附件"
+        } else if (res.data.message === 'error_file_type') {
+          result = "文件类型(图片 / 附件)错误"
+        } else if (res.data.message === 'not_allow_date') {
+          result = "不允许结束日期小于开始日期"
+        } else if (res.data.message === 'title_too_long') {
+          result = "任务标题不能超过32个字符"
+        } else if (res.data.message === 'content_too_long') {
+          result = "任务内容不能超过256个字符"
+        } else if (res.data.message === 'reward_object_too_long') {
+          result = "任务酬劳不能超过32个字符"
+        } else if (res.data.message === 'location_too_long') {
+          result = "任务地点不能超过64个字符"
+        } else if (res.data.message === 'tag_too_long') {
+          result = "任务标签不能超过16个字符"
+        } else if (res.data.message === 'no_money') {
+          result = "爸爸请充值！"
+        }
+        this.setData({
+          isErr: true
+        });
+        this.setData({
+          errStr: result
+        });
       }
     } catch (err) {
       console.log(err)

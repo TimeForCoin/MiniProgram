@@ -142,7 +142,6 @@ Page({
   },
   // 跳转详情
   navigateToMessageDetail: function(e) {
-    console.log(e);
     var id = e.currentTarget.dataset.id;
     wx.navigateTo({
       url: '/pages/MessageDetail/MessageDetail?session_id=' + id + '&status=message',

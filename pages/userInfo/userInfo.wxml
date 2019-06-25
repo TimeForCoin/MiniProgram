@@ -1,5 +1,5 @@
 <!--pages/userInfo/userInfo-->
-<view id="container">
+<scroll-view scroll-y id="container" >
   <view id="basic_info">
     <!--用户名以及基本信息-->
     <view id="name_info">
@@ -26,7 +26,7 @@
       </view>
       <view class='right-view' bindtap='onClickAttend' >
         <view class='user-value'>💳 {{userInfo.data.value}}</view>
-        <view>积分</view>
+        <view>积分/签到</view>
       </view>
 
     </view>
@@ -57,7 +57,7 @@
       <view class="band"></view>
     </view>
   </view>
-</view>
+</scroll-view>
 
 
 

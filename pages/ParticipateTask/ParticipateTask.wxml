@@ -32,7 +32,7 @@
         </view>
       </view>
       <!--评论-->
-      <view class="float_button" style="bottom: 400rpx;" bindtap='clickCollect' data-id="{{item.task.id}}" catchtap='commentTask' style="opacity: {{item.status.player.status == 'finish' ? '1.0' : '0.0'}}">
+      <view class="float_button" style="bottom: 400rpx;" bindtap='clickCollect' data-id="{{item.task.id}}" catchtap='commentTask' wx:if="item.status.status === 'finish'">
         <image src="/images/icons/task_comment.png" class="btn_img" />
       </view>
       <!-- <view class = "item_btn_set">

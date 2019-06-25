@@ -348,7 +348,7 @@ Page({
         })
       }
     }
-    this.loadTasks(1)
+    this.loadTasks(1, this.data.deleteType)
   },
   cancel_delete: function(e) {
     this.setData({

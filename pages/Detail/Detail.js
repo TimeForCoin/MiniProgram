@@ -412,7 +412,7 @@ Page({
     });
   },
   // 提交回复
-  submitRely: function(e) {
+  submitRely: async function(e) {
     // 评论为空
     if (!/[^\s]+/.test(this.data.reply_content)) {
       this.setData({
@@ -426,15 +426,22 @@ Page({
     }
     var reply = this.data.reply_content;
     reply = "回复@" + this.data.replyCommentOwner + ":" + reply;
-    console.log(reply);
-    this.setData({
-      isReplying: false
-    });
-    // TODO: 在线更新该回复
-    this.showToast("回复提交", "");
-    this.setData({
-      reply_content: ""
-    });
+    const res = await server.request('POST', 'comments/' + this.data.taskID, {
+      type: 'task',
+      content: reply
+    })
+    if (res.statusCode == 200) {
+      this.showToast("回复成功", "")
+      this.setData({
+        reply_content: "",
+        isReplying:false
+      })
+      this.loadComments(1)
+    } else {
+      this.showToast("回复失败", "/images/icons/error.png")
+      console.log(res)
+      return
+    }
   },
   // 评论内容刷新
   replyInputChange: function(e) {

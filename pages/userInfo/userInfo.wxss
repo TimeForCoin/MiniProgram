@@ -209,7 +209,9 @@
 }
 
 .submit_btn {
-  margin: 40rpx auto 40rpx auto;
+  padding-top: 5rpx;
+  padding-bottom: 5rpx;
+  margin: 40rpx auto 120rpx auto;
   width: 60%;
 }
 

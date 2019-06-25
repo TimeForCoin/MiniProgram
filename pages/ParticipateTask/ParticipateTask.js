@@ -82,6 +82,7 @@ Page({
         }]
       }
     }
+    console.log(res.data.data)
     this.setData({
       testList: {
         data: [...this.data.testList.data, ...res.data.data],

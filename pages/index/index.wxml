@@ -2,9 +2,9 @@
 <view id="container">
   <view id="search_view" bindtap="navigateToResult">
     <image src="/images/icons/search.png" class="search_logo" />
-    <input name="search_input" class="input_title" placeholder="搜索 任务" maxlength='20' />
+    <input name="search_input" disabled = "{{true}}" class="input_title" placeholder="搜索 任务" maxlength='20' />
   </view>
-  <swiper class="top_image" indicator-dots="true" autoplay="true" interval="5000" duration="1000" indicator-color="white" indicator-active-color="#ff7e67" hidden="{{top_images.length === 0 ? true : false}}">
+  <swiper class="top_image" indicator-dots="true" autoplay="true" interval="5000" duration="1000" indicator-color="white" indicator-active-color="#ff7e67" hidden="{{top_images.length === 0 ? true : false}}" wx:if="{{showImg}}">
     <block wx:for="{{top_images}}" wx:key="index">
       <swiper-item>
         <image src="{{item.url}}" class="slide-image" mode="aspectFill" data-previewurl='{{top_images.url}}' data-currenturl='{{item}}' />

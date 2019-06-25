@@ -105,13 +105,13 @@ Page({
   onClickMoney: async function () {
     const res = await server.request('POST', 'users/pay')
     if (res.statusCode === 200) {
-      wx.showToast({ title: '充八万！' })
       await app.getUserInfo()
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: app.globalData.hasUserInfo,
         isEditInfo: false
       })
+      wx.showToast({ title: '共拿' + app.globalData.userInfo.data.money + '闲币'})
     }
   },
 

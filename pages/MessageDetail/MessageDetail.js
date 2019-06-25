@@ -44,19 +44,16 @@ Page({
     }
     var res = {}
     if(str === 'detail'){
-      console.log('detail')
       res = await server.request('GET', 'messages/user/' + id, {
         page: this.data.page,
         size: 10
       })
-      console.log(res.data)
     } else if(str === 'message'){
       res = await server.request('GET', 'messages/' + id, {
         page: this.data.page,
         size: 10
       })
     }
-    console.log(res.statusCode)
     if (res.statusCode == 200) {
       res.data = res.data.data
       this.setData({
@@ -71,6 +68,7 @@ Page({
           })
           this.data.page = this.data.page - 1
         }
+        return
       }
       // 记录会话ID
       this.data.session_id = res.data.id
@@ -100,7 +98,6 @@ Page({
         }
         this.data.testSample.data = taskRes.data
       }
-      console.log(res.data.messages)
       if(isMore){
         var arr = []
         res.data.messages = res.data.messages.reverse()
@@ -159,7 +156,6 @@ Page({
         });
       }
     } else if(str === 'detail'){
-      console.log('没有消息')
     }else {
       this.showToast("获取信息失败", "/images/icons/error.png")
       return {
@@ -186,8 +182,6 @@ Page({
       const res = await this.loadMessage(this.data.target_user_id, options.status, false)
     } else if(options.status == 'message'){
       this.data.status = 'message'
-      console.log('is message')
-      console.log(options.session_id)
       this.session_id = options.session_id
       const res = await this.loadMessage(options.session_id, options.status, false)
     }
@@ -238,7 +232,6 @@ Page({
   onMsgRefresh: function(){
     if (!this.data.isLoading && !this.data.noMore){
       this.data.page = this.data.page + 1
-      console.log('page' + this.data.page)
       this.loadMessage(this.data.session_id, this.data.status, true)
     }
   },

@@ -16,16 +16,32 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: async function (options) {
     if(options.feedback == 'true'){
       this.setData({holder: "请输入您的反馈"});
       this.setData({ isFeedback: true });
+      const res = await server.request('GET', 'tasks/' + options.id + '/player/me')
+      console.log(res.data.data.feedback)
+      if(res.statusCode === 200){
+        this.setData({
+          inputValue: res.data.data.feedback
+        })
+      } else{
+        wx.showToast({
+          title: '网络错误~',
+          image: '/images/icons/error.png'
+        })
+        setTimeout(function () {
+          // 返回
+          wx.navigateBack({})
+        }, 1000)
+        return
+      }
     } else{
       this.setData({holder: "请输入您的申请备注"});
       this.data.isFeedback = false;
       this.setData({ isFeedback: false });
     }
-    console.log(options.id);
     this.data.id = options.id;
   },
 
@@ -90,16 +106,23 @@ Page({
       return;
     }
     if(this.data.isFeedback){
-      wx.showToast({
-        title: '反馈成功',
-        success: function () {
-          setTimeout(function () {
-            // 返回
-            wx.navigateBack({})
-          }, 1000);
-        }
+      const res = await server.request('PUT', 'tasks/' + this.data.id + '/player/me',{
+        feedback: this.data.inputValue
       })
-      // TODO: 提交反馈信息
+      if(res.statusCode === 200){
+        wx.showToast({
+          title: '反馈成功',
+          success: function () {
+            setTimeout(function () {
+              // 返回
+              wx.navigateBack({})
+            }, 1000)
+          }
+        })
+      }else{
+        this.showToast("反馈失败", '/images/icons/error.png')
+      }
+      
     } else{
       const res = await server.request('POST', 'tasks/' + this.data.id + '/player', {
         note: this.data.inputValue

@@ -134,7 +134,7 @@
             <text class="subtitle" style="margin-top:10rpx; margin-left: 20rpx;">{{item.time}}</text>
             <view class="comment_type_view">
               <!--回复-->
-              <view bindtap="clickReply" style="display:flex; flex-direction: row;" data-item="{{item.id}}" data-owner="{{item.user_id.nickname}}">
+              <view bindtap="clickReply" style="display:flex; flex-direction: row;" data-item="{{item.id}}" data-owner="{{item.user.nickname}}">
                 <image src="/images/icons/comment_reply.png" style="width: 45rpx; height:45rpx; margin-top: 10rpx;" />
                 <text class="subtitle" style="margin-left: 10rpx; margin-top: 15rpx;">{{item.reply_count}}</text>
               </view>
