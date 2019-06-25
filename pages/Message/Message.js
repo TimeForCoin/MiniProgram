@@ -22,6 +22,9 @@ Page({
 
   loadMessage: async function() {
     const res = await server.request('GET', 'messages')
+    if(res.statusCode !== 200){
+      this.setData({hasUserInfo: false})
+    }
     for (let i in res.data.data) {
       res.data.data[i].string_last_time =
         moment(res.data.data[i].last_message.time * 1000).format('L');
