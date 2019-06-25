@@ -153,7 +153,7 @@
   border-top-right-radius:15rpx;
   position: absolute;
   background: linear-gradient(rgba(231, 231, 231, 0), 80%, rgba(255,255,255,1));
-  margin-top:210rpx;
+  margin-top:205rpx;
 }
 
 .payType{
@@ -181,6 +181,7 @@
 }
 
 .info_title{
+  margin-top: 10rpx;
   font-size: 32rpx;
   margin-left: 25rpx;
   margin-right: 25rpx;

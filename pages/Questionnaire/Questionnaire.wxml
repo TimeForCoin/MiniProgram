@@ -1,0 +1,41 @@
+<view vx:if="{{problems.length !== 0}}">
+  <view class='title-text'>{{questionnaire.title}}</view>
+  <view class='des-text'>{{questionnaire.description}}</view>
+  <view class='problem-view'>
+    <view class='problem-item' wx:for="{{problems}}" wx:key="{{index}}">
+      <view class='line'></view>
+      <view class='problem-content'>{{item.index}}. {{item.content}}</view>
+      <view class='problem-note'>{{item.note}}</view>
+      <view wx:if="{{item.type === 'choose'}}">
+        <view wx:if="{{item.choose_problem.max_choose == 1}}">
+          <radio-group style="margin-left:42rpx;" bindchange="onChangeRadio" data-index="{{index}}">
+            <radio class='radio-btn' wx:for="{{item.choose_problem.options}}" wx:key="{{index}}" value='{{index}}'>
+              {{item.content}}
+            </radio>
+          </radio-group>
+        </view>
+        <view wx:if="{{item.choose_problem.max_choose > 1}}">
+          <checkbox-group style="margin-left:42rpx;" bindchange="onChangeCheckbox" data-index="{{index}}">
+            <checkbox class='radio-btn' wx:for="{{item.choose_problem.options}}" wx:key="{{index}}" value='{{index}}' checked='{{item.checked}}'>
+              {{item.content}}
+            </checkbox>
+          </checkbox-group>
+          <text class='max-choose'>最多选{{item.choose_problem.max_choose}}项</text>
+        </view>
+      </view>
+      <view wx:if="{{item.type === 'fill'}}">
+        <input placeholder="输入你的回答" placeholder-class="input-placeholder" class='input-style' bindinput="onChangeInput" data-index="{{index}}"></input>
+      </view>
+      <view class='score-view' wx:if="{{item.type === 'score'}}">
+        <view>
+          <text class='score-left'>{{item.score_problem.min_text}}</text>
+          <text class='score-right'>{{item.score_problem.max_text}}</text>
+        </view>
+        <slider bindchange='onChangeScore' data-index="{{index}}" min="1" max="5" value="3"></slider>
+      </view>
+    </view>
+  </view>
+  <view>
+    <button bindtap='onSubmit' type='primary' class="submit-btn">提交问卷</button>
+  </view>
+</view>

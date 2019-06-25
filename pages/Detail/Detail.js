@@ -495,7 +495,12 @@ Page({
     }
   },
   joinin: async function(e) {
-    if (this.data.taskDetail.data.auto_accept) {
+    if (this.data.taskDetail.data.type === 'questionnaire') {
+      wx.navigateTo({
+        url: '/pages/Questionnaire/Questionnaire?&id=' + this.data.taskDetail.data.id,
+      })
+
+    } else if (this.data.taskDetail.data.auto_accept) {
       const res = await server.request('POST', 'tasks/' + this.data.taskID + '/player', {
         note: ''
       })

@@ -104,7 +104,10 @@
       </view>
       <text class="title content_list">{{taskDetail.data.content}}</text>
 
-      <button class='joininButton' bindtap='joinin' wx:if="{{taskDetail.data.status == 'wait' && !taskDetail.data.played}}">{{taskDetail.data.auto_accept ? '立即加入' : '申请加入'}}</button>
+      <view wx:if="{{taskDetail.data.status == 'wait' && !taskDetail.data.played}}">
+        <button class='joininButton' bindtap='joinin'>{{taskDetail.data.type === 'questionnaire' ? '填写问卷' : taskDetail.data.auto_accept ? '立即加入' : '申请加入'}}</button>
+      </view>
+
       <button class='joininButton' bindtap='exitTask' wx:if="{{taskDetail.data.status == 'wait' && taskDetail.data.played && give_up}}">放弃任务</button>
       <button class='joininButton' bindtap='closeTask' wx:if="{{taskDetail.data.status == 'wait' && isMine}}">{{closeBtnText}}</button>
     </view>

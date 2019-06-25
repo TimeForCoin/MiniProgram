@@ -1,0 +1,71 @@
+.title-text {
+  margin-top: 10%;
+  text-align: center;
+  font-size: 42rpx;
+  font-weight: bold;
+}
+
+.des-text {
+  margin: 56rpx;
+  color: #666;
+  font-size: 30rpx;
+}
+
+.problem-view {
+  margin: 48rpx
+}
+.problem-item {
+  margin: 36rpx auto;
+}
+
+.problem-content {
+  font-size: 38rpx;
+}
+
+.radio-btn {
+  margin-left: 42rpx;
+  font-size: 28rpx;
+  display: block;
+  margin: 20rpx auto;
+}
+
+.problem-note {
+  margin-left: 42rpx;
+  margin-top: 12rpx;
+  font-size: 28rpx;
+  color: #888;
+}
+
+.line {
+  height: 2rpx;
+  background: #eee;
+  margin: 32rpx auto;
+}
+
+.submit-btn {
+  margin: 48rpx;
+}
+
+.input-placeholder {
+  font-size: 32rpx;
+}
+.input-style {
+  margin: 28rpx 42rpx 0 42rpx;
+  font-size: 32rpx;
+}
+.score-view {
+  margin: 28rpx 42rpx 0 42rpx;
+  font-size: 28rpx;
+}
+.score-left {
+}
+.score-right {
+  float: right;
+
+}
+
+.max-choose {
+  margin-left: 42rpx;
+  font-size: 28rpx;
+  color: rgb(201, 73, 41);
+}

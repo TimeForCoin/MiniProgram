@@ -36,7 +36,7 @@
                 </view>
                 <view class="money_type">
                   <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'object'? '实物' : '闲币' }}</text>
-                  <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
+                  <text class="payType">{{item.type == 'run' ? '跑腿' : item.type == 'questionnaire'? '问卷' : '信息' }}</text>
                 </view>
               </view>
               <view class="band1" />
@@ -63,7 +63,7 @@
                 </view>
                 <view class="money_type">
                   <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'object'? '实物' : '闲币' }}</text>
-                  <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
+                  <text class="payType">{{item.type == 'run' ? '跑腿' : item.type == 'questionnaire'? '问卷' : '信息' }}</text>
                 </view>
               </view>
               <view class="band1" />
