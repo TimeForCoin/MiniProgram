@@ -40,8 +40,8 @@
         <view style="margin-top: 10rpx;">
           <image src="/images/icons/price.png" class="money_img" wx:if="{{item.reward != 'physical'}}" />
           <text classs="money_text">{{item.reward == 'physical' ? item.reward_object : item.reward_value}}</text>
-          <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'physical'? '实物' : '闲币' }}</text>
-          <text class="payType">{{item.type == 'run' ? '跑腿' : item.reward == 'questionnaire'? '问卷' : '信息' }}</text>
+          <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'object'? '实物' : '闲币' }}</text>
+          <text class="payType">{{item.type == 'run' ? '跑腿' : item.type == 'questionnaire'? '问卷' : '信息' }}</text>
           <text class="payType">{{item.status == 'draft' ? '草稿' : item.status == 'wait' ? '等待' : item.status == 'close' ? '关闭' : '完成' }}</text>
         </view>
         <text class="subtitle">{{item.content}}</text>

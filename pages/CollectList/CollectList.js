@@ -202,7 +202,6 @@ Page({
         value.content = value.content.substring(0, 12);
         value.content = value.content + "...";
       }
-      console.log(value.title);
       arr.push(value);
     }
     this.data.testList.data = arr;
@@ -246,14 +245,16 @@ Page({
   // 搜索前进行逻辑判断
   logicalJudge: function(){
     if (this.data.chosed_type == '所有'){
-      this.data.type = 'all';
+      this.data.type = 'all'
     } else if (this.data.chosed_type == '跑腿任务'){
-      this.data.type = 'run';
+      this.data.type = 'run'
     } else if (this.data.chosed_type == '问卷任务'){
-      this.data.type = 'questionnaire';
+      this.data.type = 'questionnaire'
     } else if (this.data.chosed_type == '信息任务') {
-      this.data.type = 'info';
-    } else{
+      this.data.type = 'info'
+    } else if (this.data.chosed_type == '问卷任务'){
+      this.data.type = 'questionnaire'
+    }else{
       this.data.type = 'all';
     }
 

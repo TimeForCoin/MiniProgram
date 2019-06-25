@@ -206,7 +206,7 @@ Page({
       this.data.status = 'finish'
     }else if (this.data.chosed_status == '已放弃') {
       this.data.status = 'give_up';
-    } else if (this.data.chosed_status == '已失败') {
+    } else if (this.data.chosed_status == '任务失败') {
       this.data.status = 'failure';
     } else {
       this.data.status = 'all';
