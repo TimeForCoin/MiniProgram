@@ -1,5 +1,5 @@
 <!--pages/userInfo/userInfo-->
-<view id="container">
+<scroll-view id="container" scroll-y="{{true}}">
   <view id="basic_info">
     <!--用户名以及基本信息-->
     <view id="name_info">
@@ -57,7 +57,7 @@
       <view class="band"></view>
     </view>
   </view>
-</view>
+</scroll-view>
 
 
 

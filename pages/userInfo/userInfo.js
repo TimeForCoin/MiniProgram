@@ -37,7 +37,12 @@ Page({
       name: "个人信息设置",
       url: "infoSettings",
       src: "user"
-    }],
+    }, {
+        id: 6,
+        name: "扫码登陆",
+        url: "infoSettings",
+        src: "user"
+      }],
     // ----用于修改信息---------
     isEditInfo: false,
     avatar: "",
@@ -329,11 +334,24 @@ Page({
     }
   },
 
+  scanCodeLogin: async function () {
+    wx.scanCode({
+      success: async (res) => {
+        const resLogin = await server.request('PUT', 'session/wechat', {
+          session: res.result
+        })
+        wx.showToast({
+          title: '扫码登陆成功',
+        })
+      }
+    })
+  },
+
 
   // 跳转
   navigate: function(e) {
-    console.log(e);
-    if (e.currentTarget.dataset.item == "5") {
+    const item = e.currentTarget.dataset.item
+    if (item == "5") {
       if(!this.data.hasUserInfo){
         wx.showToast({
           title: "您未登录~",
@@ -344,10 +362,12 @@ Page({
       this.setData({
         isEditInfo: true
       });
+    } else if (item == "6") {
+      this.scanCodeLogin()
     } else {
-      console.log(this.data.nav_a[e.currentTarget.dataset.item - 1]);
+      console.log(this.data.nav_a[item - 1]);
       wx.navigateTo({
-        url: this.data.nav_a[e.currentTarget.dataset.item - 1].url,
+        url: this.data.nav_a[item - 1].url,
       })
     }
   }
