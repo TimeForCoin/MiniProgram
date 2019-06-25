@@ -26,7 +26,7 @@ Page({
     status: "",
     page:1,
     session_id:"",
-    top_value: 0,
+    top_value: 100,
   },
 
   // isMore true 用于上拉刷新
@@ -149,19 +149,15 @@ Page({
             }
           }
         }
-        console.log(this.data.top_value)
         this.setData({
           sessionData: res.data,
           testMessageDetail: {
             data: arr
           },
           testSample: this.data.testSample,
+          top_value: 100 * arr.length,
         });
-        this.setData({
-          top_value: ((this.data.testMessageDetail.data.length * 1000).toString() + 'rpx')
-          })
       }
-      console.log(this.data.top_value)
     } else if(str === 'detail'){
       console.log('没有消息')
     }else {
@@ -239,7 +235,7 @@ Page({
   onPullDownRefresh: function() {
 
   },
-  onPullDownRefresh: function(){
+  onMsgRefresh: function(){
     if (!this.data.isLoading && !this.data.noMore){
       this.data.page = this.data.page + 1
       console.log('page' + this.data.page)
@@ -286,7 +282,7 @@ Page({
     }
   },
   // 提交回复
-  submitRely: async function(e) {
+  submitRely: async function (e) {
     // 消息为空
     if (!/[^\s]+/.test(this.data.reply_content)) {
       this.setData({

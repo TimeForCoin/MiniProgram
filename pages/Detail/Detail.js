@@ -47,7 +47,8 @@ Page({
     // 无法获取详情
     failToGetDetail: false,
     selectUser: {},
-    editPlayer: false
+    editPlayer: false,
+    closeBtnText: '关闭任务'
   },
   /**
    * 生命周期函数--监听页面加载
@@ -80,6 +81,22 @@ Page({
         L: "YYYY-MM-DD HH:mm"
       }
     })
+  },
+  closeTask: async function() {
+    const res = await server.request('PUT', 'tasks/'+this.data.taskID, {
+      status: this.data.closeBtnText === '完成任务' ? 'finish': 'close'
+    })
+    if (res.statusCode === 200) {
+      wx.showToast({
+        title: '关闭成功',
+      })
+      this.loadTaskData()
+    } else {
+      wx.showToast({
+        title: '关闭失败',
+        icon: 'none'
+      })
+    }
   },
 
   loadComments: async function(page) {
@@ -144,14 +161,20 @@ Page({
       page: 1,
       size: 10
     })
+    this.data.closeBtnText = '完成任务'
     for (let i in res_task.data.data) {
       if (res_task.data.data[i].player.id === app.globalData.userInfo.id) {
         this.data.give_up = res_task.data.data[i].status === 'wait' || res_task.data.data[i].status === 'running'
       }
+      if (res_task.data.data[i].status !== 'finish' && res_task.data.data[i].status !== 'failure' &&
+        res_task.data.data[i].status !== 'give_up') {
+        this.data.closeBtnText = '终止任务'
+      }
     }
     this.setData({
       player_list: res_task.data.data,
-      give_up: this.data.give_up
+      give_up: this.data.give_up,
+      closeBtnText: this.data.closeBtnText
     })
   },
 

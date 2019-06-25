@@ -19,7 +19,7 @@
     </view>
   </view>
   <!-- 消息列表 -->
-  <scroll-view id="dialog_list" scroll-y='true' scroll-top='{{top_value}}'>
+  <scroll-view bindscrolltoupper="onMsgRefresh" id="dialog_list" scroll-y="{{true}}" scroll-with-animation='{{true}}' scroll-top='{{top_value}}'>
     <!--单独一个对话-->
     <view class="loading_view" wx:if="{{isLoading}}">
       <image class="loading" src="/images/icons/loading.png"></image>
@@ -30,18 +30,17 @@
       <!--显示时间-->
       <text class="showTime" wx:if="{{item.showTime || sessionData.type === 'system' || sessionData.type === 'task'}}">{{item.string_time}}</text>
       <view wx:if="{{sessionData.type === 'chat'}}">
-        <view wx:if="{{!item.self}}" style="display:flex; flex-direction: row; padding: 20rpx 30rpx; margin-top: 20rpx;">
+        <view wx:if="{{!item.self}}" style="display:flex; flex-direction: row; padding: 10rpx 30rpx; margin-top: 20rpx;">
           <image class="ava" src="{{item.target_user.avatar}}" />
           <view class="details">
             <text class="username" style="text-align:left;">{{item.target_user.nickname}}</text>
-            <text class="content">{{item.content}}</text>
+            <text class="content" style="background-color:#ff7e67; color:white; opacity: 0.8;max-width:75%;">{{item.content}}</text>
           </view>
         </view>
-        <view wx:if="{{item.self}}" style="display:flex; flex-direction: row; padding: 20rpx 30rpx; margin-top: 20rpx;justify-content:flex-end;">
-          <view class="details" >
+        <view wx:if="{{item.self}}" style="display:flex; flex-direction: row; padding: 10rpx 30rpx; margin-top: 20rpx;justify-content:flex-end;">
+          <view class="details" style="align-items:flex-end;">
             <text class="username" style="text-align:right;">{{item.target_user.nickname}}</text>
-            <text class="content" wx:if="{{item.content.length < 15}}"style = "background-color:#ff7e67; color:white; opacity: 0.8">{{item.content}}</text>
-            <textarea auto-height class="content area" wx:if="{{item.content.length >= 15 }}" style = "background-color:#ff7e67; color:white; opacity: 0.8" value="{{item.content}}"/>
+            <text class="content" style="max-width:75%;">{{item.content}}</text>
           </view>
           <image class="ava" src="{{item.target_user.avatar}}" />
         </view>
@@ -58,8 +57,8 @@
   </scroll-view>
 </view>
 <!--发送信息-->
-<view wx:if="{{sessionData.type === 'chat' || status === 'detail'}}" class="mycomment comment_bottom" >
-  <textarea class="comment_input" bindinput='replyInputChange' value='{{reply_content}}' style="width: 70%;" cursor-spacing="40rpx"/>
+<view wx:if="{{sessionData.type === 'chat' || status === 'detail'}}" class="mycomment comment_bottom">
+  <textarea class="comment_input" bindinput='replyInputChange' value='{{reply_content}}' style="width: 70%;" cursor-spacing="40rpx" />
   <button class="commit_btn" bindtap='submitRely' cursor-spacing="40rpx">发送</button>
 </view>
 <view class="mask" catchtouchmove="preventTouchMove" bindtap="cancelReplying" wx:if="{{isReplying}}" />

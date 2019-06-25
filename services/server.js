@@ -6,13 +6,8 @@ module.exports = {
   request: (method, url, data) => {
     return new Promise((resolve, reject) => {
       if (sessionId == "") {
-        try {
-          sessionId = wx.getStorageSync("sessionId")
-        } catch (e) {
-          console.log(e)
-        }
+        sessionId = wx.getStorageSync("sessionId")
       }
-      console.log(sessionId)
 
       wx.request({
         method: method,
@@ -22,12 +17,10 @@ module.exports = {
         },
         data: data,
         success: res => {
-          console.log(res)
           if (res.cookies && res.cookies.length > 0) {
             sessionId = res.cookies[0].match(/time-for-coin=(\S*);/)[1]
             wx.setStorageSync("sessionId", sessionId)
           }
-          console.log(res.header['Set-Cookie'] )
           if (res.header['Set-Cookie'] && res.header['Set-Cookie'] !== "") {
             sessionId = res.header['Set-Cookie'].match(/time-for-coin=(\S*);/)[1]
             wx.setStorageSync("sessionId", sessionId)
@@ -35,7 +28,6 @@ module.exports = {
           resolve(res)
         },
         fail: err => {
-          console.log(err)
           reject(err)
         }
       })

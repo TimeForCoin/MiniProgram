@@ -89,17 +89,16 @@
       <view style="display:flex; flex-direction:column; margin-top: 10rpx" wx:if="{{player_list.length != 0}}">
         <text class="title" style="color: #ff7e67;">参与人员：</text>
         <view class="taskType">
-          <view wx:for="{{player_list}}" wx:key="item.player.id">
-            <view class="task_player" bindtap='onClickPlayer' data-index="{{index}}">
-              <image class="player_avatar" mode="aspectFill" src="{{item.player.avatar}}" />
-              <text class="player_name">{{item.player.nickname}}</text>
-              <text wx:if="{{item.status === 'running'}}" style='color:green;' class="taskBlock">进行中</text>
-              <text wx:if="{{item.status === 'wait'}}" style='color:yellow;' class="taskBlock">等待审核</text>
-              <text wx:if="{{item.status === 'refuse'}}" style='color:red;' class="taskBlock">拒绝加入</text>
-              <text wx:if="{{item.status === 'finish'}}" style='color:green;' class="taskBlock">已完成</text>
-              <text wx:if="{{item.status === 'give_up'}}" style='color:red;' class="taskBlock">已放弃</text>
-              <text wx:if="{{item.status === 'failure'}}" style='color:red;' class="taskBlock">任务失败</text>
-            </view>
+          <view wx:for="{{player_list}}" wx:key="item.player.id" class="task_player" bindtap='onClickPlayer' data-index="{{index}}">
+            <image class="player_avatar" mode="aspectFill" src="{{item.player.avatar}}" />
+            <text class="player_name">{{item.player.nickname}}</text>
+            <text wx:if="{{item.status === 'running'}}" style='color:green;' class="taskBlock">进行中</text>
+            <text wx:if="{{item.status === 'wait'}}" style='color:orange;' class="taskBlock">等待审核</text>
+            <text wx:if="{{item.status === 'refuse'}}" style='color:red;' class="taskBlock">拒绝加入</text>
+            <text wx:if="{{item.status === 'finish'}}" style='color:green;' class="taskBlock">已完成</text>
+            <text wx:if="{{item.status === 'give_up'}}" style='color:red;' class="taskBlock">已放弃</text>
+            <text wx:if="{{item.status === 'failure'}}" style='color:red;' class="taskBlock">任务失败</text>
+            <text wx:if="{{item.status === 'close'}}" style='color:red;' class="taskBlock">任务已关闭</text>
           </view>
         </view>
       </view>
@@ -107,6 +106,7 @@
 
       <button class='joininButton' bindtap='joinin' wx:if="{{taskDetail.data.status == 'wait' && !taskDetail.data.played}}">{{taskDetail.data.auto_accept ? '立即加入' : '申请加入'}}</button>
       <button class='joininButton' bindtap='exitTask' wx:if="{{taskDetail.data.status == 'wait' && taskDetail.data.played && give_up}}">放弃任务</button>
+      <button class='joininButton' bindtap='closeTask' wx:if="{{taskDetail.data.status == 'wait' && isMine}}">{{closeBtnText}}</button>
     </view>
   </view>
   <view class="band2" />
@@ -172,11 +172,11 @@
   <view class="float_button" style="bottom: 600rpx;" bindtap='clickMore'>
     <image src="/images/icons/more.png" class="btn_img" />
   </view>
-  
+
 
   <!--自己的留言-->
   <view class="mycomment comment_bottom" wx:if="{{isReplying}}">
-    <textarea class="comment_input" placeholder='输入你的回复吧~' bindinput='replyInputChange' value='{{reply_content}}' style="width: 70%;" cursor-spacing="40rpx"/>
+    <textarea class="comment_input" placeholder='输入你的回复吧~' bindinput='replyInputChange' value='{{reply_content}}' style="width: 70%;" cursor-spacing="40rpx" />
     <button class="commit_btn" bindtap='submitRely' cursor-spacing="40rpx">发送</button>
   </view>
   <view class="mask" catchtouchmove="preventTouchMove" bindtap="cancelReplying" wx:if="{{isReplying}}" />

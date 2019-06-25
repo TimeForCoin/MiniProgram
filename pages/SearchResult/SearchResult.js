@@ -16,7 +16,7 @@ Page({
     task_status: ['所有', '执行中', '已关闭', '已完成'],
     task_reward: ['所有', '闲钱币', '人民币', '实物'],
     chosed_type: "请选择",
-    chosed_status: "请选择",
+    chosed_status: "执行中",
     chosed_reward: "请选择",
     // 筛选条件
     key: "",
@@ -239,10 +239,10 @@ Page({
           }]
         }
       }
-      if(pullingGet){
+      if(this.data.pullingGet){
         this.setData({
           testList: {
-            data: (this.data.testList.data + res.data.tasks)
+            data: [...this.data.testList.data , ...res.data.tasks]
           },
           noMore: res.data.pagination.size * res.data.pagination.page >= res.data.pagination.total,
           isLoading: false
