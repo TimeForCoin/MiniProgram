@@ -345,7 +345,7 @@ Page({
         })
       }
     }
-    this.loadTasks(1)
+    this.loadTasks(1, this.data.draft ? 'draft' : 'all')
   },
   cancel_delete: function(e) {
     this.setData({

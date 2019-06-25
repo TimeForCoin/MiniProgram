@@ -13,7 +13,7 @@ Page({
     isFocus: false,
     // 供给选择器
     task_type:['所有', '跑腿任务', '问卷任务', '信息任务'],
-    task_status: ['所有', '执行中', '等待接受', '已关闭','已完成','已过期'],
+    task_status: ['所有', '进行中', '等待接受', '已关闭','已完成','已过期'],
     task_reward: ['所有','闲钱币','人民币','实物'],
     chosed_type: "请选择",
     chosed_status: "请选择",
@@ -72,15 +72,26 @@ Page({
     let errTitle = ''
     if (res.statusCode === 401) {
       errTitle = "您未登录~"
+      this.setData({
+        noMore: true,
+        isLoading: false
+      })
     } else if (res.statusCode != 200) {
       errTitle = "网络链接失败~"
+      this.setData({
+        noMore: true,
+        isLoading: false
+      })
     }
     if (errTitle === "") {
 
     } else {
       this.setData({
-        failToGetDetail: true
+        failToGetDetail: true,
+        noMore:true,
+         isLoading: true
       })
+
       wx.showToast({
         title: errTitle,
         image: '/images/icons/error.png'
@@ -91,6 +102,13 @@ Page({
 
         })
       }, 1000);
+    }
+    if(!res.data.tasks || res.data.tasks.length === 0){
+      this.setData({
+        isLoading: false,
+        noMore: true
+      })
+      return
     }
     for (let i in res.data.tasks) {
       if (res.data.tasks[i].images.length == 0) {
@@ -243,7 +261,7 @@ Page({
       this.data.status = 'all';
     } else if (this.data.chosed_status == '草稿') {
       this.data.status = 'draft';
-    } else if (this.data.chosed_status == '执行中') {
+    } else if (this.data.chosed_status == '进行中') {
       this.data.status = 'run';
     } else if (this.data.chosed_status == '等待接受') {
       this.data.status = 'wait';

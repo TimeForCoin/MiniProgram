@@ -2,7 +2,17 @@
 #container{
   display: flex;
   flex-direction: column;
+
 }
+
+.score-view {
+  margin: 10rpx 42rpx 0 42rpx;
+  font-size: 30rpx;
+}
+.score-right {
+  float: right;
+}
+
 .title{
   font-size: 40rpx;
   font-weight: bold;
@@ -22,4 +32,12 @@
   width: 85%;
   background-color: #ff7e67;
   color: #fff;
+}
+
+.score_class{
+  margin-left: auto;
+  margin-right: 40rpx;
+  font-size: 30rpx;
+  color: gray;
+  text-align: right;
 }

@@ -10,7 +10,7 @@ Page({
     taskID: ''
   },
   onLoad: async function(options) {
-    this.data.taskID = options.id
+    // this.data.taskID = options.id
     const res = await server.request('GET', 'questionnaires/' + this.data.taskID)
     const questionsRes = await server.request('GET', 'questionnaires/' + this.data.taskID + '/questions')
     this.setData({

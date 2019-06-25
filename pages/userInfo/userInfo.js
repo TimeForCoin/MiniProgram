@@ -41,7 +41,7 @@ Page({
         id: 6,
         name: "扫码登陆",
         url: "infoSettings",
-        src: "user"
+        src: "QR"
       }],
     // ----用于修改信息---------
     isEditInfo: false,

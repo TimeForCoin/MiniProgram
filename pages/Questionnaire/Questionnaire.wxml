@@ -31,11 +31,11 @@
           <text class='score-left'>{{item.score_problem.min_text}}</text>
           <text class='score-right'>{{item.score_problem.max_text}}</text>
         </view>
-        <slider bindchange='onChangeScore' data-index="{{index}}" min="1" max="5" value="3"></slider>
+        <slider bindchange='onChangeScore' data-index="{{index}}" min="1" max="5" value="3" backgroundColor='' activeColor='#ff7e67'></slider>
       </view>
     </view>
   </view>
   <view>
-    <button bindtap='onSubmit' type='primary' class="submit-btn">提交问卷</button>
+    <button bindtap='onSubmit' class="submit-btn">提交问卷</button>
   </view>
 </view>

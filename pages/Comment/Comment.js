@@ -11,12 +11,14 @@ Page({
     // 判断申请或者反馈
     isFeedback: false,
     id: "",
+    score:0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
+    options.feedback = 'true'
     if(options.feedback == 'true'){
       this.setData({holder: "请输入您的反馈"});
       this.setData({ isFeedback: true });
@@ -24,7 +26,8 @@ Page({
       console.log(res.data.data.feedback)
       if(res.statusCode === 200){
         this.setData({
-          inputValue: res.data.data.feedback
+          inputValue: res.data.data.feedback,
+          score: res.data.data.score
         })
       } else{
         wx.showToast({
@@ -93,6 +96,12 @@ Page({
   onShareAppMessage: function () {
 
   },
+  // 评分
+  onChangeScore: function (e) {
+    this.setData({
+      score: e.detail.value
+    })
+  },
   inputProcess: function(e){
     this.setData({inputValue: e.detail.value});
   },
@@ -107,7 +116,8 @@ Page({
     }
     if(this.data.isFeedback){
       const res = await server.request('PUT', 'tasks/' + this.data.id + '/player/me',{
-        feedback: this.data.inputValue
+        feedback: this.data.inputValue,
+        score: this.data.score
       })
       if(res.statusCode === 200){
         wx.showToast({

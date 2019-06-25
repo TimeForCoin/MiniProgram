@@ -14,7 +14,7 @@
 #basic_info {
   display: flex;
   width: 100%;
-  height: 380rpx;
+  height: 280rpx;
   justify-content: center;
   align-items: cneter;
   /*营造头像发光效果*/
@@ -97,7 +97,7 @@
 
 .band {
   width: 100%;
-  height: 50rpx;
+  height: 30rpx;
   background: rgb(243, 243, 243);
 }
 

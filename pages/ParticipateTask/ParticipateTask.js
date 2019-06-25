@@ -54,14 +54,24 @@ Page({
     let errTitle = ''
     if (res.statusCode === 401) {
       errTitle = "您未登录~"
+      this.setData({
+        noMore: true,
+        isLoading: false
+      })
     } else if (res.statusCode != 200) {
       errTitle = "网络链接失败~"
+      this.setData({
+        noMore: true,
+        isLoading: false
+      })
     }
     if (errTitle === "") {
 
     } else {
       this.setData({
-        failToGetDetail: true
+        failToGetDetail: true,
+        noMore: true,
+        isLoading: false
       })
       wx.showToast({
         title: errTitle,
@@ -74,15 +84,22 @@ Page({
         })
       }, 1000);
     }
-    for (let i in res.data.tasks) {
-      if (res.data.tasks[i].images.length == 0) {
-        res.data.tasks[i].images = [{
+    console.log(res.data.data)
+    if (!res.data.data){
+      this.setData({
+        noMore: true,
+        isLoading: false
+      })
+      return
+    }
+    for (let i in res.data.data) {
+      if (res.data.data[i].task.images.length == 0) {
+        res.data.data[i].task.images = [{
           id: 0,
           url: '/images/icon.png'
         }]
       }
     }
-    console.log(res.data.data)
     this.setData({
       testList: {
         data: [...this.data.testList.data, ...res.data.data],
@@ -130,7 +147,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    if(!this.data.noMore){
+      this.loadTasks(null)
+    }
   },
 
   /**
