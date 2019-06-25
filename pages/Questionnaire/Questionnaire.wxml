@@ -9,14 +9,14 @@
       <view wx:if="{{item.type === 'choose'}}">
         <view wx:if="{{item.choose_problem.max_choose == 1}}">
           <radio-group style="margin-left:42rpx;" bindchange="onChangeRadio" data-index="{{index}}">
-            <radio class='radio-btn' wx:for="{{item.choose_problem.options}}" wx:key="{{index}}" value='{{index}}'>
+            <radio class='radio-btn' wx:for="{{item.choose_problem.options}}" wx:key="{{index}}" value='{{index}}' color="#ff7e67">
               {{item.content}}
             </radio>
           </radio-group>
         </view>
         <view wx:if="{{item.choose_problem.max_choose > 1}}">
           <checkbox-group style="margin-left:42rpx;" bindchange="onChangeCheckbox" data-index="{{index}}">
-            <checkbox class='radio-btn' wx:for="{{item.choose_problem.options}}" wx:key="{{index}}" value='{{index}}' checked='{{item.checked}}'>
+            <checkbox class='radio-btn' wx:for="{{item.choose_problem.options}}" wx:key="{{index}}" value='{{index}}' checked='{{item.checked}}' color="#ff7e67">
               {{item.content}}
             </checkbox>
           </checkbox-group>
