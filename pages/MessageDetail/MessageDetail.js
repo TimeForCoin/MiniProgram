@@ -354,6 +354,6 @@ Page({
       //   // this.data.testMessageDetail.data.push(res.data.data.)
       // }
     }
-    setTimeout(this.autoLoadMessage, 1000)
+    setTimeout(this.autoLoadMessage, 5000)
   }
 })

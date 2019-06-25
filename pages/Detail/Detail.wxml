@@ -119,7 +119,7 @@
     </view>
     <view class="band1" />
     <!--自己的留言-->
-    <view class="mycomment">
+    <view class="mycomment" cursor-spacing="40rpx">
       <textarea class="comment_input" placeholder='输入你的评论吧~' bindinput='commentInputChange' value='{{comment_content}}' style="width: 75%;" />
       <button class="commit_btn" bindtap='submitComment'>发送</button>
     </view>
@@ -158,7 +158,7 @@
   </view>
 
   <!--发消息-->
-  <view class="float_button" style='bottom: {{showButtons ? 300 : 500}}rpx;' wx:if="{{taskDetail.data.played}}" bindtap='clickConversation'>
+  <view class="float_button" style='bottom: {{showButtons ? 300 : 500}}rpx;' wx:if="{{taskDetail.data.played && !isMine}}" bindtap='clickConversation'>
     <image src="/images/icons/conversation.png" class="btn_img" />
   </view>
   <!--收藏-->
