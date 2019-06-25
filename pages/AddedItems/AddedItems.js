@@ -45,7 +45,7 @@ Page({
    */
   onLoad: function(options) {
     // 减少标题内容字数
-    this.reduce()
+   
     this.data.draft = options.status === 'draft' ? true : false
     this.loadTasks(1, options.status === 'draft' ? 'draft': '')
   },
@@ -87,7 +87,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    if(!this.data.noMore){
+      this.loadTasks(null, 'draft')
+    }
   },
 
   /**
@@ -157,6 +159,7 @@ Page({
       noMore: this.data.currentPage * this.data.pageSize >= res.data.pagination.total,
       isLoading: false,
     })
+    this.reduce()
   },
 
   sort_type0: function(e) {
@@ -182,7 +185,7 @@ Page({
     // TODO: 获取最新任务
   },
   // 缩减字数
-  reduce: function() {
+  reduce: async function() {
     var arr = [];
     for (var value of this.data.testList.data) {
       if (value.title.length >= 10) {
@@ -193,7 +196,6 @@ Page({
         value.content = value.content.substring(0, 12);
         value.content = value.content + "...";
       }
-      console.log(value.title);
       arr.push(value);
     }
     this.data.testList.data = arr;
@@ -205,7 +207,6 @@ Page({
   navigateToDetail: function(e) {
     this.cleaning();
     if (this.data.draft){
-      console.log('jump to edit')
       app.globalData.status = 'draft'
       app.globalData.taskID = e.currentTarget.dataset.id
       wx.switchTab({
@@ -301,10 +302,6 @@ Page({
       this.data.reward = 'all';
     }
 
-    console.log(this.data.type);
-    console.log(this.data.status);
-    console.log(this.data.reward);
-
   },
   // 删除或者置顶
   top_delete: function(e) {
@@ -348,7 +345,7 @@ Page({
         })
       }
     }
-    this.loadTasks(1, this.data.deleteType)
+    this.loadTasks(1)
   },
   cancel_delete: function(e) {
     this.setData({

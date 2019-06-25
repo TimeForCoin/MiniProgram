@@ -4,7 +4,7 @@
     <view id = "search_view">
       <image src = "/images/icons/search.png" class = "search_logo" />
       <input name="search_input" class="input_title" placeholder="搜索 任务" maxlength='20' focus = "true" bindinput='typing' value = "{{typing_content}}" bindconfirm = 'searchResult'/>
-      <image src = "/images/icons/empty.png" class = "search_logo" wx:if = "{{isFocus}}" bindtap='cleaning'/>
+      <image src = "/images/icons/empty.png" class = "search_logo" wx:if = "{{isFocus}}" catchtap='cleaning'/>
     </view>
     <!--任务类型选择器-->
     <view class = "picker_field">

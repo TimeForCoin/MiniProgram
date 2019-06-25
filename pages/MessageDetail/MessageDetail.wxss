@@ -32,6 +32,7 @@
 .title_content {
   display: flex;
   flex-direction: column;
+  text-align: center;
   margin-left: 30rpx;
 }
 
@@ -65,7 +66,7 @@
 #dialog_list {
   margin-top: 20rpx;
   display: flex;
-  margin-bottom: 160rpx;
+  margin-bottom: 180rpx;
   flex-direction: column;
   overflow: auto;
   height:100%;
@@ -85,8 +86,8 @@
 }
 
 .ava {
-  height: 100rpx;
-  width: 100rpx;
+  height: 80rpx;
+  width: 80rpx;
   border-radius: 20rpx;
   margin-top: 15rpx;
 }
@@ -94,7 +95,8 @@
 .details {
   display: flex;
   flex-direction: column;
-  margin-left: 20rpx;
+  margin-left: 0rpx;
+  max-width: 70%
 
 }
 
@@ -195,7 +197,7 @@
   z-index: 9999;
   padding-left: 20rpx;
   padding-right: 30rpx;
-  padding-top: 40rpx;
+  padding-top: 20rpx;
   padding-bottom: 40rpx;
 }
 

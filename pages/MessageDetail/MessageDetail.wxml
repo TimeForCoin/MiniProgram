@@ -30,17 +30,17 @@
       <!--显示时间-->
       <text class="showTime" wx:if="{{item.showTime || sessionData.type === 'system' || sessionData.type === 'task'}}">{{item.string_time}}</text>
       <view wx:if="{{sessionData.type === 'chat'}}">
-        <view wx:if="{{!item.self}}" style="display:flex; flex-direction: row; padding: 10rpx 30rpx; margin-top: 20rpx;">
+        <view wx:if="{{!item.self}}" style="display:flex; flex-direction: row; padding: 10rpx 30rpx; margin-top: 20rpx; width: 100%">
           <image class="ava" src="{{item.target_user.avatar}}" />
           <view class="details">
             <text class="username" style="text-align:left;">{{item.target_user.nickname}}</text>
-            <text class="content" style="background-color:#ff7e67; color:white; opacity: 0.8;max-width:75%;">{{item.content}}</text>
+            <text class="content" style=" opacity: 0.8;max-width:70%;">{{item.content}}</text>
           </view>
         </view>
         <view wx:if="{{item.self}}" style="display:flex; flex-direction: row; padding: 10rpx 30rpx; margin-top: 20rpx;justify-content:flex-end;">
           <view class="details" style="align-items:flex-end;">
             <text class="username" style="text-align:right;">{{item.target_user.nickname}}</text>
-            <text class="content" style="max-width:75%;">{{item.content}}</text>
+            <text class="content" style="background-color:#ff7e67; color:white;">{{item.content}}</text>
           </view>
           <image class="ava" src="{{item.target_user.avatar}}" />
         </view>
