@@ -135,8 +135,9 @@ Page({
       addedImages: res.data.images,
       auto_accept: res.data.auto_accept,
     })
-
-    console.log(this.data.addedImages)
+    this.data.id = res.data.id
+    console.log(this.data.id)
+    
     if (this.data.auto_accept === true) {
       this.setData({
         auto_in: [{
@@ -161,21 +162,25 @@ Page({
       })
     }
 
-    for (var val of this.data.location) {
-      this.data.location_input = this.data.location_input + val + ','
-    }
+    if(this.data.location != null){
+      for (var val of this.data.location) {
+        this.data.location_input = this.data.location_input + val + ','
+      }
 
-    for (var val of this.data.tags) {
-      this.data.tags_input = this.data.tags_input + val + ','
     }
-
+    this.data.tags_input = ""
+    if(this.data.tags != null){
+      for (var val of this.data.tags) {
+        this.data.tags_input = this.data.tags_input + val + ','
+      }
+    }
     if (this.reward === 'object') {
       this.data.reward_input = this.data.reward_object
     } else {
       this.data.reward_input = this.data.reward_value
     }
 
-
+    
     this.setData({
       location_input: this.data.location_input,
       tags_input: this.data.tags_input,
@@ -247,49 +252,42 @@ Page({
   /*修改标题*/
   titleChange: function(e) {
     this.data.title = e.detail.value;
-    console.log("title:" + this.data.title);
   },
 
   describeChange: function(e) {
-    this.data.describe = e.detail.value;
-    console.log("describe:" + this.data.describe);
+    this.data.describe = e.detail.value
   },
 
   /*修改任务分类*/
   chooseRun: function(e) {
     this.setData({
       type: "run"
-    });
-    console.log("选择跑腿");
+    })
   },
 
   chooseInfo: function(e) {
     this.setData({
       type: "info"
-    });
-    console.log("选择信息");
+    })
   },
 
   /*修改酬劳分类*/
   chooseMoney: function(e) {
     this.setData({
       reward: "money"
-    });
-    console.log("选择money");
+    })
   },
 
   chooseRmb: function(e) {
     this.setData({
       reward: "rmb"
-    });
-    console.log("选择rmb");
+    })
   },
 
   chooseObject: function(e) {
     this.setData({
       reward: "object"
-    });
-    console.log("选择object");
+    })
   },
 
   priceChange: function(e) {
@@ -301,8 +299,6 @@ Page({
     if (isNaN(this.data.reward_value)){
       this.data.reward_value = -1
     }
-    console.log("reward_value:" + this.data.reward_value);
-    console.log("reward_object:" + this.data.reward_object);
   },
 
   splitData: function(str) {
@@ -319,9 +315,7 @@ Page({
     this.data.location = this.splitData(e.detail.value);
     this.setData({
       location_input: e.detail.value
-    });
-    console.log("number of logs:" + this.data.location.length);
-    console.log("location: " + this.data.location);
+    })
   },
 
   max_playerChange: function(e) {
@@ -332,16 +326,13 @@ Page({
     if (isNaN(this.data.max_player)) {
       this.data.max_player = -1
     }
-    console.log("max_player:" + this.data.max_player);
   },
 
   tagsChange: function(e) {
-    this.data.tags = this.splitData(e.detail.value);
-    console.log("number of logs:" + this.data.tags.length);
+    this.data.tags = this.splitData(e.detail.value)
     this.setData({
       tags_input: e.detail.value
-    });
-    console.log("tags:" + this.data.tags);
+    })
   },
 
   changeBeginDate(e) {
@@ -374,8 +365,7 @@ Page({
   /*修改是否自动同意*/
   auto_inChange: function(e) {
     if (e.detail.value == '是') this.data.auto_accept = true;
-    else this.data.auto_accept = false;
-    console.log("是否同意加入" + this.data.auto_accept);
+    else this.data.auto_accept = false
   },
   judgeValid: function(e) {
     // 空判断
@@ -400,7 +390,6 @@ Page({
     }
 
     if (this.data.max_player <= 0) {
-      console.log("renshu" + this.data.max_player);
       this.setData({
         isErr: true
       });
@@ -480,7 +469,6 @@ Page({
       "publish": flag,
       "images": imagesId
     }
-    console.log(this.data.file);
   },
   /*提交*/
   formSubmit: function(e) {
@@ -504,8 +492,9 @@ Page({
     }
     try {
       const res = await server.request(this.data.draft ? 'PUT' : 'POST', 'tasks' + (this.data.draft ? ('/' + this.data.taskID) : ''), this.data.file)
-      console.log(res)
       if (res.statusCode === 200) {
+        id = this.data.id
+        draft = this.data.draft
         if (!isPublish) {
           this.setData({
             isSave: true
@@ -516,7 +505,7 @@ Page({
           });
           setTimeout(function(){
             wx.navigateTo({
-              url: '/pages/Detail/Detail?id=' + res.data.id + '&isMine=' + 'true',
+              url: '/pages/Detail/Detail?id=' + (draft ? id : res.data.id) + '&isMine=' + 'true',
             })
           }, 1000)
         }
@@ -644,9 +633,7 @@ Page({
         } else {
           try {
             const resImage = await server.uploadFile(value, 'image')
-            console.log(resImage)
             const resData = JSON.parse(resImage.data)
-            console.log(resData)
             this.data.addedImages.push({
               id: resData.id,
               url: value
@@ -656,7 +643,6 @@ Page({
               title: '上传失败',
               image: '/images/icons/error.png'
             })
-            console.log(err)
           }
           wx.hideLoading()
         }
@@ -664,7 +650,6 @@ Page({
       this.setData({
         addedImages: this.data.addedImages
       })
-      console.log(this.data.addedImages)
     } catch (err) {
       console.log(err)
     }
@@ -682,7 +667,6 @@ Page({
   confirm_delete: async function(e) {
     const id = this.data.delete_id
     if (id == -1) return
-    console.log(id)
     const imageId = this.data.addedImages[id].id
     try {
       await server.request('DELETE', 'file/' + imageId)

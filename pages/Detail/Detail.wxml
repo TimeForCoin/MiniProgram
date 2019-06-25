@@ -37,7 +37,7 @@
       </view>
     </view>
     <view class="band1" />
-    <view style="font-weight: bold; font-size: 40rpx;margin:26rpx auto;">{{taskDetail.data.title}}</view>
+    <textarea style="font-weight: bold; font-size: 40rpx;margin:26rpx auto; height:{{taskDetail.data.titleHeight}}rpx" value = "{{taskDetail.data.title}}" ></textarea>
     <!--滚动显示图片-->
     <swiper class="imgs" indicator-dots="{{taskDetail.data.images.length <= 1 ? false : true}}" autoplay="true" interval="5000" duration="1000" indicator-color="white" indicator-active-color="#ff7e67" hidden="{{taskDetail.data.images.length === 0 ? true : false}}">
       <block wx:for="{{taskDetail.data.images}}" wx:key="id">

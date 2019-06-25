@@ -145,6 +145,7 @@ Page({
         })
       }, 1000);
     } else {
+      res.data.titleHeight = (res.data.title.length / 40) > 1 ? (res.data.title.length / 40 * 90) : 90
       this.setData({
         taskDetail: {
           data: res.data

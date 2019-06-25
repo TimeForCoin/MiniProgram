@@ -10,7 +10,7 @@ Page({
     btn_state1: false,
     // 搜索内容
     typing_content: "",
-    isFocus: true,
+    isFocus: false,
     // 供给选择器
     task_type: ['所有', '跑腿任务', '问卷任务', '信息任务'],
     task_status: ['所有', '执行中', '已关闭', '已完成'],
@@ -33,7 +33,6 @@ Page({
     },
     currentPage: 1,
     pageSize: 10,
-    pullingGet: false
   },
 
   /**
@@ -81,9 +80,10 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: async function() {
-    this.data.currentPage = this.data.currentPage + 1
-    this.pullingGet = true
-    this.loadingTasks()
+    if(!this.data.noMore){
+      this.data.currentPage = this.data.currentPage + 1
+      this.loadingTasks()
+    }
   },
 
   /**
@@ -147,15 +147,15 @@ Page({
   },
   // 用户点击回车键进行搜索
   searchResult: function(e) {
-    this.cleaning();
     this.logicalJudge()
   },
   cleaning: function(e) {
     this.setData({
-      key: this.data.typing_content,
+      key: "",
+      typing_content: "",
       isFocus: false
     })
-    this.logicalJudge()
+    // this.logicalJudge()
   },
   change_type: function(e) {
     this.setData({
@@ -212,7 +212,12 @@ Page({
     } else {
       this.data.reward = ''
     }
-
+    this.data.currentPage = 1
+    this.setData({
+      testList:{
+        data:[]
+      }
+    })
     this.loadingTasks()
 
   },
@@ -239,23 +244,14 @@ Page({
           }]
         }
       }
-      if(this.data.pullingGet){
-        this.setData({
-          testList: {
-            data: [...this.data.testList.data , ...res.data.tasks]
-          },
-          noMore: res.data.pagination.size * res.data.pagination.page >= res.data.pagination.total,
-          isLoading: false
-        })
-      } else{
-        this.setData({
-          testList: {
-            data: res.data.tasks
-          },
-          noMore: res.data.pagination.size * res.data.pagination.page >= res.data.pagination.total,
-          isLoading: false
-        })
-      }
+      this.setData({
+        testList: {
+          data: [...this.data.testList.data, ...res.data.tasks]
+        },
+        noMore: res.data.pagination.size * res.data.pagination.page >= res.data.pagination.total,
+        isLoading: false
+      })
+      console.log(this.data.testList.data)
       
     } else {
       wx.showToast({
