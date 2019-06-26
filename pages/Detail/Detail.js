@@ -310,11 +310,27 @@ Page({
   // 是否喜欢
   clickLove: async function(e) {
     if (this.data.isLove == true) {
-      const result = await server.request('DELETE', 'tasks/' + this.data.taskID + '/like')
+      const res = await server.request('DELETE', 'tasks/' + this.data.taskID + '/like')
       // 取消点赞失败
-      if (result.statusCode != 200) {
+      if (res.statusCode != 200) {
+        var content = '取消点赞失败'
+        // not_allow_status - 此状态不允许点赞
+        // faked_task - 任务不存在
+        if (res.data.message === 'not_allow_status') {
+          content = '此状态不允许点赞'
+        } else if (res.data.message === 'faked_like') {
+          content = '还没点赞'
+        } else if (res.data.message === 'faked_task'){
+          content = '任务不存在'
+        } else if (res.data.message === 'not_exist' || res.data.message === 'faked_collect') {
+          this.setData({
+            isLove: false,
+            taskDetail: this.data.taskDetail
+          })
+          return
+        }
         wx.showToast({
-          title: '取消点赞失败',
+          title: content,
           image: '/images/icons/error.png'
         })
       } else {
@@ -325,11 +341,26 @@ Page({
           });
       }
     } else {
-      const result = await server.request('POST', 'tasks/' + this.data.taskID + '/like')
+      const res = await server.request('POST', 'tasks/' + this.data.taskID + '/like')
       // 点赞失败
-      if (result.statusCode != 200) {
+      if (res.statusCode != 200) {
+        var content = '点赞失败'
+        // not_allow_status - 此状态不允许点赞
+        // faked_task - 任务不存在
+        // exist_like  - 任务已经点赞，不能重复点赞
+        if (res.data.message === 'not_allow_status') {
+          content = '此状态不允许点赞'
+        } else if (res.data.message === 'faked_task') {
+          content = '任务不存在'
+        } else if (res.data.message === 'exist_like') {
+          this.setData({
+            isLove: true,
+            taskDetail: this.data.taskDetail
+          })
+          return
+        }
         wx.showToast({
-          title: '点赞失败',
+          title: content,
           image: '/images/icons/error.png'
         })
       } else {
@@ -344,11 +375,25 @@ Page({
   // 是否收藏
   clickCollect: async function(e) {
     if (this.data.isCollected == true) {
-      const result = await server.request('DELETE', 'tasks/' + this.data.taskID + '/collect')
+      const res = await server.request('DELETE', 'tasks/' + this.data.taskID + '/collect')
       // 取消收藏失败
-      if (result.statusCode != 200) {
+      if (res.statusCode != 200) {
+        var content = '取消收藏失败'
+        // not_allow_status - 此状态不允许收藏
+        // faked_task - 任务不存在
+        if (res.data.message === 'not_allow_status'){
+          content = '此状态不允许收藏'
+        } else if (res.data.message === 'faked_task'){
+          content = '任务不存在'
+        } else if (res.data.message === 'not_exist' || res.data.message === 'faked_collect') {
+          this.setData({
+            isCollected: false,
+            taskDetail: this.data.taskDetail
+          })
+          return
+        }
         wx.showToast({
-          title: '取消收藏失败',
+          title: content,
           image: '/images/icons/error.png'
         })
       } else {
@@ -359,11 +404,27 @@ Page({
           });
       }
     } else {
-      const result = await server.request('POST', 'tasks/' + this.data.taskID + '/collect')
+      const res = await server.request('POST', 'tasks/' + this.data.taskID + '/collect')
       // 收藏失败
-      if (result.statusCode != 200) {
+      if (res.statusCode != 200) {
+        var content = '收藏失败'
+        console.log(res.data)
+        // not_allow_status - 此状态不允许收藏
+        // faked_task - 任务不存在
+        // exist_task - 任务已经收藏，不能重复收藏
+        if (res.data.message === 'not_allow_status'){
+          content = '此状态不允许收藏'
+        } else if (res.data.message ==='faked_task'){
+          content = '任务不存在'
+        } else if (res.data.message === 'exist_collect'){
+          this.setData({
+              isCollected: true,
+              taskDetail: this.data.taskDetail
+          })
+          return
+        }
         wx.showToast({
-          title: '收藏失败',
+          title: content,
           image: '/images/icons/error.png'
         })
       } else {
@@ -382,14 +443,14 @@ Page({
     const liked = e.currentTarget.dataset.liked;
 
     if (liked) {
-      const result = await server.request('DELETE', 'comments/' + id + '/like')
-      if (result.statusCode != 200) {
+      const res = await server.request('DELETE', 'comments/' + id + '/like')
+      if (res.statusCode != 200) {
         this.showToast('点赞失败', '/images/icons/error.png')
         return
       }
     } else {
-      const result = await server.request('POST', 'comments/' + id + '/like')
-      if (result.statusCode != 200) {
+      const res = await server.request('POST', 'comments/' + id + '/like')
+      if (res.statusCode != 200) {
         this.showToast('取消点赞失败', '/images/icons/error.png')
         return
       }
@@ -467,11 +528,11 @@ Page({
       this.loadComments(1)
     } else {
       var content = '回复失败'
-      if (res.data === 'content_too_long') {
+      if (res.data.message === 'content_too_long') {
         content = '回复内容超过了128个字符'
-      } else if (res.data === 'now_allow_status') {
+      } else if (res.data.message === 'now_allow_status') {
         content = '该任务暂时还不能被评论'
-      } else if (res.data === 'faked_content') {
+      } else if (res.data.message === 'faked_content') {
         content = '被评论内容不存在'
       }
       this.showToast(content, "/images/icons/error.png")
@@ -513,11 +574,11 @@ Page({
       // now_allow_status - 该任务暂时还不能被评论
       // content_too_long - 被评论内容超过了128个字符
       var content = '评论失败'
-      if (res.data === 'content_too_long'){
+      if (res.data.message === 'content_too_long'){
         content = '被评论内容超过了128个字符'
-      } else if (res.data === 'now_allow_status'){
+      } else if (res.data.message === 'now_allow_status'){
         content = '该任务暂时还不能被评论'
-      } else if (res.data === 'faked_content'){
+      } else if (res.data.message === 'faked_content'){
         content = '被评论内容不存在'
       }
       this.showToast(content, "/images/icons/error.png")
@@ -551,13 +612,13 @@ Page({
       })
       if (res.statusCode !== 200) {
         var content = '加入失败'
-        if (res.data === 'not_allow_status'){
+        if (res.data.message === 'not_allow_status'){
           content = '任务还没发布'
-        } else if (res.data === 'faked_task'){
+        } else if (res.data.message === 'faked_task'){
           content = '任务不存在'
-        } else if(res.data === 'exist_player'){
+        } else if(res.data.message === 'exist_player'){
           content = '您已经参加任务'
-        } else if(res.data === 'max_player'){
+        } else if(res.data.message === 'max_player'){
           content = '参加人数到上限'
         }
         this.showToast(content, '/images/icons/error.png')
@@ -607,9 +668,9 @@ Page({
       // permission_deny - 权限不足
       // not_exist - 评论不存在
       var content = '删除失败'
-      if (res.data === 'permission_deny'){
+      if (res.data.message === 'permission_deny'){
         content = '权限不足'
-      } else if (res.data === 'not_exist'){
+      } else if (res.data.message === 'not_exist'){
         content = '评论不存在'
       }
 

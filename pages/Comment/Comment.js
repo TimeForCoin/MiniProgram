@@ -134,15 +134,15 @@ Page({
         // faked_task - 任务不存在
         // faked_user - 用户不存在
         // not_allow_status - 该状态下不允许修改
-        if (res.data === 'not_allow_status'){
+        if (res.data.message ==='not_allow_status'){
           content = '任务还没发布'
-        } else if (res.data === 'permission_deny'){
+        } else if (res.data.message ==='permission_deny'){
           content = '权限不足'
-        } else if (res.data === 'faked_task') {
+        } else if (res.data.message ==='faked_task') {
           content = '任务不存在'
-        } else if (res.data === 'faked_user') {
+        } else if (res.data.message ==='faked_user') {
           content = '用户不存在'
-        } else if (res.data === 'not_allow_status') {
+        } else if (res.data.message ==='not_allow_status') {
           content = '该状态下不允许修改'
         }
         this.showToast(content, '/images/icons/error.png')
@@ -154,13 +154,13 @@ Page({
       })
       if (res.statusCode !== 200) {
         var content = '加入失败'
-        if (res.data === 'not_allow_status') {
+        if (res.data.message ==='not_allow_status') {
           content = '任务还没发布'
-        } else if (res.data === 'faked_task') {
+        } else if (res.data.message ==='faked_task') {
           content = '任务不存在'
-        } else if (res.data === 'exist_player') {
+        } else if (res.data.message ==='exist_player') {
           content = '您已经参加任务'
-        } else if (res.data === 'max_player') {
+        } else if (res.data.message ==='max_player') {
           content = '参加人数到上限'
         }
         this.showToast(content, '/images/icons/error.png')
