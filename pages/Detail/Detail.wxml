@@ -135,9 +135,13 @@
           <text class="subtitle" style=" margin-left:10rpx; margin-top: 25rpx;">{{item.user.nickname}}</text>
           <view style="display:flex; flex-direction:row; margin-left: auto; align-items:flex-end; length: 100%;">
             <text class="subtitle" style="margin-top:10rpx; margin-left: 20rpx; margin-right: 20rpx;">{{item.time}}</text>
-            <view class="comment_type_view">
+            <view class="comment_type_view" wx:if = '{{!item.is_delete}}'>
+              <!--删除-->
+              <view bindtap="clickDelete" style="display:flex; flex-direction: row; margin-right: 30rpx;" data-item="{{item.id}}">
+                <image src="/images/icons/delete_comment.png" style="width: 45rpx; height:45rpx; margin-top: 10rpx;" />
+              </view>
               <!--回复-->
-              <view bindtap="clickReply" style="display:{{item.isReply ? 'none' : 'flex'}}; flex-direction: row; margin-right: 40rpx;" data-item="{{item.id}}">
+              <view bindtap="clickReply" style="display:{{item.isReply ? 'none' : 'flex'}}; flex-direction: row; margin-right: 20rpx;" data-item="{{item.id}}">
                 <image src="/images/icons/comment_reply.png" style="width: 45rpx; height:45rpx; margin-top: 10rpx;" />
                 <text class="subtitle" style="margin-left: 10rpx; margin-top: 15rpx;">{{item.reply_count}}</text>
               </view>

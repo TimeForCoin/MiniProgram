@@ -113,6 +113,14 @@ Page({
     })
     var arr = []
     for(let i in res.data.data){
+      if (res.data.data[i].user.id === app.globalData.userInfo.id && res.data.data[i].is_delete === false){
+        res.data.data[i].canDelete = true
+      } else{
+        res.data.data[i].canDelete = false
+      }
+      if (res.data.data[i].is_delete){
+        res.data.data[i].content = '该评论已删除'
+      }
       res.data.data[i].isReply = false
       arr.push(res.data.data[i])
       if(!res.data.data[i].reply || res.data.data[i].reply.length <= 0){
@@ -120,9 +128,17 @@ Page({
       }else{
         // 重构回复格式，并添加
         for(let j in res.data.data[i].reply){
+          if (res.data.data[i].reply[j].user.id === app.globalData.userInfo.id && res.data.data[i].reply[j].is_delete === false) {
+            res.data.data[i].reply[j].canDelete = true
+          } else {
+            res.data.data[i].reply[j].canDelete = false
+          }
           var content = res.data.data[i].reply[j].content
           content = '@' + res.data.data[i].user.nickname + ' : ' + content
           res.data.data[i].reply[j].content = content
+          if (res.data.data[i].reply[j].is_delete) {
+            res.data.data[i].reply[j].content = '该评论已删除'
+          }
           res.data.data[i].reply[j].isReply = true
           arr.push(res.data.data[i].reply[j])
         }
@@ -449,7 +465,15 @@ Page({
       })
       this.loadComments(1)
     } else {
-      this.showToast("回复失败", "/images/icons/error.png")
+      var content = '回复失败'
+      if (res.data === 'content_too_long') {
+        content = '回复内容超过了128个字符'
+      } else if (res.data === 'now_allow_status') {
+        content = '该任务暂时还不能被评论'
+      } else if (res.data === 'faked_content') {
+        content = '被评论内容不存在'
+      }
+      this.showToast(content, "/images/icons/error.png")
       return
     }
   },
@@ -484,7 +508,18 @@ Page({
       })
       this.loadComments(1)
     } else {
-      this.showToast("评论失败", "/images/icons/error.png")
+      // faked_content - 被评论内容不存在
+      // now_allow_status - 该任务暂时还不能被评论
+      // content_too_long - 被评论内容超过了128个字符
+      var content = '评论失败'
+      if (res.data === 'content_too_long'){
+        content = '被评论内容超过了128个字符'
+      } else if (res.data === 'now_allow_status'){
+        content = '该任务暂时还不能被评论'
+      } else if (res.data === 'faked_content'){
+        content = '被评论内容不存在'
+      }
+      this.showToast(content, "/images/icons/error.png")
       return
     }
   },
@@ -560,4 +595,29 @@ Page({
       url: '/pages/MessageDetail/MessageDetail?status=detail&user_id=' + this.data.taskDetail.data.publisher.id + '&taskID=' + this.data.taskID,
     })
   },
+  // 删除评论
+  clickDelete: async function(e){
+    const res = await server.request('DELETE', 'comments/' + e.currentTarget.dataset.item)
+    console.log(res.statusCode)
+    if(res.statusCode === 200){
+      wx.showToast({
+        title: '删除成功',
+      })
+    }else{
+      // permission_deny - 权限不足
+      // not_exist - 评论不存在
+      var content = '删除失败'
+      if (res.data === 'permission_deny'){
+        content = '权限不足'
+      } else if (res.data === 'not_exist'){
+        content = '评论不存在'
+      }
+
+      wx.showToast({
+        title: content,
+        image: '/images/icons/error.png'
+      })
+    }
+    await this.loadComments(1)
+  }
 })

@@ -74,6 +74,7 @@ Page({
         noMore: true,
         isLoading: false
       })
+      return
     }
     let isLeft = true
     for (let task of res.data.tasks) {

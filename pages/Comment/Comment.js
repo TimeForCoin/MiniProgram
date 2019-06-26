@@ -129,7 +129,24 @@ Page({
           }
         })
       }else{
-        this.showToast("反馈失败", '/images/icons/error.png')
+        var content = '反馈失败'
+        // not_allow_status - 任务还没发布
+        // permission_deny - 权限不足
+        // faked_task - 任务不存在
+        // faked_user - 用户不存在
+        // not_allow_status - 该状态下不允许修改
+        if (res.data === 'not_allow_status'){
+          content = '任务还没发布'
+        } else if (res.data === 'permission_deny'){
+          content = '权限不足'
+        } else if (res.data === 'faked_task') {
+          content = '任务不存在'
+        } else if (res.data === 'faked_user') {
+          content = '用户不存在'
+        } else if (res.data === 'not_allow_status') {
+          content = '该状态下不允许修改'
+        }
+        this.showToast(content, '/images/icons/error.png')
       }
       
     } else{
