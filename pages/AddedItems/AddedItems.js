@@ -87,9 +87,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    if(!this.data.noMore){
-      this.loadTasks(null, 'draft')
-    }
+    this.loadTasks(null, this.data.draft? 'draft' : 'all')
   },
 
   /**
@@ -142,6 +140,12 @@ Page({
 
         })
       }, 1000);
+    }
+    if(!res.data.tasks || res.data.tasks.length === 0){
+      this.setData({
+        noMore: true,
+        isLoading: false
+      })
     }
     for (let i in res.data.tasks) {
       if (res.data.tasks[i].images.length == 0) {

@@ -123,7 +123,9 @@ Page({
       wx.showToast({
         title: '提交成功',
       })
-      wx.navigateBack({})
+      setTimeout(function(){
+        wx.navigateBack({})
+      }, 1000)
     } else {
       wx.showToast({
         title: '提交失败',

@@ -69,6 +69,12 @@ Page({
       size: this.data.pageSize,
       type: type
     })
+    if(!res.data.tasks || res.data.tasks.length === 0){
+      this.setData({
+        noMore: true,
+        isLoading: false
+      })
+    }
     let isLeft = true
     for (let task of res.data.tasks) {
       // 添加默认图片
@@ -131,7 +137,7 @@ Page({
     }
   },
   onReachBottom() {
-    if (this.data.isLoading == false && this.data.noMore === false) {
+    if (this.data.isLoading == false) {
       this.loadTaskList()
     }
   },

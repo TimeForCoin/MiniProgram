@@ -46,6 +46,7 @@
   margin: 48rpx;
   background-color: #ff7e67;
   color:white;
+  margin-bottom: 60rpx;
 }
 
 .input-placeholder {

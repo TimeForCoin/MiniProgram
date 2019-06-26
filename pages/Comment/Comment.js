@@ -18,7 +18,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
-    options.feedback = 'true'
     if(options.feedback == 'true'){
       this.setData({holder: "请输入您的反馈"});
       this.setData({ isFeedback: true });
@@ -138,7 +137,17 @@ Page({
         note: this.data.inputValue
       })
       if (res.statusCode !== 200) {
-        this.showToast("加入失败", '/images/icons/error.png')
+        var content = '加入失败'
+        if (res.data === 'not_allow_status') {
+          content = '任务还没发布'
+        } else if (res.data === 'faked_task') {
+          content = '任务不存在'
+        } else if (res.data === 'exist_player') {
+          content = '您已经参加任务'
+        } else if (res.data === 'max_player') {
+          content = '参加人数到上限'
+        }
+        this.showToast(content, '/images/icons/error.png')
         return
       } else {
         wx.showToast({

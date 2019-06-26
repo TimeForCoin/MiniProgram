@@ -166,9 +166,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-      if(!this.data.noMore){
-        this.loadTask(null)
-      }
+    this.loadTask(null)
   },
 
   /**

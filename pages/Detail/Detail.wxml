@@ -37,7 +37,7 @@
       </view>
     </view>
     <view class="band1" />
-    <textarea style="font-weight: bold; font-size: 40rpx;margin:26rpx auto; height:{{taskDetail.data.titleHeight}}rpx" value = "{{taskDetail.data.title}}" ></textarea>
+    <textarea style="font-weight: bold; font-size: 40rpx; margin:26rpx auto 0rpx 20rpx; height:{{taskDetail.data.titleHeight}}rpx" value = "{{taskDetail.data.title}}" ></textarea>
     <!--滚动显示图片-->
     <swiper class="imgs" indicator-dots="{{taskDetail.data.images.length <= 1 ? false : true}}" autoplay="true" interval="5000" duration="1000" indicator-color="white" indicator-active-color="#ff7e67" hidden="{{taskDetail.data.images.length === 0 ? true : false}}">
       <block wx:for="{{taskDetail.data.images}}" wx:key="id">
@@ -132,17 +132,17 @@
       <view class="comment_user_info" wx:for="{{commentData.data}}" wx:key="item.id">
         <view class="content_list">
           <image src="{{item.user.avatar}}" class="comment_ava" />
-          <view style="display:flex; flex-direction:row; margin-left: 20rpx;">
-            <text class="subtitle" style="margin-top:10rpx;">{{item.user.nickname}}</text>
-            <text class="subtitle" style="margin-top:10rpx; margin-left: 20rpx;">{{item.time}}</text>
+          <text class="subtitle" style=" margin-left:10rpx; margin-top: 25rpx;">{{item.user.nickname}}</text>
+          <view style="display:flex; flex-direction:row; margin-left: auto; align-items:flex-end; length: 100%;">
+            <text class="subtitle" style="margin-top:10rpx; margin-left: 20rpx; margin-right: 20rpx;">{{item.time}}</text>
             <view class="comment_type_view">
               <!--回复-->
-              <view bindtap="clickReply" style="display:flex; flex-direction: row;" data-item="{{item.id}}" data-owner="{{item.user.nickname}}">
+              <view bindtap="clickReply" style="display:{{item.isReply ? 'none' : 'flex'}}; flex-direction: row; margin-right: 40rpx;" data-item="{{item.id}}">
                 <image src="/images/icons/comment_reply.png" style="width: 45rpx; height:45rpx; margin-top: 10rpx;" />
                 <text class="subtitle" style="margin-left: 10rpx; margin-top: 15rpx;">{{item.reply_count}}</text>
               </view>
               <!--喜欢-->
-              <view bindtap="clickCommentLove" style="margin-left: 60rpx; display:flex; flex-direction: row;" bindtap='clickCommentLike' data-item='{{item.id}}' data-liked='{{item.liked}}'>
+              <view bindtap="clickCommentLove" style="margin-right: 0rpx; display:flex; flex-direction: row;" bindtap='clickCommentLike' data-item='{{item.id}}' data-liked='{{item.liked}}'>
                 <image src="/images/icons/{{item.liked ? 'comment_liked' : 'liked_top'}}.png" style="width: 45rpx; height:45rpx; margin-top: 10rpx;" />
                 <text class="subtitle" style="margin-left: 10rpx; margin-top: 15rpx;">{{item.like_count}}</text>
               </view>

@@ -80,10 +80,8 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: async function() {
-    if(!this.data.noMore){
-      this.data.currentPage = this.data.currentPage + 1
-      this.loadingTasks()
-    }
+    this.data.currentPage = this.data.currentPage + 1
+    this.loadingTasks()
   },
 
   /**
@@ -235,6 +233,12 @@ Page({
       reward: this.data.reward
     })
     if (res.statusCode == 200) {
+      if (!res.data.tasks || res.data.tasks.length === 0){
+        this.setData({
+          noMore : true,
+          isLoading: false})
+        return
+      }
       // 添加缺省图片
       for (let i in res.data.tasks) {
         if (res.data.tasks[i].images.length === 0) {

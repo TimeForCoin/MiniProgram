@@ -29,8 +29,6 @@ Page({
     isReplying: false,
     // 正在回复的评论id
     replyCommentID: "",
-    // 正在回复的评论所有者
-    replyCommentOwner: "",
     give_up: false,
     // 评论和回复内容
     comment_content: "",
@@ -113,7 +111,24 @@ Page({
       page: this.data.commentPage,
       size: this.data.commentSize
     })
-    console.log(res)
+    var arr = []
+    for(let i in res.data.data){
+      res.data.data[i].isReply = false
+      arr.push(res.data.data[i])
+      if(!res.data.data[i].reply || res.data.data[i].reply.length <= 0){
+        continue
+      }else{
+        // 重构回复格式，并添加
+        for(let j in res.data.data[i].reply){
+          var content = res.data.data[i].reply[j].content
+          content = '@' + res.data.data[i].user.nickname + ' : ' + content
+          res.data.data[i].reply[j].content = content
+          res.data.data[i].reply[j].isReply = true
+          arr.push(res.data.data[i].reply[j])
+        }
+      }
+    }
+    res.data.data = arr
     for (let i in res.data.data) {
       res.data.data[i].time = moment(new Date(res.data.data[i].time * 1000)).locale('zh-cn').startOf('minute').fromNow()
     }
@@ -145,7 +160,7 @@ Page({
         })
       }, 1000);
     } else {
-      res.data.titleHeight = (res.data.title.length / 40) > 1 ? (res.data.title.length / 40 * 90) : 90
+      res.data.titleHeight = (res.data.title.length / 40) > 1 ? (res.data.title.length / 40 * 60) : 60
       this.setData({
         taskDetail: {
           data: res.data
@@ -195,8 +210,6 @@ Page({
   confirm_status: async function(e) {
     const selectUser = this.data.selectUser
     const status = e.currentTarget.dataset.status
-
-    console.log(selectUser, status)
     const res = await server.request('PUT', 'tasks/' + this.data.taskID + '/player/' + selectUser.player.id, {
       status: status
     })
@@ -405,9 +418,6 @@ Page({
   // 回复评论
   clickReply: function(e) {
     this.data.replyCommentID = e.currentTarget.dataset.item;
-    this.data.replyCommentOwner = e.currentTarget.dataset.owner;
-    console.log(this.data.replyCommentOwner);
-    console.log(this.data.replyCommentID);
     this.setData({
       isReplying: true
     });
@@ -426,9 +436,9 @@ Page({
       return;
     }
     var reply = this.data.reply_content;
-    reply = "回复@" + this.data.replyCommentOwner + ":" + reply;
-    const res = await server.request('POST', 'comments/' + this.data.taskID, {
-      type: 'task',
+    // reply = "回复@" + this.data.replyCommentOwner + ":" + reply;
+    const res = await server.request('POST', 'comments/' + this.data.replyCommentID, {
+      type: 'comment',
       content: reply
     })
     if (res.statusCode == 200) {
@@ -440,7 +450,6 @@ Page({
       this.loadComments(1)
     } else {
       this.showToast("回复失败", "/images/icons/error.png")
-      console.log(res)
       return
     }
   },
@@ -476,7 +485,6 @@ Page({
       this.loadComments(1)
     } else {
       this.showToast("评论失败", "/images/icons/error.png")
-      console.log(res)
       return
     }
   },
@@ -506,7 +514,17 @@ Page({
         note: ''
       })
       if (res.statusCode !== 200) {
-        this.showToast("加入失败", '/images/icons/error.png')
+        var content = '加入失败'
+        if (res.data === 'not_allow_status'){
+          content = '任务还没发布'
+        } else if (res.data === 'faked_task'){
+          content = '任务不存在'
+        } else if(res.data === 'exist_player'){
+          content = '您已经参加任务'
+        } else if(res.data === 'max_player'){
+          content = '参加人数到上限'
+        }
+        this.showToast(content, '/images/icons/error.png')
         return
       } else {
         wx.showToast({

@@ -2,6 +2,7 @@
 #container{
   display: flex;
   flex-direction: column;
+  margin-bottom: 60rpx;
 }
 
 #search_view{
