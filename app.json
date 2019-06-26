@@ -9,12 +9,9 @@
     "pages/Detail/Detail",
     "pages/MessageDetail/MessageDetail",
     "pages/Message/Message",
-    
-    
     "pages/CollectList/CollectList",
     "pages/AddedItems/AddedItems",
-    "pages/SearchResult/SearchResult",
-    "pages/logs/logs"
+    "pages/SearchResult/SearchResult"
   ],
   "window": {
     "backgroundTextStyle": "light",

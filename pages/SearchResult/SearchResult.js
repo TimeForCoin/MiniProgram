@@ -119,7 +119,6 @@ Page({
         value.content = value.content.substring(0, 12);
         value.content = value.content + "...";
       }
-      console.log(value.title);
       arr.push(value);
     }
     this.data.testList.data = arr;
@@ -255,7 +254,6 @@ Page({
         noMore: res.data.pagination.size * res.data.pagination.page >= res.data.pagination.total,
         isLoading: false
       })
-      console.log(this.data.testList.data)
       
     } else {
       wx.showToast({

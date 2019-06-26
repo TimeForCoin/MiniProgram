@@ -22,7 +22,6 @@ Page({
       this.setData({holder: "请输入您的反馈"});
       this.setData({ isFeedback: true });
       const res = await server.request('GET', 'tasks/' + options.id + '/player/me')
-      console.log(res.data.data.feedback)
       if(res.statusCode === 200){
         this.setData({
           inputValue: res.data.data.feedback,

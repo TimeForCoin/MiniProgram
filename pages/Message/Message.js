@@ -32,7 +32,6 @@ Page({
     } else{
       this.data.currentPage++
     }
-    console.log(this.data.currentPage)
     const res = await server.request('GET', 'messages',{
       page: this.data.currentPage,
       size: 10

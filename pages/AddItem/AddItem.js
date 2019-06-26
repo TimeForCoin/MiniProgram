@@ -136,7 +136,6 @@ Page({
       auto_accept: res.data.auto_accept,
     })
     this.data.id = res.data.id
-    console.log(this.data.id)
     
     if (this.data.auto_accept === true) {
       this.setData({

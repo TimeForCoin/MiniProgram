@@ -137,7 +137,7 @@
             <text class="subtitle" style="margin-top:10rpx; margin-left: 20rpx; margin-right: 20rpx;">{{item.time}}</text>
             <view class="comment_type_view" wx:if = '{{!item.is_delete}}'>
               <!--删除-->
-              <view bindtap="clickDelete" style="display:flex; flex-direction: row; margin-right: 30rpx;" data-item="{{item.id}}">
+              <view bindtap="clickDelete" style="display:{{item.canDelete ? 'flex' : 'none'}}; flex-direction: row; margin-right: 30rpx;" data-item="{{item.id}}">
                 <image src="/images/icons/delete_comment.png" style="width: 45rpx; height:45rpx; margin-top: 10rpx;" />
               </view>
               <!--回复-->

@@ -84,7 +84,6 @@ Page({
         })
       }, 1000);
     }
-    console.log(res.data.data)
     if (!res.data.data){
       this.setData({
         noMore: true,
@@ -170,7 +169,6 @@ Page({
         value.task.content = value.task.content.substring(0, 12);
         value.task.content = value.task.content + "...";
       }
-      console.log(value.task.title);
       arr.push(value);
     }
     this.data.testList.data = arr;
@@ -216,7 +214,6 @@ Page({
   },
   // 跳转评论
   commentTask: function(e) {
-    console.log(e.currentTarget.dataset.id);
     wx.navigateTo({
       url: '/pages/Comment/Comment?feedback=' + 'true&id=' + e.currentTarget.dataset.id,
     })

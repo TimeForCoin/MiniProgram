@@ -18,7 +18,6 @@ Page({
       problems: questionsRes.data.problems,
       taskID: this.data.taskID,
     })
-    console.log(this.data)
   },
 
   onChangeRadio: function(e) {
@@ -115,7 +114,6 @@ Page({
           break;
       }
     }
-    console.log(ans)
     const res = await server.request('POST', 'questionnaires/' + this.data.taskID + '/answers', {
       data: ans
     })

@@ -293,13 +293,10 @@ Page({
   // 删除或者置顶
   delete: function(e){
     var id = e.currentTarget.dataset.id;
-    console.log(id);
-    console.log(e.currentTarget.dataset.status)
     this.setData({ isDelete: true });
     this.data.delete_id = id;
   },
   confirm_delete:function(e){
-    console.log(this.data.delete_id);
     this.setData({ isDelete: false });
     wx.showToast({
       title: '删除成功',

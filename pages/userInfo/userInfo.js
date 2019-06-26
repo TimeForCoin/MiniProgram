@@ -206,44 +206,37 @@ Page({
     this.setData({
       nickname: e.detail.value
     });
-    console.log("nickname:" + this.data.nickname);
   },
 
   changeGender: function(e) {
     this.data.gender = e.detail.value;
     if (e.detail.value == "不便透露") this.data.gender = "未知";
-    console.log("gender:" + this.data.gender);
   },
 
   changeBio: function(e) {
     this.setData({
       bio: e.detail.value
     });
-    console.log("bio:" + this.data.bio);
   },
   changeSchool: function(e) {
     this.setData({
       school: e.detail.value
-    });
-    console.log("school:" + this.data.school);
+    })
   },
   changeEmail: function(e) {
     this.setData({
       email: e.detail.value
-    });
-    console.log("email:" + this.data.email);
+    })
   },
   changePhone: function(e) {
     this.setData({
       phone: e.detail.value
-    });
-    console.log("phone:" + this.data.phone);
+    })
   },
   changeLocation: function(e) {
     this.setData({
       location: e.detail.value
-    });
-    console.log("location:" + this.data.location);
+    })
   },
   showToast: function(str, src) {
     if (src == "") {
@@ -365,7 +358,6 @@ Page({
     } else if (item == "6") {
       this.scanCodeLogin()
     } else {
-      console.log(this.data.nav_a[item - 1]);
       wx.navigateTo({
         url: this.data.nav_a[item - 1].url,
       })

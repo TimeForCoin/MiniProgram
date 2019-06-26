@@ -154,7 +154,8 @@ Page({
         data: [...this.data.commentData.data, ...res.data.data],
       },
       loadComments: false,
-      noMoreComment: res.data.pagination.page * res.data.pagination.size >= this.data.taskDetail.data.comment_count
+      noMoreComment: res.data.pagination.page * res.data.pagination.size >= this.data.taskDetail.data.comment_count,
+      taskDetail: this.data.taskDetail
     })
   },
 
@@ -598,7 +599,6 @@ Page({
   // 删除评论
   clickDelete: async function(e){
     const res = await server.request('DELETE', 'comments/' + e.currentTarget.dataset.item)
-    console.log(res.statusCode)
     if(res.statusCode === 200){
       wx.showToast({
         title: '删除成功',
