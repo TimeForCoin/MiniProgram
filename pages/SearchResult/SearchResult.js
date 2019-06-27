@@ -19,7 +19,6 @@ Page({
     chosed_status: "执行中",
     chosed_reward: "请选择",
     // 筛选条件
-    key: "",
     sort: "new",
     type: "",
     status: "",
@@ -148,7 +147,6 @@ Page({
   },
   cleaning: function(e) {
     this.setData({
-      key: "",
       typing_content: "",
       isFocus: false
     })
@@ -226,7 +224,7 @@ Page({
       page: this.data.currentPage,
       size: this.data.pageSize,
       sort: this.data.sort,
-      keyword: this.data.key,
+      keyword: this.data.typing_content,
       type: this.data.type,
       status: this.data.status,
       reward: this.data.reward

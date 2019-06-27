@@ -41,9 +41,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // 减少标题内容字数
-    this.reduce()
-    this.loadTask(1)
   },
 
   loadTask: async function(page) {
@@ -126,6 +123,7 @@ Page({
       noMore: this.data.currentPage * this.data.pageSize >= res.data.pagination.total,
       isLoading: false,
     })
+    this.reduce()
   },
 
   /**
@@ -139,6 +137,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.loadTask(1)
   },
 
   /**

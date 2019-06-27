@@ -145,6 +145,7 @@ Page({
       }
     }
     res.data.data = arr
+    console.log(arr)
     for (let i in res.data.data) {
       res.data.data[i].time = moment(new Date(res.data.data[i].time * 1000)).locale('zh-cn').startOf('minute').fromNow()
     }
