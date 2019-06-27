@@ -16,7 +16,7 @@
   <view id="list">
     <view style="display:flex; flex-direction: row; text-align: left;" wx:for="{{testList.data}}" wx:key="item.task.id">
       <view class="list_item" bindtap="navigateToDetail" data-id="{{item.task.id}}">
-        <image class="item_img" src="{{item.task.images[0].url}}" />
+        <image class="item_img" src="{{item.task.images[0].url}}" mode='aspectFill'/>
         <view class="basic_info">
           <text class="title">{{item.task.title}}</text>
           <!--金额-->
