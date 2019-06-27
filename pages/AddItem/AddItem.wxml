@@ -6,11 +6,11 @@
 
       <!--标题-->
       <view class="basic_info">
-        <input name="title" class="input_title" placeholder="标题 各类品牌型号都是买家喜欢搜索的" placeholder-class='placeholder_title' maxlength='32' style = "font-weight: bold" bindinput = "titleChange" value = "{{title}}" />
+        <input name="title" class="input_title" placeholder="标题 任务标题让小伙伴们容易找到" placeholder-class='placeholder_title' maxlength='32' style = "font-weight: bold" bindinput = "titleChange" value = "{{title}}" />
       </view>
       <view class = "band1" />
       <view class="basic_info">
-        <textarea name="describe" class="input_text" placeholder="描述宝贝的转手原因，入手渠道和使用感受" placeholder-class='placeholder' maxlength='256' style = "height: 200rpx;" bindinput = "describeChange" value = "{{describe}}"/>
+        <textarea name="describe" class="input_text" placeholder="描述任务的内容" placeholder-class='placeholder' maxlength='256' style = "height: 200rpx;" bindinput = "describeChange" value = "{{describe}}"/>
       </view>
 
       <!--上传图片-->
