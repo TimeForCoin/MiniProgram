@@ -17,14 +17,56 @@ Page({
     isLoading: false,
     noMore: false,
     //判断是否登录
-    hasUserInfo: false
+    hasUserInfo: false,
+    currentPage: 1,
   },
 
-  loadMessage: async function() {
-    const res = await server.request('GET', 'messages')
+  loadMessage: async function(page) {
+    this.setData({
+      isLoading: true
+    })
+    if(page != null){
+      this.data.currentPage = page
+      this.data.systemMessage = []
+      this.data.chatMessage = []
+    } else{
+      this.data.currentPage++
+    }
+    const res = await server.request('GET', 'messages',{
+      page: this.data.currentPage,
+      size: 10
+    })
+    this.setData({
+      isLoading :false
+    })
     if(res.statusCode !== 200){
       this.setData({hasUserInfo: false})
+      wx.showToast({
+        title: '网络错误',
+        icon: '',
+        image: '/images/icons/error.png',
+        duration: 0,
+        mask: true,
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
+      })
+      this.setData({
+        noMore: true
+      })
+      return
     }
+    if(!res.data.data || res.data.data.length === 0){
+      this.setData({noMore: true})
+      this.data.currentPage--
+      return
+    }
+    moment.locale('en', {
+      longDateFormat: {
+        l: "YYYY-MM-DD",
+        L: "YYYY-MM-DD HH:mm"
+      }
+    })
     for (let i in res.data.data) {
       res.data.data[i].string_last_time =
         moment(res.data.data[i].last_message.time * 1000).format('L');
@@ -39,24 +81,26 @@ Page({
       }
 
     }
+    if(!this.data.showSystemInfo){
+      this.setData({
+        testMessage: {
+          data: this.data.chatMessage
+        }
+      })
+    } else{
+      this.setData({
+        testMessage:{
+          data: this.data.systemMessage
+        }
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function(options) {
-    await this.loadMessage()
-    moment.locale('en', {
-      longDateFormat: {
-        l: "YYYY-MM-DD",
-        L: "YYYY-MM-DD HH:mm"
-      }
-    });
-    this.setData({
-      testMessage: {
-        data: this.data.chatMessage
-      }
-    })
+  onLoad: function(options) {
+    
   },
 
   /**
@@ -69,7 +113,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: async function() {
     this.setData({
       hasUserInfo: app.globalData.hasUserInfo
     })
@@ -90,6 +134,8 @@ Page({
       }, 1000);
 
     }
+
+    await this.loadMessage(1)
   },
 
   /**
@@ -107,17 +153,12 @@ Page({
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+  onPullDownRefresh: async function () {
+    if(!this.data.isLoading){
+      await this.loadMessage(null)
+    }
   },
 
   /**
@@ -127,21 +168,17 @@ Page({
 
   },
   /*选择个人或者系统信息*/
-  chooceSystemInfo: function(e) {
+  chooceSystemInfo: async function(e) {
     this.setData({
-      testMessage: {
-        data: this.data.systemMessage
-      },
       showSystemInfo: true
     })
+    await this.loadMessage(1)
   },
-  choocePersonalInfo: function(e) {
+  choocePersonalInfo: async function(e) {
     this.setData({
-      testMessage: {
-        data: this.data.chatMessage
-      },
       showSystemInfo: false
-    });
+    })
+    await this.loadMessage(1)
   },
   // 跳转详情
   navigateToMessageDetail: function(e) {
@@ -149,12 +186,5 @@ Page({
     wx.navigateTo({
       url: '/pages/MessageDetail/MessageDetail?session_id=' + id + '&status=message',
     })
-  },
-  // 到达底部刷新
-  onReachBottom() {
-    // TODO: 刷新内容
-    this.setData({
-      isLoading: true
-    });
   },
 })

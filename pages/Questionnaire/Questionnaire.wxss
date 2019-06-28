@@ -44,6 +44,9 @@
 
 .submit-btn {
   margin: 48rpx;
+  background-color: #ff7e67;
+  color:white;
+  margin-bottom: 60rpx;
 }
 
 .input-placeholder {
@@ -57,11 +60,8 @@
   margin: 28rpx 42rpx 0 42rpx;
   font-size: 28rpx;
 }
-.score-left {
-}
 .score-right {
   float: right;
-
 }
 
 .max-choose {

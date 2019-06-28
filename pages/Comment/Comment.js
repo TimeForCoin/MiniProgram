@@ -11,6 +11,7 @@ Page({
     // 判断申请或者反馈
     isFeedback: false,
     id: "",
+    score:0,
   },
 
   /**
@@ -21,10 +22,10 @@ Page({
       this.setData({holder: "请输入您的反馈"});
       this.setData({ isFeedback: true });
       const res = await server.request('GET', 'tasks/' + options.id + '/player/me')
-      console.log(res.data.data.feedback)
       if(res.statusCode === 200){
         this.setData({
-          inputValue: res.data.data.feedback
+          inputValue: res.data.data.feedback,
+          score: res.data.data.score
         })
       } else{
         wx.showToast({
@@ -93,6 +94,12 @@ Page({
   onShareAppMessage: function () {
 
   },
+  // 评分
+  onChangeScore: function (e) {
+    this.setData({
+      score: e.detail.value
+    })
+  },
   inputProcess: function(e){
     this.setData({inputValue: e.detail.value});
   },
@@ -107,7 +114,8 @@ Page({
     }
     if(this.data.isFeedback){
       const res = await server.request('PUT', 'tasks/' + this.data.id + '/player/me',{
-        feedback: this.data.inputValue
+        feedback: this.data.inputValue,
+        score: this.data.score
       })
       if(res.statusCode === 200){
         wx.showToast({
@@ -120,7 +128,24 @@ Page({
           }
         })
       }else{
-        this.showToast("反馈失败", '/images/icons/error.png')
+        var content = '反馈失败'
+        // not_allow_status - 任务还没发布
+        // permission_deny - 权限不足
+        // faked_task - 任务不存在
+        // faked_user - 用户不存在
+        // not_allow_status - 该状态下不允许修改
+        if (res.data.message ==='not_allow_status'){
+          content = '任务还没发布'
+        } else if (res.data.message ==='permission_deny'){
+          content = '权限不足'
+        } else if (res.data.message ==='faked_task') {
+          content = '任务不存在'
+        } else if (res.data.message ==='faked_user') {
+          content = '用户不存在'
+        } else if (res.data.message ==='not_allow_status') {
+          content = '该状态下不允许修改'
+        }
+        this.showToast(content, '/images/icons/error.png')
       }
       
     } else{
@@ -128,7 +153,17 @@ Page({
         note: this.data.inputValue
       })
       if (res.statusCode !== 200) {
-        this.showToast("加入失败", '/images/icons/error.png')
+        var content = '加入失败'
+        if (res.data.message ==='not_allow_status') {
+          content = '任务还没发布'
+        } else if (res.data.message ==='faked_task') {
+          content = '任务不存在'
+        } else if (res.data.message ==='exist_player') {
+          content = '您已经参加任务'
+        } else if (res.data.message ==='max_player') {
+          content = '参加人数到上限'
+        }
+        this.showToast(content, '/images/icons/error.png')
         return
       } else {
         wx.showToast({

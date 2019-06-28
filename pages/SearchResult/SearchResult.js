@@ -19,7 +19,6 @@ Page({
     chosed_status: "执行中",
     chosed_reward: "请选择",
     // 筛选条件
-    key: "",
     sort: "new",
     type: "",
     status: "",
@@ -80,10 +79,8 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: async function() {
-    if(!this.data.noMore){
-      this.data.currentPage = this.data.currentPage + 1
-      this.loadingTasks()
-    }
+    this.data.currentPage = this.data.currentPage + 1
+    this.loadingTasks()
   },
 
   /**
@@ -121,7 +118,6 @@ Page({
         value.content = value.content.substring(0, 12);
         value.content = value.content + "...";
       }
-      console.log(value.title);
       arr.push(value);
     }
     this.data.testList.data = arr;
@@ -151,7 +147,6 @@ Page({
   },
   cleaning: function(e) {
     this.setData({
-      key: "",
       typing_content: "",
       isFocus: false
     })
@@ -229,12 +224,18 @@ Page({
       page: this.data.currentPage,
       size: this.data.pageSize,
       sort: this.data.sort,
-      keyword: this.data.key,
+      keyword: this.data.typing_content,
       type: this.data.type,
       status: this.data.status,
       reward: this.data.reward
     })
     if (res.statusCode == 200) {
+      if (!res.data.tasks || res.data.tasks.length === 0){
+        this.setData({
+          noMore : true,
+          isLoading: false})
+        return
+      }
       // 添加缺省图片
       for (let i in res.data.tasks) {
         if (res.data.tasks[i].images.length === 0) {
@@ -251,7 +252,6 @@ Page({
         noMore: res.data.pagination.size * res.data.pagination.page >= res.data.pagination.total,
         isLoading: false
       })
-      console.log(this.data.testList.data)
       
     } else {
       wx.showToast({

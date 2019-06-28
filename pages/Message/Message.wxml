@@ -35,7 +35,7 @@
     <image class="loading" src="/images/icons/loading.png"></image>
     <text class="subtext">正在载入更多...</text>
   </view>
-  <text class="subtext" style="margin-top: 40rpx; margin-bottom: 60rpx;" wx:if="{{noMore}}">没有更多了~</text>
+  <text class="subtext" style="margin-top: 10rpx; margin-bottom: 60rpx; margin-left: auto; margin-right: auto;">{{'下拉刷新试试'}}</text>
 </view>
 
 

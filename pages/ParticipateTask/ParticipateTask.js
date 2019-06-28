@@ -54,14 +54,24 @@ Page({
     let errTitle = ''
     if (res.statusCode === 401) {
       errTitle = "您未登录~"
+      this.setData({
+        noMore: true,
+        isLoading: false
+      })
     } else if (res.statusCode != 200) {
       errTitle = "网络链接失败~"
+      this.setData({
+        noMore: true,
+        isLoading: false
+      })
     }
     if (errTitle === "") {
 
     } else {
       this.setData({
-        failToGetDetail: true
+        failToGetDetail: true,
+        noMore: true,
+        isLoading: false
       })
       wx.showToast({
         title: errTitle,
@@ -74,15 +84,21 @@ Page({
         })
       }, 1000);
     }
-    for (let i in res.data.tasks) {
-      if (res.data.tasks[i].images.length == 0) {
-        res.data.tasks[i].images = [{
+    if (!res.data.data){
+      this.setData({
+        noMore: true,
+        isLoading: false
+      })
+      return
+    }
+    for (let i in res.data.data) {
+      if (res.data.data[i].task.images.length == 0) {
+        res.data.data[i].task.images = [{
           id: 0,
           url: '/images/icon.png'
         }]
       }
     }
-    console.log(res.data.data)
     this.setData({
       testList: {
         data: [...this.data.testList.data, ...res.data.data],
@@ -130,7 +146,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    if(!this.data.noMore){
+      this.loadTasks(null)
+    }
   },
 
   /**
@@ -151,7 +169,6 @@ Page({
         value.task.content = value.task.content.substring(0, 12);
         value.task.content = value.task.content + "...";
       }
-      console.log(value.task.title);
       arr.push(value);
     }
     this.data.testList.data = arr;
@@ -187,7 +204,7 @@ Page({
       this.data.status = 'finish'
     }else if (this.data.chosed_status == '已放弃') {
       this.data.status = 'give_up';
-    } else if (this.data.chosed_status == '已失败') {
+    } else if (this.data.chosed_status == '任务失败') {
       this.data.status = 'failure';
     } else {
       this.data.status = 'all';
@@ -197,7 +214,6 @@ Page({
   },
   // 跳转评论
   commentTask: function(e) {
-    console.log(e.currentTarget.dataset.id);
     wx.navigateTo({
       url: '/pages/Comment/Comment?feedback=' + 'true&id=' + e.currentTarget.dataset.id,
     })

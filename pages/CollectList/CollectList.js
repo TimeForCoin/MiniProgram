@@ -13,7 +13,7 @@ Page({
     isFocus: false,
     // 供给选择器
     task_type:['所有', '跑腿任务', '问卷任务', '信息任务'],
-    task_status: ['所有', '执行中', '等待接受', '已关闭','已完成','已过期'],
+    task_status: ['所有', '进行中', '等待接受', '已关闭','已完成','已过期'],
     task_reward: ['所有','闲钱币','人民币','实物'],
     chosed_type: "请选择",
     chosed_status: "请选择",
@@ -41,9 +41,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // 减少标题内容字数
-    this.reduce()
-    this.loadTask(1)
   },
 
   loadTask: async function(page) {
@@ -72,15 +69,26 @@ Page({
     let errTitle = ''
     if (res.statusCode === 401) {
       errTitle = "您未登录~"
+      this.setData({
+        noMore: true,
+        isLoading: false
+      })
     } else if (res.statusCode != 200) {
       errTitle = "网络链接失败~"
+      this.setData({
+        noMore: true,
+        isLoading: false
+      })
     }
     if (errTitle === "") {
 
     } else {
       this.setData({
-        failToGetDetail: true
+        failToGetDetail: true,
+        noMore:true,
+         isLoading: true
       })
+
       wx.showToast({
         title: errTitle,
         image: '/images/icons/error.png'
@@ -91,6 +99,13 @@ Page({
 
         })
       }, 1000);
+    }
+    if(!res.data.tasks || res.data.tasks.length === 0){
+      this.setData({
+        isLoading: false,
+        noMore: true
+      })
+      return
     }
     for (let i in res.data.tasks) {
       if (res.data.tasks[i].images.length == 0) {
@@ -108,6 +123,7 @@ Page({
       noMore: this.data.currentPage * this.data.pageSize >= res.data.pagination.total,
       isLoading: false,
     })
+    this.reduce()
   },
 
   /**
@@ -121,6 +137,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.loadTask(1)
   },
 
   /**
@@ -148,9 +165,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-      if(!this.data.noMore){
-        this.loadTask(null)
-      }
+    this.loadTask(null)
   },
 
   /**
@@ -184,7 +199,6 @@ Page({
         value.content = value.content.substring(0, 12);
         value.content = value.content + "...";
       }
-      console.log(value.title);
       arr.push(value);
     }
     this.data.testList.data = arr;
@@ -228,14 +242,16 @@ Page({
   // 搜索前进行逻辑判断
   logicalJudge: function(){
     if (this.data.chosed_type == '所有'){
-      this.data.type = 'all';
+      this.data.type = 'all'
     } else if (this.data.chosed_type == '跑腿任务'){
-      this.data.type = 'run';
+      this.data.type = 'run'
     } else if (this.data.chosed_type == '问卷任务'){
-      this.data.type = 'questionnaire';
+      this.data.type = 'questionnaire'
     } else if (this.data.chosed_type == '信息任务') {
-      this.data.type = 'info';
-    } else{
+      this.data.type = 'info'
+    } else if (this.data.chosed_type == '问卷任务'){
+      this.data.type = 'questionnaire'
+    }else{
       this.data.type = 'all';
     }
 
@@ -243,7 +259,7 @@ Page({
       this.data.status = 'all';
     } else if (this.data.chosed_status == '草稿') {
       this.data.status = 'draft';
-    } else if (this.data.chosed_status == '执行中') {
+    } else if (this.data.chosed_status == '进行中') {
       this.data.status = 'run';
     } else if (this.data.chosed_status == '等待接受') {
       this.data.status = 'wait';
@@ -276,13 +292,10 @@ Page({
   // 删除或者置顶
   delete: function(e){
     var id = e.currentTarget.dataset.id;
-    console.log(id);
-    console.log(e.currentTarget.dataset.status)
     this.setData({ isDelete: true });
     this.data.delete_id = id;
   },
   confirm_delete:function(e){
-    console.log(this.data.delete_id);
     this.setData({ isDelete: false });
     wx.showToast({
       title: '删除成功',

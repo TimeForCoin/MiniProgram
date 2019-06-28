@@ -81,7 +81,7 @@
         </view>
       </radio-group>
       <text class="title">个人简介</text>
-      <textarea name="bio" class="input_setting" placeholder="请输入个人简介" maxlength='128' value="{{bio}}" bindinput="changeBio" style="height: 150rpx; width:80%; word-wrap:break-word" />
+      <textarea name="bio" class="input_setting" placeholder="请输入个人简介" maxlength='128' value="{{bio}}" bindinput="changeBio" style="height: 120rpx; width:80%; word-wrap:break-word" />
       <view class="band1" />
       <text class="title">邮箱</text>
       <input name="email" class="input_setting" placeholder="请输入邮箱" maxlength='25' value="{{email}}" bindinput="changeEmail" />

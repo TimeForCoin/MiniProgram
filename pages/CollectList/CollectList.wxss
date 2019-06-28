@@ -63,6 +63,7 @@
   margin-top: 20rpx;
   padding-left: 30rpx;
   text-align: center;
+  padding-bottom: 60rpx;
   padding-right: 30rpx;
 }
 

@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/Comment/Comment",
     "pages/Questionnaire/Questionnaire",
     "pages/AddItem/AddItem",
     "pages/ParticipateTask/ParticipateTask",
@@ -8,12 +9,9 @@
     "pages/Detail/Detail",
     "pages/MessageDetail/MessageDetail",
     "pages/Message/Message",
-    
-    "pages/Comment/Comment",
     "pages/CollectList/CollectList",
     "pages/AddedItems/AddedItems",
-    "pages/SearchResult/SearchResult",
-    "pages/logs/logs"
+    "pages/SearchResult/SearchResult"
   ],
   "window": {
     "backgroundTextStyle": "light",

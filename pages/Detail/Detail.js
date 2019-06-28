@@ -29,8 +29,6 @@ Page({
     isReplying: false,
     // 正在回复的评论id
     replyCommentID: "",
-    // 正在回复的评论所有者
-    replyCommentOwner: "",
     give_up: false,
     // 评论和回复内容
     comment_content: "",
@@ -113,7 +111,41 @@ Page({
       page: this.data.commentPage,
       size: this.data.commentSize
     })
-    console.log(res)
+    var arr = []
+    for(let i in res.data.data){
+      if (res.data.data[i].user.id === app.globalData.userInfo.id && res.data.data[i].is_delete === false){
+        res.data.data[i].canDelete = true
+      } else{
+        res.data.data[i].canDelete = false
+      }
+      if (res.data.data[i].is_delete){
+        res.data.data[i].content = '该评论已删除'
+      }
+      res.data.data[i].isReply = false
+      arr.push(res.data.data[i])
+      if(!res.data.data[i].reply || res.data.data[i].reply.length <= 0){
+        continue
+      }else{
+        // 重构回复格式，并添加
+        for(let j in res.data.data[i].reply){
+          if (res.data.data[i].reply[j].user.id === app.globalData.userInfo.id && res.data.data[i].reply[j].is_delete === false) {
+            res.data.data[i].reply[j].canDelete = true
+          } else {
+            res.data.data[i].reply[j].canDelete = false
+          }
+          var content = res.data.data[i].reply[j].content
+          content = '@' + res.data.data[i].user.nickname + ' : ' + content
+          res.data.data[i].reply[j].content = content
+          if (res.data.data[i].reply[j].is_delete) {
+            res.data.data[i].reply[j].content = '该评论已删除'
+          }
+          res.data.data[i].reply[j].isReply = true
+          arr.push(res.data.data[i].reply[j])
+        }
+      }
+    }
+    res.data.data = arr
+    console.log(arr)
     for (let i in res.data.data) {
       res.data.data[i].time = moment(new Date(res.data.data[i].time * 1000)).locale('zh-cn').startOf('minute').fromNow()
     }
@@ -123,7 +155,8 @@ Page({
         data: [...this.data.commentData.data, ...res.data.data],
       },
       loadComments: false,
-      noMoreComment: res.data.pagination.page * res.data.pagination.size >= this.data.taskDetail.data.comment_count
+      noMoreComment: res.data.pagination.page * res.data.pagination.size >= this.data.taskDetail.data.comment_count,
+      taskDetail: this.data.taskDetail
     })
   },
 
@@ -145,7 +178,7 @@ Page({
         })
       }, 1000);
     } else {
-      res.data.titleHeight = (res.data.title.length / 40) > 1 ? (res.data.title.length / 40 * 90) : 90
+      res.data.titleHeight = (res.data.title.length / 40) > 1 ? (res.data.title.length / 40 * 60) : 60
       this.setData({
         taskDetail: {
           data: res.data
@@ -195,8 +228,6 @@ Page({
   confirm_status: async function(e) {
     const selectUser = this.data.selectUser
     const status = e.currentTarget.dataset.status
-
-    console.log(selectUser, status)
     const res = await server.request('PUT', 'tasks/' + this.data.taskID + '/player/' + selectUser.player.id, {
       status: status
     })
@@ -280,11 +311,27 @@ Page({
   // 是否喜欢
   clickLove: async function(e) {
     if (this.data.isLove == true) {
-      const result = await server.request('DELETE', 'tasks/' + this.data.taskID + '/like')
+      const res = await server.request('DELETE', 'tasks/' + this.data.taskID + '/like')
       // 取消点赞失败
-      if (result.statusCode != 200) {
+      if (res.statusCode != 200) {
+        var content = '取消点赞失败'
+        // not_allow_status - 此状态不允许点赞
+        // faked_task - 任务不存在
+        if (res.data.message === 'not_allow_status') {
+          content = '此状态不允许点赞'
+        } else if (res.data.message === 'faked_like') {
+          content = '还没点赞'
+        } else if (res.data.message === 'faked_task'){
+          content = '任务不存在'
+        } else if (res.data.message === 'not_exist' || res.data.message === 'faked_collect') {
+          this.setData({
+            isLove: false,
+            taskDetail: this.data.taskDetail
+          })
+          return
+        }
         wx.showToast({
-          title: '取消点赞失败',
+          title: content,
           image: '/images/icons/error.png'
         })
       } else {
@@ -295,11 +342,26 @@ Page({
           });
       }
     } else {
-      const result = await server.request('POST', 'tasks/' + this.data.taskID + '/like')
+      const res = await server.request('POST', 'tasks/' + this.data.taskID + '/like')
       // 点赞失败
-      if (result.statusCode != 200) {
+      if (res.statusCode != 200) {
+        var content = '点赞失败'
+        // not_allow_status - 此状态不允许点赞
+        // faked_task - 任务不存在
+        // exist_like  - 任务已经点赞，不能重复点赞
+        if (res.data.message === 'not_allow_status') {
+          content = '此状态不允许点赞'
+        } else if (res.data.message === 'faked_task') {
+          content = '任务不存在'
+        } else if (res.data.message === 'exist_like') {
+          this.setData({
+            isLove: true,
+            taskDetail: this.data.taskDetail
+          })
+          return
+        }
         wx.showToast({
-          title: '点赞失败',
+          title: content,
           image: '/images/icons/error.png'
         })
       } else {
@@ -314,11 +376,25 @@ Page({
   // 是否收藏
   clickCollect: async function(e) {
     if (this.data.isCollected == true) {
-      const result = await server.request('DELETE', 'tasks/' + this.data.taskID + '/collect')
+      const res = await server.request('DELETE', 'tasks/' + this.data.taskID + '/collect')
       // 取消收藏失败
-      if (result.statusCode != 200) {
+      if (res.statusCode != 200) {
+        var content = '取消收藏失败'
+        // not_allow_status - 此状态不允许收藏
+        // faked_task - 任务不存在
+        if (res.data.message === 'not_allow_status'){
+          content = '此状态不允许收藏'
+        } else if (res.data.message === 'faked_task'){
+          content = '任务不存在'
+        } else if (res.data.message === 'not_exist' || res.data.message === 'faked_collect') {
+          this.setData({
+            isCollected: false,
+            taskDetail: this.data.taskDetail
+          })
+          return
+        }
         wx.showToast({
-          title: '取消收藏失败',
+          title: content,
           image: '/images/icons/error.png'
         })
       } else {
@@ -329,11 +405,27 @@ Page({
           });
       }
     } else {
-      const result = await server.request('POST', 'tasks/' + this.data.taskID + '/collect')
+      const res = await server.request('POST', 'tasks/' + this.data.taskID + '/collect')
       // 收藏失败
-      if (result.statusCode != 200) {
+      if (res.statusCode != 200) {
+        var content = '收藏失败'
+        console.log(res.data)
+        // not_allow_status - 此状态不允许收藏
+        // faked_task - 任务不存在
+        // exist_task - 任务已经收藏，不能重复收藏
+        if (res.data.message === 'not_allow_status'){
+          content = '此状态不允许收藏'
+        } else if (res.data.message ==='faked_task'){
+          content = '任务不存在'
+        } else if (res.data.message === 'exist_collect'){
+          this.setData({
+              isCollected: true,
+              taskDetail: this.data.taskDetail
+          })
+          return
+        }
         wx.showToast({
-          title: '收藏失败',
+          title: content,
           image: '/images/icons/error.png'
         })
       } else {
@@ -352,14 +444,14 @@ Page({
     const liked = e.currentTarget.dataset.liked;
 
     if (liked) {
-      const result = await server.request('DELETE', 'comments/' + id + '/like')
-      if (result.statusCode != 200) {
+      const res = await server.request('DELETE', 'comments/' + id + '/like')
+      if (res.statusCode != 200) {
         this.showToast('点赞失败', '/images/icons/error.png')
         return
       }
     } else {
-      const result = await server.request('POST', 'comments/' + id + '/like')
-      if (result.statusCode != 200) {
+      const res = await server.request('POST', 'comments/' + id + '/like')
+      if (res.statusCode != 200) {
         this.showToast('取消点赞失败', '/images/icons/error.png')
         return
       }
@@ -405,9 +497,6 @@ Page({
   // 回复评论
   clickReply: function(e) {
     this.data.replyCommentID = e.currentTarget.dataset.item;
-    this.data.replyCommentOwner = e.currentTarget.dataset.owner;
-    console.log(this.data.replyCommentOwner);
-    console.log(this.data.replyCommentID);
     this.setData({
       isReplying: true
     });
@@ -426,9 +515,9 @@ Page({
       return;
     }
     var reply = this.data.reply_content;
-    reply = "回复@" + this.data.replyCommentOwner + ":" + reply;
-    const res = await server.request('POST', 'comments/' + this.data.taskID, {
-      type: 'task',
+    // reply = "回复@" + this.data.replyCommentOwner + ":" + reply;
+    const res = await server.request('POST', 'comments/' + this.data.replyCommentID, {
+      type: 'comment',
       content: reply
     })
     if (res.statusCode == 200) {
@@ -439,8 +528,15 @@ Page({
       })
       this.loadComments(1)
     } else {
-      this.showToast("回复失败", "/images/icons/error.png")
-      console.log(res)
+      var content = '回复失败'
+      if (res.data.message === 'content_too_long') {
+        content = '回复内容超过了128个字符'
+      } else if (res.data.message === 'now_allow_status') {
+        content = '该任务暂时还不能被评论'
+      } else if (res.data.message === 'faked_content') {
+        content = '被评论内容不存在'
+      }
+      this.showToast(content, "/images/icons/error.png")
       return
     }
   },
@@ -475,8 +571,18 @@ Page({
       })
       this.loadComments(1)
     } else {
-      this.showToast("评论失败", "/images/icons/error.png")
-      console.log(res)
+      // faked_content - 被评论内容不存在
+      // now_allow_status - 该任务暂时还不能被评论
+      // content_too_long - 被评论内容超过了128个字符
+      var content = '评论失败'
+      if (res.data.message === 'content_too_long'){
+        content = '被评论内容超过了128个字符'
+      } else if (res.data.message === 'now_allow_status'){
+        content = '该任务暂时还不能被评论'
+      } else if (res.data.message === 'faked_content'){
+        content = '被评论内容不存在'
+      }
+      this.showToast(content, "/images/icons/error.png")
       return
     }
   },
@@ -506,7 +612,17 @@ Page({
         note: ''
       })
       if (res.statusCode !== 200) {
-        this.showToast("加入失败", '/images/icons/error.png')
+        var content = '加入失败'
+        if (res.data.message === 'not_allow_status'){
+          content = '任务还没发布'
+        } else if (res.data.message === 'faked_task'){
+          content = '任务不存在'
+        } else if(res.data.message === 'exist_player'){
+          content = '您已经参加任务'
+        } else if(res.data.message === 'max_player'){
+          content = '参加人数到上限'
+        }
+        this.showToast(content, '/images/icons/error.png')
         return
       } else {
         wx.showToast({
@@ -542,4 +658,28 @@ Page({
       url: '/pages/MessageDetail/MessageDetail?status=detail&user_id=' + this.data.taskDetail.data.publisher.id + '&taskID=' + this.data.taskID,
     })
   },
+  // 删除评论
+  clickDelete: async function(e){
+    const res = await server.request('DELETE', 'comments/' + e.currentTarget.dataset.item)
+    if(res.statusCode === 200){
+      wx.showToast({
+        title: '删除成功',
+      })
+    }else{
+      // permission_deny - 权限不足
+      // not_exist - 评论不存在
+      var content = '删除失败'
+      if (res.data.message === 'permission_deny'){
+        content = '权限不足'
+      } else if (res.data.message === 'not_exist'){
+        content = '评论不存在'
+      }
+
+      wx.showToast({
+        title: content,
+        image: '/images/icons/error.png'
+      })
+    }
+    await this.loadComments(1)
+  }
 })
