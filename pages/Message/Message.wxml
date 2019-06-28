@@ -4,11 +4,11 @@
     <!-- 类型选择 -->
     <view class="sort-wrap">
       <view class='sort-btn' bindtap='choocePersonalInfo'>
-        <text style="color: {{showSystemInfo ? 'gray' : '#ff7e67'}}">个人消息</text>
+        <text style="color: {{showSystemInfo ? 'gray' : '#ffa300'}}">个人消息</text>
       </view>
 
       <view class='sort-btn' bindtap='chooceSystemInfo'>
-        <text style="color: {{!showSystemInfo ? 'gray' : '#ff7e67'}}">系统消息</text>
+        <text style="color: {{!showSystemInfo ? 'gray' : '#ffa300'}}">系统消息</text>
       </view>
     </view>
   </view>
@@ -22,7 +22,7 @@
         <view class="row_view">
           <text class="title" style="margin-right:10rpx;">{{item.target_user.nickname}}</text>
           <text class="payType" wx:if="{{item.type === 'chat'}}">{{item.target_user.gender == 'man' ? '男' : '女'}}</text>
-          <text class="payType">{{item.unread_count == 0 ? '已读':'未读'}}</text>
+          <text wx:if="{{item.unread_count !== 0}}" class="payType">未读</text>
           <text class="item_time">{{item.string_last_time}}</text>
         </view>
         <!--新增最后一条消息-->

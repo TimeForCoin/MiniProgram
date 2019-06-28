@@ -64,8 +64,8 @@
 }
 
 .on {
-  color: #ff7e67;
-  border-bottom: 5rpx solid #ff7e67;
+  color: #ffa300;
+  border-bottom: 5rpx solid #ffa300;
 }
 
 /* 下方列表部分 */
@@ -157,7 +157,7 @@
 }
 
 .payType{
-  background: #ff7e67;
+  background: #ffa300;
   margin-right: 10rpx;
   padding: 3rpx 6rpx;
   font-size: 26rpx;

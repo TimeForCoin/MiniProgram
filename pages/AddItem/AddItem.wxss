@@ -93,14 +93,15 @@
 
 .band2{
   width:100%;
-  height: 50rpx;
+  height: 36rpx;
   background: rgb(243, 243, 243);
 }
 
 .title{
   flex: 1;
   width: 100%;
-  margin-bottom: 20rpx;
+  font-weight: bold;
+  margin: 20rpx 0;
   font-size: 34rpx;
 }
 
@@ -126,10 +127,10 @@
 
 /*设置支付类型*/
 .blockType{
-  margin-top: 20rpx 0rpx;
+  margin-top: 20rpx;
   display: flex;
   direction: column;
-  font-size: 34rpx;
+  font-size: 32rpx;
 }
 .typeBlock{
   width: 50%;
@@ -137,7 +138,6 @@
   text-align: center;
   border-radius: 25rpx;
   padding: 6rpx 0;
-  border: 2rpx solid rgba(0,0,0,.3);
 }
 
 /*任务类型*/
@@ -169,23 +169,19 @@
   direction: column;
 }
 .btn{
-  width: 50%;
+  width: 45%;
   display: flex;
   height: 80rpx;
-  border-radius: 50rpx;
   font-size: 34rpx;
   align-items: center;
   justify-content: center;
-  border: 2rpx solid rgba(0,0,0,.3);
+  border: 2rpx solid rgba(0,0,0,.0);
 }
 
 #confirm_btn{
-  background: #ff7e67;
+  background: #ffa300;
   margin-right: 20rpx;
   color: #ffffff;
-}
-#save_btn{
-  background: #fafafa;
 }
 
 /*弹窗*/
@@ -218,7 +214,7 @@
 
 .dialogTitle{
   margin-top:40rpx;
-  color:#ff7e67;
+  color:#ffa300;
   font-size: 36rpx;
   height: 40rpx;
 }
