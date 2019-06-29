@@ -9,14 +9,14 @@
       <view wx:if="{{item.type === 'choose'}}">
         <view wx:if="{{item.choose_problem.max_choose == 1}}">
           <radio-group style="margin-left:42rpx;" bindchange="onChangeRadio" data-index="{{index}}">
-            <radio class='radio-btn' wx:for="{{item.choose_problem.options}}" wx:key="{{index}}" value='{{index}}' color="#ff7e67">
+            <radio class='radio-btn' wx:for="{{item.choose_problem.options}}" wx:key="{{index}}" value='{{index}}' color="#ffa300">
               {{item.content}}
             </radio>
           </radio-group>
         </view>
         <view wx:if="{{item.choose_problem.max_choose > 1}}">
           <checkbox-group style="margin-left:42rpx;" bindchange="onChangeCheckbox" data-index="{{index}}">
-            <checkbox class='radio-btn' wx:for="{{item.choose_problem.options}}" wx:key="{{index}}" value='{{index}}' checked='{{item.checked}}' color="#ff7e67">
+            <checkbox class='radio-btn' wx:for="{{item.choose_problem.options}}" wx:key="{{index}}" value='{{index}}' checked='{{item.checked}}' color="#ffa300">
               {{item.content}}
             </checkbox>
           </checkbox-group>
@@ -31,7 +31,7 @@
           <text class='score-left'>{{item.score_problem.min_text}}</text>
           <text class='score-right'>{{item.score_problem.max_text}}</text>
         </view>
-        <slider bindchange='onChangeScore' data-index="{{index}}" min="1" max="5" value="3" backgroundColor='' activeColor='#ff7e67'></slider>
+        <slider bindchange='onChangeScore' data-index="{{index}}" min="1" max="5" value="3" backgroundColor='' activeColor='#ffa300'></slider>
       </view>
     </view>
   </view>

@@ -1,12 +1,12 @@
 <!--pages/ParticipateTask/ParticipateTask.wxml-->
 <view id="container">
   <view id="top">
-    <text>参与列表</text>
+    <text style="font-weight: bold;">参与列表</text>
     <!--任务类型选择器-->
     <view class="picker_field">
       <picker value="{{chosed_status}}" bindchange="change_status" range="{{task_status}}" class="picker_font">
         <text>状态：</text>
-        <text style="color: #ff7e67;">{{chosed_status}}</text>
+        <text style="color: #ffa300;">{{chosed_status}}</text>
       </picker>
     </view>
     <view class="band2" />

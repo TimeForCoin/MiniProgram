@@ -6,7 +6,7 @@
 }
 
 .score-view {
-  margin: 10rpx 42rpx 0 42rpx;
+  margin: 10rpx 42rpx 60rpx 42rpx;
   font-size: 30rpx;
 }
 .score-right {
@@ -16,7 +16,7 @@
 .title{
   font-size: 40rpx;
   font-weight: bold;
-  margin: 100rpx auto 0rpx auto;
+  margin: 30rpx auto 0rpx auto;
 }
 .input{
   height: 400rpx;
@@ -30,14 +30,13 @@
 
 .submitBtn{
   width: 85%;
-  background-color: #ff7e67;
+  background-color: #ffa300;
   color: #fff;
 }
 
 .score_class{
-  margin-left: auto;
+  margin: 28rpx;
   margin-right: 40rpx;
   font-size: 30rpx;
   color: gray;
-  text-align: right;
 }

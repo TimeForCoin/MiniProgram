@@ -2,13 +2,13 @@
 <view id="container">
   <text class='title'>{{isFeedback ? '您的反馈' : '申请备注'}}</text>
   <textarea maxlength='300' bindinput='inputProcess' class='input' placeholder='{{holder}}' value="{{inputValue}}" />
-  <text class = "score_class" wx:if="{{isFeedback}}">{{score}}/100</text>
+  <text class = "score_class" wx:if="{{isFeedback}}">评分:{{score}}</text>
   <view class='score-view' wx:if="{{isFeedback}}">
     <view>
       <text class='score-left'>0</text>
       <text class='score-right'>100</text>
     </view>
-    <slider bindchange='onChangeScore' data-index="{{index}}" min="0" max="100" value="{{score}}" backgroundColor='' activeColor='#ff7e67'></slider>
+    <slider bindchange='onChangeScore' data-index="{{index}}" min="0" max="100" value="{{score}}" backgroundColor='' activeColor='#ffa300'></slider>
   </view>
   <button class = 'submitBtn' bindtap='submit'>提交</button>
 </view>

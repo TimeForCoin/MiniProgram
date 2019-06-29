@@ -44,7 +44,7 @@
 
 .submit-btn {
   margin: 48rpx;
-  background-color: #ff7e67;
+  background-color: #ffa300;
   color:white;
   margin-bottom: 60rpx;
 }

@@ -2,7 +2,7 @@
 
 /*标题以及详情内容*/
 .title_detail {
-  margin: 10rpx 0;
+  margin: 20rpx 0;
   padding: 0 32rpx 0 32rpx;
 }
 
@@ -217,6 +217,7 @@
   color:#ffa300;
   font-size: 36rpx;
   height: 40rpx;
+  font-weight: bold;
 }
 
 .dialogsubTitle{
