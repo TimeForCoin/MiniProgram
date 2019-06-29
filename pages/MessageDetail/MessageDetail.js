@@ -27,6 +27,8 @@ Page({
     page:1,
     session_id:"",
     top_value: 100,
+    // 最大行数
+    max_length: 0,
   },
 
   // isMore true 用于上拉刷新
@@ -146,13 +148,17 @@ Page({
             }
           }
         }
+        // 获取每行最大高度
+        for(let t of arr){
+          this.getMaxLength(t.content)
+        }
         this.setData({
           sessionData: res.data,
           testMessageDetail: {
             data: arr
           },
           testSample: this.data.testSample,
-          top_value: 100 * arr.length,
+          top_value: this.data.max_length * arr.length,
         });
         this.autoLoadMessage()
       }
@@ -275,6 +281,19 @@ Page({
       });
     }
   },
+  getMaxLength: function(text){
+    // 利用回车数量以及字数判断高度
+    enter_count = 0
+    for (let t of text) {
+      if (t === '\n') {
+        enter_count++;
+      }
+    }
+    max = (enter_count + text.length / 13) * 72
+    if (max > this.data.max_length){
+      this.data.max_length = max
+    }
+  },
   // 提交回复
   submitRely: async function (e) {
     // 消息为空
@@ -335,6 +354,9 @@ Page({
             L: "MM-DD HH:mm:ss"
           }
         })
+        console.log(getLast.content.length)
+        // 利用回车数量以及字数判断高度
+        this.getMaxLength(getLast.content)
         getLast.string_time = moment(getLast.time * 1000).format('L')
         getLast.showTime = false
         this.data.testMessageDetail.data.push(getLast)
@@ -344,7 +366,8 @@ Page({
           }
         })
         this.setData({
-          top_value: 100 * this.data.testMessageDetail.data.length,
+          // 之前的最长长度 + 最后一条消息的长度
+          top_value: this.data.max_length * this.data.testMessageDetail.data.length,
         })
       }
       // if (getLast.content === (this.data.testMessageDetail.data.reserve()[0]).content){
