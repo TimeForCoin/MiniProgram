@@ -11,29 +11,32 @@
   display: flex;
   width: 100%;
   flex-direction: row;
+  margin-top: 32rpx;
 }
 
 #touxiang {
-  width: 90rpx;
-  height: 85rpx;
+  width: 80rpx;
+  height: 80rpx;
   object-fit: fill;
-  margin-top: 5rpx;
-  border-radius: 10rpx;
+  margin: 16rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 #user_basic_info {
   display: flex;
   width: 100%;
-  margin-left: 20rpx;
+  margin-left: 30rpx;
   flex-direction: column;
 }
 
 .title {
-  font-size: 32rpx;
+  font-size: 30rpx;
+  margin-left: 15rpx;
 }
 
 .subtitle {
-  font-size: 28rpx;
+  font-size: 26rpx;
   color: gray;
 }
 
@@ -47,12 +50,6 @@
 }
 
 /*价钱和点赞*/
-
-#price_like {
-  display: inline-block;
-  margin-top: 10rpx;
-  width: 100%;
-}
 
 #price_view {
   display: flex;
@@ -88,9 +85,8 @@
 /*收藏量 阅读量*/
 
 .imgs {
-  width: 640rpx;
-  height: 480rpx;
-  margin: 20rpx auto 20rpx auto;
+  width: 100%;
+  height: 600rpx;
   background: white;
 }
 
@@ -106,20 +102,36 @@
   margin-top: 10rpx;
 }
 
+.task-content {
+  font-size: 30rpx;
+  margin: 26rpx 0;
+  color: grey;
+}
+
 .column_list {
   display: fledx;
   flex-direction: column;
   margin-top: 10rpx;
 }
 
+.task-icon {
+  width: 42rpx;
+  height: 42rpx;
+  vertical-align: middle;
+  margin-right: 26rpx;
+}
+
+.task-item {
+  margin: 32rpx 16rpx;
+}
+
 /* 加入按钮 */
 
 .joininButton {
-  margin-top: 20rpx;
-  width: 80%;
+  margin-top: 60rpx;
+  width: 60%;
   background-color: #ff8788;
   color: #fff;
-  margin-bottom: 10rpx;
 }
 
 /*分割线*/
@@ -220,12 +232,12 @@
 .taskBlock {
   background: #fff;
   margin-left: 10rpx;
-  margin-top: 10rpx;
   text-align: center;
-  border-radius: 25rpx;
-  font-size: 28rpx;
-  border: 2rpx solid rgba(0, 0, 0, 0.3);
+  border-radius: 24rpx;
+  font-size: 26rpx;
   padding: 6rpx 20rpx;
+  background: #85dbd0;
+  color: #fff;
 }
 
 /*自己的评论*/
@@ -239,20 +251,15 @@
 
 .comment_input {
   font-size: 32rpx;
-  height: 80rpx;
-  padding-left: 20rpx;
-  padding-top: 10rpx;
+  height: 46rpx;
+  padding: 20rpx;
   background: rgba(231, 231, 231, 0.3);
 }
 
 .commit_btn {
-  border: 2rpx solid rgba(0, 0, 0, 0.3);
-  font-size: 32rpx;
-  height: 80rpx;
-  text-align: center;
-  align-items: center;
-  border-radius: 20rpx;
-  background-color: #e0fcff;
+  height: 46rpx;
+  width: 46rpx;
+  padding: 26rpx;
 }
 
 .comment_bottom {
@@ -328,18 +335,24 @@
 
 .task_player {
   display: block;
-  margin: 10rpx 16rpx;
+  margin: 12rpx 16rpx;
+  width: 100%;
 }
 
 .player_name {
-  font-size: 32rpx;
+  font-size: 30rpx;
   margin: auto 30rpx;
+}
+
+.player-list {
+  margin: 32rpx 0;
 }
 
 .player_avatar {
   width: 48rpx;
   height: 48rpx;
   vertical-align: top;
+  border-radius: 50%;
 }
 
 .deleteDialog {
@@ -374,4 +387,62 @@
   align-items: center;
   justify-content: center;
   border: 2rpx solid rgba(0, 0, 0, 0.3);
+}
+
+.money_icon {
+  margin: 8rpx;
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.money_text {
+  font-size: 32rpx;
+  margin-bottom: 12rpx;
+  font-weight: bold;
+  color: #ffa300;
+}
+
+.money_object {
+  font-size: 34rpx;
+  color: #ffa300;
+}
+
+.task-title {
+  font-weight: bold;
+  font-size: 46rpx;
+  margin-right: 20rpx;
+}
+
+.title-box {
+  margin: 32rpx 0;
+}
+
+.slide-image {
+  width: 100%;
+  height: 300px;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 30rpx;
+  margin-top: 24rpx;
+}
+
+.follow-btn {
+  float: right;
+  font-size: 28rpx;
+  width: 166rpx;
+  height: 43rpx;
+  background: #ff8788;
+  color: #fff;
+  padding: 14rpx 40rpx;
+  border-radius: 16rpx;
+  margin-top: 28rpx;
+}
+
+.task-accept {
+  font-size: 26rpx;
+  color: gray;
+  text-align: center;
+  margin: 12rpx;
 }

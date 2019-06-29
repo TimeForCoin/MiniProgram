@@ -3,18 +3,17 @@
   <view id="top">
     <!-- 类型选择 -->
     <view class="sort-wrap">
-      <view class='sort-btn' bindtap='choocePersonalInfo'>
-      <image class="tab-icon" src="/images/icons/chat.png" />
+      <view class="{{'sort-btn' + (!showSystemInfo ? ' sort-btn-select': '')}}" bindtap='choocePersonalInfo'>
+        <!-- <image class="tab-icon" src="/images/icons/chat.png" /> -->
         <text class="{{showSystemInfo ? 'tab-title': 'tab-select'}}">聊天</text>
       </view>
 
-      <view class='sort-btn' bindtap='chooceSystemInfo'>
-      <image class="tab-icon" src="/images/icons/notification.png" />
+      <view class="{{'sort-btn' + (showSystemInfo ? ' sort-btn-select': '')}}" bindtap='chooceSystemInfo'>
+        <!-- <image class="tab-icon" src="/images/icons/notification.png" /> -->
         <text class="{{!showSystemInfo ? 'tab-title': 'tab-select'}}">通知</text>
       </view>
     </view>
   </view>
-    <view class="band2" />
 
   <!--下面内容-->
   <view id="list">

@@ -1,116 +1,92 @@
 <view hidden="{{failToGetDetail}}">
+  <!--滚动显示图片-->
+  <swiper class="imgs" indicator-dots="{{taskDetail.data.images.length <= 1 ? false : true}}" autoplay="true" interval="5000" duration="1000" indicator-color="white" indicator-active-color="#ff8788" hidden="{{taskDetail.data.images.length === 0 ? true : false}}">
+    <block wx:for="{{taskDetail.data.images}}" wx:key="id">
+      <swiper-item>
+        <image src="{{item.url}}" class="slide-image" mode="aspectFill" />
+      </swiper-item>
+    </block>
+  </swiper>
   <!--pages/Detail/Detail.wxml-->
   <view id="top">
+    <view class="title-box">
+      <text class="task-title">{{taskDetail.data.title}}</text>
+      <text class="payType">{{taskDetail.data.type == 'run' ? '跑腿任务' : taskDetail.data.type == 'questionnaire' ? '问卷任务' : '信息任务' }}</text>
+      <text class="payType">{{taskDetail.data.status == 'wait' ? '等待' : taskDetail.data.status == 'run' ? '执行中' : taskDetail.data.status == 'close'? '已关闭' : taskDetail.data.status == 'finish'? '已完成' : taskDetail.data.status == 'overdue' ? '已过期' : '草稿'}}</text>
+    </view>
+    <view id="like_view">
+      <!--阅读-->
+      <view>
+        <image src="/images/icons/read_top.png" style="width: 32rpx; height:32rpx; margin-top: 10rpx;" />
+        <text class="subtitle" style="margin-left: 10rpx;">{{taskDetail.data.view_count}}</text>
+      </view>
+      <!--收藏-->
+      <view>
+        <image src="/images/icons/collected_top.png" style="width: 32rpx; height:32rpx; margin-top: 10rpx; margin-left: 15rpx;" />
+        <text class="subtitle" style="margin-left: 10rpx;">{{taskDetail.data.collect_count}}</text>
+      </view>
+      <!--喜欢-->
+      <view>
+        <image src="/images/icons/liked_top.png" style="width: 32rpx; height:32rpx; margin-top: 10rpx; margin-left: 15rpx;" />
+        <text class="subtitle" style="margin-left: 10rpx;">{{taskDetail.data.like_count}}</text>
+      </view>
+    </view>
+    <view>
+      <image class="money_icon" wx:if="{{taskDetail.data.reward === 'rmb'}}" src="/images/icons/RMB.png" />
+      <image class="money_icon" wx:if="{{taskDetail.data.reward === 'money'}}" src="/images/icons/coin.png" />
+      <text class="money_object" wx:if="{{taskDetail.data.reward === 'object'}}">{{taskDetail.data.reward_object}}</text>
+      <text class="money_text" wx:if="{{taskDetail.data.reward !== 'object'}}">{{taskDetail.data.reward_value}}</text>
+    </view>
+    <view class="task-content">{{taskDetail.data.content}}</view>
     <view id="user_info">
       <image src="{{taskDetail.data.publisher.avatar}}" id="touxiang" />
       <view id="user_basic_info">
-        <text id="username" class="title">{{taskDetail.data.publisher.nickname}}</text>
-        <text class="subtitle">发布于：{{publishDate}}</text>
+        <text class="username">{{taskDetail.data.publisher.nickname}}</text>
+        <text class="subtitle">{{publishDate}}</text>
       </view>
+      <view class="follow-btn" size="mini">+ 关注</view>
     </view>
-    <view class="band1" />
-    <view id="price_like">
-      <view id="like_view">
-        <!--阅读-->
-        <view>
-          <image src="/images/icons/read_top.png" style="width: 32rpx; height:32rpx; margin-top: 10rpx;" />
-          <text class="subtitle" style="margin-left: 10rpx;">{{taskDetail.data.view_count}}</text>
-        </view>
-        <!--收藏-->
-        <view>
-          <image src="/images/icons/collected_top.png" style="width: 32rpx; height:32rpx; margin-top: 10rpx; margin-left: 15rpx;" />
-          <text class="subtitle" style="margin-left: 10rpx;">{{taskDetail.data.collect_count}}</text>
-        </view>
-        <!--喜欢-->
-        <view>
-          <image src="/images/icons/liked_top.png" style="width: 32rpx; height:32rpx; margin-top: 10rpx; margin-left: 15rpx;" />
-          <text class="subtitle" style="margin-left: 10rpx;">{{taskDetail.data.like_count}}</text>
-        </view>
-      </view>
 
-      <view id="price_view">
-        <image src="/images/icons/price.png" id="money" wx:if="{{taskDetail.data.reward != 'physical'}}" />
-        <text id="price">{{taskDetail.data.reward == 'physical' ? taskDetail.data.reward_object : taskDetail.data.reward_value}}</text>
-        <text class="payType">{{reward == 'rmb' ? '人民币' : taskDetail.data.reward == 'physical'? '实物' : '闲币' }}</text>
-        <text class="payType">{{taskDetail.data.status == 'wait' ? '等待' : taskDetail.data.status == 'run' ? '执行中' : taskDetail.data.status == 'close'? '已关闭' : taskDetail.data.status == 'finish'? '已完成' : taskDetail.data.status == 'overdue' ? '已过期' : '草稿'}}</text>
-        <text class="payType">{{taskDetail.data.type == 'run' ? '跑腿任务' : taskDetail.data.type == 'questionnaire' ? '问卷任务' : '信息任务' }}</text>
-      </view>
+    <view wx:if="{{taskDetail.data.tags.length > 0}}" class="task-item">
+      <image src="/images/icons/tag.png" class="task-icon" />
+      <text wx:for="{{taskDetail.data.tags}}" wx:key="{{index}}" class="taskBlock">{{item}}</text>
     </view>
-    <view class="band1" />
-    <textarea style="font-weight: bold; font-size: 40rpx; margin:26rpx auto 0rpx 20rpx; height:{{taskDetail.data.titleHeight}}rpx" value = "{{taskDetail.data.title}}" ></textarea>
-    <!--滚动显示图片-->
-    <swiper class="imgs" indicator-dots="{{taskDetail.data.images.length <= 1 ? false : true}}" autoplay="true" interval="5000" duration="1000" indicator-color="white" indicator-active-color="#ff8788" hidden="{{taskDetail.data.images.length === 0 ? true : false}}">
-      <block wx:for="{{taskDetail.data.images}}" wx:key="id">
-        <swiper-item>
-          <image src="{{item.url}}" class="slide-image" mode="aspectFill" />
-        </swiper-item>
-      </block>
-    </swiper>
-
-    <!--分类-->
-    <view wx:if="{{taskDetail.data.tags.length > 0}}" style="margin-bottom: 10rpx; margin-top: 20rpx;">
-      <text style="font-size: 34rpx;">标签</text>
-      <view class="taskType">
-        <view wx:for="{{taskDetail.data.tags}}" wx:key="item">
-          <text class="taskBlock">{{item}}</text>
-        </view>
-      </view>
-    </view>
-    <view class="band1" />
     <!--地点-->
-    <view wx:if="{{taskDetail.data.location.length > 0}}">
-      <text style="font-size: 34rpx;">地点</text>
-      <view class="taskType">
-        <view wx:for="{{taskDetail.data.location}}" wx:key="item">
-          <text class="taskBlock">{{item}}</text>
-        </view>
-      </view>
+    <view wx:if="{{taskDetail.data.location.length > 0}}" class="task-item">
+      <image src="/images/icons/location.png" class="task-icon" />
+      <text wx:for="{{taskDetail.data.location}}" wx:key="{{index}}" class="taskBlock">{{item}}</text>
     </view>
     <!--主体内容-->
-    <view style="display:flex; flex-direction:column; margin-left:20rpx; margin-right:20rpx; margin-bottom: 20rpx;">
-      <!--开始时间-->
-      <view class="content_list">
-        <text class="title" style="color: #ff8788;">开始时间：</text>
-        <text class="title">{{startDate}}</text>
-      </view>
-      <!--结束时间-->
-      <view class="content_list">
-        <text class="title" style="color: #ff8788;">结束时间：</text>
-        <text class="title">{{endDate}}</text>
-      </view>
-      <view class="content_list">
-        <text class="title" style="color: #ff8788;">人数：</text>
-        <text class="title">{{taskDetail.data.player_count}} / {{taskDetail.data.max_player}}</text>
-      </view>
-      <view class="content_list">
-        <text class="title" style="color: #ff8788;">自动接受：</text>
-        <text class="title">{{taskDetail.data.auto_accept? '是' : '否'}}</text>
-      </view>
-      <view style="display:flex; flex-direction:column; margin-top: 10rpx" wx:if="{{player_list.length != 0}}">
-        <text class="title" style="color: #ff8788;">参与人员：</text>
-        <view class="taskType">
-          <view wx:for="{{player_list}}" wx:key="item.player.id" class="task_player" bindtap='onClickPlayer' data-index="{{index}}">
-            <image class="player_avatar" mode="aspectFill" src="{{item.player.avatar}}" />
-            <text class="player_name">{{item.player.nickname}}</text>
-            <text wx:if="{{item.status === 'running'}}" style='color:green;' class="taskBlock">进行中</text>
-            <text wx:if="{{item.status === 'wait'}}" style='color:orange;' class="taskBlock">等待审核</text>
-            <text wx:if="{{item.status === 'refuse'}}" style='color:red;' class="taskBlock">拒绝加入</text>
-            <text wx:if="{{item.status === 'finish'}}" style='color:green;' class="taskBlock">已完成</text>
-            <text wx:if="{{item.status === 'give_up'}}" style='color:red;' class="taskBlock">已放弃</text>
-            <text wx:if="{{item.status === 'failure'}}" style='color:red;' class="taskBlock">任务失败</text>
-            <text wx:if="{{item.status === 'close'}}" style='color:red;' class="taskBlock">任务已关闭</text>
-          </view>
-        </view>
-      </view>
-      <text class="title content_list">{{taskDetail.data.content}}</text>
-
-      <view wx:if="{{taskDetail.data.status == 'wait' && !taskDetail.data.played}}">
-        <button class='joininButton' bindtap='joinin'>{{taskDetail.data.type === 'questionnaire' ? '填写问卷' : taskDetail.data.auto_accept ? '立即加入' : '申请加入'}}</button>
-      </view>
-
-      <button class='joininButton' bindtap='exitTask' wx:if="{{taskDetail.data.status == 'wait' && taskDetail.data.played && give_up}}">放弃任务</button>
-      <button class='joininButton' bindtap='closeTask' wx:if="{{taskDetail.data.status == 'wait' && isMine}}">{{closeBtnText}}</button>
+    <view class="task-item">
+      <image src="/images/icons/time.png" class="task-icon" />
+      <text class="title">{{startDate}} ~ {{endDate}}</text>
     </view>
+    <view class="task-item">
+      <image src="/images/icons/people.png" class="task-icon" />
+      <text class="title">{{taskDetail.data.player_count}} / {{taskDetail.data.max_player}}</text>
+    </view>
+    <view class="player-list" wx:if="{{player_list.length != 0}}">
+      <view wx:for="{{player_list}}" wx:key="item.player.id" class="task_player" bindtap='onClickPlayer' data-index="{{index}}">
+        <image class="player_avatar" mode="aspectFill" src="{{item.player.avatar}}" />
+        <text class="player_name">{{item.player.nickname}}</text>
+        <text wx:if="{{item.status === 'running'}}" style='background:green;' class="taskBlock">进行中</text>
+        <text wx:if="{{item.status === 'wait'}}" style='background:orange;' class="taskBlock">等待审核</text>
+        <text wx:if="{{item.status === 'refuse'}}" style='background:red;' class="taskBlock">拒绝加入</text>
+        <text wx:if="{{item.status === 'finish'}}" style='background:green;' class="taskBlock">已完成</text>
+        <text wx:if="{{item.status === 'give_up'}}" style='background:red;' class="taskBlock">已放弃</text>
+        <text wx:if="{{item.status === 'failure'}}" style='background:red;' class="taskBlock">任务失败</text>
+        <text wx:if="{{item.status === 'close'}}" style='background:red;' class="taskBlock">任务已关闭</text>
+      </view>
+    </view>
+
+    <view wx:if="{{taskDetail.data.status == 'wait' && !taskDetail.data.played}}">
+      <button class='joininButton' bindtap='joinin'>{{taskDetail.data.type === 'questionnaire' ? '填写问卷' : taskDetail.data.auto_accept ? '立即加入' : '申请加入'}}</button>
+    </view>
+
+    <button class='joininButton' bindtap='exitTask' wx:if="{{taskDetail.data.status == 'wait' && taskDetail.data.played && give_up}}">放弃任务</button>
+    <!-- <button class='joininButton' bindtap='' wx:if="{{}}">{{closeBtnText}}</button> -->
+
+    <view wx:if="{{!taskDetail.data.auto_accept}}" class="task-accept">该任务需要审核参加</view>
   </view>
   <view class="band2" />
   <!--他人留言-->
@@ -124,7 +100,7 @@
     <!--自己的留言-->
     <view class="mycomment" cursor-spacing="40rpx">
       <textarea class="comment_input" placeholder='输入你的评论吧~' bindinput='commentInputChange' value='{{comment_content}}' style="width: 75%;" />
-      <button class="commit_btn" bindtap='submitComment'>发送</button>
+      <image class="commit_btn" src="/images/icons/send.png" bindtap='submitComment' />
     </view>
     <view class="band1" />
     <!--其他留言-->
@@ -132,10 +108,10 @@
       <view class="comment_user_info" wx:for="{{commentData.data}}" wx:key="item.id">
         <view class="content_list">
           <image src="{{item.user.avatar}}" class="comment_ava" />
-          <text class="subtitle" style=" margin-left:10rpx; margin-top: 25rpx;">{{item.user.nickname}}</text>
+          <text class="subtitle" style=" margin-left:20rpx; margin-top: 16rpx;">{{item.user.nickname}}</text>
           <view style="display:flex; flex-direction:row; margin-left: auto; align-items:flex-end; length: 100%;">
             <text class="subtitle" style="margin-top:10rpx; margin-left: 20rpx; margin-right: 20rpx;">{{item.time}}</text>
-            <view class="comment_type_view" wx:if = '{{!item.is_delete}}'>
+            <view class="comment_type_view" wx:if='{{!item.is_delete}}'>
               <!--删除-->
               <view bindtap="clickDelete" style="display:{{item.canDelete ? 'flex' : 'none'}}; flex-direction: row; margin-right: 30rpx;" data-item="{{item.id}}">
                 <image src="/images/icons/delete_comment.png" style="width: 45rpx; height:45rpx; margin-top: 10rpx;" />
@@ -153,7 +129,7 @@
             </view>
           </view>
         </view>
-        <text class="comment_text title" style="margin-top:10rpx; margin-left:20rpx;">{{item.content}}</text>
+        <text class="comment_text title" style="margin-top:30rpx; margin-left:24rpx;">{{item.content}}</text>
         <view class="band1" />
       </view>
     </view>
@@ -175,6 +151,9 @@
   <!--喜欢-->
   <view class="float_button" style='bottom: 500rpx;' wx:if="{{showButtons}}" bindtap='clickLove'>
     <image src="/images/icons/{{isLove? 'liked' : 'like'}}.png" class="btn_img" />
+  </view>
+  <view class="float_button" style='bottom: 300rpx;' wx:if="{{showButtons && taskDetail.data.status == 'wait' && isMine}}" bindtap='closeTask'>
+    <image src="/images/icons/error.png" class="btn_img" />
   </view>
   <view class="float_button" style="bottom: 600rpx;" bindtap='clickMore'>
     <image src="/images/icons/more.png" class="btn_img" />

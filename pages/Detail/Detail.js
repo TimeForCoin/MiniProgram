@@ -75,8 +75,8 @@ Page({
     this.data.taskID = options.id
     moment.locale('zh-cn', {
       longDateFormat: {
-        l: "YYYY-MM-DD",
-        L: "YYYY-MM-DD HH:mm"
+        l: "MM-DD",
+        L: "MM-DD HH:mm"
       }
     })
   },
@@ -184,7 +184,7 @@ Page({
           data: res.data
         },
         isMine: res.data.publisher.id === app.globalData.userInfo.id,
-        publishDate: moment(new Date(res.data.publish_date * 1000)).format('l'),
+        publishDate: moment(new Date(res.data.publish_date * 1000)).format('L'),
         startDate: moment(res.data.start_date * 1000).format('L'),
         endDate: moment(res.data.end_date * 1000).format('L'),
         isLove: res.data.liked,
