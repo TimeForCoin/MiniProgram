@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view id="container">
+<view id="container" bindtouchstart='touchStart' bindtouchend="touchEnd">
   <view id="search_view" bindtap="navigateToResult">
     <image src="/images/icons/search.png" class="search_logo" />
     <input name="search_input" disabled="{{true}}" class="input_title" placeholder="搜索 任务" maxlength='20' />
