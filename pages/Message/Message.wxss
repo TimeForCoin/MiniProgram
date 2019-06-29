@@ -22,7 +22,7 @@
 
 .sort-btn {
   display: flex;
-  font-size: 32rpx;
+  font-size: 36rpx;
   flex-direction: row;
   flex: 1;
   padding-top: 25rpx;
@@ -31,8 +31,17 @@
   justify-items: center;
 }
 
+.nothing-box {
+  text-align: center;
+}
+
+.nothing-icon {
+  margin-top: 20%;
+  height: 128rpx;
+  width: 128rpx;
+}
+
 #list {
-  margin-top: 20rpx;
   padding-left: 20rpx;
   padding-right: 20rpx;
 }
@@ -91,23 +100,41 @@
 /*用于主体*/
 
 .title {
-  margin-top: 10rpx;
+  margin-top: 18rpx;
   font-size: 30rpx;
-}
-
-.payType {
-  background: #ffa300;
-  margin: 16rpx 10rpx 0rpx 0rpx;
-  padding: 3rpx 6rpx;
-  font-size: 24rpx;
-  color: #fff;
-  border-radius: 5rpx;
+  font-weight: bold;
 }
 
 .subtitle {
   margin-top: 8rpx;
   color: gray;
   font-size: 28rpx;
+}
+
+.tab-select {
+  color: #ff8788;
+  font-weight: bold;
+}
+
+.tab-title {
+  color: gray;
+}
+
+.tab-icon {
+  height: 32rpx;
+  width: 32rpx;
+  margin: 6rpx 16rpx;
+}
+
+.item-unread {
+  background: #f34b4b;
+  margin-top: 64rpx;
+  padding: 7rpx 14rpx;
+  font-size: 24rpx;
+  color: #fff;
+  border-radius: 14rpx;
+  position: absolute;
+  right: 20rpx;
 }
 
 .item_time {
@@ -159,4 +186,13 @@
   background: gray;
   z-index: 500;
   opacity: 0.7;
+}
+
+.gender-icon {
+  position: absolute;
+  height: 32rpx;
+  width: 32rpx;
+  flex-shrink: 0;
+  margin-top: 70rpx;
+  margin-left: 85rpx;
 }

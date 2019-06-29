@@ -63,15 +63,15 @@ Page({
     }
     moment.locale('en', {
       longDateFormat: {
-        l: "YYYY-MM-DD",
-        L: "YYYY-MM-DD HH:mm"
+        l: "MM-DD",
+        L: "MM-DD HH:mm"
       }
     })
     for (let i in res.data.data) {
       res.data.data[i].string_last_time =
         moment(res.data.data[i].last_message.time * 1000).format('L');
-      if (res.data.data[i].target_user.nickname.length > 10) {
-        res.data.data[i].target_user.nickname = res.data.data[i].target_user.nickname.substr(0, 10) + '...'
+      if (res.data.data[i].target_user.nickname.length > 14) {
+        res.data.data[i].target_user.nickname = res.data.data[i].target_user.nickname.substr(0, 14) + '...'
       }
       if (res.data.data[i].type === 'chat') {
         this.data.chatMessage.push(res.data.data[i])

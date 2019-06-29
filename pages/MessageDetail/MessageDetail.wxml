@@ -11,8 +11,10 @@
     </view>
     <!--顶部下方价格部分-->
     <view id="price_view">
-      <image src="/images/icons/price.png" id="money" wx:if="{{testSample.data.reward != 'physical'}}" />
-      <text id="price">{{testSample.data.reward == 'physical' ? testSample.data.reward_object : testSample.data.reward_value}}</text>
+      <image class="money_icon" wx:if="{{testSample.data.reward === 'rmb'}}" src="/images/icons/RMB.png" />
+      <image class="money_icon" wx:if="{{testSample.data.reward === 'money'}}" src="/images/icons/coin.png" />
+      <text class="money_object" wx:if="{{testSample.data.reward === 'object'}}">{{testSample.data.reward_object}}</text>
+      <text class="money_text" wx:if="{{testSample.data.reward !== 'object'}}">{{testSample.data.reward_value}}</text>
       <text class="payType">{{reward == 'rmb' ? '人民币' : testSample.data.reward == 'physical'? '实物' : '闲币' }}</text>
       <text class="payType">{{testSample.data.status == 'wait' ? '等待' : testSample.data.status == 'run' ? '执行中' : testSample.data.status == 'close'? '已关闭' : testSample.data.status == 'finish'? '已完成' : testSample.data.status == 'overdue' ? '已过期' : '草稿'}}</text>
       <text class="payType">{{testSample.data.type == 'run' ? '跑腿任务' : testSample.data.type == 'questionnaire' ? '问卷任务' : '信息任务' }}</text>
@@ -30,17 +32,17 @@
       <!--显示时间-->
       <text class="showTime" wx:if="{{item.showTime || sessionData.type === 'system' || sessionData.type === 'task'}}">{{item.string_time}}</text>
       <view wx:if="{{sessionData.type === 'chat'}}">
-        <view wx:if="{{!item.self}}" style="display:flex; flex-direction: row; padding: 10rpx 30rpx; margin-top: 20rpx; width: 100%">
+        <view wx:if="{{!item.self}}" class="left-box">
           <image class="ava" src="{{item.target_user.avatar}}" />
           <view class="details">
             <text class="username" style="text-align:left;">{{item.target_user.nickname}}</text>
-            <text class="content" style=" opacity: 0.8;max-width:70%;">{{item.content}}</text>
+            <text class="content" style="background-color:#ffffff;color:#252525;max-width:70%;">{{item.content}}</text>
           </view>
         </view>
-        <view wx:if="{{item.self}}" style="display:flex; flex-direction: row; padding: 10rpx 30rpx; margin-top: 20rpx;justify-content:flex-end;">
+        <view wx:if="{{item.self}}" class="right-box">
           <view class="details" style="align-items:flex-end;">
             <text class="username" style="text-align:right;">{{item.target_user.nickname}}</text>
-            <text class="content" style="background-color:#ff7e67; color:white;">{{item.content}}</text>
+            <text class="content" style="background-color:#def1fc;color:#252525;">{{item.content}}</text>
           </view>
           <image class="ava" src="{{item.target_user.avatar}}" />
         </view>
@@ -58,7 +60,8 @@
 </view>
 <!--发送信息-->
 <view wx:if="{{sessionData.type === 'chat' || status === 'detail'}}" class="mycomment comment_bottom">
-  <textarea class="comment_input" bindinput='replyInputChange' value='{{reply_content}}' style="width: 70%;" cursor-spacing="40rpx" />
-  <button class="commit_btn" bindtap='submitRely' cursor-spacing="40rpx">发送</button>
+  <textarea class="comment_input" bindinput='replyInputChange' value='{{reply_content}}' cursor-spacing="40rpx" />
+  <image class="commit_btn" src="/images/icons/send.png" bindtap='submitRely' />
 </view>
+
 <view class="mask" catchtouchmove="preventTouchMove" bindtap="cancelReplying" wx:if="{{isReplying}}" />

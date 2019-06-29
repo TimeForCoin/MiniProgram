@@ -4,38 +4,43 @@
     <!-- 类型选择 -->
     <view class="sort-wrap">
       <view class='sort-btn' bindtap='choocePersonalInfo'>
-        <text style="color: {{showSystemInfo ? 'gray' : '#ffa300'}}">个人消息</text>
+      <image class="tab-icon" src="/images/icons/chat.png" />
+        <text class="{{showSystemInfo ? 'tab-title': 'tab-select'}}">聊天</text>
       </view>
 
       <view class='sort-btn' bindtap='chooceSystemInfo'>
-        <text style="color: {{!showSystemInfo ? 'gray' : '#ffa300'}}">系统消息</text>
+      <image class="tab-icon" src="/images/icons/notification.png" />
+        <text class="{{!showSystemInfo ? 'tab-title': 'tab-select'}}">通知</text>
       </view>
     </view>
   </view>
-  <view class="band2" />
+    <view class="band2" />
 
   <!--下面内容-->
   <view id="list">
+    <view class="nothing-box" wx:if="{{testMessage.data.length === 0}}">
+      <image class="nothing-icon" src="/images/icons/nothing.png" />
+    </view>
     <view class="list_item" wx:for="{{testMessage.data}}" wx:key="item.id" bindtap='navigateToMessageDetail' data-id="{{item.id}}">
       <image mode="aspectFill" class="item_img" src="{{item.target_user.avatar}}" />
+      <image class="gender-icon" src="/images/icons/man.png" wx:if="{{item.type === 'chat' && item.target_user.gender === 'man'}}" />
+      <image class="gender-icon" src="/images/icons/woman.png" wx:if="{{item.type === 'chat' && item.target_user.gender === 'woman'}}" />
+      <image class="gender-icon" src="/images/icons/robot.png" wx:if="{{item.type === 'chat' && item.target_user.gender !== 'man'&& item.target_user.gender !== 'woman'}}" />
       <view class="basic_info">
         <view class="row_view">
           <text class="title" style="margin-right:10rpx;">{{item.target_user.nickname}}</text>
-          <text class="payType" wx:if="{{item.type === 'chat'}}">{{item.target_user.gender == 'man' ? '男' : '女'}}</text>
-          <text wx:if="{{item.unread_count !== 0}}" class="payType">未读</text>
+          <text class="item-unread" wx:if="{{item.unread_count !== 0}}">{{item.unread_count}}</text>
           <text class="item_time">{{item.string_last_time}}</text>
         </view>
         <!--新增最后一条消息-->
         <text class="subtitle">{{item.type === 'chat' ? item.last_message.content:item.last_message.title}}</text>
       </view>
     </view>
-    <view class="band1" />
   </view>
   <view class="loading_view" wx:if="{{isLoading}}">
     <image class="loading" src="/images/icons/loading.png"></image>
     <text class="subtext">正在载入更多...</text>
   </view>
-  <text class="subtext" style="margin-top: 10rpx; margin-bottom: 60rpx; margin-left: auto; margin-right: auto;">{{'下拉刷新试试'}}</text>
 </view>
 
 

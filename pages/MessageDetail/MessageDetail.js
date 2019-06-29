@@ -35,8 +35,8 @@ Page({
     // 用于时间显示
     moment.locale('zh-cn', {
       longDateFormat: {
-        l: "YYYY-MM-DD",
-        L: "YYYY-MM-DD HH:mm"
+        l: "MM-DD",
+        L: "MM-DD HH:mm"
       }
     })
     if(!this.data.isLoading){
@@ -171,8 +171,8 @@ Page({
   onLoad: async function(options) {
     moment.locale('en', {
       longDateFormat: {
-        l: "YYYY-MM-DD HH:mm",
-        L: "YYYY-MM-DD HH:mm:ss"
+        l: "MM-DD HH:mm",
+        L: "MM-DD HH:mm:ss"
       }
     });
     // 判断从哪里穿进来参数
@@ -291,12 +291,11 @@ Page({
       about: this.data.status === 'detail' ? this.data.taskID : ""
     })
     if(res.statusCode != 200){
-      this.showToast("提交失败", "/images/icons/error.png")
+      this.showToast("发送失败", "/images/icons/error.png")
       return
     }
     this.data.session_id = res.data.id
     await this.loadMessage(this.data.session_id, this.data.status, false)
-    this.showToast("消息提交", "")
     this.setData({
       reply_content: ""
     })
@@ -332,8 +331,8 @@ Page({
         }
         moment.locale('en', {
           longDateFormat: {
-            l: "YYYY-MM-DD HH:mm",
-            L: "YYYY-MM-DD HH:mm:ss"
+            l: "MM-DD HH:mm",
+            L: "MM-DD HH:mm:ss"
           }
         })
         getLast.string_time = moment(getLast.time * 1000).format('L')

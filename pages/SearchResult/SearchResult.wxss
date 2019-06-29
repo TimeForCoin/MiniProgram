@@ -115,7 +115,7 @@
 }
 
 .payType{
-  background: #ff7e67;
+  background: #ffa300;
   margin: 0rpx 10rpx;
   padding: 3rpx 6rpx;
   font-size: 26rpx;

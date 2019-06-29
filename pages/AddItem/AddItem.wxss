@@ -1,21 +1,16 @@
 /* pages/AddItem/AddItem.wxss */
 
 /*标题以及详情内容*/
+
 .title_detail {
-  margin: 20rpx 0;
+  margin: 6rpx 0 12rpx 0;
   padding: 0 32rpx 0 32rpx;
 }
 
-
 .basic_info {
   display: flex;
-  padding: 5rpx 0;
+  padding: 10rpx 0;
   align-items: flex-start;
-}
-
-.input_text {
-  width: 100%;
-  font-size: 32rpx;
 }
 
 .input_title {
@@ -23,132 +18,149 @@
   font-size: 34rpx;
 }
 
+.radio-accept {
+  display: flex;
+  flex-direction: row;
+  margin: 20rpx;
+}
+
 /*分割线*/
-.band1{
-  width:100%;
+
+.band1 {
+  width: 100%;
   margin: 5rpx 0;
   height: 3rpx;
   background: rgb(243, 243, 243);
 }
 
 /*占位符*/
-.placeholder_title{
+
+.placeholder_title {
   font-size: 34rpx;
   color: rgb(156, 156, 156);
 }
 
-.placeholder{
+.placeholder {
   font-size: 32rpx;
   color: rgb(156, 156, 156);
 }
 
-
 /*图片上传*/
-#image_upload{
-  display:inline-block;
+
+#image_upload {
+  display: inline-block;
   padding: 5rpx 0 10rpx 0;
 }
 
-.imgs{
+.imgs {
   width: 140rpx;
   height: 140rpx;
   z-index: -1;
-  margin:10rpx 10rpx 10rpx 0rpx;
+  margin: 10rpx 10rpx 10rpx 0rpx;
   border-radius: 20rpx;
 }
 
-.imgs_first{
+.imgs_first {
   width: 140rpx;
   height: 140rpx;
   z-index: -1;
-  margin:10rpx 10rpx 10rpx 20rpx;
+  margin: 10rpx 10rpx 10rpx 20rpx;
   border-radius: 20rpx;
 }
 
 /*右上角删除按钮*/
-.img_del{
+
+.img_del {
   z-index: 0;
   width: 35rpx;
   height: 35rpx;
-  position:absolute;
+  position: absolute;
 }
+
 /*主图*/
-#firstTag{
+
+#firstTag {
   z-index: 2;
   position: absolute;
-  margin: 100rpx 0;
-  background: #fafafa;
-  font-size: 30rpx;
-  border-radius: 15rpx;
-  padding: 6rpx 10rpx 6rpx 10rpx;
+  margin: 115rpx 0;
+  background: #ff8788;
+  font-size: 26rpx;
+  border-radius: 12rpx;
+  padding: 6rpx 12rpx 6rpx 12rpx;
+  color: #fff;
 }
 
 /*图片添加按钮*/
-#addImage{
+
+#addImage {
   width: 140rpx;
   height: 140rpx;
-  margin:10rpx 0rpx 10rpx 20rpx;
+  margin: 10rpx 0rpx 10rpx 20rpx;
   opacity: 0.4;
 }
 
-.band2{
-  width:100%;
+.band2 {
+  width: 100%;
   height: 36rpx;
-  background: rgb(243, 243, 243);
+  background: rgb(248, 248, 248);
+  box-shadow: inset 0 0 20px rgba(43, 45, 56, 0.05);
 }
 
-.title{
+.title {
   flex: 1;
   width: 100%;
   font-weight: bold;
-  margin: 20rpx 0;
+  margin: 16rpx 0;
   font-size: 34rpx;
 }
 
 /*输入金额*/
-#price_set{
+
+.price_set {
   margin-top: 10rpx;
+  margin-bottom: 20rpx;
   display: flex;
   direction: column;
 }
+.input_text {
+  font-size: 32rpx;
+  color: #404969;
+  
+  width: 100%;
+}
 
-#price_text{
+.price_text {
   font-size: 34rpx;
   font-weight: bold;
   color: #404969;
 }
 
-#price_logo{
+.price_logo {
   width: 36rpx;
   height: 36rpx;
-  margin-right: 10rpx;
-  margin-top: 5rpx;
+  margin: 10rpx 20rpx;
 }
 
 /*设置支付类型*/
-.blockType{
+
+.blockType {
   margin-top: 20rpx;
   display: flex;
   direction: column;
   font-size: 32rpx;
 }
-.typeBlock{
-  width: 50%;
-  margin: 10rpx 10rpx;
-  text-align: center;
-  border-radius: 25rpx;
-  padding: 6rpx 0;
-}
 
 /*任务类型*/
-#taskType{
+
+#taskType {
   margin-top: 20rpx 0rpx;
   display: flex;
   direction: row;
   align-items: flex-start;
   flex-wrap: wrap;
 }
-.taskBlock{
+
+.taskBlock {
   background: #fff;
   margin-left: 10rpx;
   margin-top: 10rpx;
@@ -156,35 +168,34 @@
   border-radius: 25rpx;
   padding: 3rpx 10rpx;
   font-size: 32rpx;
-  border: 2rpx solid rgba(0,0,0,.3);
+  border: 2rpx solid rgba(0, 0, 0, 0.3);
 }
 
 /*按钮*/
-.buttonSet{
-  margin-top: 40rpx;
-  margin-bottom: 60rpx;
-  margin-left: 40rpx;
-  margin-right: 40rpx;
+
+.buttonSet {
+  margin: 40rpx;
   display: flex;
   direction: column;
 }
-.btn{
+
+.btn {
   width: 45%;
   display: flex;
   height: 80rpx;
   font-size: 34rpx;
   align-items: center;
   justify-content: center;
-  border: 2rpx solid rgba(0,0,0,.0);
 }
 
-#confirm_btn{
-  background: #ffa300;
+#confirm_btn {
+  background: #ff8788;
   margin-right: 20rpx;
-  color: #ffffff;
+  color: #fff;
 }
 
 /*弹窗*/
+
 .mask {
   width: 100%;
   height: 100%;
@@ -195,38 +206,73 @@
   z-index: 500;
   opacity: 0.7;
 }
- 
+
 .modalDialog {
   width: 80%;
   height: 320rpx;
   position: fixed;
-  top: 29%;
+  top: 30%;
   left: 0;
   z-index: 5001;
   background-color: #fff;
   margin-left: 10%;
-  border-radius: 36rpx;
+  border-radius: 10rpx;
   display: flex;
   flex-direction: column;
   justify-items: center;
   text-align: center;
 }
 
-.dialogTitle{
-  margin-top:40rpx;
-  color:#ffa300;
+.tag-block {
+  transition: all 0.3s;
+  color: #404969;
+  width: 50%;
+  margin: 10rpx 10rpx;
+  text-align: center;
+  border-radius: 25rpx;
+  padding: 10rpx 0;
+}
+
+.tag-select {
+  background: #ff8788;
+  color: #fff;
+}
+
+.time-box {
+  display: flex;
+  flex-direction: row;
+  margin: 24rpx 10rpx;
+}
+
+.time-text {
+  color: #ff8788;
+  font-size: 32rpx;
+}
+
+.time-middle {
+  margin: auto 20rpx;
+}
+
+.time-picker {
+  display: inline-block;
+  margin-left: 10rpx;
+}
+
+.dialogTitle {
+  margin-top: 40rpx;
+  color: #ff8788;
   font-size: 36rpx;
   height: 40rpx;
   font-weight: bold;
 }
 
-.dialogsubTitle{
+.dialogsubTitle {
   margin-top: 50rpx;
   width: 80%;
   margin-left: 10%;
 }
 
-.ok_btn{
+.ok_btn {
   width: 50%;
   display: flex;
   height: 60rpx;
@@ -235,9 +281,11 @@
   margin-top: 40rpx;
   align-items: center;
   justify-content: center;
-  border: 2rpx solid rgba(0,0,0,.3);
+  border: 2rpx solid rgba(0, 0, 0, 0.3);
 }
+
 /*用于图片删除的对话框*/
+
 .deleteDialog {
   width: 80%;
   height: 300rpx;
@@ -254,12 +302,13 @@
   text-align: center;
 }
 
-.delete_dialog_title{
-  margin-top:70rpx;
+.delete_dialog_title {
+  margin-top: 70rpx;
   font-size: 36rpx;
   height: 40rpx;
 }
-.delete_btn{
+
+.delete_btn {
   width: 40%;
   display: flex;
   height: 90rpx;
@@ -268,5 +317,5 @@
   margin-top: 60rpx;
   align-items: center;
   justify-content: center;
-  border: 2rpx solid rgba(0,0,0,.3);
+  border: 2rpx solid rgba(0, 0, 0, 0.3);
 }

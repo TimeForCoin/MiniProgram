@@ -39,7 +39,7 @@
     <view class="band1" />
     <textarea style="font-weight: bold; font-size: 40rpx; margin:26rpx auto 0rpx 20rpx; height:{{taskDetail.data.titleHeight}}rpx" value = "{{taskDetail.data.title}}" ></textarea>
     <!--滚动显示图片-->
-    <swiper class="imgs" indicator-dots="{{taskDetail.data.images.length <= 1 ? false : true}}" autoplay="true" interval="5000" duration="1000" indicator-color="white" indicator-active-color="#ffa300" hidden="{{taskDetail.data.images.length === 0 ? true : false}}">
+    <swiper class="imgs" indicator-dots="{{taskDetail.data.images.length <= 1 ? false : true}}" autoplay="true" interval="5000" duration="1000" indicator-color="white" indicator-active-color="#ff8788" hidden="{{taskDetail.data.images.length === 0 ? true : false}}">
       <block wx:for="{{taskDetail.data.images}}" wx:key="id">
         <swiper-item>
           <image src="{{item.url}}" class="slide-image" mode="aspectFill" />
@@ -70,24 +70,24 @@
     <view style="display:flex; flex-direction:column; margin-left:20rpx; margin-right:20rpx; margin-bottom: 20rpx;">
       <!--开始时间-->
       <view class="content_list">
-        <text class="title" style="color: #ffa300;">开始时间：</text>
+        <text class="title" style="color: #ff8788;">开始时间：</text>
         <text class="title">{{startDate}}</text>
       </view>
       <!--结束时间-->
       <view class="content_list">
-        <text class="title" style="color: #ffa300;">结束时间：</text>
+        <text class="title" style="color: #ff8788;">结束时间：</text>
         <text class="title">{{endDate}}</text>
       </view>
       <view class="content_list">
-        <text class="title" style="color: #ffa300;">人数：</text>
+        <text class="title" style="color: #ff8788;">人数：</text>
         <text class="title">{{taskDetail.data.player_count}} / {{taskDetail.data.max_player}}</text>
       </view>
       <view class="content_list">
-        <text class="title" style="color: #ffa300;">自动接受：</text>
+        <text class="title" style="color: #ff8788;">自动接受：</text>
         <text class="title">{{taskDetail.data.auto_accept? '是' : '否'}}</text>
       </view>
       <view style="display:flex; flex-direction:column; margin-top: 10rpx" wx:if="{{player_list.length != 0}}">
-        <text class="title" style="color: #ffa300;">参与人员：</text>
+        <text class="title" style="color: #ff8788;">参与人员：</text>
         <view class="taskType">
           <view wx:for="{{player_list}}" wx:key="item.player.id" class="task_player" bindtap='onClickPlayer' data-index="{{index}}">
             <image class="player_avatar" mode="aspectFill" src="{{item.player.avatar}}" />
@@ -193,10 +193,10 @@
 <view class="deleteDialog" wx:if="{{editPlayer}}">
   <text class="delete_dialog_title">更改{{selectUser.player.nickname}}的状态</text>
   <view style="display:flex; flex-direcion: row">
-    <button wx:if="{{selectUser.status === 'running'}}" data-status="finish" bindtap="confirm_status" class="delete_btn" style="background-color: #ffa300; color:#fff">完成</button>
-    <button wx:if="{{selectUser.status === 'running'}}" data-status="failure" bindtap="confirm_status" class="delete_btn" style="background-color: #ffa300; color:#fff">失败</button>
-    <button wx:if="{{selectUser.status === 'wait'}}" data-status="running" bindtap="confirm_status" class="delete_btn" style="background-color: #ffa300; color:#fff">同意</button>
-    <button wx:if="{{selectUser.status === 'wait'}}" data-status="refuse" bindtap="confirm_status" class="delete_btn" style="background-color: #ffa300; color:#fff">拒绝</button>
+    <button wx:if="{{selectUser.status === 'running'}}" data-status="finish" bindtap="confirm_status" class="delete_btn" style="background-color: #ff8788; color:#fff">完成</button>
+    <button wx:if="{{selectUser.status === 'running'}}" data-status="failure" bindtap="confirm_status" class="delete_btn" style="background-color: #ff8788; color:#fff">失败</button>
+    <button wx:if="{{selectUser.status === 'wait'}}" data-status="running" bindtap="confirm_status" class="delete_btn" style="background-color: #ff8788; color:#fff">同意</button>
+    <button wx:if="{{selectUser.status === 'wait'}}" data-status="refuse" bindtap="confirm_status" class="delete_btn" style="background-color: #ff8788; color:#fff">拒绝</button>
     <button bindtap="cancel_delete" class="delete_btn">取消</button>
   </view>
 </view>

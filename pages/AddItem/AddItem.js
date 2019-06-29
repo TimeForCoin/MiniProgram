@@ -29,11 +29,11 @@ Page({
     max_player_input: "",
     max_player: 0,
     auto_in: [{
-        val: '是',
+        val: '不需要',
         checked: 'true'
       },
       {
-        val: '否'
+        val: '需要'
       },
     ],
     auto_accept: true,
@@ -53,6 +53,7 @@ Page({
     // 判断是否是修改的
     draft: false,
     taskID: '',
+    total_price: '0.00',
   },
 
   /**
@@ -136,39 +137,39 @@ Page({
       auto_accept: res.data.auto_accept,
     })
     this.data.id = res.data.id
-    
+
     if (this.data.auto_accept === true) {
       this.setData({
         auto_in: [{
-            val: '是',
+            val: '不需要',
             checked: 'true'
           },
           {
-            val: '否'
+            val: '需要'
           },
         ],
       })
     } else {
       this.setData({
         auto_in: [{
-            val: '是'
+            val: '不需要'
           },
           {
-            val: '否',
+            val: '需要',
             checked: 'true'
           },
         ],
       })
     }
 
-    if(this.data.location != null){
+    if (this.data.location != null) {
       for (var val of this.data.location) {
         this.data.location_input = this.data.location_input + val + ','
       }
 
     }
     this.data.tags_input = ""
-    if(this.data.tags != null){
+    if (this.data.tags != null) {
       for (var val of this.data.tags) {
         this.data.tags_input = this.data.tags_input + val + ','
       }
@@ -179,7 +180,7 @@ Page({
       this.data.reward_input = this.data.reward_value
     }
 
-    
+
     this.setData({
       location_input: this.data.location_input,
       tags_input: this.data.tags_input,
@@ -295,7 +296,7 @@ Page({
     });
     if (this.data.reward == "object") this.data.reward_object = this.data.reward_input;
     else this.data.reward_value = parseInt(this.data.reward_input);
-    if (isNaN(this.data.reward_value)){
+    if (isNaN(this.data.reward_value)) {
       this.data.reward_value = -1
     }
   },
@@ -363,7 +364,7 @@ Page({
 
   /*修改是否自动同意*/
   auto_inChange: function(e) {
-    if (e.detail.value == '是') this.data.auto_accept = true;
+    if (e.detail.value == '不需要') this.data.auto_accept = true;
     else this.data.auto_accept = false
   },
   judgeValid: function(e) {
@@ -502,7 +503,7 @@ Page({
           this.setData({
             isSubmit: true
           });
-          setTimeout(function(){
+          setTimeout(function() {
             wx.navigateTo({
               url: '/pages/Detail/Detail?id=' + (draft ? id : res.data.id) + '&isMine=' + 'true',
             })
@@ -519,9 +520,9 @@ Page({
         // location_too_long - 任务地点不能超过64个字符
         // tag_too_long - 任务标签不能超过16个字符
         var result = "未知错误"
-        if (res.data.message === 'faked_file'){
+        if (res.data.message === 'faked_file') {
           result = "图片 / 文件不存在"
-        } else if (res.data.message === 'permission_deny'){
+        } else if (res.data.message === 'permission_deny') {
           result = "不允许添加他人的附件"
         } else if (res.data.message === 'error_file_type') {
           result = "文件类型(图片 / 附件)错误"
@@ -594,11 +595,11 @@ Page({
       addedImages: [],
       auto_accept: true,
       auto_in: [{
-          val: '是',
+          val: '不需要',
           checked: 'true'
         },
         {
-          val: '否'
+          val: '需要'
         },
       ],
     })

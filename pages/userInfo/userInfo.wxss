@@ -14,55 +14,62 @@
 #basic_info {
   display: flex;
   width: 100%;
-  height: 280rpx;
-  justify-content: center;
-  align-items: cneter;
+  height: 340rpx;
   /*营造头像发光效果*/
-  background: radial-gradient(circle, #e0fcff, #fff);
-  background: -ms-radial-gradient(circle, #fff, #e0fcff);
-  background: -webkit-linear-gradient(circle, #fff, #e0fcff);
-  background: -moz-linear-gradient(circle, #fff, #e0fcff);
+  background: #85dbd0;
   flex-direction: column; /*垂直方向布置*/
 }
 
 /*头像部分*/
 
 #head_basic {
-  display: flex;
+  display: inline-block;
   margin: 0% auto 8% auto;
   justify-content: center;
   align-items: center;
-  width: 180rpx;
-  height: 180rpx;
-  background: #bde4f4;
+  width: 140rpx;
+  height: 140rpx;
+  background: #fff;
   border-radius: 50%;
+  box-shadow: 0 0 20px rgba(43, 45, 56, 0.2);
 }
 
 .head {
   margin: auto;
-  width: 160rpx;
-  height: 160rpx;
+  width: 120rpx;
+  height: 120rpx;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 10rpx;
 }
 
 /*基本信息*/
 
 #name_info {
-  display: flex;
-  margin: 0%;
+  margin: 64rpx 100rpx 0 100rpx;
   color: #404969;
   font-size: 32rpx;
-  align-items: center;
-  justify-content: center;
 }
 
 .info_view {
-  display: flex;
-  align-content: center;
-  justify-content: center;
+  display: inline-block;
+  position: relative;
+  bottom: 22rpx;
+  left: 48rpx;
+}
+
+.user-name-text {
+  font-size: 42rpx;
+  color: #fff;
+  font-weight: bold;
+}
+
+.user-bio-text {
+  font-size: 30rpx;
+  color: #fff;
+  display: block;
 }
 
 .info_text {
@@ -70,17 +77,19 @@
 }
 
 #login {
-  display: flex;
-  padding: 8rpx 10rpx 8rpx 10rpx;
-  background-image: linear-gradient(#bde4f4, #bde4f4);
-  border: 2rpx solid rgba(0, 0, 0, 0.3);
   border-radius: 15rpx;
-  box-shadow: 0 1rpx white inset;
   text-align: center;
-  text-shadow: 0 1rpx 1rpx black;
   color: white;
   font-size: 36rpx;
   font-weight: bold;
+  background: #ff8788;
+  margin-top: 36rpx;
+  width: 60%;
+}
+
+.coin-icon {
+  height: 32rpx;
+  width: 32rpx;
 }
 
 /*下方导航部分*/
@@ -91,6 +100,11 @@
 
 .navi_cells {
   background-color: #fff;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 18rpx;
+  box-shadow: 0 0 20px rgba(43,45,56,.08);
 }
 
 /*分割线*/
@@ -102,9 +116,6 @@
 }
 
 .cell {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
   border-bottom: 1rpx solid rgb(243, 243, 243);
 }
 
@@ -120,7 +131,6 @@
 .navi_icon {
   width: 50rpx;
   height: 50rpx;
-  flex: 1.5;
 }
 
 .navi_text {
@@ -237,23 +247,59 @@
   background-color: rgb(243, 243, 243);
 }
 
+.user-value {
+  margin: 20rpx 0 10rpx 0;
+  font-size: 36rpx;
+  color: #ff8788;
+  font-weight: bold;
+}
+
+.user-value-box {
+  position: absolute;
+  margin-top: -215rpx;
+  background: #fff;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 38rpx;
+  border-radius: 18rpx;
+  box-shadow: 0 5px 5px 0 rgba(154, 160, 185, 0.05), 0 5px 30px 0 rgba(166, 173, 201, 0.22);
+}
+
 .left-view {
   text-align: center;
-  width: 355rpx;
+  width: 45%;
   display: inline-block;
-  padding: 25rpx 10rpx;
+  padding: 25rpx 10rpx 36rpx 10rpx;
+
 }
 
 .right-view {
   text-align: center;
-  width: 355rpx;
+  width: 45%;
   display: inline-block;
-  padding: 25rpx 10rpx;
+  padding: 25rpx 10rpx 36rpx 10rpx;
+
 }
 
-.user-value {
-  margin: 20rpx;
-  font-size: 36rpx;
-  color: orange;
-  font-weight: bold;
+.navi-first {
+  margin-top: 120rpx;
+}
+
+.value-text {
+  font-size: 28rpx;
+  color: grey;
+}
+
+.gender-icon {
+  position: absolute;
+  height: 32rpx;
+  width: 32rpx;
+  flex-shrink: 0;
+  margin-top: 104rpx;
+  margin-left: -33rpx;
+}
+
+.navi-second {
+  margin-top: 40rpx;
 }

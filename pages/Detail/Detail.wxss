@@ -71,12 +71,12 @@
 }
 
 .payType {
-  background: #ffa300;
+  background: #ff8788;
   margin: 6rpx 10rpx;
-  padding: 3rpx 5rpx;
+  padding: 4rpx 10rpx;
   font-size: 26rpx;
   color: #fff;
-  border-radius: 5rpx;
+  border-radius: 10rpx;
 }
 
 #like_view {
@@ -117,7 +117,7 @@
 .joininButton {
   margin-top: 20rpx;
   width: 80%;
-  background-color: #ffa300;
+  background-color: #ff8788;
   color: #fff;
   margin-bottom: 10rpx;
 }
@@ -164,7 +164,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffa300;
+  background-color: #ff8788;
   border-radius: 50rpx;
 }
 

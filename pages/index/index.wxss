@@ -1,62 +1,71 @@
 /**index.wxss**/
-#container{
+
+#container {
   text-align: center;
   display: flex;
   flex-direction: column;
   padding: 10rpx 0rpx;
 }
-.top_image{
-  width:90%;
-  margin-left:5%;
-  margin-right:5%;
-  height:320rpx;
-  margin-top:20rpx;
+
+.top_image {
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 320rpx;
+  margin-top: 20rpx;
 }
+
 /* 搜索部分 */
-#search_view{
+
+#search_view {
   background-color: rgba(231, 231, 231, 0.3);
   display: flex;
   margin: 10rpx 40rpx 10rpx 40rpx;
   flex-direction: row;
-  border-radius:20rpx;
+  border-radius: 20rpx;
 }
 
-#top{
+#top {
   display: flex;
   flex-direction: column;
 }
 
-.input_title{
-  font-size: 32rpx;
+.input_title {
+  font-size: 30rpx;
   margin-left: 20rpx;
   text-align: left;
   margin-top: 13rpx;
 }
-.search_logo{
+
+.search_logo {
   width: 32rpx;
-  height:32rpx;
+  height: 32rpx;
   margin: 20rpx 20rpx;
 }
+
 /* 滑动图片 */
-.slide-image{
-  height:100%;
-  width:100%;
-  margin-top:20rpx;
-  border-radius:10px;
+
+.slide-image {
+  height: 100%;
+  width: 100%;
+  margin-top: 20rpx;
+  border-radius: 10px;
 }
 
 /*标签页切换*/
+
 .swiper-tab {
-  background-color:#fff;
-  width:90%;
-  margin-top:20rpx;
-  text-align:center;
-  line-height:70rpx;
-  margin-left:auto;
-  margin-right:auto;
+  background-color: #fff;
+  width: 90%;
+  margin-top: 20rpx;
+  text-align: center;
+  line-height: 70rpx;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .swiper-tab-list {
+  transition: all 0.2s;
   font-size: 32rpx;
   display: inline-block;
   width: 25%;
@@ -64,22 +73,26 @@
 }
 
 .on {
-  color: #ffa300;
-  border-bottom: 5rpx solid #ffa300;
+  color: #ff8788;
+  border-bottom: 6rpx solid #ff8788;
 }
 
 /* 下方列表部分 */
+
 .list_container {
-  width:100%;
-  display:flex;
+  width: 100%;
+  display: flex;
   flex-direction: column;
 }
-.subtext{
-  color:gray;
+
+.subtext {
+  color: gray;
   font-size: 28rpx;
 }
+
 /*加载部分*/
-.loading_view{
+
+.loading_view {
   margin-top: 20rpx;
   display: flex;
   justify-content: center;
@@ -105,6 +118,7 @@
 }
 
 /*下方表格部分*/
+
 .list_left {
   width: 30%;
   margin: 20rpx 0rpx 0rpx 10rpx;
@@ -120,8 +134,8 @@
 }
 
 .list_left .list_item {
-  margin-left:18rpx;
-  margin-right:4rpx;
+  margin-left: 18rpx;
+  margin-right: 4rpx;
 }
 
 .list_right .list_item {
@@ -130,49 +144,54 @@
 }
 
 .list_item {
-  margin-top:10rpx;
+  margin-top: 22rpx;
   border-radius: 15rpx;
   width: 330rpx;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 5px 5px 0 rgba(154,160,185,.05), 0 5px 30px 0 rgba(166,173,201,.22);
+  box-shadow: 0 5px 5px 0 rgba(154, 160, 185, 0.05), 0 5px 30px 0 rgba(166, 173, 201, 0.22);
 }
 
-
-.item_img{
+.item_img {
   width: 330rpx;
-  height:280rpx;
-  border-top-left-radius:15rpx;
-  border-top-right-radius:15rpx;
+  height: 330rpx;
+  border-top-left-radius: 15rpx;
+  border-top-right-radius: 15rpx;
 }
 
 .item_img_front {
   width: 330rpx;
-  height:80rpx;
-  border-top-left-radius:15rpx;
-  border-top-right-radius:15rpx;
+  height: 80rpx;
+  border-top-left-radius: 15rpx;
+  border-top-right-radius: 15rpx;
   position: absolute;
-  background: linear-gradient(rgba(231, 231, 231, 0), 80%, rgba(255,255,255,1));
-  margin-top:205rpx;
+  background: linear-gradient(rgba(231, 231, 231, 0), 80%, rgba(255, 255, 255, 1));
+  margin-top: 205rpx;
 }
 
-.payType{
-  background: #ffa300;
+.payType {
+  background: #ff8788;
   margin-right: 10rpx;
-  padding: 3rpx 6rpx;
-  font-size: 26rpx;
+  padding: 6rpx 14rpx;
+  font-size: 31rpx;
   color: #fff;
-  border-radius: 5rpx;
+  border-radius: 15rpx;
 }
 
-.money_type{
+.money_type {
   display: flex;
   flex-direction: row;
   margin-top: 5rpx;
   margin-bottom: 5rpx;
 }
 
-.info{
+.task_type {
+  position: absolute;
+  margin-top: 300rpx;
+  margin-left: 228rpx;
+}
+
+.info {
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -180,32 +199,37 @@
   margin-bottom: 10rpx;
 }
 
-.info_title{
-  margin-top: 10rpx;
-  font-size: 32rpx;
-  margin-left: 25rpx;
-  margin-right: 25rpx;
+.info_title {
+  margin: 32rpx 26rpx 6rpx 26rpx;
+  font-size: 36rpx;
   text-align: left;
-  word-break:break-all;
+  word-break: break-all;
   font-weight: bold;
 }
 
-.money_img{
+.money_icon {
+  margin: 8rpx;
   width: 28rpx;
-  height:28rpx;
-  margin-top: 10rpx;
+  height: 28rpx;
 }
 
-.money_text{
+.money_text {
   font-size: 32rpx;
-  margin-bottom: 12rpx; 
+  margin-bottom: 12rpx;
   font-weight: bold;
-  color: #e7a61a;
+  color: #ffa300;
+}
+
+.money_object {
+  font-size: 30rpx;
+  margin-bottom: 12rpx;
+  color: #ffa300;
 }
 
 /*分割线*/
-.band1{
-  width:100%;
+
+.band1 {
+  width: 100%;
   height: 3rpx;
   margin-top: 5rpx;
   background: rgb(243, 243, 243);
@@ -213,26 +237,26 @@
 
 .detail_top {
   padding: 10rpx 25rpx;
-  display:flex; 
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
 }
 
 .detail_bottom {
   padding: 4rpx 25rpx;
-  display: flex; 
+  display: flex;
   flex-direction: row;
 }
 
-.item_touxiang{
+.item_touxiang {
   margin-top: 20rpx;
   width: 60rpx;
-  height:60rpx;
-  border-radius:50%;
+  height: 60rpx;
+  border-radius: 50%;
 }
 
-.item_owner{
+.item_owner {
   font-size: 28rpx;
-  color: gray;
+  color: #999;
   margin-left: 20rpx;
   margin-top: 30rpx;
 }

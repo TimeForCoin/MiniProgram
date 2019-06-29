@@ -3,11 +3,11 @@
 .messageDetail {
   width: 100%;
   height: 100%;
-  background-color: rgb(243, 243, 243);
   position: fixed;
   display: flex;
   flex-direction: column;
   text-align: center;
+  background: #f3f5f7;
 }
 
 /*上方物品信息 */
@@ -53,9 +53,9 @@
 }
 
 .payType {
-  background: #ff7e67;
+  background: #ff8788;
   margin: 6rpx 10rpx;
-  padding: 3rpx 5rpx;
+  padding: 4rpx 8rpx;
   font-size: 26rpx;
   color: #fff;
   border-radius: 5rpx;
@@ -66,10 +66,10 @@
 #dialog_list {
   margin-top: 20rpx;
   display: flex;
-  margin-bottom: 180rpx;
+  margin-bottom: 148rpx;
   flex-direction: column;
   overflow: auto;
-  height:100%;
+  height: 100%;
 }
 
 /*隐藏滚动条*/
@@ -96,8 +96,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 0rpx;
-  max-width: 70%
-
+  max-width: 70%;
 }
 
 .username {
@@ -125,9 +124,8 @@
   font-size: 28rpx;
   margin: 20rpx auto;
   padding: 5rpx 40rpx;
-  background: rgba(189, 189, 189, 0.3);
-  border-radius: 20rpx;
   text-align: center;
+  color: #9d9f90;
 }
 
 /*加载部分*/
@@ -172,33 +170,27 @@
 }
 
 .comment_input {
+  width: 80%;
   font-size: 32rpx;
-  height: 80rpx;
-  padding-left: 20rpx;
-  padding-top: 10rpx;
-  background: rgba(231, 231, 231, 0.3);
+  height: 40rpx;
+  padding: 20rpx;
 }
 
 .commit_btn {
-  border: 2rpx solid rgba(0, 0, 0, 0.3);
-  font-size: 32rpx;
-  height: 80rpx;
-  text-align: center;
-  align-items: center;
-  border-radius: 20rpx;
-  background-color: #e0fcff;
+  height: 48rpx;
+  width: 48rpx;
 }
 
 .comment_bottom {
   background: #fff;
   position: fixed;
-  bottom: 0rpx;
-  width: 100%;
+  left: 64rpx;
+  bottom: 40rpx;
+  width: 600rpx;
   z-index: 9999;
-  padding-left: 20rpx;
-  padding-right: 30rpx;
-  padding-top: 20rpx;
-  padding-bottom: 40rpx;
+  padding: 10rpx;
+  box-shadow: 0 5px 5px 0 rgba(154, 160, 185, 0.05), 0 5px 30px 0 rgba(166, 173, 201, 0.22);
+  border-radius: 24rpx;
 }
 
 .system-msg {
@@ -214,4 +206,38 @@
 .system-content {
   color: gray;
   font-size: 28rpx;
+}
+
+.left-box {
+  display: flex;
+  flex-direction: row;
+  padding: 10rpx 30rpx;
+  margin-top: 20rpx;
+  width: 100%;
+}
+
+.right-box {
+  display: flex;
+  flex-direction: row;
+  padding: 10rpx 30rpx;
+  margin-top: 20rpx;
+  justify-content: flex-end;
+}
+
+.money_icon {
+  margin: 8rpx;
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.money_text {
+  font-size: 32rpx;
+  margin-bottom: 12rpx;
+  font-weight: bold;
+  color: #ffa300;
+}
+
+.money_object {
+  font-size: 34rpx;
+  color: #ffa300;
 }

@@ -6,11 +6,11 @@
 
       <!--标题-->
       <view class="basic_info">
-        <input name="title" class="input_title" placeholder="标题 任务标题让小伙伴们容易找到" placeholder-class='placeholder_title' maxlength='32' style = "font-weight: bold" bindinput = "titleChange" value = "{{title}}" />
+        <input name="title" class="input_title" placeholder="取一个任务标题吧" placeholder-class='placeholder_title' maxlength='32' style="font-weight: bold" bindinput="titleChange" value="{{title}}" />
       </view>
       <view class="band1" />
       <view class="basic_info">
-        <textarea name="describe" class="input_text" placeholder="描述任务的内容" placeholder-class='placeholder' maxlength='256' style = "height: 200rpx;" bindinput = "describeChange" value = "{{describe}}"/>
+        <textarea name="describe" class="input_text" placeholder="描述一下任务的内容" placeholder-class='placeholder' maxlength='256' style="height: 200rpx;" bindinput="describeChange" value="{{describe}}" />
       </view>
 
       <!--上传图片-->
@@ -27,10 +27,54 @@
 
     <!--分类-->
     <view class='title_detail' style='margin-top: 20rpx'>
-      <text class="title">分类</text>
+      <text class="title">任务类型</text>
       <view class="blockType">
-        <text class="typeBlock" bindtap="chooseRun" style="background: {{type == 'run' ? '#ffa300' : '#fff'}}; color: {{type == 'run' ? '#fff' : '#000'}};">跑腿任务</text>
-        <text class="typeBlock" bindtap="chooseInfo" style="background: {{type == 'info' ? '#ffa300' : '#fff'}}; color: {{type == 'info' ? '#fff' : '#000'}};">信息任务</text>
+        <text class="{{'tag-block' + (type === 'run' ? ' tag-select': '')}}" bindtap="chooseRun">跑腿任务</text>
+        <text class="{{'tag-block' + (type === 'info' ? ' tag-select': '')}}" bindtap="chooseInfo">信息任务</text>
+      </view>
+    </view>
+    <view class="band2" />
+
+    <!--时间设置-->
+    <view style="display:flex; flex-direction:column" class="title_detail" style="margin-top:20rpx;">
+      <text class="title" style="margin-top: 10rpx; margin-bottom:5rpx;">任务时间</text>
+      <view class="time-box">
+        <view style="flex:1;">
+          <picker class="time-picker" mode="date" value="{{startDate}}" start="1900-01-01" end="2050-12-31" bindchange="changeBeginDate">
+            <text class="time-text">{{startDate}}</text>
+          </picker>
+          <picker class="time-picker" mode="time" value="{{startTime}}" start="00:00" end="23:59" bindchange="changeBeginTime">
+            <text class="time-text">{{startTime}}</text>
+          </picker>
+        </view>
+        <text class="time-middle">-</text>
+        <view style="flex:1;">
+          <picker class="time-picker" mode="date" value="{{endDate}}" start="1900-01-01" end="2050-12-31" bindchange="changeEndDate">
+            <text class="time-text">{{endDate}}</text>
+          </picker>
+          <picker class="time-picker" mode="time" value="{{endTime}}" start="00:00" end="23:59" bindchange="changeEndTime">
+            <text class="time-text">{{endTime}}</text>
+          </picker>
+        </view>
+      </view>
+    </view>
+
+    <view class="band2" />
+    <!--任务-->
+    <view style="display:flex; flex-direction:column" class="title_detail">
+      <text class="title" style="margin-top:20rpx;">任务地点</text>
+      <view class="price_set">
+        <image src="/images/icons/location.png" class="price_logo" />
+        <input name="location" class="input_text" placeholder="请输入任务地点" placeholder-class='placeholder' maxlength="32" bindinput="locationChange" value="{{location_input}}" />
+      </view>
+    </view>
+    <view class="band2" />
+    <!--标签-->
+    <view style="display:flex; flex-direction:column" class="title_detail">
+      <text class="title" style="margin-top:20rpx;">任务标签（使用逗号隔开）</text>
+      <view class="price_set">
+        <image src="/images/icons/tag.png" class="price_logo" />
+        <input name="tags" class="input_text" placeholder="请输入标签" placeholder-class='placeholder' maxlength="8" bindinput="tagsChange" value="{{tags_input}}" />
       </view>
     </view>
     <view class="band2" />
@@ -39,78 +83,49 @@
     <view class='title_detail' style='margin-top: 20rpx'>
       <text class="title">酬劳类型</text>
       <view class="blockType">
-        <text class="typeBlock" bindtap="chooseMoney" style="background: {{reward == 'money' ? '#ffa300' : '#fff'}}; color: {{reward == 'money' ? '#fff' : '#000'}};">闲钱币</text>
-        <text class="typeBlock" bindtap="chooseRmb" style="background: {{reward == 'rmb' ? '#ffa300' : '#fff'}}; color: {{reward == 'rmb' ? '#fff' : '#000'}};">人民币</text>
-        <text class="typeBlock" bindtap="chooseObject" style="background: {{reward == 'object' ? '#ffa300' : '#fff'}}; color: {{reward == 'object' ? '#fff' : '#000'}};">实物</text>
+        <text class="{{'tag-block' + (reward === 'money' ? ' tag-select': '')}}" bindtap="chooseMoney">闲钱币</text>
+        <text class="{{'tag-block' + (reward === 'rmb' ? ' tag-select': '')}}" bindtap="chooseRmb">人民币</text>
+        <text class="{{'tag-block' + (reward === 'object' ? ' tag-select': '')}}" bindtap="chooseObject">实物</text>
       </view>
     </view>
     <!--价格-->
     <view class="title_detail">
       <text class="title">单人价格</text>
-      <view style="display:flex; direction:column">
-        <view id="price_set">
-          <image src="/images/icons/price.png" style="display:{{reward == 'object'? 'none' : 'block'}}" id="price_logo" />
-          <input name="price" type="{{reward == 'object'? 'text' : 'digit'}}" id="price_text" placeholder="{{reward == 'object'? '请输入物品' : '0.00'}}" placeholder-class='placeholder' maxlength="{{reward === 'obejct'? 32 : 10}}" bindinput="priceChange" value="{{reward_input}}"
-          />
-        </view>
+      <view class="price_set">
+        <image wx:if="{{reward ==='object'}}" src="/images/icons/gift.png" class="price_logo" />
+        <image wx:if="{{reward ==='rmb'}}" src="/images/icons/RMB.png" class="price_logo" />
+        <image wx:if="{{reward ==='money'}}" src="/images/icons/coin.png" class="price_logo" />
+        <input name="price" type="{{reward == 'object'? 'text' : 'digit'}}" class="price_text" placeholder="{{reward == 'object'? '请输入物品' : '0.00'}}" placeholder-class='placeholder' maxlength="{{reward === 'obejct'? 32 : 10}}" bindinput="priceChange" value="{{reward_input}}"
+        />
       </view>
     </view>
-    <view class="band2" />
-
-    <!--任务-->
-    <view style="display:flex; flex-direction:column" class="title_detail">
-      <text class="title" style="margin-top:20rpx;">任务地点</text>
-      <input name="location" class="input_text" placeholder="请输入任务地点" placeholder-class='placeholder' maxlength="64" bindinput="locationChange" value="{{location_input}}" />
-      <view class="band1" />
-    </view>
-    <view class="band2" />
-
-    <!--时间设置-->
-    <view style="display:flex; flex-direction:column" class="title_detail" style="margin-top:20rpx;">
-      <text class="title" style="margin-top: 10rpx; margin-bottom:5rpx;">任务时间设置</text>
-      <view class="band1" style="margin-top:10rpx; margin-bottom: 10rpx;" />
-      <view style="display:flex; flex-direction: row; margin-top:5rpx;">
-        <picker mode="date" value="{{startDate}}" start="1900-01-01" end="2050-12-31" bindchange="changeBeginDate" style="flex:1">
-          <text class="title">开始: </text>
-          <text class="title" style="color: #ffa300;margin-left: 40rpx;">{{startDate}}</text>
-        </picker>
-        <picker mode="time" value="{{startTime}}" start="00:00" end="23:59" bindchange="changeBeginTime" style="flex:1">
-          <text class="title" style="color: #ffa300;">{{startTime}}</text>
-        </picker>
-      </view>
-      <view style="display:flex; flex-direction: row; margin-top: 20rpx;">
-        <picker mode="date" value="{{endDate}}" start="1900-01-01" end="2050-12-31" bindchange="changeEndDate" style="flex:1">
-          <text class="title">结束: </text>
-          <text class="title" style="color: #ffa300;;margin-left: 40rpx;">{{endDate}}</text>
-        </picker>
-        <picker mode="time" value="{{endTime}}" start="00:00" end="23:59" bindchange="changeEndTime" style="flex:1">
-          <text class="title" style="color: #ffa300;">{{endTime}}</text>
-        </picker>
-      </view>
-    </view>
-    <view class="band2" />
-
     <!--人数-->
-    <view style="display:flex; flex-direction:column" class="title_detail">
-      <text class="title" style="margin-top:20rpx;">参与用户上限</text>
-      <input name="max_player" type="digit" class="input_text" placeholder="0" type='digit' placeholder-class='placeholder' maxlength='5' bindinput="max_playerChange" value="{{max_player_input}}" />
-      <view class="band1" />
+    <view class="title_detail">
+      <text class="title">参与用户上限</text>
+      <view class="price_set">
+        <image src="/images/icons/people.png" class="price_logo" />
+        <input name="price" type="digit" class="price_text" placeholder="0" placeholder-class='placeholder' maxlength="5" bindinput="max_playerChange" value="{{max_player_input}}" />
+      </view>
     </view>
-    <view class="band2" />
+    <view class="title_detail">
+      <text class="title">总价</text>
+      <view class="price_set">
+        <image wx:if="{{reward ==='object'}}" src="/images/icons/gift.png" class="price_logo" />
+        <image wx:if="{{reward ==='rmb'}}" src="/images/icons/RMB.png" class="price_logo" />
+        <image wx:if="{{reward ==='money'}}" src="/images/icons/coin.png" class="price_logo" />
+        <text wx:if="{{reward !=='object'}}" class="price_text">{{max_player_input * reward_input}}</text>
+        <text wx:if="{{reward ==='object'}}" class="price_text">{{reward_input}} x {{max_player_input}}</text>
+      </view>
+    </view>
 
-    <!--标签-->
-    <view style="display:flex; flex-direction:column" class="title_detail">
-      <text class="title" style="margin-top:20rpx;">任务标签（使用逗号隔开）</text>
-      <input name="tags" class="input_text" placeholder="请输入标签" placeholder-class='placeholder' maxlength="8" bindinput="tagsChange" value="{{tags_input}}" />
-      <view class="band1" />
-    </view>
+    <view class="band2" />
     <!--自动同意-->
     <view style="display:flex; flex-direction:column" class="title_detail">
-      <text class="title" style="margin-top:10rpx;">是否自动同意加入任务</text>
-      <radio-group bindchange="auto_inChange" style="display:flex; flex-direction:row; margin-top:10rpx;" value="{{!isSubmit}}">
+      <text class="title" style="margin-top:10rpx;">审核加入</text>
+      <radio-group bindchange="auto_inChange" class="radio-accept" value="{{!isSubmit}}">
         <label class="radio" wx:for="{{auto_in}}" wx:key="val" class="input_text">
           <view>
-            <radio color="#ffa300" value="{{item.val}}" checked="{{item.checked}}" />{{item.val}}</view>
+            <radio color="#ff8788" value="{{item.val}}" checked="{{item.checked}}" />{{item.val}}</view>
         </label>
       </radio-group>
     </view>
@@ -134,7 +149,7 @@
 <view class="deleteDialog" wx:if="{{isDelete}}">
   <text class="delete_dialog_title">是否删除该图片？</text>
   <view style="display:flex; flex-direcion: row">
-    <button bindtap="confirm_delete" class="delete_btn" style="background-color: #ffa300; color:#fff">确认</button>
+    <button bindtap="confirm_delete" class="delete_btn" style="background-color: #ff8788; color:#fff">确认</button>
     <button bindtap="cancel_delete" class="delete_btn">取消</button>
   </view>
 </view>

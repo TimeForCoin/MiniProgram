@@ -2,7 +2,7 @@
 <view id="container">
   <view id="search_view" bindtap="navigateToResult">
     <image src="/images/icons/search.png" class="search_logo" />
-    <input name="search_input" disabled = "{{true}}" class="input_title" placeholder="搜索 任务" maxlength='20' />
+    <input name="search_input" disabled="{{true}}" class="input_title" placeholder="搜索 任务" maxlength='20' />
   </view>
   <swiper class="top_image" indicator-dots="true" autoplay="true" interval="5000" duration="1000" indicator-color="white" indicator-active-color="#ff7e67" hidden="{{top_images.length === 0 ? true : false}}" wx:if="{{showImg}}">
     <block wx:for="{{top_images}}" wx:key="index">
@@ -26,17 +26,18 @@
         <view class="list_left" wx:for="{{show_list_left}}" wx:key="id">
           <view class="list_item" bindtap="navigateToDetail" data-item="{{item.id}}">
             <image src="{{item.images[0].url}}" class="item_img" mode="aspectFill" />
-            <view class="item_img_front" />
+            <view class="task_type">
+              <text class="payType">{{item.type == 'run' ? '跑腿' : item.type == 'questionnaire'? '问卷' : '信息' }}</text>
+            </view>
             <text class="info_title">{{item.title}}</text>
             <view class="info">
               <!--金额-->
               <view class="detail_top">
                 <view class="money_type">
-                  <text class="money_text">{{item.reward == 'object' ? item.reward_object : '💰 ' + item.reward_value}}</text>
-                </view>
-                <view class="money_type">
-                  <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'object'? '实物' : '闲币' }}</text>
-                  <text class="payType">{{item.type == 'run' ? '跑腿' : item.type == 'questionnaire'? '问卷' : '信息' }}</text>
+                  <image class="money_icon" wx:if="{{item.reward === 'rmb'}}" src="/images/icons/RMB.png" />
+                  <image class="money_icon" wx:if="{{item.reward === 'money'}}" src="/images/icons/coin.png" />
+                  <text class="money_object" wx:if="{{item.reward === 'object'}}">{{item.reward_object}}</text>
+                  <text class="money_text" wx:if="{{item.reward !== 'object'}}">{{item.reward_value}}</text>
                 </view>
               </view>
               <view class="band1" />
@@ -53,17 +54,18 @@
         <view class="list_right" wx:for="{{show_list_right}}" wx:key="id">
           <view class="list_item" bindtap="navigateToDetail" data-item="{{item.id}}">
             <image src="{{item.images[0].url}}" class="item_img" mode="aspectFill" />
-            <view class="item_img_front" />
+            <view class="task_type">
+              <text class="payType">{{item.type == 'run' ? '跑腿' : item.type == 'questionnaire'? '问卷' : '信息' }}</text>
+            </view>
             <text class="info_title">{{item.title}}</text>
             <view class="info">
               <!--金额-->
               <view class="detail_top">
                 <view class="money_type">
-                  <text class="money_text">{{item.reward == 'object' ? item.reward_object : '💰 ' + item.reward_value}}</text>
-                </view>
-                <view class="money_type">
-                  <text class="payType">{{item.reward == 'rmb' ? '人民币' : item.reward == 'object'? '实物' : '闲币' }}</text>
-                  <text class="payType">{{item.type == 'run' ? '跑腿' : item.type == 'questionnaire'? '问卷' : '信息' }}</text>
+                  <image class="money_icon" wx:if="{{item.reward === 'rmb'}}" src="/images/icons/RMB.png" />
+                  <image class="money_icon" wx:if="{{item.reward === 'money'}}" src="/images/icons/coin.png" />
+                  <text class="money_object" wx:if="{{item.reward === 'object'}}">{{item.reward_object}}</text>
+                  <text class="money_text" wx:if="{{item.reward !== 'object'}}">{{item.reward_value}}</text>
                 </view>
               </view>
               <view class="band1" />
