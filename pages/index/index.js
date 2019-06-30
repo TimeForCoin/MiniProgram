@@ -21,7 +21,11 @@ Page({
     touch:{
       x: 0,
       y: 0
-    }
+    },
+    type:[{index: 0},
+    {index: 1},
+    {index: 2},
+    {index: 3}]
   },
   onLoad: async function() {
     app.editTabbar();
@@ -167,17 +171,11 @@ Page({
     if (Math.abs(this.data.touch.x - x) > 50){
       if(x < this.data.touch.x){
         if (this.data.currentTab === '3') {
-          this.setData({
-            currentTab: '0'
-          })
         } else {
           this.setData({ currentTab: (parseInt(this.data.currentTab) + 1).toString() })
         }
       } else if(this.data.touch.x < x){
         if (this.data.currentTab === 0) {
-          this.setData({
-            currentTab: '3'
-          })
         } else {
           this.setData({ currentTab: (parseInt(this.data.currentTab) - 1).toString() })
         }

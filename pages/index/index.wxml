@@ -19,7 +19,7 @@
     <view class="swiper-tab-list {{currentTab==3 ? 'on' : ''}}" data-current="3" bindtap="swichNav">问卷</view>
   </view>
 
-  <view class="list_container">
+  <view class="list_container" wx:for="{{type}}" wx:key="index" style = "animation:{{currentTab === item.index ? 'show' : 'fade' }} 1s linear">
     <view style="display:flex; flex-direction: row;">
       <view style="display:flex; flex-direction: column;">
         <!--left-->
@@ -78,12 +78,12 @@
         </view>
       </view>
     </view>
-    <view class="loading_view" wx:if="{{isLoading}}">
+  </view>
+  <view class="loading_view" wx:if="{{isLoading}}">
       <image class="loading" src="/images/icons/loading.png"></image>
       <text class="subtext">正在载入更多...</text>
     </view>
     <text class="subtext" style="margin-top: 40rpx; margin-bottom: 60rpx;" wx:if="{{noMore}}">没有更多了~</text>
-  </view>
 </view>
 
 <!-- <image src="{{userInfo.info.avatar}}" /> -->

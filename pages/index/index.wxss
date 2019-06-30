@@ -85,6 +85,26 @@
   flex-direction: column;
 }
 
+@keyframes show {
+  0% {
+    opacity: 0.0;
+  }
+
+  100% {
+    opacity: 1.0;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 1.0;
+  }
+
+  to {
+   opacity: 0.0;
+  }
+}
+
 .subtext {
   color: gray;
   font-size: 28rpx;
@@ -107,13 +127,14 @@
   animation: animation 1s linear infinite;
 }
 
-@keyframes animation {
-  from {
-    transform: rotate(0deg);
+
+@keyframes fade {
+  0% {
+    opacity: 1.0;
   }
 
-  to {
-    transform: rotate(1turn);
+  100% {
+   opacity: 0.0;
   }
 }
 
