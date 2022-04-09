@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/TimeForCoin/MiniProgram#readme",
   "dependencies": {
-    "moment": "^2.24.0"
+    "moment": "^2.29.2"
   }
 }
